@@ -2,13 +2,14 @@
 	import LDKHeaders
 #endif
 
-/// A tuple of 2 elements. See the individual fields for the types contained.
-internal typealias Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ = Bindings.Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ
+/// A tuple of 3 elements. See the individual fields for the types contained.
+internal typealias Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ = Bindings
+	.Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ
 
 extension Bindings {
 
-	/// A tuple of 2 elements. See the individual fields for the types contained.
-	internal class Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ: NativeTypeWrapper {
+	/// A tuple of 3 elements. See the individual fields for the types contained.
+	internal class Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -23,9 +24,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ?
+		internal var cType: LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ?
 
-		internal init(cType: LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ, instantiationContext: String) {
+		internal init(cType: LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -34,7 +35,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ, instantiationContext: String,
+			cType: LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ, instantiationContext: String,
 			anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
@@ -47,7 +48,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ, instantiationContext: String,
+			cType: LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ, instantiationContext: String,
 			anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -60,22 +61,22 @@ extension Bindings {
 		}
 
 
-		internal convenience init(tuple: ([UInt8], [UInt8]?), instantiationContext: String) {
-			self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
+		internal convenience init(tuple: ([UInt8], UInt32, [UInt8]?), instantiationContext: String) {
+			self.init(a: tuple.0, b: tuple.1, c: tuple.2, instantiationContext: instantiationContext)
 		}
 
 
 		/// Creates a new tuple which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ {
+		internal func clone() -> Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) {
-					(origPointer: UnsafePointer<LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ>) in
-					C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ_clone(origPointer)
+					(origPointer: UnsafePointer<LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ>) in
+					C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ_clone(origPointer)
 				}
 
 
@@ -83,32 +84,32 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ(
+			let returnValue = Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ(
 				cType: nativeCallResult,
-				instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
+				instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ from the contained elements.
-		public init(a: [UInt8], b: [UInt8]?, instantiationContext: String) {
+		/// Creates a new C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ from the contained elements.
+		public init(a: [UInt8], b: UInt32, c: [UInt8]?, instantiationContext: String) {
 			// native call variable prep
 
 			let aPrimitiveWrapper = ThirtyTwoBytes(
 				value: a,
-				instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
+				instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
 
-			let bOption = Option_ThirtyTwoBytesZ(
-				some: b,
-				instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)"
+			let cOption = Option_ThirtyTwoBytesZ(
+				some: c,
+				instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ_new(
-				aPrimitiveWrapper.cType!, bOption.cType!)
+			let nativeCallResult = C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ_new(
+				aPrimitiveWrapper.cType!, b, cOption.cType!)
 
 			// cleanup
 
@@ -118,7 +119,7 @@ extension Bindings {
 
 			/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ(cType: nativeCallResult, instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
+						let returnValue = Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ(cType: nativeCallResult, instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
 						*/
 
 
@@ -131,13 +132,13 @@ extension Bindings {
 
 		}
 
-		/// Frees any resources used by the C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.
+		/// Frees any resources used by the C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ_free(self.cType!)
+			let nativeCallResult = C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ_free(self.cType!)
 
 			// cleanup
 
@@ -150,8 +151,8 @@ extension Bindings {
 		}
 
 
-		public func getValue() -> ([UInt8], [UInt8]?) {
-			return (self.getA(), self.getB())
+		public func getValue() -> ([UInt8], UInt32, [UInt8]?) {
+			return (self.getA(), self.getB(), self.getC())
 		}
 
 
@@ -160,7 +161,7 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = ThirtyTwoBytes(
 				cType: self.cType!.a,
-				instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)",
+				instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)",
 				anchor: self
 			)
 			.dangle().getValue()
@@ -169,11 +170,19 @@ extension Bindings {
 		}
 
 		/// The element at position 1
-		public func getB() -> [UInt8]? {
+		public func getB() -> UInt32 {
+			// return value (do some wrapping)
+			let returnValue = self.cType!.b
+
+			return returnValue
+		}
+
+		/// The element at position 2
+		public func getC() -> [UInt8]? {
 			// return value (do some wrapping)
 			let returnValue = Option_ThirtyTwoBytesZ(
-				cType: self.cType!.b,
-				instantiationContext: "Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)",
+				cType: self.cType!.c,
+				instantiationContext: "Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ.swift::\(#function):\(#line)",
 				anchor: self
 			)
 			.dangle().getValue()
@@ -182,7 +191,7 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ {
+		internal func danglingClone() -> Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -196,14 +205,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

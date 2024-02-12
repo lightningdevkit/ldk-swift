@@ -102,6 +102,35 @@ extension Bindings {
 				return returnValue
 			}
 
+			func createBlindedPathsLambda(
+				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, peers: LDKCVec_PublicKeyZ
+			) -> LDKCResult_CVec_BlindedPathZNoneZ {
+				let instance: MessageRouter = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "MessageRouter::createBlindedPathsLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.createBlindedPaths(
+					recipient: PublicKey(
+						cType: recipient, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					peers: Vec_PublicKeyZ(
+						cType: peers, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: MessageRouter = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "MessageRouter::freeLambda")
@@ -125,6 +154,7 @@ extension Bindings {
 			self.cType = LDKMessageRouter(
 				this_arg: thisArg,
 				find_path: findPathLambda,
+				create_blinded_paths: createBlindedPathsLambda,
 				free: freeLambda
 			)
 		}
@@ -136,6 +166,16 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: MessageRouter::findPath MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Creates [`BlindedPath`]s to the `recipient` node. The nodes in `peers` are assumed to be
+		/// direct peers with the `recipient`.
+		open func createBlindedPaths(recipient: [UInt8], peers: [[UInt8]]) -> Result_CVec_BlindedPathZNoneZ {
+
+			Bindings.print(
+				"Error: MessageRouter::createBlindedPaths MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -206,6 +246,39 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_OnionMessagePathNoneZ(
+				cType: nativeCallResult, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Creates [`BlindedPath`]s to the `recipient` node. The nodes in `peers` are assumed to be
+		/// direct peers with the `recipient`.
+		public override func createBlindedPaths(recipient: [UInt8], peers: [[UInt8]]) -> Result_CVec_BlindedPathZNoneZ {
+			// native call variable prep
+
+			let recipientPrimitiveWrapper = PublicKey(
+				value: recipient, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
+
+			let peersVector = Vec_PublicKeyZ(
+				array: peers, instantiationContext: "MessageRouter.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.create_blinded_paths(self.cType!.this_arg, recipientPrimitiveWrapper.cType!, peersVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			recipientPrimitiveWrapper.noOpRetain()
+
+			// peersVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_CVec_BlindedPathZNoneZ(
 				cType: nativeCallResult, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
 
 			return returnValue

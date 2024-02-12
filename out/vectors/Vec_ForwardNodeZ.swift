@@ -2,15 +2,15 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::c_types::derived::CVec_u8Zs of arbitrary size.
+/// A dynamically-allocated array of crate::lightning::blinded_path::payment::ForwardNodes of arbitrary size.
 /// This corresponds to std::vector in C++
-internal typealias Vec_CVec_u8ZZ = Bindings.Vec_CVec_u8ZZ
+internal typealias Vec_ForwardNodeZ = Bindings.Vec_ForwardNodeZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::c_types::derived::CVec_u8Zs of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning::blinded_path::payment::ForwardNodes of arbitrary size.
 	/// This corresponds to std::vector in C++
-	internal class Vec_CVec_u8ZZ: NativeTypeWrapper {
+	internal class Vec_ForwardNodeZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -25,9 +25,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCVec_CVec_u8ZZ?
+		internal var cType: LDKCVec_ForwardNodeZ?
 
-		internal init(cType: LDKCVec_CVec_u8ZZ, instantiationContext: String) {
+		internal init(cType: LDKCVec_ForwardNodeZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -35,7 +35,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKCVec_CVec_u8ZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKCVec_ForwardNodeZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -46,7 +46,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCVec_CVec_u8ZZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
+			cType: LDKCVec_ForwardNodeZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -58,55 +58,43 @@ extension Bindings {
 		}
 
 
-		internal init(array: [[UInt8]], instantiationContext: String) {
+		internal init(array: [ForwardNode], instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 
-			var lowerDimension = [LDKCVec_u8Z]()
-			for currentEntry in array {
+			let rustArray = array.map { (currentValueDepth1: ForwardNode) -> LDKForwardNode in
 
-				let currentEntryVector = Vec_u8Z(
-					array: currentEntry, instantiationContext: "Vec_CVec_u8ZZ.swift::\(#function):\(#line)"
-				)
-				.dangle()
-
-				lowerDimension.append(currentEntryVector.cType!)
-				try! self.addAnchor(anchor: currentEntryVector)
+				return currentValueDepth1.dynamicallyDangledClone().cType!
 			}
 
 
-			let dataContainer = UnsafeMutablePointer<LDKCVec_u8Z>.allocate(capacity: array.count)
-			dataContainer.initialize(from: lowerDimension, count: array.count)
+			let dataContainer = UnsafeMutablePointer<LDKForwardNode>.allocate(capacity: array.count)
+			dataContainer.initialize(from: rustArray, count: array.count)
 
-			let vector = LDKCVec_CVec_u8ZZ(data: dataContainer, datalen: UInt(array.count))
+			let vector = LDKCVec_ForwardNodeZ(data: dataContainer, datalen: UInt(array.count))
 			self.cType = vector
 		}
 
-		public func getValue() -> [[UInt8]] {
+		public func getValue() -> [ForwardNode] {
 
-			var array = [[UInt8]]()
+			var array = [LDKForwardNode]()
 
 
 			for index1 in 0..<Int(self.cType!.datalen) {
 				let currentEntry1 = self.cType!.data[index1]
-
-				var convertedEntry1 = [UInt8]()
-
-
-				for index2 in 0..<Int(currentEntry1.datalen) {
-					let currentEntry2 = currentEntry1.data[index2]
-					convertedEntry1.append(currentEntry2)
-				}
-
-
-				array.append(convertedEntry1)
-
+				array.append(currentEntry1)
 			}
 
 
-			let swiftArray = array
+			let swiftArray = array.map { (currentCType: LDKForwardNode) -> ForwardNode in
+				ForwardNode(
+					cType: currentCType, instantiationContext: "Vec_ForwardNodeZ.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.dangle()
+			}
 			return swiftArray
 		}
 
@@ -117,7 +105,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CVec_CVec_u8ZZ_free(self.cType!)
+			let nativeCallResult = CVec_ForwardNodeZ_free(self.cType!)
 
 			// cleanup
 
@@ -138,13 +126,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Vec_CVec_u8ZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+						"Freeing Vec_ForwardNodeZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Vec_CVec_u8ZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Vec_ForwardNodeZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

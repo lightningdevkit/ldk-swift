@@ -194,7 +194,7 @@ extension Bindings {
 		/// A message handler which handles onion messages. This should generally be an
 		/// [`OnionMessenger`], but can also be an [`IgnoringMessageHandler`].
 		///
-		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
 		public func getOnionMessageHandler() -> OnionMessageHandler? {
 			// native call variable prep
 
@@ -225,7 +225,7 @@ extension Bindings {
 		/// A message handler which handles onion messages. This should generally be an
 		/// [`OnionMessenger`], but can also be an [`IgnoringMessageHandler`].
 		///
-		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
 		public func setOnionMessageHandler(val: OnionMessageHandler) {
 			// native call variable prep
 

@@ -224,6 +224,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the UntrustedString.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKUntrustedString>) in
+					UntrustedString_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Serialize the UntrustedString object into a byte array which can be read by UntrustedString_read
 		public func write() -> [UInt8] {
 			// native call variable prep

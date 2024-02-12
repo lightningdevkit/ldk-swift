@@ -3,12 +3,12 @@
 #endif
 
 /// A tuple of 2 elements. See the individual fields for the types contained.
-internal typealias Tuple_CVec_u8ZusizeZ = Bindings.Tuple_CVec_u8ZusizeZ
+internal typealias Tuple__u832u16Z = Bindings.Tuple__u832u16Z
 
 extension Bindings {
 
 	/// A tuple of 2 elements. See the individual fields for the types contained.
-	internal class Tuple_CVec_u8ZusizeZ: NativeTypeWrapper {
+	internal class Tuple__u832u16Z: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -23,9 +23,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKC2Tuple_CVec_u8ZusizeZ?
+		internal var cType: LDKC2Tuple__u832u16Z?
 
-		internal init(cType: LDKC2Tuple_CVec_u8ZusizeZ, instantiationContext: String) {
+		internal init(cType: LDKC2Tuple__u832u16Z, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -33,7 +33,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKC2Tuple_CVec_u8ZusizeZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKC2Tuple__u832u16Z, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -44,8 +44,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKC2Tuple_CVec_u8ZusizeZ, instantiationContext: String, anchor: NativeTypeWrapper,
-			dangle: Bool = false
+			cType: LDKC2Tuple__u832u16Z, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -57,21 +56,21 @@ extension Bindings {
 		}
 
 
-		internal convenience init(tuple: ([UInt8], UInt), instantiationContext: String) {
+		internal convenience init(tuple: ([UInt8], UInt16), instantiationContext: String) {
 			self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 		}
 
 
 		/// Creates a new tuple which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Tuple_CVec_u8ZusizeZ {
+		internal func clone() -> Tuple__u832u16Z {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKC2Tuple_CVec_u8ZusizeZ>) in
-					C2Tuple_CVec_u8ZusizeZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKC2Tuple__u832u16Z>) in
+					C2Tuple__u832u16Z_clone(origPointer)
 				}
 
 
@@ -79,32 +78,33 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Tuple_CVec_u8ZusizeZ(
-				cType: nativeCallResult, instantiationContext: "Tuple_CVec_u8ZusizeZ.swift::\(#function):\(#line)")
+			let returnValue = Tuple__u832u16Z(
+				cType: nativeCallResult, instantiationContext: "Tuple__u832u16Z.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new C2Tuple_CVec_u8ZusizeZ from the contained elements.
-		public init(a: [UInt8], b: UInt, instantiationContext: String) {
+		/// Creates a new C2Tuple__u832u16Z from the contained elements.
+		public init(a: [UInt8], b: UInt16, instantiationContext: String) {
 			// native call variable prep
 
-			let aVector = Vec_u8Z(array: a, instantiationContext: "Tuple_CVec_u8ZusizeZ.swift::\(#function):\(#line)")
-				.dangle()
+			let aPrimitiveWrapper = ThirtyTwoBytes(
+				value: a, instantiationContext: "Tuple__u832u16Z.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_CVec_u8ZusizeZ_new(aVector.cType!, b)
+			let nativeCallResult = C2Tuple__u832u16Z_new(aPrimitiveWrapper.cType!, b)
 
 			// cleanup
 
-			// aVector.noOpRetain()
+			// for elided types, we need this
+			aPrimitiveWrapper.noOpRetain()
 
 
 			/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_CVec_u8ZusizeZ(cType: nativeCallResult, instantiationContext: "Tuple_CVec_u8ZusizeZ.swift::\(#function):\(#line)")
+						let returnValue = Tuple__u832u16Z(cType: nativeCallResult, instantiationContext: "Tuple__u832u16Z.swift::\(#function):\(#line)")
 						*/
 
 
@@ -117,13 +117,13 @@ extension Bindings {
 
 		}
 
-		/// Frees any resources used by the C2Tuple_CVec_u8ZusizeZ.
+		/// Frees any resources used by the C2Tuple__u832u16Z.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_CVec_u8ZusizeZ_free(self.cType!)
+			let nativeCallResult = C2Tuple__u832u16Z_free(self.cType!)
 
 			// cleanup
 
@@ -136,7 +136,7 @@ extension Bindings {
 		}
 
 
-		public func getValue() -> ([UInt8], UInt) {
+		public func getValue() -> ([UInt8], UInt16) {
 			return (self.getA(), self.getB())
 		}
 
@@ -144,9 +144,8 @@ extension Bindings {
 		/// The element at position 0
 		public func getA() -> [UInt8] {
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: self.cType!.a, instantiationContext: "Tuple_CVec_u8ZusizeZ.swift::\(#function):\(#line)",
-				anchor: self
+			let returnValue = ThirtyTwoBytes(
+				cType: self.cType!.a, instantiationContext: "Tuple__u832u16Z.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle().getValue()
 
@@ -154,7 +153,7 @@ extension Bindings {
 		}
 
 		/// The element at position 1
-		public func getB() -> UInt {
+		public func getB() -> UInt16 {
 			// return value (do some wrapping)
 			let returnValue = self.cType!.b
 
@@ -162,7 +161,7 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> Tuple_CVec_u8ZusizeZ {
+		internal func danglingClone() -> Tuple__u832u16Z {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -176,13 +175,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Tuple_CVec_u8ZusizeZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+						"Freeing Tuple__u832u16Z \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Tuple_CVec_u8ZusizeZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Tuple__u832u16Z \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

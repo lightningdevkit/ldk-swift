@@ -132,7 +132,7 @@ public class PolarIntegrationSample {
         let channelValueBtcString = "0.013"
         let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
 		let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
-		let channelOpenResult = channelManager.createChannel(theirNetworkKey: lndPubkey, channelValueSatoshis: channelValue, pushMsat: reserveAmount, userChannelId: userChannelId, overrideConfig: config)
+        let channelOpenResult = channelManager.createChannel(theirNetworkKey: lndPubkey, channelValueSatoshis: channelValue, pushMsat: reserveAmount, userChannelId: userChannelId, temporaryChannelId: nil, overrideConfig: config)
 
         if let channelOpenError = channelOpenResult.getError() {
             print("error type: \(channelOpenError.getValueType())")
@@ -204,8 +204,9 @@ public class PolarIntegrationSample {
         // let's not pay any invoices
         // channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
         // return
-        
-        let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: constructionParameters.payerRetries, channelmanager: channelManager)
+        let (paymentHash, recipientOnion, routeParameters) = Bindings.paymentParametersFromInvoice(invoice: invoice).getValue()!
+        let paymentId = invoice.paymentHash()!
+        let invoicePaymentResult = channelManager.sendPayment(paymentHash: paymentHash, recipientOnion: recipientOnion, paymentId: paymentId, routeParams: routeParameters, retryStrategy: constructionParameters.payerRetries)
 
         do {
             // process payment

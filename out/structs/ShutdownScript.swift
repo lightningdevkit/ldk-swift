@@ -241,29 +241,16 @@ extension Bindings {
 		/// # Errors
 		///
 		/// This function may return an error if `program` is invalid for the segwit `version`.
-		public class func newWitnessProgram(version: UInt8, program: [UInt8])
+		public class func newWitnessProgram(witnessProgram: WitnessProgram)
 			-> Result_ShutdownScriptInvalidShutdownScriptZ
 		{
 			// native call variable prep
 
-			let versionPrimitiveWrapper = WitnessVersion(
-				value: version, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)")
-
-			let programPrimitiveWrapper = u8slice(
-				value: program, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)")
-
 
 			// native method call
-			let nativeCallResult = ShutdownScript_new_witness_program(
-				versionPrimitiveWrapper.cType!, programPrimitiveWrapper.cType!)
+			let nativeCallResult = ShutdownScript_new_witness_program(witnessProgram.danglingClone().cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			versionPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			programPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -274,7 +261,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Converts the shutdown script into the underlying [`Script`].
+		/// Converts the shutdown script into the underlying [`ScriptBuf`].
 		public func intoInner() -> [UInt8] {
 			// native call variable prep
 

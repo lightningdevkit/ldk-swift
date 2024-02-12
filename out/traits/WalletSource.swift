@@ -110,17 +110,17 @@ extension Bindings {
 				return returnValue
 			}
 
-			func signTxLambda(this_arg: UnsafeRawPointer?, tx: LDKTransaction) -> LDKCResult_TransactionNoneZ {
+			func signPsbtLambda(this_arg: UnsafeRawPointer?, psbt: LDKCVec_u8Z) -> LDKCResult_TransactionNoneZ {
 				let instance: WalletSource = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "WalletSource::signTxLambda")
+					pointer: this_arg!, sourceMarker: "WalletSource::signPsbtLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.signTx(
-					tx: Transaction(
-						cType: tx, instantiationContext: "WalletSource.swift::init()::\(#function):\(#line)"
+				let swiftCallbackResult = instance.signPsbt(
+					psbt: Vec_u8Z(
+						cType: psbt, instantiationContext: "WalletSource.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
 
@@ -157,7 +157,7 @@ extension Bindings {
 				this_arg: thisArg,
 				list_confirmed_utxos: listConfirmedUtxosLambda,
 				get_change_script: getChangeScriptLambda,
-				sign_tx: signTxLambda,
+				sign_psbt: signPsbtLambda,
 				free: freeLambda
 			)
 		}
@@ -185,10 +185,13 @@ extension Bindings {
 		/// Signs and provides the full [`TxIn::script_sig`] and [`TxIn::witness`] for all inputs within
 		/// the transaction known to the wallet (i.e., any provided via
 		/// [`WalletSource::list_confirmed_utxos`]).
-		open func signTx(tx: [UInt8]) -> Result_TransactionNoneZ {
+		///
+		/// If your wallet does not support signing PSBTs you can call `psbt.extract_tx()` to get the
+		/// unsigned transaction and then sign it with your wallet.
+		open func signPsbt(psbt: [UInt8]) -> Result_TransactionNoneZ {
 
 			Bindings.print(
-				"Error: WalletSource::signTx MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: WalletSource::signPsbt MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -268,22 +271,22 @@ extension Bindings {
 		/// Signs and provides the full [`TxIn::script_sig`] and [`TxIn::witness`] for all inputs within
 		/// the transaction known to the wallet (i.e., any provided via
 		/// [`WalletSource::list_confirmed_utxos`]).
-		public override func signTx(tx: [UInt8]) -> Result_TransactionNoneZ {
+		///
+		/// If your wallet does not support signing PSBTs you can call `psbt.extract_tx()` to get the
+		/// unsigned transaction and then sign it with your wallet.
+		public override func signPsbt(psbt: [UInt8]) -> Result_TransactionNoneZ {
 			// native call variable prep
 
-			let txPrimitiveWrapper = Transaction(
-				value: tx, instantiationContext: "WalletSource.swift::\(#function):\(#line)"
-			)
-			.dangle()
+			let psbtVector = Vec_u8Z(array: psbt, instantiationContext: "WalletSource.swift::\(#function):\(#line)")
+				.dangle()
 
 
 			// native method call
-			let nativeCallResult = self.cType!.sign_tx(self.cType!.this_arg, txPrimitiveWrapper.cType!)
+			let nativeCallResult = self.cType!.sign_psbt(self.cType!.this_arg, psbtVector.cType!)
 
 			// cleanup
 
-			// for elided types, we need this
-			txPrimitiveWrapper.noOpRetain()
+			// psbtVector.noOpRetain()
 
 
 			// return value (do some wrapping)

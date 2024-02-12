@@ -523,7 +523,7 @@ public class HumanObjectPeerTestInstance {
             let config = UserConfig.initWithDefault()
             let theirNodeId = peerB.channelManager.getOurNodeId()
             let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
-            let channelOpenResult = peerA.channelManager.createChannel(theirNetworkKey: theirNodeId, channelValueSatoshis: fundingAmount, pushMsat: 1000, userChannelId: userChannelId, overrideConfig: config)
+            let channelOpenResult = peerA.channelManager.createChannel(theirNetworkKey: theirNodeId, channelValueSatoshis: fundingAmount, pushMsat: 1000, userChannelId: userChannelId, temporaryChannelId: nil, overrideConfig: config)
 
             XCTAssertTrue(channelOpenResult.isOk())
             let channels = peerA.channelManager.listChannels()
@@ -757,7 +757,13 @@ public class HumanObjectPeerTestInstance {
             }
 
             let channelManagerConstructor = peer1.constructor!
-            let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
+            
+            let (paymentHash, recipientOnion, routeParameters) = Bindings.paymentParametersFromInvoice(invoice: invoice).getValue()!
+            let paymentId = invoice.paymentHash()!
+            
+            
+            let invoicePaymentResult = channelManagerConstructor.channelManager.sendPayment(paymentHash: paymentHash, recipientOnion: recipientOnion, paymentId: paymentId, routeParams: routeParameters, retryStrategy: Bindings.Retry.initWithAttempts(a: 3))
+            // let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
             XCTAssertTrue(invoicePaymentResult.isOk())
 
             do {
@@ -853,7 +859,9 @@ public class HumanObjectPeerTestInstance {
                 try! await Task.sleep(nanoseconds: 0_100_000_000)
             }
 
-            let invoicePayment = invoicePaymentResult.getValue()!
+            
+            // let invoicePayment = invoicePaymentResult.getValue()!
+            XCTAssert(invoicePaymentResult.isOk())
             XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B)
             XCTAssertEqual(currentChannelBBalance, secondChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B)
         }
@@ -874,12 +882,12 @@ public class HumanObjectPeerTestInstance {
             let recreatedInvoice = Bolt11Invoice.fromStr(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
-            let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
+            
+            let (paymentHash, recipientOnion, routeParameters) = Bindings.paymentParametersFromZeroAmountInvoice(invoice: invoice, amountMsat: SEND_MSAT_AMOUNT_B_TO_A).getValue()!
+            let paymentId = invoice.paymentHash()!
+            let invoicePaymentResult = peer2.channelManager.sendPayment(paymentHash: paymentHash, recipientOnion: recipientOnion, paymentId: paymentId, routeParams: routeParameters, retryStrategy: Retry.initWithAttempts(a: 3))
             if let error = invoicePaymentResult.getError() {
-                print("value type: \(error.getValueType())")
-                if let routingError = error.getValueAsSending() {
-                    print("sending error: \(routingError)")
-                }
+                print("sending error: \(error)")
             }
             XCTAssertTrue(invoicePaymentResult.isOk())
 
@@ -951,7 +959,8 @@ public class HumanObjectPeerTestInstance {
                 try! await Task.sleep(nanoseconds: 0_100_000_000)
             }
 
-            let invoicePayment = invoicePaymentResult.getValue()!
+            // let invoicePayment = invoicePaymentResult.getValue()!
+            XCTAssert(invoicePaymentResult.isOk())
             XCTAssertEqual(currentChannelABalance, prePaymentBalanceAToB + SEND_MSAT_AMOUNT_B_TO_A)
             XCTAssertEqual(currentChannelBBalance, prePaymentBalanceBToA - SEND_MSAT_AMOUNT_B_TO_A)
             XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B + SEND_MSAT_AMOUNT_B_TO_A)

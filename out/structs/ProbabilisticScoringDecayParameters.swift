@@ -98,7 +98,7 @@ extension Bindings {
 		///
 		/// Default value: 14 days
 		///
-		/// [`historical_estimated_channel_liquidity_probabilities`]: ProbabilisticScorerUsingTime::historical_estimated_channel_liquidity_probabilities
+		/// [`historical_estimated_channel_liquidity_probabilities`]: ProbabilisticScorer::historical_estimated_channel_liquidity_probabilities
 		public func getHistoricalNoUpdatesHalfLife() -> UInt64 {
 			// native call variable prep
 
@@ -131,7 +131,7 @@ extension Bindings {
 		///
 		/// Default value: 14 days
 		///
-		/// [`historical_estimated_channel_liquidity_probabilities`]: ProbabilisticScorerUsingTime::historical_estimated_channel_liquidity_probabilities
+		/// [`historical_estimated_channel_liquidity_probabilities`]: ProbabilisticScorer::historical_estimated_channel_liquidity_probabilities
 		public func setHistoricalNoUpdatesHalfLife(val: UInt64) {
 			// native call variable prep
 

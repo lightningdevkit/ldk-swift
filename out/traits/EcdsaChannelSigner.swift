@@ -85,7 +85,7 @@ extension Bindings {
 
 			func signCounterpartyCommitmentLambda(
 				this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKCommitmentTransaction>,
-				preimages: LDKCVec_ThirtyTwoBytesZ
+				inbound_htlc_preimages: LDKCVec_ThirtyTwoBytesZ, outbound_htlc_preimages: LDKCVec_ThirtyTwoBytesZ
 			) -> LDKCResult_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signCounterpartyCommitmentLambda")
@@ -100,37 +100,16 @@ extension Bindings {
 						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(),
-					preimages: Vec_ThirtyTwoBytesZ(
-						cType: preimages,
+					inboundHtlcPreimages: Vec_ThirtyTwoBytesZ(
+						cType: inbound_htlc_preimages,
+						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					outboundHtlcPreimages: Vec_ThirtyTwoBytesZ(
+						cType: outbound_htlc_preimages,
 						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.danglingClone().cType!
-
-				return returnValue
-			}
-
-			func validateCounterpartyRevocationLambda(
-				this_arg: UnsafeRawPointer?, idx: UInt64, secret: UnsafePointer<UInt8Tuple32>?
-			) -> LDKCResult_NoneNoneZ {
-				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::validateCounterpartyRevocationLambda")
-
-				// Swift callback variable prep
-
-				var secretPointee: [UInt8]? = nil
-				if let secretUnwrapped = secret {
-					secretPointee = Bindings.UInt8Tuple32ToArray(tuple: secretUnwrapped.pointee)
-				}
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.validateCounterpartyRevocation(idx: idx, secret: secretPointee)
 
 				// cleanup
 
@@ -404,7 +383,6 @@ extension Bindings {
 			self.cType = LDKEcdsaChannelSigner(
 				this_arg: thisArg,
 				sign_counterparty_commitment: signCounterpartyCommitmentLambda,
-				validate_counterparty_revocation: validateCounterpartyRevocationLambda,
 				sign_holder_commitment: signHolderCommitmentLambda,
 				sign_justice_revoked_output: signJusticeRevokedOutputLambda,
 				sign_justice_revoked_htlc: signJusticeRevokedHtlcLambda,
@@ -426,30 +404,19 @@ extension Bindings {
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
 		///
-		/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
-		/// A validating signer should ensure that an HTLC output is removed only when the matching
-		/// preimage is provided, or when the value to holder is restored.
+		/// The preimages of outbound and inbound HTLCs that were fulfilled since the last commitment
+		/// are provided. A validating signer should ensure that an outbound HTLC output is removed
+		/// only when the matching preimage is provided and after the corresponding inbound HTLC has
+		/// been removed for forwarded payments.
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
-		open func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]])
-			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
-		{
+		open func signCounterpartyCommitment(
+			commitmentTx: CommitmentTransaction, inboundHtlcPreimages: [[UInt8]], outboundHtlcPreimages: [[UInt8]]
+		) -> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signCounterpartyCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Validate the counterparty's revocation.
-		///
-		/// This is required in order for the signer to make sure that the state has moved
-		/// forward and it is safe to sign the next counterparty commitment.
-		open func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
-
-			Bindings.print(
-				"Error: EcdsaChannelSigner::validateCounterpartyRevocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -531,7 +498,7 @@ extension Bindings {
 		/// [`ChannelMonitor`] [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
 		/// broadcasts it before receiving the update for the latest commitment transaction.
 		///
-		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		/// [`EcdsaSighashType::All`]: bitcoin::sighash::EcdsaSighashType::All
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		open func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
@@ -601,6 +568,8 @@ extension Bindings {
 		/// Note that if this fails or is rejected, the channel will not be publicly announced and
 		/// our counterparty may (though likely will not) close the channel on us for violating the
 		/// protocol.
+		///
+		/// [`NodeSigner::sign_gossip_message`]: crate::sign::NodeSigner::sign_gossip_message
 		open func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_ECDSASignatureNoneZ
 		{
 
@@ -663,19 +632,25 @@ extension Bindings {
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
 		///
-		/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
-		/// A validating signer should ensure that an HTLC output is removed only when the matching
-		/// preimage is provided, or when the value to holder is restored.
+		/// The preimages of outbound and inbound HTLCs that were fulfilled since the last commitment
+		/// are provided. A validating signer should ensure that an outbound HTLC output is removed
+		/// only when the matching preimage is provided and after the corresponding inbound HTLC has
+		/// been removed for forwarded payments.
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
-		public override func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]])
-			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
-		{
+		public override func signCounterpartyCommitment(
+			commitmentTx: CommitmentTransaction, inboundHtlcPreimages: [[UInt8]], outboundHtlcPreimages: [[UInt8]]
+		) -> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
 			// native call variable prep
 
-			let preimagesVector = Vec_ThirtyTwoBytesZ(
-				array: preimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
+			let inboundHtlcPreimagesVector = Vec_ThirtyTwoBytesZ(
+				array: inboundHtlcPreimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let outboundHtlcPreimagesVector = Vec_ThirtyTwoBytesZ(
+				array: outboundHtlcPreimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
 			)
 			.dangle()
 
@@ -685,48 +660,21 @@ extension Bindings {
 				withUnsafePointer(to: commitmentTx.cType!) {
 					(commitmentTxPointer: UnsafePointer<LDKCommitmentTransaction>) in
 					self.cType!
-						.sign_counterparty_commitment(self.cType!.this_arg, commitmentTxPointer, preimagesVector.cType!)
+						.sign_counterparty_commitment(
+							self.cType!.this_arg, commitmentTxPointer, inboundHtlcPreimagesVector.cType!,
+							outboundHtlcPreimagesVector.cType!)
 				}
 
 
 			// cleanup
 
-			// preimagesVector.noOpRetain()
+			// inboundHtlcPreimagesVector.noOpRetain()
+
+			// outboundHtlcPreimagesVector.noOpRetain()
 
 
 			// return value (do some wrapping)
 			let returnValue = Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ(
-				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
-
-			return returnValue
-		}
-
-		/// Validate the counterparty's revocation.
-		///
-		/// This is required in order for the signer to make sure that the state has moved
-		/// forward and it is safe to sign the next counterparty commitment.
-		public override func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
-			// native call variable prep
-
-			var tupledSecretPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
-			if let secret = secret {
-
-				let tupledSecret = Bindings.arrayToUInt8Tuple32(array: secret)
-
-				tupledSecretPointer = UnsafeMutablePointer<UInt8Tuple32>.allocate(capacity: 1)
-				tupledSecretPointer!.initialize(to: tupledSecret)
-			}
-
-
-			// native method call
-			let nativeCallResult = self.cType!
-				.validate_counterparty_revocation(self.cType!.this_arg, idx, tupledSecretPointer)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_NoneNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -887,7 +835,7 @@ extension Bindings {
 		/// [`ChannelMonitor`] [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
 		/// broadcasts it before receiving the update for the latest commitment transaction.
 		///
-		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		/// [`EcdsaSighashType::All`]: bitcoin::sighash::EcdsaSighashType::All
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		public override func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
@@ -1042,6 +990,8 @@ extension Bindings {
 		/// Note that if this fails or is rejected, the channel will not be publicly announced and
 		/// our counterparty may (though likely will not) close the channel on us for violating the
 		/// protocol.
+		///
+		/// [`NodeSigner::sign_gossip_message`]: crate::sign::NodeSigner::sign_gossip_message
 		public override func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement)
 			-> Result_ECDSASignatureNoneZ
 		{

@@ -476,6 +476,55 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Create a blinded path for a payment, to be forwarded along `intermediate_nodes`.
+		///
+		/// Errors if:
+		/// * a provided node id is invalid
+		/// * [`BlindedPayInfo`] calculation results in an integer overflow
+		/// * any unknown features are required in the provided [`ForwardTlvs`]
+		///
+		/// [`ForwardTlvs`]: crate::blinded_path::payment::ForwardTlvs
+		public class func newForPayment(
+			intermediateNodes: [ForwardNode], payeeNodeId: [UInt8], payeeTlvs: ReceiveTlvs, htlcMaximumMsat: UInt64,
+			entropySource: EntropySource
+		) -> Result_C2Tuple_BlindedPayInfoBlindedPathZNoneZ {
+			// native call variable prep
+
+			let intermediateNodesVector = Vec_ForwardNodeZ(
+				array: intermediateNodes, instantiationContext: "BlindedPath.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let payeeNodeIdPrimitiveWrapper = PublicKey(
+				value: payeeNodeId, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: entropySource.activate().cType!) {
+					(entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+					BlindedPath_new_for_payment(
+						intermediateNodesVector.cType!, payeeNodeIdPrimitiveWrapper.cType!,
+						payeeTlvs.dynamicallyDangledClone().cType!, htlcMaximumMsat, entropySourcePointer)
+				}
+
+
+			// cleanup
+
+			// intermediateNodesVector.noOpRetain()
+
+			// for elided types, we need this
+			payeeNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_C2Tuple_BlindedPayInfoBlindedPathZNoneZ(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Serialize the BlindedPath object into a byte array which can be read by BlindedPath_read
 		public func write() -> [UInt8] {
 			// native call variable prep

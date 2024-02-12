@@ -154,7 +154,9 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_CVec_u8ZNoneZ {
+			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?, channel_keys_id: LDKThirtyTwoBytes)
+				-> LDKCResult_CVec_u8ZNoneZ
+			{
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::getDestinationScriptLambda")
 
@@ -162,7 +164,12 @@ extension Bindings {
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.getDestinationScript()
+				let swiftCallbackResult = instance.getDestinationScript(
+					channelKeysId: ThirtyTwoBytes(
+						cType: channel_keys_id,
+						instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
 
 				// cleanup
 
@@ -224,7 +231,7 @@ extension Bindings {
 		}
 
 
-		/// Generates a unique `channel_keys_id` that can be used to obtain a [`Self::Signer`] through
+		/// Generates a unique `channel_keys_id` that can be used to obtain a [`Self::EcdsaSigner`] through
 		/// [`SignerProvider::derive_channel_signer`]. The `user_channel_id` is provided to allow
 		/// implementations of [`SignerProvider`] to maintain a mapping between itself and the generated
 		/// `channel_keys_id`.
@@ -265,7 +272,7 @@ extension Bindings {
 		/// This method is slowly being phased out -- it will only be called when reading objects
 		/// written by LDK versions prior to 0.0.113.
 		///
-		/// [`Signer`]: Self::Signer
+		/// [`Signer`]: Self::EcdsaSigner
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		open func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
@@ -281,8 +288,9 @@ extension Bindings {
 		/// If this function returns an error, this will result in a channel failing to open.
 		///
 		/// This method should return a different value each time it is called, to avoid linking
-		/// on-chain funds across channels as controlled to the same user.
-		open func getDestinationScript() -> Result_CVec_u8ZNoneZ {
+		/// on-chain funds across channels as controlled to the same user. `channel_keys_id` may be
+		/// used to derive a unique value for each channel.
+		open func getDestinationScript(channelKeysId: [UInt8]) -> Result_CVec_u8ZNoneZ {
 
 			Bindings.print(
 				"Error: SignerProvider::getDestinationScript MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -341,7 +349,7 @@ extension Bindings {
 
 	internal class NativelyImplementedSignerProvider: SignerProvider {
 
-		/// Generates a unique `channel_keys_id` that can be used to obtain a [`Self::Signer`] through
+		/// Generates a unique `channel_keys_id` that can be used to obtain a [`Self::EcdsaSigner`] through
 		/// [`SignerProvider::derive_channel_signer`]. The `user_channel_id` is provided to allow
 		/// implementations of [`SignerProvider`] to maintain a mapping between itself and the generated
 		/// `channel_keys_id`.
@@ -419,7 +427,7 @@ extension Bindings {
 		/// This method is slowly being phased out -- it will only be called when reading objects
 		/// written by LDK versions prior to 0.0.113.
 		///
-		/// [`Signer`]: Self::Signer
+		/// [`Signer`]: Self::EcdsaSigner
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		public override func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
@@ -450,15 +458,23 @@ extension Bindings {
 		/// If this function returns an error, this will result in a channel failing to open.
 		///
 		/// This method should return a different value each time it is called, to avoid linking
-		/// on-chain funds across channels as controlled to the same user.
-		public override func getDestinationScript() -> Result_CVec_u8ZNoneZ {
+		/// on-chain funds across channels as controlled to the same user. `channel_keys_id` may be
+		/// used to derive a unique value for each channel.
+		public override func getDestinationScript(channelKeysId: [UInt8]) -> Result_CVec_u8ZNoneZ {
 			// native call variable prep
+
+			let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: channelKeysId, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = self.cType!.get_destination_script(self.cType!.this_arg)
+			let nativeCallResult = self.cType!
+				.get_destination_script(self.cType!.this_arg, channelKeysIdPrimitiveWrapper.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			channelKeysIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)

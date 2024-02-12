@@ -78,13 +78,17 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new DefaultMessageRouter given each field
-		public init() {
+		/// Creates a [`DefaultMessageRouter`] using the given [`NetworkGraph`].
+		public init(networkGraph: NetworkGraph, entropySource: EntropySource) {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = DefaultMessageRouter_new()
+			let nativeCallResult =
+				withUnsafePointer(to: networkGraph.cType!) { (networkGraphPointer: UnsafePointer<LDKNetworkGraph>) in
+					DefaultMessageRouter_new(networkGraphPointer, entropySource.activate().cType!)
+				}
+
 
 			// cleanup
 
@@ -105,6 +109,7 @@ extension Bindings {
 				.init(
 					conflictAvoidingVariableName: 0,
 					instantiationContext: "DefaultMessageRouter.swift::\(#function):\(#line)")
+			try! self.addAnchor(anchor: networkGraph)
 
 
 		}

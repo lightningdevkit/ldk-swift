@@ -220,7 +220,7 @@ extension Bindings {
 			}
 
 			func getRelevantTxidsLambda(this_arg: UnsafeRawPointer?)
-				-> LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ
+				-> LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ
 			{
 				let instance: Confirm = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Confirm::getRelevantTxidsLambda")
@@ -235,7 +235,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
+				let returnValue = Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ(
 					array: swiftCallbackResult, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)"
 				)
 				.dangleRecursively().cType!
@@ -325,7 +325,7 @@ extension Bindings {
 		}
 
 		/// Returns transactions that must be monitored for reorganization out of the chain along
-		/// with the hash of the block as part of which it had been previously confirmed.
+		/// with the height and the hash of the block as part of which it had been previously confirmed.
 		///
 		/// Note that the returned `Option<BlockHash>` might be `None` for channels created with LDK
 		/// 0.0.112 and prior, in which case you need to manually track previous confirmations.
@@ -340,12 +340,12 @@ extension Bindings {
 		/// given to [`transaction_unconfirmed`].
 		///
 		/// If any of the returned transactions are confirmed in a block other than the one with the
-		/// given hash, they need to be unconfirmed and reconfirmed via [`transaction_unconfirmed`] and
-		/// [`transactions_confirmed`], respectively.
+		/// given hash at the given height, they need to be unconfirmed and reconfirmed via
+		/// [`transaction_unconfirmed`] and [`transactions_confirmed`], respectively.
 		///
 		/// [`transactions_confirmed`]: Self::transactions_confirmed
 		/// [`transaction_unconfirmed`]: Self::transaction_unconfirmed
-		open func getRelevantTxids() -> [([UInt8], [UInt8]?)] {
+		open func getRelevantTxids() -> [([UInt8], UInt32, [UInt8]?)] {
 
 			Bindings.print(
 				"Error: Confirm::getRelevantTxids MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -496,7 +496,7 @@ extension Bindings {
 		}
 
 		/// Returns transactions that must be monitored for reorganization out of the chain along
-		/// with the hash of the block as part of which it had been previously confirmed.
+		/// with the height and the hash of the block as part of which it had been previously confirmed.
 		///
 		/// Note that the returned `Option<BlockHash>` might be `None` for channels created with LDK
 		/// 0.0.112 and prior, in which case you need to manually track previous confirmations.
@@ -511,12 +511,12 @@ extension Bindings {
 		/// given to [`transaction_unconfirmed`].
 		///
 		/// If any of the returned transactions are confirmed in a block other than the one with the
-		/// given hash, they need to be unconfirmed and reconfirmed via [`transaction_unconfirmed`] and
-		/// [`transactions_confirmed`], respectively.
+		/// given hash at the given height, they need to be unconfirmed and reconfirmed via
+		/// [`transaction_unconfirmed`] and [`transactions_confirmed`], respectively.
 		///
 		/// [`transactions_confirmed`]: Self::transactions_confirmed
 		/// [`transaction_unconfirmed`]: Self::transaction_unconfirmed
-		public override func getRelevantTxids() -> [([UInt8], [UInt8]?)] {
+		public override func getRelevantTxids() -> [([UInt8], UInt32, [UInt8]?)] {
 			// native call variable prep
 
 
@@ -527,7 +527,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
+			let returnValue = Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ(
 				cType: nativeCallResult, instantiationContext: "Confirm.swift::\(#function):\(#line)"
 			)
 			.getValue()

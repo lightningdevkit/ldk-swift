@@ -61,24 +61,6 @@ extension Bindings {
 		}
 
 
-		/// Frees the witness and script_sig in a TxIn
-		internal func free() {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = TxIn_free(self.cType!)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Convenience function for constructing a new TxIn
 		public init(witness: [UInt8], scriptSig: [UInt8], sequence: UInt32, previousTxid: [UInt8], previousVout: UInt32)
 		{
@@ -127,54 +109,139 @@ extension Bindings {
 
 		}
 
-
-		/// The witness which includes any signatures required to spend a segwit output.
+		/// Gets the `witness` in the given `TxIn`.
 		public func getWitness() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txinPointer: UnsafePointer<LDKTxIn>) in
+					TxIn_get_witness(txinPointer)
+				}
+
+
+			// cleanup
+
+
 			// return value (do some wrapping)
 			let returnValue = Witness(
-				cType: self.cType!.witness, instantiationContext: "TxIn.swift::\(#function):\(#line)", anchor: self
+				cType: nativeCallResult, instantiationContext: "TxIn.swift::\(#function):\(#line)", anchor: self
 			)
-			.getValue()
+			.dangle(false).getValue()
+
 
 			return returnValue
 		}
 
-		/// The script_sig which includes signatures requires to spend a pre-segwit output (or a
-		/// P2SH-wrapped segwit output).
+		/// Gets the `script_sig` in the given `TxIn`.
 		public func getScriptSig() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txinPointer: UnsafePointer<LDKTxIn>) in
+					TxIn_get_script_sig(txinPointer)
+				}
+
+
+			// cleanup
+
+
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: self.cType!.script_sig, instantiationContext: "TxIn.swift::\(#function):\(#line)", anchor: self
+			let returnValue = u8slice(
+				cType: nativeCallResult, instantiationContext: "TxIn.swift::\(#function):\(#line)", anchor: self
 			)
-			.getValue()
+			.dangle().getValue()
+
 
 			return returnValue
 		}
 
-		/// The sequence number of the transaction input
+		/// Gets the `sequence` in the given `TxIn`.
 		public func getSequence() -> UInt32 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txinPointer: UnsafePointer<LDKTxIn>) in
+					TxIn_get_sequence(txinPointer)
+				}
+
+
+			// cleanup
+
+
 			// return value (do some wrapping)
-			let returnValue = self.cType!.sequence
+			let returnValue = nativeCallResult
+
 
 			return returnValue
 		}
 
-		/// The txid of the transaction being spent.
+		/// Gets the previous outpoint txid in the given `TxIn`.
 		public func getPreviousTxid() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txinPointer: UnsafePointer<LDKTxIn>) in
+					TxIn_get_previous_txid(txinPointer)
+				}
+
+
+			// cleanup
+
+
 			// return value (do some wrapping)
 			let returnValue = ThirtyTwoBytes(
-				cType: self.cType!.previous_txid, instantiationContext: "TxIn.swift::\(#function):\(#line)",
-				anchor: self
+				cType: nativeCallResult, instantiationContext: "TxIn.swift::\(#function):\(#line)", anchor: self
 			)
-			.getValue()
+			.dangle(false).getValue()
+
 
 			return returnValue
 		}
 
-		/// The output index of the transaction being spent.
+		/// Gets the previout outpoint index in the given `TxIn`.
 		public func getPreviousVout() -> UInt32 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txinPointer: UnsafePointer<LDKTxIn>) in
+					TxIn_get_previous_vout(txinPointer)
+				}
+
+
+			// cleanup
+
+
 			// return value (do some wrapping)
-			let returnValue = self.cType!.previous_vout
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Frees the witness and script_sig in a TxIn
+		internal func free() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = TxIn_free(self.cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
 
 			return returnValue
 		}

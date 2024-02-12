@@ -110,6 +110,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the InitFeatures.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKInitFeatures>) in
+					InitFeatures_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Frees any resources used by the InitFeatures, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
@@ -1303,6 +1325,94 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInitFeatures>) in
 					InitFeatures_requires_anchors_zero_fee_htlc_tx(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Set this feature as optional.
+		public func setRouteBlindingOptional() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInitFeatures>) in
+					InitFeatures_set_route_blinding_optional(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Set this feature as required.
+		public func setRouteBlindingRequired() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInitFeatures>) in
+					InitFeatures_set_route_blinding_required(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Checks if this feature is supported.
+		public func supportsRouteBlinding() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInitFeatures>) in
+					InitFeatures_supports_route_blinding(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Checks if this feature is required.
+		public func requiresRouteBlinding() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInitFeatures>) in
+					InitFeatures_requires_route_blinding(thisArgPointer)
 				}
 
 

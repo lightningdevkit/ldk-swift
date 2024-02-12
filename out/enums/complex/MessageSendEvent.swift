@@ -85,6 +85,18 @@ extension Bindings {
 			/// Used to indicate that a funding_signed message should be sent to the peer with the given node_id.
 			case SendFundingSigned
 
+			/// Used to indicate that a stfu message should be sent to the peer with the given node id.
+			case SendStfu
+
+			/// Used to indicate that a splice message should be sent to the peer with the given node id.
+			case SendSplice
+
+			/// Used to indicate that a splice_ack message should be sent to the peer with the given node id.
+			case SendSpliceAck
+
+			/// Used to indicate that a splice_locked message should be sent to the peer with the given node id.
+			case SendSpliceLocked
+
 			/// Used to indicate that a tx_add_input message should be sent to the peer with the given node_id.
 			case SendTxAddInput
 
@@ -200,6 +212,18 @@ extension Bindings {
 
 				case LDKMessageSendEvent_SendFundingSigned:
 					return .SendFundingSigned
+
+				case LDKMessageSendEvent_SendStfu:
+					return .SendStfu
+
+				case LDKMessageSendEvent_SendSplice:
+					return .SendSplice
+
+				case LDKMessageSendEvent_SendSpliceAck:
+					return .SendSpliceAck
+
+				case LDKMessageSendEvent_SendSpliceLocked:
+					return .SendSpliceLocked
 
 				case LDKMessageSendEvent_SendTxAddInput:
 					return .SendTxAddInput
@@ -471,6 +495,110 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = MessageSendEvent_send_funding_signed(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendStfu-variant MessageSendEvent
+		public class func initWithSendStfu(nodeId: [UInt8], msg: Bindings.Stfu) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_stfu(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendSplice-variant MessageSendEvent
+		public class func initWithSendSplice(nodeId: [UInt8], msg: Bindings.Splice) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_splice(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendSpliceAck-variant MessageSendEvent
+		public class func initWithSendSpliceAck(nodeId: [UInt8], msg: Bindings.SpliceAck) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_splice_ack(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendSpliceLocked-variant MessageSendEvent
+		public class func initWithSendSpliceLocked(nodeId: [UInt8], msg: Bindings.SpliceLocked) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_splice_locked(
 				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
@@ -1219,6 +1347,46 @@ extension Bindings {
 
 			return MessageSendEvent_LDKSendFundingSigned_Body(
 				cType: self.cType!.send_funding_signed,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendStfu() -> SendStfu? {
+			if self.cType?.tag != LDKMessageSendEvent_SendStfu {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendStfu_Body(
+				cType: self.cType!.send_stfu, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsSendSplice() -> SendSplice? {
+			if self.cType?.tag != LDKMessageSendEvent_SendSplice {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendSplice_Body(
+				cType: self.cType!.send_splice, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsSendSpliceAck() -> SendSpliceAck? {
+			if self.cType?.tag != LDKMessageSendEvent_SendSpliceAck {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendSpliceAck_Body(
+				cType: self.cType!.send_splice_ack,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendSpliceLocked() -> SendSpliceLocked? {
+			if self.cType?.tag != LDKMessageSendEvent_SendSpliceLocked {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendSpliceLocked_Body(
+				cType: self.cType!.send_splice_locked,
 				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
 		}
 
@@ -1997,6 +2165,336 @@ extension Bindings {
 			public func getMsg() -> Bindings.FundingSigned {
 				// return value (do some wrapping)
 				let returnValue = Bindings.FundingSigned(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendStfu_Body = SendStfu
+
+
+		///
+		public class SendStfu: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendStfu_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendStfu_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendStfu_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendStfu_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.Stfu {
+				// return value (do some wrapping)
+				let returnValue = Bindings.Stfu(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendSplice_Body = SendSplice
+
+
+		///
+		public class SendSplice: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendSplice_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.Splice {
+				// return value (do some wrapping)
+				let returnValue = Bindings.Splice(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendSpliceAck_Body = SendSpliceAck
+
+
+		///
+		public class SendSpliceAck: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendSpliceAck_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendSpliceAck_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSpliceAck_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSpliceAck_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.SpliceAck {
+				// return value (do some wrapping)
+				let returnValue = Bindings.SpliceAck(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendSpliceLocked_Body = SendSpliceLocked
+
+
+		///
+		public class SendSpliceLocked: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendSpliceLocked_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendSpliceLocked_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSpliceLocked_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendSpliceLocked_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.SpliceLocked {
+				// return value (do some wrapping)
+				let returnValue = Bindings.SpliceLocked(
 					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
 					anchor: self)
 

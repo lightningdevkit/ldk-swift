@@ -135,7 +135,7 @@ extension Bindings {
 		/// be sure to manage both cases correctly.
 		///
 		/// Bitcoin transaction packages are defined in BIP 331 and here:
-		/// https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md
+		/// <https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md>
 		open func broadcastTransactions(txs: [[UInt8]]) {
 
 			Bindings.print(
@@ -191,7 +191,7 @@ extension Bindings {
 		/// be sure to manage both cases correctly.
 		///
 		/// Bitcoin transaction packages are defined in BIP 331 and here:
-		/// https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md
+		/// <https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md>
 		public override func broadcastTransactions(txs: [[UInt8]]) {
 			// native call variable prep
 

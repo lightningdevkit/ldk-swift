@@ -125,6 +125,21 @@ extension Bindings {
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			case PaymentClaimed
 
+			/// Indicates that a peer connection with a node is needed in order to send an [`OnionMessage`].
+			///
+			/// Typically, this happens when a [`MessageRouter`] is unable to find a complete path to a
+			/// [`Destination`]. Once a connection is established, any messages buffered by an
+			/// [`OnionMessageHandler`] may be sent.
+			///
+			/// This event will not be generated for onion message forwards; only for sends including
+			/// replies. Handlers should connect to the node otherwise any buffered messages may be lost.
+			///
+			/// [`OnionMessage`]: msgs::OnionMessage
+			/// [`MessageRouter`]: crate::onion_message::messenger::MessageRouter
+			/// [`Destination`]: crate::onion_message::messenger::Destination
+			/// [`OnionMessageHandler`]: crate::ln::msgs::OnionMessageHandler
+			case ConnectionNeeded
+
 			/// Indicates a request for an invoice failed to yield a response in a reasonable amount of time
 			/// or was explicitly abandoned by [`ChannelManager::abandon_payment`]. This may be for an
 			/// [`InvoiceRequest`] sent for an [`Offer`] or for a [`Refund`] that hasn't been redeemed.
@@ -294,6 +309,9 @@ extension Bindings {
 
 				case LDKEvent_PaymentClaimed:
 					return .PaymentClaimed
+
+				case LDKEvent_ConnectionNeeded:
+					return .ConnectionNeeded
 
 				case LDKEvent_InvoiceRequestFailed:
 					return .InvoiceRequestFailed
@@ -534,6 +552,37 @@ extension Bindings {
 			paymentHashPrimitiveWrapper.noOpRetain()
 
 			// htlcsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new ConnectionNeeded-variant Event
+		public class func initWithConnectionNeeded(nodeId: [UInt8], addresses: [SocketAddress]) -> Event {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+			let addressesVector = Vec_SocketAddressZ(
+				array: addresses, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = Event_connection_needed(nodeIdPrimitiveWrapper.cType!, addressesVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+			// addressesVector.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1010,7 +1059,7 @@ extension Bindings {
 		/// Utility method to constructs a new ChannelClosed-variant Event
 		public class func initWithChannelClosed(
 			channelId: [UInt8], userChannelId: [UInt8], reason: ClosureReason, counterpartyNodeId: [UInt8],
-			channelCapacitySats: UInt64?
+			channelCapacitySats: UInt64?, channelFundingTxo: Bindings.OutPoint
 		) -> Event {
 			// native call variable prep
 
@@ -1032,7 +1081,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_channel_closed(
 				channelIdPrimitiveWrapper.cType!, userChannelIdPrimitiveWrapper.cType!, reason.danglingClone().cType!,
-				counterpartyNodeIdPrimitiveWrapper.cType!, channelCapacitySatsOption.cType!)
+				counterpartyNodeIdPrimitiveWrapper.cType!, channelCapacitySatsOption.cType!,
+				channelFundingTxo.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -1270,6 +1320,16 @@ extension Bindings {
 
 			return Event_LDKPaymentClaimed_Body(
 				cType: self.cType!.payment_claimed, instantiationContext: "Event.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsConnectionNeeded() -> ConnectionNeeded? {
+			if self.cType?.tag != LDKEvent_ConnectionNeeded {
+				return nil
+			}
+
+			return Event_LDKConnectionNeeded_Body(
+				cType: self.cType!.connection_needed, instantiationContext: "Event.swift::\(#function):\(#line)",
 				anchor: self)
 		}
 
@@ -1926,6 +1986,89 @@ extension Bindings {
 				let returnValue = Option_u64Z(
 					cType: self.cType!.sender_intended_total_msat,
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKConnectionNeeded_Body = ConnectionNeeded
+
+
+		///
+		public class ConnectionNeeded: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKConnectionNeeded_Body?
+
+			internal init(cType: LDKEvent_LDKConnectionNeeded_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKConnectionNeeded_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKConnectionNeeded_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node id for the node needing a connection.
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// Sockets for connecting to the node.
+			public func getAddresses() -> [SocketAddress] {
+				// return value (do some wrapping)
+				let returnValue = Vec_SocketAddressZ(
+					cType: self.cType!.addresses, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
 				)
 				.getValue()
 
@@ -3451,6 +3594,20 @@ extension Bindings {
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
 				)
 				.getValue()
+
+				return returnValue
+			}
+
+			/// The original channel funding TXO; this helps checking for the existence and confirmation
+			/// status of the closing tx.
+			/// Note that for instances serialized in v0.0.119 or prior this will be missing (None).
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getChannelFundingTxo() -> Bindings.OutPoint {
+				// return value (do some wrapping)
+				let returnValue = Bindings.OutPoint(
+					cType: self.cType!.channel_funding_txo, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
 
 				return returnValue
 			}

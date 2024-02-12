@@ -74,8 +74,11 @@ extension Bindings {
 			/// hops.
 			case TooFewBlindedHops
 
-			/// Our next-hop peer was offline or does not support onion message forwarding.
+			/// The first hop is not a peer and doesn't have a known [`SocketAddress`].
 			case InvalidFirstHop
+
+			/// A path from the sender to the destination could not be found by the [`MessageRouter`].
+			case PathNotFound
 
 			/// Onion message contents must have a TLV type >= 64.
 			case InvalidMessage
@@ -109,6 +112,9 @@ extension Bindings {
 
 				case LDKSendError_InvalidFirstHop:
 					return .InvalidFirstHop
+
+				case LDKSendError_PathNotFound:
+					return .PathNotFound
 
 				case LDKSendError_InvalidMessage:
 					return .InvalidMessage
@@ -229,12 +235,36 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new InvalidFirstHop-variant SendError
-		public class func initWithInvalidFirstHop() -> SendError {
+		public class func initWithInvalidFirstHop(a: [UInt8]) -> SendError {
+			// native call variable prep
+
+			let aPrimitiveWrapper = PublicKey(value: a, instantiationContext: "SendError.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = SendError_invalid_first_hop(aPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			aPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = SendError(
+				cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new PathNotFound-variant SendError
+		public class func initWithPathNotFound() -> SendError {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = SendError_invalid_first_hop()
+			let nativeCallResult = SendError_path_not_found()
 
 			// cleanup
 
@@ -357,6 +387,18 @@ extension Bindings {
 			}
 
 			return Secp256k1Error(value: self.cType!.secp256k1)
+		}
+
+		public func getValueAsInvalidFirstHop() -> [UInt8]? {
+			if self.cType?.tag != LDKSendError_InvalidFirstHop {
+				return nil
+			}
+
+			return PublicKey(
+				cType: self.cType!.invalid_first_hop, instantiationContext: "SendError.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
 		}
 
 

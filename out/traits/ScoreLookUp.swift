@@ -78,8 +78,7 @@ extension Bindings {
 
 
 			func channelPenaltyMsatLambda(
-				this_arg: UnsafeRawPointer?, short_channel_id: UInt64, source: UnsafePointer<LDKNodeId>,
-				target: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage,
+				this_arg: UnsafeRawPointer?, candidate: UnsafePointer<LDKCandidateRouteHop>, usage: LDKChannelUsage,
 				score_params: UnsafePointer<LDKProbabilisticScoringFeeParameters>
 			) -> UInt64 {
 				let instance: ScoreLookUp = Bindings.pointerToInstance(
@@ -90,13 +89,9 @@ extension Bindings {
 
 				// Swift callback call
 				let swiftCallbackResult = instance.channelPenaltyMsat(
-					shortChannelId: short_channel_id,
-					source: NodeId(
-						cType: source.pointee, instantiationContext: "ScoreLookUp.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone(),
-					target: NodeId(
-						cType: target.pointee, instantiationContext: "ScoreLookUp.swift::init()::\(#function):\(#line)"
+					candidate: CandidateRouteHop(
+						cType: candidate.pointee,
+						instantiationContext: "ScoreLookUp.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(),
 					usage: ChannelUsage(
@@ -153,8 +148,7 @@ extension Bindings {
 		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
 		/// Thus, implementations should be overflow-safe.
 		open func channelPenaltyMsat(
-			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
-			scoreParams: ProbabilisticScoringFeeParameters
+			candidate: CandidateRouteHop, usage: ChannelUsage, scoreParams: ProbabilisticScoringFeeParameters
 		) -> UInt64 {
 
 			Bindings.print(
@@ -206,26 +200,21 @@ extension Bindings {
 		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
 		/// Thus, implementations should be overflow-safe.
 		public override func channelPenaltyMsat(
-			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
-			scoreParams: ProbabilisticScoringFeeParameters
+			candidate: CandidateRouteHop, usage: ChannelUsage, scoreParams: ProbabilisticScoringFeeParameters
 		) -> UInt64 {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: source.cType!) { (sourcePointer: UnsafePointer<LDKNodeId>) in
+				withUnsafePointer(to: candidate.cType!) { (candidatePointer: UnsafePointer<LDKCandidateRouteHop>) in
 
-					withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
-
-						withUnsafePointer(to: scoreParams.cType!) {
-							(scoreParamsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
-							self.cType!
-								.channel_penalty_msat(
-									self.cType!.this_arg, shortChannelId, sourcePointer, targetPointer,
-									usage.dynamicallyDangledClone().cType!, scoreParamsPointer)
-						}
-
+					withUnsafePointer(to: scoreParams.cType!) {
+						(scoreParamsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
+						self.cType!
+							.channel_penalty_msat(
+								self.cType!.this_arg, candidatePointer, usage.dynamicallyDangledClone().cType!,
+								scoreParamsPointer)
 					}
 
 				}

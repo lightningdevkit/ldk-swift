@@ -187,6 +187,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Whether the refund has expired given the duration since the Unix epoch.
+		public func isExpiredNoStd(durationSinceEpoch: UInt64) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRefund>) in
+					Refund_is_expired_no_std(thisArgPointer, durationSinceEpoch)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The issuer of the refund, possibly beginning with `user@domain` or `domain`. Intended to be
 		/// displayed to the user but with the caveat that it has not been verified in any way.
 		///

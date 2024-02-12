@@ -3,7 +3,7 @@
 #endif
 
 /// A CResult_WriteableEcdsaChannelSignerDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::sign::WriteableEcdsaChannelSigner on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::sign::ecdsa::WriteableEcdsaChannelSigner on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_WriteableEcdsaChannelSignerDecodeErrorZ = Bindings
 	.Result_WriteableEcdsaChannelSignerDecodeErrorZ
@@ -11,7 +11,7 @@ public typealias Result_WriteableEcdsaChannelSignerDecodeErrorZ = Bindings
 extension Bindings {
 
 	/// A CResult_WriteableEcdsaChannelSignerDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::sign::WriteableEcdsaChannelSigner on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::sign::ecdsa::WriteableEcdsaChannelSigner on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_WriteableEcdsaChannelSignerDecodeErrorZ: NativeTypeWrapper {
 

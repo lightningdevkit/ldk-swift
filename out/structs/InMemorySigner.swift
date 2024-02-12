@@ -804,7 +804,7 @@ extension Bindings {
 		/// [`descriptor.outpoint`]: StaticPaymentOutputDescriptor::outpoint
 		public func signCounterpartyPaymentInput(
 			spendTx: [UInt8], inputIdx: UInt, descriptor: StaticPaymentOutputDescriptor
-		) -> Result_CVec_CVec_u8ZZNoneZ {
+		) -> Result_WitnessNoneZ {
 			// native call variable prep
 
 			let spendTxPrimitiveWrapper = Transaction(
@@ -833,7 +833,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_CVec_u8ZZNoneZ(
+			let returnValue = Result_WitnessNoneZ(
 				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -854,7 +854,7 @@ extension Bindings {
 		/// [`descriptor.outpoint`]: DelayedPaymentOutputDescriptor::outpoint
 		/// [`descriptor.to_self_delay`]: DelayedPaymentOutputDescriptor::to_self_delay
 		public func signDynamicP2wshInput(spendTx: [UInt8], inputIdx: UInt, descriptor: DelayedPaymentOutputDescriptor)
-			-> Result_CVec_CVec_u8ZZNoneZ
+			-> Result_WitnessNoneZ
 		{
 			// native call variable prep
 
@@ -884,7 +884,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_CVec_u8ZZNoneZ(
+			let returnValue = Result_WitnessNoneZ(
 				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
 				anchor: self
 			)

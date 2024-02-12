@@ -72,7 +72,7 @@ class LDKSwiftTests: XCTestCase {
         )
         
         let networkGraph = NetworkGraph(network: .Regtest, logger: logger)
-        let channelManagerConstructor = try ChannelManagerConstructor(channelManagerSerialized: serialized_channel_manager, channelMonitorsSerialized: serializedChannelMonitors, networkGraph: NetworkGraphArgument.instance(networkGraph), filter: filter, params: constructionParameters)
+        let channelManagerConstructor = try ChannelManagerConstructor(channelManagerSerialized: serialized_channel_manager, channelMonitorsSerialized: serializedChannelMonitors, networkGraph: NetworkGraphArgument.instance(networkGraph), filter: filter, params: constructionParameters, logger: logger)
 
         let channelManager = channelManagerConstructor.channelManager;
         let cmPersister = TestChannelManagerPersister(channelManager: channelManager)
@@ -143,10 +143,10 @@ class LDKSwiftTests: XCTestCase {
         let rawInvoice = signedRawInvoice.rawInvoice()
         let description = rawInvoice.description()
         let descriptionString = description?.intoInner()
-        XCTAssertEqual(descriptionString, "Invoice description")
+        XCTAssertEqual(descriptionString!.getA(), "Invoice description")
         
         let singleLineDescriptionString = invoice.intoSignedRaw().rawInvoice().description()?.intoInner()
-        XCTAssertEqual(singleLineDescriptionString, "Invoice description")
+        XCTAssertEqual(singleLineDescriptionString!.getA(), "Invoice description")
 	}
 
 	func testWeirdChannelManagerMemoryLeak() async throws {
@@ -241,7 +241,7 @@ class LDKSwiftTests: XCTestCase {
         let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
         let peerPubkey = Self.hexStringToBytes(hexString: "02deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef")!
 		let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
-        let channelOpenResult = channelManager.createChannel(theirNetworkKey: peerPubkey, channelValueSatoshis: channelValue, pushMsat: reserveAmount, userChannelId: userChannelId, overrideConfig: config)
+        let channelOpenResult = channelManager.createChannel(theirNetworkKey: peerPubkey, channelValueSatoshis: channelValue, pushMsat: reserveAmount, userChannelId: userChannelId, temporaryChannelId: nil, overrideConfig: config)
         
         let channelOpenError = channelOpenResult.getError()!
         print("error type: \(channelOpenError.getValueType())")

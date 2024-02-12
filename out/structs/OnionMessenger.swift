@@ -23,11 +23,12 @@
 /// ```
 /// # extern crate bitcoin;
 /// # use bitcoin::hashes::_export::_core::time::Duration;
-/// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey};
+/// # use bitcoin::hashes::hex::FromHex;
+/// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey, self};
 /// # use lightning::blinded_path::BlindedPath;
-/// # use lightning::sign::KeysManager;
+/// # use lightning::sign::{EntropySource, KeysManager};
 /// # use lightning::ln::peer_handler::IgnoringMessageHandler;
-/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
+/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessagePath, OnionMessenger};
 /// # use lightning::onion_message::packet::OnionMessageContents;
 /// # use lightning::util::logger::{Logger, Record};
 /// # use lightning::util::ser::{Writeable, Writer};
@@ -35,22 +36,35 @@
 /// # use std::sync::Arc;
 /// # struct FakeLogger;
 /// # impl Logger for FakeLogger {
-/// #     fn log(&self, record: &Record) { unimplemented!() }
+/// #     fn log(&self, record: Record) { println!(\"{:?}\" , record); }
 /// # }
 /// # struct FakeMessageRouter {}
 /// # impl MessageRouter for FakeMessageRouter {
 /// #     fn find_path(&self, sender: PublicKey, peers: Vec<PublicKey>, destination: Destination) -> Result<OnionMessagePath, ()> {
-/// #         unimplemented!()
+/// #         let secp_ctx = Secp256k1::new();
+/// #         let node_secret = SecretKey::from_slice(&<Vec<u8>>::from_hex(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
+/// #         let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
+/// #         let hop_node_id2 = hop_node_id1;
+/// #         Ok(OnionMessagePath {
+/// #             intermediate_nodes: vec![hop_node_id1, hop_node_id2],
+/// #             destination,
+/// #             first_node_addresses: None,
+/// #         })
+/// #     }
+/// #     fn create_blinded_paths<T: secp256k1::Signing + secp256k1::Verification>(
+/// #         &self, _recipient: PublicKey, _peers: Vec<PublicKey>, _secp_ctx: &Secp256k1<T>
+/// #     ) -> Result<Vec<BlindedPath>, ()> {
+/// #         unreachable!()
 /// #     }
 /// # }
 /// # let seed = [42u8; 32];
 /// # let time = Duration::from_secs(123456);
 /// # let keys_manager = KeysManager::new(&seed, time.as_secs(), time.subsec_nanos());
 /// # let logger = Arc::new(FakeLogger {});
-/// # let node_secret = SecretKey::from_slice(&hex::decode(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
+/// # let node_secret = SecretKey::from_slice(&<Vec<u8>>::from_hex(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
 /// # let secp_ctx = Secp256k1::new();
 /// # let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
-/// # let (hop_node_id2, hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1, hop_node_id1);
+/// # let (hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1);
 /// # let destination_node_id = hop_node_id1;
 /// # let message_router = Arc::new(FakeMessageRouter {});
 /// # let custom_message_handler = IgnoringMessageHandler {};
@@ -62,7 +76,7 @@
 /// &custom_message_handler
 /// );
 ///
-/// # #[derive(Clone)]
+/// # #[derive(Debug, Clone)]
 /// # struct YourCustomMessage {}
 /// impl Writeable for YourCustomMessage {
 /// \tfn write<W: Writer>(&self, w: &mut W) -> Result<(), io::Error> {
@@ -77,13 +91,10 @@
 /// \t}
 /// }
 /// // Send a custom onion message to a node id.
-/// let path = OnionMessagePath {
-/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
-/// \tdestination: Destination::Node(destination_node_id),
-/// };
+/// let destination = Destination::Node(destination_node_id);
 /// let reply_path = None;
 /// # let message = YourCustomMessage {};
-/// onion_messenger.send_onion_message(path, message, reply_path);
+/// onion_messenger.send_onion_message(message, destination, reply_path);
 ///
 /// // Create a blinded path to yourself, for someone to send an onion message to.
 /// # let your_node_id = hop_node_id1;
@@ -91,13 +102,10 @@
 /// let blinded_path = BlindedPath::new_for_message(&hops, &keys_manager, &secp_ctx).unwrap();
 ///
 /// // Send a custom onion message to a blinded path.
-/// let path = OnionMessagePath {
-/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
-/// \tdestination: Destination::BlindedPath(blinded_path),
-/// };
+/// let destination = Destination::BlindedPath(blinded_path);
 /// let reply_path = None;
 /// # let message = YourCustomMessage {};
-/// onion_messenger.send_onion_message(path, message, reply_path);
+/// onion_messenger.send_onion_message(message, destination, reply_path);
 /// ```
 ///
 /// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
@@ -128,11 +136,12 @@ extension Bindings {
 	/// ```
 	/// # extern crate bitcoin;
 	/// # use bitcoin::hashes::_export::_core::time::Duration;
-	/// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey};
+	/// # use bitcoin::hashes::hex::FromHex;
+	/// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey, self};
 	/// # use lightning::blinded_path::BlindedPath;
-	/// # use lightning::sign::KeysManager;
+	/// # use lightning::sign::{EntropySource, KeysManager};
 	/// # use lightning::ln::peer_handler::IgnoringMessageHandler;
-	/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
+	/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessagePath, OnionMessenger};
 	/// # use lightning::onion_message::packet::OnionMessageContents;
 	/// # use lightning::util::logger::{Logger, Record};
 	/// # use lightning::util::ser::{Writeable, Writer};
@@ -140,22 +149,35 @@ extension Bindings {
 	/// # use std::sync::Arc;
 	/// # struct FakeLogger;
 	/// # impl Logger for FakeLogger {
-	/// #     fn log(&self, record: &Record) { unimplemented!() }
+	/// #     fn log(&self, record: Record) { println!(\"{:?}\" , record); }
 	/// # }
 	/// # struct FakeMessageRouter {}
 	/// # impl MessageRouter for FakeMessageRouter {
 	/// #     fn find_path(&self, sender: PublicKey, peers: Vec<PublicKey>, destination: Destination) -> Result<OnionMessagePath, ()> {
-	/// #         unimplemented!()
+	/// #         let secp_ctx = Secp256k1::new();
+	/// #         let node_secret = SecretKey::from_slice(&<Vec<u8>>::from_hex(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
+	/// #         let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
+	/// #         let hop_node_id2 = hop_node_id1;
+	/// #         Ok(OnionMessagePath {
+	/// #             intermediate_nodes: vec![hop_node_id1, hop_node_id2],
+	/// #             destination,
+	/// #             first_node_addresses: None,
+	/// #         })
+	/// #     }
+	/// #     fn create_blinded_paths<T: secp256k1::Signing + secp256k1::Verification>(
+	/// #         &self, _recipient: PublicKey, _peers: Vec<PublicKey>, _secp_ctx: &Secp256k1<T>
+	/// #     ) -> Result<Vec<BlindedPath>, ()> {
+	/// #         unreachable!()
 	/// #     }
 	/// # }
 	/// # let seed = [42u8; 32];
 	/// # let time = Duration::from_secs(123456);
 	/// # let keys_manager = KeysManager::new(&seed, time.as_secs(), time.subsec_nanos());
 	/// # let logger = Arc::new(FakeLogger {});
-	/// # let node_secret = SecretKey::from_slice(&hex::decode(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
+	/// # let node_secret = SecretKey::from_slice(&<Vec<u8>>::from_hex(\"0101010101010101010101010101010101010101010101010101010101010101\").unwrap()[..]).unwrap();
 	/// # let secp_ctx = Secp256k1::new();
 	/// # let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
-	/// # let (hop_node_id2, hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1, hop_node_id1);
+	/// # let (hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1);
 	/// # let destination_node_id = hop_node_id1;
 	/// # let message_router = Arc::new(FakeMessageRouter {});
 	/// # let custom_message_handler = IgnoringMessageHandler {};
@@ -167,7 +189,7 @@ extension Bindings {
 	/// &custom_message_handler
 	/// );
 	///
-	/// # #[derive(Clone)]
+	/// # #[derive(Debug, Clone)]
 	/// # struct YourCustomMessage {}
 	/// impl Writeable for YourCustomMessage {
 	/// \tfn write<W: Writer>(&self, w: &mut W) -> Result<(), io::Error> {
@@ -182,13 +204,10 @@ extension Bindings {
 	/// \t}
 	/// }
 	/// // Send a custom onion message to a node id.
-	/// let path = OnionMessagePath {
-	/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
-	/// \tdestination: Destination::Node(destination_node_id),
-	/// };
+	/// let destination = Destination::Node(destination_node_id);
 	/// let reply_path = None;
 	/// # let message = YourCustomMessage {};
-	/// onion_messenger.send_onion_message(path, message, reply_path);
+	/// onion_messenger.send_onion_message(message, destination, reply_path);
 	///
 	/// // Create a blinded path to yourself, for someone to send an onion message to.
 	/// # let your_node_id = hop_node_id1;
@@ -196,13 +215,10 @@ extension Bindings {
 	/// let blinded_path = BlindedPath::new_for_message(&hops, &keys_manager, &secp_ctx).unwrap();
 	///
 	/// // Send a custom onion message to a blinded path.
-	/// let path = OnionMessagePath {
-	/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
-	/// \tdestination: Destination::BlindedPath(blinded_path),
-	/// };
+	/// let destination = Destination::BlindedPath(blinded_path);
 	/// let reply_path = None;
 	/// # let message = YourCustomMessage {};
-	/// onion_messenger.send_onion_message(path, message, reply_path);
+	/// onion_messenger.send_onion_message(message, destination, reply_path);
 	/// ```
 	///
 	/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
@@ -312,14 +328,13 @@ extension Bindings {
 
 		}
 
-		/// Sends an [`OnionMessage`] with the given `contents` for sending to the destination of
-		/// `path`.
+		/// Sends an [`OnionMessage`] with the given `contents` to `destination`.
 		///
 		/// See [`OnionMessenger`] for example usage.
 		///
 		/// Note that reply_path (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func sendOnionMessage(path: OnionMessagePath, contents: OnionMessageContents, replyPath: BlindedPath)
-			-> Result_NoneSendErrorZ
+		public func sendOnionMessage(contents: OnionMessageContents, destination: Destination, replyPath: BlindedPath)
+			-> Result_SendSuccessSendErrorZ
 		{
 			// native call variable prep
 
@@ -328,7 +343,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOnionMessenger>) in
 					OnionMessenger_send_onion_message(
-						thisArgPointer, path.dynamicallyDangledClone().cType!, contents.activate().cType!,
+						thisArgPointer, contents.activate().cType!, destination.danglingClone().cType!,
 						replyPath.dynamicallyDangledClone().cType!)
 				}
 
@@ -337,7 +352,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneSendErrorZ(
+			let returnValue = Result_SendSuccessSendErrorZ(
 				cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)",
 				anchor: self
 			)

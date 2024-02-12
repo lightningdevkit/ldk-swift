@@ -400,6 +400,51 @@ public class Bindings {
 		return returnValue
 	}
 
+	/// Peel one layer off an incoming onion, returning a [`PendingHTLCInfo`] that contains information
+	/// about the intended next-hop for the HTLC.
+	///
+	/// This does all the relevant context-free checks that LDK requires for payment relay or
+	/// acceptance. If the payment is to be received, and the amount matches the expected amount for
+	/// a given invoice, this indicates the [`msgs::UpdateAddHTLC`], once fully committed in the
+	/// channel, will generate an [`Event::PaymentClaimable`].
+	///
+	/// [`Event::PaymentClaimable`]: crate::events::Event::PaymentClaimable
+	public class func peelPaymentOnion(
+		msg: UpdateAddHTLC, nodeSigner: NodeSigner, logger: Logger, curHeight: UInt32, acceptMppKeysend: Bool,
+		allowSkimmedFees: Bool
+	) -> Result_PendingHTLCInfoInboundHTLCErrZ {
+		// native call variable prep
+
+
+		// native method call
+		let nativeCallResult =
+			withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+
+				withUnsafePointer(to: nodeSigner.activate().cType!) {
+					(nodeSignerPointer: UnsafePointer<LDKNodeSigner>) in
+
+					withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+						peel_payment_onion(
+							msgPointer, nodeSignerPointer, loggerPointer, curHeight, acceptMppKeysend, allowSkimmedFees)
+					}
+
+				}
+
+			}
+
+
+		// cleanup
+
+
+		// return value (do some wrapping)
+		let returnValue = Result_PendingHTLCInfoInboundHTLCErrZ(
+			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
+		try! returnValue.addAnchor(anchor: msg)
+		return returnValue
+	}
+
 	/// Fetches the set of [`InitFeatures`] flags that are provided by or required by
 	/// [`ChannelManager`].
 	public class func providedInitFeatures(config: UserConfig) -> InitFeatures {
@@ -711,42 +756,6 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Derives a per-commitment-transaction public key (eg an htlc key or a delayed_payment key)
-	/// from the base point and the per_commitment_key. This is the public equivalent of
-	/// derive_private_key - using only public keys to derive a public key instead of private keys.
-	public class func derivePublicKey(perCommitmentPoint: [UInt8], basePoint: [UInt8]) -> [UInt8] {
-		// native call variable prep
-
-		let perCommitmentPointPrimitiveWrapper = PublicKey(
-			value: perCommitmentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-		let basePointPrimitiveWrapper = PublicKey(
-			value: basePoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		// native method call
-		let nativeCallResult = derive_public_key(
-			perCommitmentPointPrimitiveWrapper.cType!, basePointPrimitiveWrapper.cType!)
-
-		// cleanup
-
-		// for elided types, we need this
-		perCommitmentPointPrimitiveWrapper.noOpRetain()
-
-		// for elided types, we need this
-		basePointPrimitiveWrapper.noOpRetain()
-
-
-		// return value (do some wrapping)
-		let returnValue = PublicKey(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)"
-		)
-		.getValue()
-
-
-		return returnValue
-	}
-
 	/// Derives a per-commitment-transaction revocation key from its constituent parts.
 	///
 	/// Only the cheating participant owns a valid witness to propagate a revoked
@@ -791,78 +800,28 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Derives a per-commitment-transaction revocation public key from its constituent parts. This is
-	/// the public equivalend of derive_private_revocation_key - using only public keys to derive a
-	/// public key instead of private keys.
-	///
-	/// Only the cheating participant owns a valid witness to propagate a revoked
-	/// commitment transaction, thus per_commitment_point always come from cheater
-	/// and revocation_base_point always come from punisher, which is the broadcaster
-	/// of the transaction spending with this key knowledge.
-	///
-	/// Note that this is infallible iff we trust that at least one of the two input keys are randomly
-	/// generated (ie our own).
-	public class func derivePublicRevocationKey(
-		perCommitmentPoint: [UInt8], countersignatoryRevocationBasePoint: [UInt8]
-	) -> [UInt8] {
-		// native call variable prep
-
-		let perCommitmentPointPrimitiveWrapper = PublicKey(
-			value: perCommitmentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-		let countersignatoryRevocationBasePointPrimitiveWrapper = PublicKey(
-			value: countersignatoryRevocationBasePoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		// native method call
-		let nativeCallResult = derive_public_revocation_key(
-			perCommitmentPointPrimitiveWrapper.cType!, countersignatoryRevocationBasePointPrimitiveWrapper.cType!)
-
-		// cleanup
-
-		// for elided types, we need this
-		perCommitmentPointPrimitiveWrapper.noOpRetain()
-
-		// for elided types, we need this
-		countersignatoryRevocationBasePointPrimitiveWrapper.noOpRetain()
-
-
-		// return value (do some wrapping)
-		let returnValue = PublicKey(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)"
-		)
-		.getValue()
-
-
-		return returnValue
-	}
-
 	/// A script either spendable by the revocation
 	/// key or the broadcaster_delayed_payment_key and satisfying the relative-locktime OP_CSV constrain.
 	/// Encumbering a `to_holder` output on a commitment transaction or 2nd-stage HTLC transactions.
 	public class func getRevokeableRedeemscript(
-		revocationKey: [UInt8], contestDelay: UInt16, broadcasterDelayedPaymentKey: [UInt8]
+		revocationKey: RevocationKey, contestDelay: UInt16, broadcasterDelayedPaymentKey: DelayedPaymentKey
 	) -> [UInt8] {
 		// native call variable prep
 
-		let revocationKeyPrimitiveWrapper = PublicKey(
-			value: revocationKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-		let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(
-			value: broadcasterDelayedPaymentKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
 
 		// native method call
-		let nativeCallResult = get_revokeable_redeemscript(
-			revocationKeyPrimitiveWrapper.cType!, contestDelay, broadcasterDelayedPaymentKeyPrimitiveWrapper.cType!)
+		let nativeCallResult =
+			withUnsafePointer(to: revocationKey.cType!) { (revocationKeyPointer: UnsafePointer<LDKRevocationKey>) in
+
+				withUnsafePointer(to: broadcasterDelayedPaymentKey.cType!) {
+					(broadcasterDelayedPaymentKeyPointer: UnsafePointer<LDKDelayedPaymentKey>) in
+					get_revokeable_redeemscript(revocationKeyPointer, contestDelay, broadcasterDelayedPaymentKeyPointer)
+				}
+
+			}
+
 
 		// cleanup
-
-		// for elided types, we need this
-		revocationKeyPrimitiveWrapper.noOpRetain()
-
-		// for elided types, we need this
-		broadcasterDelayedPaymentKeyPrimitiveWrapper.noOpRetain()
 
 
 		// return value (do some wrapping)
@@ -991,17 +950,12 @@ public class Bindings {
 	/// commitment transaction).
 	public class func buildHtlcTransaction(
 		commitmentTxid: [UInt8], feeratePerKw: UInt32, contestDelay: UInt16, htlc: HTLCOutputInCommitment,
-		channelTypeFeatures: ChannelTypeFeatures, broadcasterDelayedPaymentKey: [UInt8], revocationKey: [UInt8]
+		channelTypeFeatures: ChannelTypeFeatures, broadcasterDelayedPaymentKey: DelayedPaymentKey,
+		revocationKey: RevocationKey
 	) -> [UInt8] {
 		// native call variable prep
 
 		let tupledCommitmentTxid = Bindings.arrayToUInt8Tuple32(array: commitmentTxid)
-
-		let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(
-			value: broadcasterDelayedPaymentKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-		let revocationKeyPrimitiveWrapper = PublicKey(
-			value: revocationKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
 		// native method call
@@ -1012,10 +966,20 @@ public class Bindings {
 
 					withUnsafePointer(to: channelTypeFeatures.cType!) {
 						(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
-						build_htlc_transaction(
-							tupledCommitmentTxidPointer, feeratePerKw, contestDelay, htlcPointer,
-							channelTypeFeaturesPointer, broadcasterDelayedPaymentKeyPrimitiveWrapper.cType!,
-							revocationKeyPrimitiveWrapper.cType!)
+
+						withUnsafePointer(to: broadcasterDelayedPaymentKey.cType!) {
+							(broadcasterDelayedPaymentKeyPointer: UnsafePointer<LDKDelayedPaymentKey>) in
+
+							withUnsafePointer(to: revocationKey.cType!) {
+								(revocationKeyPointer: UnsafePointer<LDKRevocationKey>) in
+								build_htlc_transaction(
+									tupledCommitmentTxidPointer, feeratePerKw, contestDelay, htlcPointer,
+									channelTypeFeaturesPointer, broadcasterDelayedPaymentKeyPointer,
+									revocationKeyPointer)
+							}
+
+						}
+
 					}
 
 				}
@@ -1024,12 +988,6 @@ public class Bindings {
 
 
 		// cleanup
-
-		// for elided types, we need this
-		broadcasterDelayedPaymentKeyPrimitiveWrapper.noOpRetain()
-
-		// for elided types, we need this
-		revocationKeyPrimitiveWrapper.noOpRetain()
 
 
 		// return value (do some wrapping)
@@ -1436,13 +1394,14 @@ public class Bindings {
 	/// Creates an [`OnionMessage`] with the given `contents` for sending to the destination of
 	/// `path`.
 	///
-	/// Returns both the node id of the peer to send the message to and the message itself.
+	/// Returns the node id of the peer to send the message to, the message itself, and any addresses
+	/// need to connect to the first node.
 	///
 	/// Note that reply_path (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func createOnionMessage(
 		entropySource: EntropySource, nodeSigner: NodeSigner, path: OnionMessagePath, contents: OnionMessageContents,
 		replyPath: BlindedPath
-	) -> Result_C2Tuple_PublicKeyOnionMessageZSendErrorZ {
+	) -> Result_C3Tuple_PublicKeyOnionMessageCOption_CVec_SocketAddressZZZSendErrorZ {
 		// native call variable prep
 
 
@@ -1465,7 +1424,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_C2Tuple_PublicKeyOnionMessageZSendErrorZ(
+		let returnValue = Result_C3Tuple_PublicKeyOnionMessageCOption_CVec_SocketAddressZZZSendErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1502,15 +1461,20 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Pays the given [`Bolt11Invoice`], retrying if needed based on [`Retry`].
+	/// Builds the necessary parameters to pay or pre-flight probe the given zero-amount
+	/// [`Bolt11Invoice`] using [`ChannelManager::send_payment`] or
+	/// [`ChannelManager::send_preflight_probes`].
 	///
-	/// [`Bolt11Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
-	/// as the payment is still pending. If the payment succeeds, you must ensure that a second payment
-	/// with the same [`PaymentHash`] is never sent.
+	/// Prior to paying, you must ensure that the [`Bolt11Invoice::payment_hash`] is unique and the
+	/// same [`PaymentHash`] has never been paid before.
 	///
-	/// If you wish to use a different payment idempotency token, see [`pay_invoice_with_id`].
-	public class func payInvoice(invoice: Bolt11Invoice, retryStrategy: Retry, channelmanager: ChannelManager)
-		-> Result_ThirtyTwoBytesPaymentErrorZ
+	/// Will always succeed unless the invoice has an amount specified, in which case
+	/// [`payment_parameters_from_invoice`] should be used.
+	///
+	/// [`ChannelManager::send_payment`]: lightning::ln::channelmanager::ChannelManager::send_payment
+	/// [`ChannelManager::send_preflight_probes`]: lightning::ln::channelmanager::ChannelManager::send_preflight_probes
+	public class func paymentParametersFromZeroAmountInvoice(invoice: Bolt11Invoice, amountMsat: UInt64)
+		-> Result_C3Tuple_ThirtyTwoBytesRecipientOnionFieldsRouteParametersZNoneZ
 	{
 		// native call variable prep
 
@@ -1518,12 +1482,7 @@ public class Bindings {
 		// native method call
 		let nativeCallResult =
 			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					pay_invoice(invoicePointer, retryStrategy.danglingClone().cType!, channelmanagerPointer)
-				}
-
+				payment_parameters_from_zero_amount_invoice(invoicePointer, amountMsat)
 			}
 
 
@@ -1531,89 +1490,35 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_ThirtyTwoBytesPaymentErrorZ(
+		let returnValue = Result_C3Tuple_ThirtyTwoBytesRecipientOnionFieldsRouteParametersZNoneZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
 		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
 		return returnValue
 	}
 
-	/// Pays the given [`Bolt11Invoice`] with a custom idempotency key, retrying if needed based on
-	/// [`Retry`].
+	/// Builds the necessary parameters to pay or pre-flight probe the given [`Bolt11Invoice`] using
+	/// [`ChannelManager::send_payment`] or [`ChannelManager::send_preflight_probes`].
 	///
-	/// Note that idempotency is only guaranteed as long as the payment is still pending. Once the
-	/// payment completes or fails, no idempotency guarantees are made.
+	/// Prior to paying, you must ensure that the [`Bolt11Invoice::payment_hash`] is unique and the
+	/// same [`PaymentHash`] has never been paid before.
 	///
-	/// You should ensure that the [`Bolt11Invoice::payment_hash`] is unique and the same
-	/// [`PaymentHash`] has never been paid before.
+	/// Will always succeed unless the invoice has no amount specified, in which case
+	/// [`payment_parameters_from_zero_amount_invoice`] should be used.
 	///
-	/// See [`pay_invoice`] for a variant which uses the [`PaymentHash`] for the idempotency token.
-	public class func payInvoiceWithId(
-		invoice: Bolt11Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager
-	) -> Result_NonePaymentErrorZ {
-		// native call variable prep
-
-		let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-			value: paymentId, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		// native method call
-		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					pay_invoice_with_id(
-						invoicePointer, paymentIdPrimitiveWrapper.cType!, retryStrategy.danglingClone().cType!,
-						channelmanagerPointer)
-				}
-
-			}
-
-
-		// cleanup
-
-		// for elided types, we need this
-		paymentIdPrimitiveWrapper.noOpRetain()
-
-
-		// return value (do some wrapping)
-		let returnValue = Result_NonePaymentErrorZ(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
-		return returnValue
-	}
-
-	/// Pays the given zero-value [`Bolt11Invoice`] using the given amount, retrying if needed based on
-	/// [`Retry`].
-	///
-	/// [`Bolt11Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
-	/// as the payment is still pending. If the payment succeeds, you must ensure that a second payment
-	/// with the same [`PaymentHash`] is never sent.
-	///
-	/// If you wish to use a different payment idempotency token, see
-	/// [`pay_zero_value_invoice_with_id`].
-	public class func payZeroValueInvoice(
-		invoice: Bolt11Invoice, amountMsats: UInt64, retryStrategy: Retry, channelmanager: ChannelManager
-	) -> Result_ThirtyTwoBytesPaymentErrorZ {
+	/// [`ChannelManager::send_payment`]: lightning::ln::channelmanager::ChannelManager::send_payment
+	/// [`ChannelManager::send_preflight_probes`]: lightning::ln::channelmanager::ChannelManager::send_preflight_probes
+	public class func paymentParametersFromInvoice(invoice: Bolt11Invoice)
+		-> Result_C3Tuple_ThirtyTwoBytesRecipientOnionFieldsRouteParametersZNoneZ
+	{
 		// native call variable prep
 
 
 		// native method call
 		let nativeCallResult =
 			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					pay_zero_value_invoice(
-						invoicePointer, amountMsats, retryStrategy.danglingClone().cType!, channelmanagerPointer)
-				}
-
+				payment_parameters_from_invoice(invoicePointer)
 			}
 
 
@@ -1621,144 +1526,11 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_ThirtyTwoBytesPaymentErrorZ(
+		let returnValue = Result_C3Tuple_ThirtyTwoBytesRecipientOnionFieldsRouteParametersZNoneZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
 		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
-		return returnValue
-	}
-
-	/// Pays the given zero-value [`Bolt11Invoice`] using the given amount and custom idempotency key,
-	/// retrying if needed based on [`Retry`].
-	///
-	/// Note that idempotency is only guaranteed as long as the payment is still pending. Once the
-	/// payment completes or fails, no idempotency guarantees are made.
-	///
-	/// You should ensure that the [`Bolt11Invoice::payment_hash`] is unique and the same
-	/// [`PaymentHash`] has never been paid before.
-	///
-	/// See [`pay_zero_value_invoice`] for a variant which uses the [`PaymentHash`] for the
-	/// idempotency token.
-	public class func payZeroValueInvoiceWithId(
-		invoice: Bolt11Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry,
-		channelmanager: ChannelManager
-	) -> Result_NonePaymentErrorZ {
-		// native call variable prep
-
-		let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-			value: paymentId, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		// native method call
-		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					pay_zero_value_invoice_with_id(
-						invoicePointer, amountMsats, paymentIdPrimitiveWrapper.cType!,
-						retryStrategy.danglingClone().cType!, channelmanagerPointer)
-				}
-
-			}
-
-
-		// cleanup
-
-		// for elided types, we need this
-		paymentIdPrimitiveWrapper.noOpRetain()
-
-
-		// return value (do some wrapping)
-		let returnValue = Result_NonePaymentErrorZ(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
-		return returnValue
-	}
-
-	/// Sends payment probes over all paths of a route that would be used to pay the given invoice.
-	///
-	/// See [`ChannelManager::send_preflight_probes`] for more information.
-	public class func preflightProbeInvoice(
-		invoice: Bolt11Invoice, channelmanager: ChannelManager, liquidityLimitMultiplier: UInt64?
-	) -> Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbingErrorZ {
-		// native call variable prep
-
-		let liquidityLimitMultiplierOption = Option_u64Z(
-			some: liquidityLimitMultiplier, instantiationContext: "Bindings.swift::\(#function):\(#line)"
-		)
-		.danglingClone()
-
-
-		// native method call
-		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					preflight_probe_invoice(
-						invoicePointer, channelmanagerPointer, liquidityLimitMultiplierOption.cType!)
-				}
-
-			}
-
-
-		// cleanup
-
-
-		// return value (do some wrapping)
-		let returnValue = Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbingErrorZ(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
-		return returnValue
-	}
-
-	/// Sends payment probes over all paths of a route that would be used to pay the given zero-value
-	/// invoice using the given amount.
-	///
-	/// See [`ChannelManager::send_preflight_probes`] for more information.
-	public class func preflightProbeZeroValueInvoice(
-		invoice: Bolt11Invoice, amountMsat: UInt64, channelmanager: ChannelManager, liquidityLimitMultiplier: UInt64?
-	) -> Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbingErrorZ {
-		// native call variable prep
-
-		let liquidityLimitMultiplierOption = Option_u64Z(
-			some: liquidityLimitMultiplier, instantiationContext: "Bindings.swift::\(#function):\(#line)"
-		)
-		.danglingClone()
-
-
-		// native method call
-		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
-
-				withUnsafePointer(to: channelmanager.cType!) {
-					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
-					preflight_probe_zero_value_invoice(
-						invoicePointer, amountMsat, channelmanagerPointer, liquidityLimitMultiplierOption.cType!)
-				}
-
-			}
-
-
-		// cleanup
-
-
-		// return value (do some wrapping)
-		let returnValue = Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbingErrorZ(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		try! returnValue.addAnchor(anchor: invoice)
-		try! returnValue.addAnchor(anchor: channelmanager)
 		return returnValue
 	}
 
@@ -2283,19 +2055,19 @@ public class Bindings {
 		UInt8
 	)
 
-	internal typealias UInt8Tuple64 = (
-		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
-		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
-		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
-		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
-	)
-
 	internal typealias UInt8Tuple68 = (
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8
+	)
+
+	internal typealias UInt8Tuple64 = (
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
 	)
 
 	internal typealias UInt8Tuple4 = (UInt8, UInt8, UInt8, UInt8)
@@ -2385,30 +2157,6 @@ public class Bindings {
 		]
 	}
 
-	internal class func arrayToUInt8Tuple64(array: [UInt8]) -> UInt8Tuple64 {
-		return (
-			array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
-			array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18],
-			array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27],
-			array[28], array[29], array[30], array[31], array[32], array[33], array[34], array[35], array[36],
-			array[37], array[38], array[39], array[40], array[41], array[42], array[43], array[44], array[45],
-			array[46], array[47], array[48], array[49], array[50], array[51], array[52], array[53], array[54],
-			array[55], array[56], array[57], array[58], array[59], array[60], array[61], array[62], array[63]
-		)
-	}
-
-	internal class func UInt8Tuple64ToArray(tuple: UInt8Tuple64) -> [UInt8] {
-		return [
-			tuple.0, tuple.1, tuple.2, tuple.3, tuple.4, tuple.5, tuple.6, tuple.7, tuple.8, tuple.9, tuple.10,
-			tuple.11, tuple.12, tuple.13, tuple.14, tuple.15, tuple.16, tuple.17, tuple.18, tuple.19, tuple.20,
-			tuple.21, tuple.22, tuple.23, tuple.24, tuple.25, tuple.26, tuple.27, tuple.28, tuple.29, tuple.30,
-			tuple.31, tuple.32, tuple.33, tuple.34, tuple.35, tuple.36, tuple.37, tuple.38, tuple.39, tuple.40,
-			tuple.41, tuple.42, tuple.43, tuple.44, tuple.45, tuple.46, tuple.47, tuple.48, tuple.49, tuple.50,
-			tuple.51, tuple.52, tuple.53, tuple.54, tuple.55, tuple.56, tuple.57, tuple.58, tuple.59, tuple.60,
-			tuple.61, tuple.62, tuple.63,
-		]
-	}
-
 	internal class func arrayToUInt8Tuple68(array: [UInt8]) -> UInt8Tuple68 {
 		return (
 			array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
@@ -2431,6 +2179,30 @@ public class Bindings {
 			tuple.41, tuple.42, tuple.43, tuple.44, tuple.45, tuple.46, tuple.47, tuple.48, tuple.49, tuple.50,
 			tuple.51, tuple.52, tuple.53, tuple.54, tuple.55, tuple.56, tuple.57, tuple.58, tuple.59, tuple.60,
 			tuple.61, tuple.62, tuple.63, tuple.64, tuple.65, tuple.66, tuple.67,
+		]
+	}
+
+	internal class func arrayToUInt8Tuple64(array: [UInt8]) -> UInt8Tuple64 {
+		return (
+			array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
+			array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18],
+			array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27],
+			array[28], array[29], array[30], array[31], array[32], array[33], array[34], array[35], array[36],
+			array[37], array[38], array[39], array[40], array[41], array[42], array[43], array[44], array[45],
+			array[46], array[47], array[48], array[49], array[50], array[51], array[52], array[53], array[54],
+			array[55], array[56], array[57], array[58], array[59], array[60], array[61], array[62], array[63]
+		)
+	}
+
+	internal class func UInt8Tuple64ToArray(tuple: UInt8Tuple64) -> [UInt8] {
+		return [
+			tuple.0, tuple.1, tuple.2, tuple.3, tuple.4, tuple.5, tuple.6, tuple.7, tuple.8, tuple.9, tuple.10,
+			tuple.11, tuple.12, tuple.13, tuple.14, tuple.15, tuple.16, tuple.17, tuple.18, tuple.19, tuple.20,
+			tuple.21, tuple.22, tuple.23, tuple.24, tuple.25, tuple.26, tuple.27, tuple.28, tuple.29, tuple.30,
+			tuple.31, tuple.32, tuple.33, tuple.34, tuple.35, tuple.36, tuple.37, tuple.38, tuple.39, tuple.40,
+			tuple.41, tuple.42, tuple.43, tuple.44, tuple.45, tuple.46, tuple.47, tuple.48, tuple.49, tuple.50,
+			tuple.51, tuple.52, tuple.53, tuple.54, tuple.55, tuple.56, tuple.57, tuple.58, tuple.59, tuple.60,
+			tuple.61, tuple.62, tuple.63,
 		]
 	}
 
@@ -2564,25 +2336,6 @@ func == (tupleA: Bindings.UInt8Tuple33, tupleB: Bindings.UInt8Tuple33) -> Bool {
 		&& tupleA.32 == tupleB.32
 }
 
-func == (tupleA: Bindings.UInt8Tuple64, tupleB: Bindings.UInt8Tuple64) -> Bool {
-	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
-		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
-		&& tupleA.8 == tupleB.8 && tupleA.9 == tupleB.9 && tupleA.10 == tupleB.10 && tupleA.11 == tupleB.11
-		&& tupleA.12 == tupleB.12 && tupleA.13 == tupleB.13 && tupleA.14 == tupleB.14 && tupleA.15 == tupleB.15
-		&& tupleA.16 == tupleB.16 && tupleA.17 == tupleB.17 && tupleA.18 == tupleB.18 && tupleA.19 == tupleB.19
-		&& tupleA.20 == tupleB.20 && tupleA.21 == tupleB.21 && tupleA.22 == tupleB.22 && tupleA.23 == tupleB.23
-		&& tupleA.24 == tupleB.24 && tupleA.25 == tupleB.25 && tupleA.26 == tupleB.26 && tupleA.27 == tupleB.27
-		&& tupleA.28 == tupleB.28 && tupleA.29 == tupleB.29 && tupleA.30 == tupleB.30 && tupleA.31 == tupleB.31
-		&& tupleA.32 == tupleB.32 && tupleA.33 == tupleB.33 && tupleA.34 == tupleB.34 && tupleA.35 == tupleB.35
-		&& tupleA.36 == tupleB.36 && tupleA.37 == tupleB.37 && tupleA.38 == tupleB.38 && tupleA.39 == tupleB.39
-		&& tupleA.40 == tupleB.40 && tupleA.41 == tupleB.41 && tupleA.42 == tupleB.42 && tupleA.43 == tupleB.43
-		&& tupleA.44 == tupleB.44 && tupleA.45 == tupleB.45 && tupleA.46 == tupleB.46 && tupleA.47 == tupleB.47
-		&& tupleA.48 == tupleB.48 && tupleA.49 == tupleB.49 && tupleA.50 == tupleB.50 && tupleA.51 == tupleB.51
-		&& tupleA.52 == tupleB.52 && tupleA.53 == tupleB.53 && tupleA.54 == tupleB.54 && tupleA.55 == tupleB.55
-		&& tupleA.56 == tupleB.56 && tupleA.57 == tupleB.57 && tupleA.58 == tupleB.58 && tupleA.59 == tupleB.59
-		&& tupleA.60 == tupleB.60 && tupleA.61 == tupleB.61 && tupleA.62 == tupleB.62 && tupleA.63 == tupleB.63
-}
-
 func == (tupleA: Bindings.UInt8Tuple68, tupleB: Bindings.UInt8Tuple68) -> Bool {
 	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
 		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
@@ -2601,6 +2354,25 @@ func == (tupleA: Bindings.UInt8Tuple68, tupleB: Bindings.UInt8Tuple68) -> Bool {
 		&& tupleA.56 == tupleB.56 && tupleA.57 == tupleB.57 && tupleA.58 == tupleB.58 && tupleA.59 == tupleB.59
 		&& tupleA.60 == tupleB.60 && tupleA.61 == tupleB.61 && tupleA.62 == tupleB.62 && tupleA.63 == tupleB.63
 		&& tupleA.64 == tupleB.64 && tupleA.65 == tupleB.65 && tupleA.66 == tupleB.66 && tupleA.67 == tupleB.67
+}
+
+func == (tupleA: Bindings.UInt8Tuple64, tupleB: Bindings.UInt8Tuple64) -> Bool {
+	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
+		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
+		&& tupleA.8 == tupleB.8 && tupleA.9 == tupleB.9 && tupleA.10 == tupleB.10 && tupleA.11 == tupleB.11
+		&& tupleA.12 == tupleB.12 && tupleA.13 == tupleB.13 && tupleA.14 == tupleB.14 && tupleA.15 == tupleB.15
+		&& tupleA.16 == tupleB.16 && tupleA.17 == tupleB.17 && tupleA.18 == tupleB.18 && tupleA.19 == tupleB.19
+		&& tupleA.20 == tupleB.20 && tupleA.21 == tupleB.21 && tupleA.22 == tupleB.22 && tupleA.23 == tupleB.23
+		&& tupleA.24 == tupleB.24 && tupleA.25 == tupleB.25 && tupleA.26 == tupleB.26 && tupleA.27 == tupleB.27
+		&& tupleA.28 == tupleB.28 && tupleA.29 == tupleB.29 && tupleA.30 == tupleB.30 && tupleA.31 == tupleB.31
+		&& tupleA.32 == tupleB.32 && tupleA.33 == tupleB.33 && tupleA.34 == tupleB.34 && tupleA.35 == tupleB.35
+		&& tupleA.36 == tupleB.36 && tupleA.37 == tupleB.37 && tupleA.38 == tupleB.38 && tupleA.39 == tupleB.39
+		&& tupleA.40 == tupleB.40 && tupleA.41 == tupleB.41 && tupleA.42 == tupleB.42 && tupleA.43 == tupleB.43
+		&& tupleA.44 == tupleB.44 && tupleA.45 == tupleB.45 && tupleA.46 == tupleB.46 && tupleA.47 == tupleB.47
+		&& tupleA.48 == tupleB.48 && tupleA.49 == tupleB.49 && tupleA.50 == tupleB.50 && tupleA.51 == tupleB.51
+		&& tupleA.52 == tupleB.52 && tupleA.53 == tupleB.53 && tupleA.54 == tupleB.54 && tupleA.55 == tupleB.55
+		&& tupleA.56 == tupleB.56 && tupleA.57 == tupleB.57 && tupleA.58 == tupleB.58 && tupleA.59 == tupleB.59
+		&& tupleA.60 == tupleB.60 && tupleA.61 == tupleB.61 && tupleA.62 == tupleB.62 && tupleA.63 == tupleB.63
 }
 
 func == (tupleA: Bindings.UInt8Tuple12, tupleB: Bindings.UInt8Tuple12) -> Bool {

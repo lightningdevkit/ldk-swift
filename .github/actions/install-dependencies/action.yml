@@ -22,7 +22,7 @@ runs:
             run: |
                 echo `pwd`
                 mkdir -p ${{ inputs.destination }}/bin
-                git clone --branch 0.0.118-bindings https://github.com/lightningdevkit/rust-lightning ${{ inputs.destination }}/rust-lightning
+                git clone --branch 0.0.121-bindings https://github.com/lightningdevkit/rust-lightning ${{ inputs.destination }}/rust-lightning
                 git clone --branch main https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
         -   name: Install Rust, required targets
             if: ${{ inputs.configureRustNightly == 'true' }}
@@ -51,5 +51,9 @@ runs:
             run: |
                 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
                 pushd ${{ inputs.destination }}/ldk-c-bindings
-                ./genbindings.sh ../rust-lightning true
+                if [ "$RUNNER_OS" == "macOS" ]; then
+                    ./genbindings.sh ../rust-lightning true skip-tests
+                else
+                    ./genbindings.sh ../rust-lightning true
+                fi
                 popd

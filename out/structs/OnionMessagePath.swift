@@ -182,8 +182,72 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Addresses that may be used to connect to [`OnionMessagePath::first_node`].
+		///
+		/// Only needs to be set if a connection to the node is required. [`OnionMessenger`] may use
+		/// this to initiate such a connection.
+		///
+		/// Returns a copy of the field.
+		public func getFirstNodeAddresses() -> [SocketAddress]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKOnionMessagePath>) in
+					OnionMessagePath_get_first_node_addresses(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_CVec_SocketAddressZZ(
+				cType: nativeCallResult, instantiationContext: "OnionMessagePath.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// Addresses that may be used to connect to [`OnionMessagePath::first_node`].
+		///
+		/// Only needs to be set if a connection to the node is required. [`OnionMessenger`] may use
+		/// this to initiate such a connection.
+		public func setFirstNodeAddresses(val: [SocketAddress]?) {
+			// native call variable prep
+
+			let valOption = Option_CVec_SocketAddressZZ(
+				some: val, instantiationContext: "OnionMessagePath.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKOnionMessagePath>) in
+					OnionMessagePath_set_first_node_addresses(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new OnionMessagePath given each field
-		public init(intermediateNodesArg: [[UInt8]], destinationArg: Destination) {
+		public init(
+			intermediateNodesArg: [[UInt8]], destinationArg: Destination, firstNodeAddressesArg: [SocketAddress]?
+		) {
 			// native call variable prep
 
 			let intermediateNodesArgVector = Vec_PublicKeyZ(
@@ -191,10 +255,16 @@ extension Bindings {
 			)
 			.dangle()
 
+			let firstNodeAddressesArgOption = Option_CVec_SocketAddressZZ(
+				some: firstNodeAddressesArg, instantiationContext: "OnionMessagePath.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = OnionMessagePath_new(
-				intermediateNodesArgVector.cType!, destinationArg.danglingClone().cType!)
+				intermediateNodesArgVector.cType!, destinationArg.danglingClone().cType!,
+				firstNodeAddressesArgOption.cType!)
 
 			// cleanup
 
@@ -239,6 +309,32 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = OnionMessagePath(
 				cType: nativeCallResult, instantiationContext: "OnionMessagePath.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns the first node in the path.
+		public func firstNode() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOnionMessagePath>) in
+					OnionMessagePath_first_node(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "OnionMessagePath.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

@@ -287,7 +287,7 @@ extension Bindings {
 
 		/// The revocation point specific to the commitment transaction which was broadcast. Used to
 		/// derive the witnessScript for this output.
-		public func getRevocationPubkey() -> [UInt8] {
+		public func getRevocationPubkey() -> RevocationKey {
 			// native call variable prep
 
 
@@ -303,11 +303,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
+			let returnValue = RevocationKey(
 				cType: nativeCallResult,
 				instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self
 			)
-			.dangle(false).getValue()
+			.dangle(false)
 
 
 			return returnValue
@@ -315,25 +315,20 @@ extension Bindings {
 
 		/// The revocation point specific to the commitment transaction which was broadcast. Used to
 		/// derive the witnessScript for this output.
-		public func setRevocationPubkey(val: [UInt8]) {
+		public func setRevocationPubkey(val: RevocationKey) {
 			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>) in
-					DelayedPaymentOutputDescriptor_set_revocation_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
+					DelayedPaymentOutputDescriptor_set_revocation_pubkey(
+						thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -450,16 +445,12 @@ extension Bindings {
 		/// Constructs a new DelayedPaymentOutputDescriptor given each field
 		public init(
 			outpointArg: OutPoint, perCommitmentPointArg: [UInt8], toSelfDelayArg: UInt16, outputArg: TxOut,
-			revocationPubkeyArg: [UInt8], channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64
+			revocationPubkeyArg: RevocationKey, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64
 		) {
 			// native call variable prep
 
 			let perCommitmentPointArgPrimitiveWrapper = PublicKey(
 				value: perCommitmentPointArg,
-				instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
-
-			let revocationPubkeyArgPrimitiveWrapper = PublicKey(
-				value: revocationPubkeyArg,
 				instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 
 			let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(
@@ -470,16 +461,13 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = DelayedPaymentOutputDescriptor_new(
 				outpointArg.dynamicallyDangledClone().cType!, perCommitmentPointArgPrimitiveWrapper.cType!,
-				toSelfDelayArg, outputArg.danglingClone().cType!, revocationPubkeyArgPrimitiveWrapper.cType!,
+				toSelfDelayArg, outputArg.danglingClone().cType!, revocationPubkeyArg.dynamicallyDangledClone().cType!,
 				channelKeysIdArgPrimitiveWrapper.cType!, channelValueSatoshisArg)
 
 			// cleanup
 
 			// for elided types, we need this
 			perCommitmentPointArgPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			revocationPubkeyArgPrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			channelKeysIdArgPrimitiveWrapper.noOpRetain()

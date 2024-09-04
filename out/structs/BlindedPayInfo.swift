@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// Information needed to route a payment across a [`BlindedPath`].
+/// Information needed to route a payment across a [`BlindedPaymentPath`].
 public typealias BlindedPayInfo = Bindings.BlindedPayInfo
 
 extension Bindings {
 
 
-	/// Information needed to route a payment across a [`BlindedPath`].
+	/// Information needed to route a payment across a [`BlindedPaymentPath`].
 	public class BlindedPayInfo: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

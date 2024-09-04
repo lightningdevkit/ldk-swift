@@ -227,15 +227,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Channel flags
-		public func getFlags() -> UInt8 {
+		/// Flags pertaining to this message.
+		public func getMessageFlags() -> UInt8 {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
-					UnsignedChannelUpdate_get_flags(thisPtrPointer)
+					UnsignedChannelUpdate_get_message_flags(thisPtrPointer)
 				}
 
 
@@ -249,8 +249,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Channel flags
-		public func setFlags(val: UInt8) {
+		/// Flags pertaining to this message.
+		public func setMessageFlags(val: UInt8) {
 			// native call variable prep
 
 
@@ -258,7 +258,54 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
-					UnsignedChannelUpdate_set_flags(thisPtrPointer, val)
+					UnsignedChannelUpdate_set_message_flags(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Flags pertaining to the channel, including to which direction in the channel this update
+		/// applies and whether the direction is currently able to forward HTLCs.
+		public func getChannelFlags() -> UInt8 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+					UnsignedChannelUpdate_get_channel_flags(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Flags pertaining to the channel, including to which direction in the channel this update
+		/// applies and whether the direction is currently able to forward HTLCs.
+		public func setChannelFlags(val: UInt8) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
+					UnsignedChannelUpdate_set_channel_flags(thisPtrPointer, val)
 				}
 
 
@@ -581,9 +628,9 @@ extension Bindings {
 
 		/// Constructs a new UnsignedChannelUpdate given each field
 		public init(
-			chainHashArg: [UInt8], shortChannelIdArg: UInt64, timestampArg: UInt32, flagsArg: UInt8,
-			cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64, htlcMaximumMsatArg: UInt64, feeBaseMsatArg: UInt32,
-			feeProportionalMillionthsArg: UInt32, excessDataArg: [UInt8]
+			chainHashArg: [UInt8], shortChannelIdArg: UInt64, timestampArg: UInt32, messageFlagsArg: UInt8,
+			channelFlagsArg: UInt8, cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64, htlcMaximumMsatArg: UInt64,
+			feeBaseMsatArg: UInt32, feeProportionalMillionthsArg: UInt32, excessDataArg: [UInt8]
 		) {
 			// native call variable prep
 
@@ -598,9 +645,9 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = UnsignedChannelUpdate_new(
-				chainHashArgPrimitiveWrapper.cType!, shortChannelIdArg, timestampArg, flagsArg, cltvExpiryDeltaArg,
-				htlcMinimumMsatArg, htlcMaximumMsatArg, feeBaseMsatArg, feeProportionalMillionthsArg,
-				excessDataArgVector.cType!)
+				chainHashArgPrimitiveWrapper.cType!, shortChannelIdArg, timestampArg, messageFlagsArg, channelFlagsArg,
+				cltvExpiryDeltaArg, htlcMinimumMsatArg, htlcMaximumMsatArg, feeBaseMsatArg,
+				feeProportionalMillionthsArg, excessDataArgVector.cType!)
 
 			// cleanup
 

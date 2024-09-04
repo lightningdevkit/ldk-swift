@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_RouteHintDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::routing::router::RouteHint on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::routing::RouteHint on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_RouteHintDecodeErrorZ = Bindings.Result_RouteHintDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_RouteHintDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::routing::router::RouteHint on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::routing::RouteHint on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_RouteHintDecodeErrorZ: NativeTypeWrapper {
 

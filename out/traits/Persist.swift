@@ -38,7 +38,7 @@ import Foundation
 /// All calls should generally spawn a background task and immediately return
 /// [`ChannelMonitorUpdateStatus::InProgress`]. Once the update completes,
 /// [`ChainMonitor::channel_monitor_updated`] should be called with the corresponding
-/// [`MonitorUpdateId`].
+/// [`ChannelMonitor::get_latest_update_id`] or [`ChannelMonitorUpdate::update_id`].
 ///
 /// Note that unlike the direct [`chain::Watch`] interface,
 /// [`ChainMonitor::channel_monitor_updated`] must be called once for *each* update which occurs.
@@ -97,7 +97,7 @@ extension Bindings {
 	/// All calls should generally spawn a background task and immediately return
 	/// [`ChannelMonitorUpdateStatus::InProgress`]. Once the update completes,
 	/// [`ChainMonitor::channel_monitor_updated`] should be called with the corresponding
-	/// [`MonitorUpdateId`].
+	/// [`ChannelMonitor::get_latest_update_id`] or [`ChannelMonitorUpdate::update_id`].
 	///
 	/// Note that unlike the direct [`chain::Watch`] interface,
 	/// [`ChainMonitor::channel_monitor_updated`] must be called once for *each* update which occurs.
@@ -177,7 +177,7 @@ extension Bindings {
 
 			func persistNewChannelLambda(
 				this_arg: UnsafeRawPointer?, channel_funding_outpoint: LDKOutPoint,
-				data: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId
+				monitor: UnsafePointer<LDKChannelMonitor>
 			) -> LDKChannelMonitorUpdateStatus {
 				let instance: Persist = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Persist::persistNewChannelLambda")
@@ -190,12 +190,10 @@ extension Bindings {
 					channelFundingOutpoint: OutPoint(
 						cType: channel_funding_outpoint,
 						instantiationContext: "Persist.swift::init()::\(#function):\(#line)"),
-					data: ChannelMonitor(
-						cType: data.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"
+					monitor: ChannelMonitor(
+						cType: monitor.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone(),
-					updateId: MonitorUpdateId(
-						cType: update_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"))
+					.dangle().clone())
 
 				// cleanup
 
@@ -207,8 +205,8 @@ extension Bindings {
 			}
 
 			func updatePersistedChannelLambda(
-				this_arg: UnsafeRawPointer?, channel_funding_outpoint: LDKOutPoint, update: LDKChannelMonitorUpdate,
-				data: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId
+				this_arg: UnsafeRawPointer?, channel_funding_outpoint: LDKOutPoint,
+				monitor_update: LDKChannelMonitorUpdate, monitor: UnsafePointer<LDKChannelMonitor>
 			) -> LDKChannelMonitorUpdateStatus {
 				let instance: Persist = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Persist::updatePersistedChannelLambda")
@@ -221,14 +219,12 @@ extension Bindings {
 					channelFundingOutpoint: OutPoint(
 						cType: channel_funding_outpoint,
 						instantiationContext: "Persist.swift::init()::\(#function):\(#line)"),
-					update: ChannelMonitorUpdate(
-						cType: update, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"),
-					data: ChannelMonitor(
-						cType: data.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"
+					monitorUpdate: ChannelMonitorUpdate(
+						cType: monitor_update, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"),
+					monitor: ChannelMonitor(
+						cType: monitor.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone(),
-					updateId: MonitorUpdateId(
-						cType: update_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"))
+					.dangle().clone())
 
 				// cleanup
 
@@ -298,15 +294,16 @@ extension Bindings {
 		/// channel's outpoint (and it is up to you to maintain a correct mapping between the outpoint
 		/// and the stored channel data). Note that you **must** persist every new monitor to disk.
 		///
-		/// The `update_id` is used to identify this call to [`ChainMonitor::channel_monitor_updated`],
-		/// if you return [`ChannelMonitorUpdateStatus::InProgress`].
+		/// The [`ChannelMonitor::get_latest_update_id`] uniquely links this call to [`ChainMonitor::channel_monitor_updated`].
+		/// For [`Persist::persist_new_channel`], it is only necessary to call [`ChainMonitor::channel_monitor_updated`]
+		/// when you return [`ChannelMonitorUpdateStatus::InProgress`].
 		///
 		/// See [`Writeable::write`] on [`ChannelMonitor`] for writing out a `ChannelMonitor`
 		/// and [`ChannelMonitorUpdateStatus`] for requirements when returning errors.
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`Writeable::write`]: crate::util::ser::Writeable::write
-		open func persistNewChannel(channelFundingOutpoint: OutPoint, data: ChannelMonitor, updateId: MonitorUpdateId)
+		open func persistNewChannel(channelFundingOutpoint: OutPoint, monitor: ChannelMonitor)
 			-> ChannelMonitorUpdateStatus
 		{
 
@@ -332,7 +329,9 @@ extension Bindings {
 		/// If an implementer chooses to persist the updates only, they need to make
 		/// sure that all the updates are applied to the `ChannelMonitors` *before*
 		/// the set of channel monitors is given to the `ChannelManager`
-		/// deserialization routine. See [`ChannelMonitor::update_monitor`] for
+		/// deserialization routine. If there are any gaps in the persisted [`ChannelMonitorUpdate`]s,
+		/// implementer can safely ignore [`ChannelMonitorUpdate`]s after the gap and load without them.
+		/// See [`ChannelMonitor::update_monitor`] for
 		/// applying a monitor update to a monitor. If full `ChannelMonitors` are
 		/// persisted, then there is no need to persist individual updates.
 		///
@@ -341,8 +340,10 @@ extension Bindings {
 		/// them in batches. The size of each monitor grows `O(number of state updates)`
 		/// whereas updates are small and `O(1)`.
 		///
-		/// The `update_id` is used to identify this call to [`ChainMonitor::channel_monitor_updated`],
-		/// if you return [`ChannelMonitorUpdateStatus::InProgress`].
+		/// The [`ChannelMonitorUpdate::update_id`] or [`ChannelMonitor::get_latest_update_id`] uniquely
+		/// links this call to [`ChainMonitor::channel_monitor_updated`].
+		/// For [`Persist::update_persisted_channel`], it is only necessary to call [`ChainMonitor::channel_monitor_updated`]
+		/// when a [`ChannelMonitorUpdate`] is provided and when you return [`ChannelMonitorUpdateStatus::InProgress`].
 		///
 		/// See [`Writeable::write`] on [`ChannelMonitor`] for writing out a `ChannelMonitor`,
 		/// [`Writeable::write`] on [`ChannelMonitorUpdate`] for writing out an update, and
@@ -350,10 +351,9 @@ extension Bindings {
 		///
 		/// [`Writeable::write`]: crate::util::ser::Writeable::write
 		///
-		/// Note that update (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that monitor_update (or a relevant inner pointer) may be NULL or all-0s to represent None
 		open func updatePersistedChannel(
-			channelFundingOutpoint: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor,
-			updateId: MonitorUpdateId
+			channelFundingOutpoint: OutPoint, monitorUpdate: ChannelMonitorUpdate, monitor: ChannelMonitor
 		) -> ChannelMonitorUpdateStatus {
 
 			Bindings.print(
@@ -414,27 +414,28 @@ extension Bindings {
 		/// channel's outpoint (and it is up to you to maintain a correct mapping between the outpoint
 		/// and the stored channel data). Note that you **must** persist every new monitor to disk.
 		///
-		/// The `update_id` is used to identify this call to [`ChainMonitor::channel_monitor_updated`],
-		/// if you return [`ChannelMonitorUpdateStatus::InProgress`].
+		/// The [`ChannelMonitor::get_latest_update_id`] uniquely links this call to [`ChainMonitor::channel_monitor_updated`].
+		/// For [`Persist::persist_new_channel`], it is only necessary to call [`ChainMonitor::channel_monitor_updated`]
+		/// when you return [`ChannelMonitorUpdateStatus::InProgress`].
 		///
 		/// See [`Writeable::write`] on [`ChannelMonitor`] for writing out a `ChannelMonitor`
 		/// and [`ChannelMonitorUpdateStatus`] for requirements when returning errors.
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`Writeable::write`]: crate::util::ser::Writeable::write
-		public override func persistNewChannel(
-			channelFundingOutpoint: OutPoint, data: ChannelMonitor, updateId: MonitorUpdateId
-		) -> ChannelMonitorUpdateStatus {
+		public override func persistNewChannel(channelFundingOutpoint: OutPoint, monitor: ChannelMonitor)
+			-> ChannelMonitorUpdateStatus
+		{
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: data.cType!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
+				withUnsafePointer(to: monitor.cType!) { (monitorPointer: UnsafePointer<LDKChannelMonitor>) in
 					self.cType!
 						.persist_new_channel(
-							self.cType!.this_arg, channelFundingOutpoint.dynamicallyDangledClone().cType!, dataPointer,
-							updateId.dynamicallyDangledClone().cType!)
+							self.cType!.this_arg, channelFundingOutpoint.dynamicallyDangledClone().cType!,
+							monitorPointer)
 				}
 
 
@@ -463,7 +464,9 @@ extension Bindings {
 		/// If an implementer chooses to persist the updates only, they need to make
 		/// sure that all the updates are applied to the `ChannelMonitors` *before*
 		/// the set of channel monitors is given to the `ChannelManager`
-		/// deserialization routine. See [`ChannelMonitor::update_monitor`] for
+		/// deserialization routine. If there are any gaps in the persisted [`ChannelMonitorUpdate`]s,
+		/// implementer can safely ignore [`ChannelMonitorUpdate`]s after the gap and load without them.
+		/// See [`ChannelMonitor::update_monitor`] for
 		/// applying a monitor update to a monitor. If full `ChannelMonitors` are
 		/// persisted, then there is no need to persist individual updates.
 		///
@@ -472,8 +475,10 @@ extension Bindings {
 		/// them in batches. The size of each monitor grows `O(number of state updates)`
 		/// whereas updates are small and `O(1)`.
 		///
-		/// The `update_id` is used to identify this call to [`ChainMonitor::channel_monitor_updated`],
-		/// if you return [`ChannelMonitorUpdateStatus::InProgress`].
+		/// The [`ChannelMonitorUpdate::update_id`] or [`ChannelMonitor::get_latest_update_id`] uniquely
+		/// links this call to [`ChainMonitor::channel_monitor_updated`].
+		/// For [`Persist::update_persisted_channel`], it is only necessary to call [`ChainMonitor::channel_monitor_updated`]
+		/// when a [`ChannelMonitorUpdate`] is provided and when you return [`ChannelMonitorUpdateStatus::InProgress`].
 		///
 		/// See [`Writeable::write`] on [`ChannelMonitor`] for writing out a `ChannelMonitor`,
 		/// [`Writeable::write`] on [`ChannelMonitorUpdate`] for writing out an update, and
@@ -481,22 +486,20 @@ extension Bindings {
 		///
 		/// [`Writeable::write`]: crate::util::ser::Writeable::write
 		///
-		/// Note that update (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that monitor_update (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public override func updatePersistedChannel(
-			channelFundingOutpoint: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor,
-			updateId: MonitorUpdateId
+			channelFundingOutpoint: OutPoint, monitorUpdate: ChannelMonitorUpdate, monitor: ChannelMonitor
 		) -> ChannelMonitorUpdateStatus {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: data.cType!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
+				withUnsafePointer(to: monitor.cType!) { (monitorPointer: UnsafePointer<LDKChannelMonitor>) in
 					self.cType!
 						.update_persisted_channel(
 							self.cType!.this_arg, channelFundingOutpoint.dynamicallyDangledClone().cType!,
-							update.dynamicallyDangledClone().cType!, dataPointer,
-							updateId.dynamicallyDangledClone().cType!)
+							monitorUpdate.dynamicallyDangledClone().cType!, monitorPointer)
 				}
 
 

@@ -97,6 +97,8 @@ extension Bindings {
 			///
 			/// This primarily exists to track that we need to included a blinded path at the end of our
 			/// [`Route`], even though it doesn't actually add an additional hop in the payment.
+			///
+			/// [`BlindedPayInfo`]: crate::blinded_path::payment::BlindedPayInfo
 			case OneHopBlinded
 
 		}

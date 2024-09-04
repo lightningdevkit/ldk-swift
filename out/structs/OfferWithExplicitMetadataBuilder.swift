@@ -323,7 +323,7 @@ extension Bindings {
 		///
 		/// Successive calls to this method will add another blinded path. Caller is responsible for not
 		/// adding duplicate paths.
-		public func path(path: BlindedPath) {
+		public func path(path: BlindedMessagePath) {
 			// native call variable prep
 
 

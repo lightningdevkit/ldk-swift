@@ -131,6 +131,15 @@ extension Bindings {
 			/// One of our HTLCs timed out in a channel, causing us to force close the channel.
 			case HTLCsTimedOut
 
+			/// Our peer provided a feerate which violated our required minimum (fetched from our
+			/// [`FeeEstimator`] either as [`ConfirmationTarget::MinAllowedAnchorChannelRemoteFee`] or
+			/// [`ConfirmationTarget::MinAllowedNonAnchorChannelRemoteFee`]).
+			///
+			/// [`FeeEstimator`]: crate::chain::chaininterface::FeeEstimator
+			/// [`ConfirmationTarget::MinAllowedAnchorChannelRemoteFee`]: crate::chain::chaininterface::ConfirmationTarget::MinAllowedAnchorChannelRemoteFee
+			/// [`ConfirmationTarget::MinAllowedNonAnchorChannelRemoteFee`]: crate::chain::chaininterface::ConfirmationTarget::MinAllowedNonAnchorChannelRemoteFee
+			case PeerFeerateTooLow
+
 		}
 
 		public func getValueType() -> ClosureReasonType {
@@ -173,6 +182,9 @@ extension Bindings {
 
 				case LDKClosureReason_HTLCsTimedOut:
 					return .HTLCsTimedOut
+
+				case LDKClosureReason_PeerFeerateTooLow:
+					return .PeerFeerateTooLow
 
 				default:
 					Bindings.print("Error: Invalid value type for ClosureReason! Aborting.", severity: .ERROR)
@@ -243,12 +255,17 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new HolderForceClosed-variant ClosureReason
-		public class func initWithHolderForceClosed() -> ClosureReason {
+		public class func initWithHolderForceClosed(broadcastedLatestTxn: Bool?) -> ClosureReason {
 			// native call variable prep
+
+			let broadcastedLatestTxnOption = Option_boolZ(
+				some: broadcastedLatestTxn, instantiationContext: "ClosureReason.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = ClosureReason_holder_force_closed()
+			let nativeCallResult = ClosureReason_holder_force_closed(broadcastedLatestTxnOption.cType!)
 
 			// cleanup
 
@@ -478,6 +495,27 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Utility method to constructs a new PeerFeerateTooLow-variant ClosureReason
+		public class func initWithPeerFeerateTooLow(peerFeerateSatPerKw: UInt32, requiredFeerateSatPerKw: UInt32)
+			-> ClosureReason
+		{
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ClosureReason_peer_feerate_too_low(peerFeerateSatPerKw, requiredFeerateSatPerKw)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ClosureReason(
+				cType: nativeCallResult, instantiationContext: "ClosureReason.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Checks if two ClosureReasons contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		public class func eq(a: ClosureReason, b: ClosureReason) -> Bool {
@@ -500,6 +538,32 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a ClosureReason object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKClosureReason>) in
+					ClosureReason_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "ClosureReason.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue
@@ -567,6 +631,16 @@ extension Bindings {
 				instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self)
 		}
 
+		public func getValueAsHolderForceClosed() -> HolderForceClosed? {
+			if self.cType?.tag != LDKClosureReason_HolderForceClosed {
+				return nil
+			}
+
+			return ClosureReason_LDKHolderForceClosed_Body(
+				cType: self.cType!.holder_force_closed,
+				instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self)
+		}
+
 		public func getValueAsProcessingError() -> ProcessingError? {
 			if self.cType?.tag != LDKClosureReason_ProcessingError {
 				return nil
@@ -575,6 +649,16 @@ extension Bindings {
 			return ClosureReason_LDKProcessingError_Body(
 				cType: self.cType!.processing_error, instantiationContext: "ClosureReason.swift::\(#function):\(#line)",
 				anchor: self)
+		}
+
+		public func getValueAsPeerFeerateTooLow() -> PeerFeerateTooLow? {
+			if self.cType?.tag != LDKClosureReason_PeerFeerateTooLow {
+				return nil
+			}
+
+			return ClosureReason_LDKPeerFeerateTooLow_Body(
+				cType: self.cType!.peer_feerate_too_low,
+				instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self)
 		}
 
 
@@ -682,6 +766,90 @@ extension Bindings {
 
 
 		///
+		internal typealias ClosureReason_LDKHolderForceClosed_Body = HolderForceClosed
+
+
+		///
+		public class HolderForceClosed: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKClosureReason_LDKHolderForceClosed_Body?
+
+			internal init(cType: LDKClosureReason_LDKHolderForceClosed_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKClosureReason_LDKHolderForceClosed_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKClosureReason_LDKHolderForceClosed_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// Whether or not the latest transaction was broadcasted when the channel was force
+			/// closed.
+			///
+			/// Channels closed using [`ChannelManager::force_close_broadcasting_latest_txn`] will have
+			/// this field set to true, whereas channels closed using [`ChannelManager::force_close_without_broadcasting_txn`]
+			/// or force-closed prior to being funded will have this field set to false.
+			///
+			/// This will be `None` for objects generated or written by LDK 0.0.123 and
+			/// earlier.
+			///
+			/// [`ChannelManager::force_close_broadcasting_latest_txn`]: crate::ln::channelmanager::ChannelManager::force_close_broadcasting_latest_txn.
+			/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn.
+			public func getBroadcastedLatestTxn() -> Bool? {
+				// return value (do some wrapping)
+				let returnValue = Option_boolZ(
+					cType: self.cType!.broadcasted_latest_txn,
+					instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
 		internal typealias ClosureReason_LDKProcessingError_Body = ProcessingError
 
 
@@ -745,6 +913,85 @@ extension Bindings {
 					anchor: self
 				)
 				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias ClosureReason_LDKPeerFeerateTooLow_Body = PeerFeerateTooLow
+
+
+		///
+		public class PeerFeerateTooLow: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKClosureReason_LDKPeerFeerateTooLow_Body?
+
+			internal init(cType: LDKClosureReason_LDKPeerFeerateTooLow_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKClosureReason_LDKPeerFeerateTooLow_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKClosureReason_LDKPeerFeerateTooLow_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The feerate on our channel set by our peer.
+			public func getPeerFeerateSatPerKw() -> UInt32 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.peer_feerate_sat_per_kw
+
+				return returnValue
+			}
+
+			/// The required feerate we enforce, from our [`FeeEstimator`].
+			///
+			/// [`FeeEstimator`]: crate::chain::chaininterface::FeeEstimator
+			public func getRequiredFeerateSatPerKw() -> UInt32 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.required_feerate_sat_per_kw
 
 				return returnValue
 			}

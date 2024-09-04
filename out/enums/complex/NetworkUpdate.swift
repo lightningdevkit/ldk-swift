@@ -64,10 +64,6 @@ extension Bindings {
 
 		public enum NetworkUpdateType {
 
-			/// An error indicating a `channel_update` messages should be applied via
-			/// [`NetworkGraph::update_channel`].
-			case ChannelUpdateMessage
-
 			/// An error indicating that a channel failed to route a payment, which should be applied via
 			/// [`NetworkGraph::channel_failed_permanent`] if permanent.
 			case ChannelFailure
@@ -80,9 +76,6 @@ extension Bindings {
 
 		public func getValueType() -> NetworkUpdateType {
 			switch self.cType!.tag {
-				case LDKNetworkUpdate_ChannelUpdateMessage:
-					return .ChannelUpdateMessage
-
 				case LDKNetworkUpdate_ChannelFailure:
 					return .ChannelFailure
 
@@ -126,25 +119,6 @@ extension Bindings {
 					NetworkUpdate_clone(origPointer)
 				}
 
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NetworkUpdate(
-				cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Utility method to constructs a new ChannelUpdateMessage-variant NetworkUpdate
-		public class func initWithChannelUpdateMessage(msg: Bindings.ChannelUpdate) -> NetworkUpdate {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = NetworkUpdate_channel_update_message(msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -280,16 +254,6 @@ extension Bindings {
 		}
 
 
-		public func getValueAsChannelUpdateMessage() -> ChannelUpdateMessage? {
-			if self.cType?.tag != LDKNetworkUpdate_ChannelUpdateMessage {
-				return nil
-			}
-
-			return NetworkUpdate_LDKChannelUpdateMessage_Body(
-				cType: self.cType!.channel_update_message,
-				instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self)
-		}
-
 		public func getValueAsChannelFailure() -> ChannelFailure? {
 			if self.cType?.tag != LDKNetworkUpdate_ChannelFailure {
 				return nil
@@ -334,77 +298,6 @@ extension Bindings {
 					"Not freeing NetworkUpdate \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
-		}
-
-
-		///
-		internal typealias NetworkUpdate_LDKChannelUpdateMessage_Body = ChannelUpdateMessage
-
-
-		///
-		public class ChannelUpdateMessage: NativeTypeWrapper {
-
-
-			/// Set to false to suppress an individual type's deinit log statements.
-			/// Only applicable when log threshold is set to `.Debug`.
-			public static var enableDeinitLogging = true
-
-			/// Set to true to suspend the freeing of this type's associated Rust memory.
-			/// Should only ever be used for debugging purposes, and will likely be
-			/// deprecated soon.
-			public static var suspendFreedom = false
-
-			private static var instanceCounter: UInt = 0
-			internal let instanceNumber: UInt
-
-			internal var cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body?
-
-			internal init(cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, instantiationContext: String) {
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				self.cType = cType
-
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			}
-
-			internal init(
-				cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, instantiationContext: String,
-				anchor: NativeTypeWrapper
-			) {
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				self.cType = cType
-
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-				self.dangling = true
-				try! self.addAnchor(anchor: anchor)
-			}
-
-			internal init(
-				cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, instantiationContext: String,
-				anchor: NativeTypeWrapper, dangle: Bool = false
-			) {
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				self.cType = cType
-
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-				self.dangling = dangle
-				try! self.addAnchor(anchor: anchor)
-			}
-
-
-			/// The update to apply via [`NetworkGraph::update_channel`].
-			public func getMsg() -> Bindings.ChannelUpdate {
-				// return value (do some wrapping)
-				let returnValue = Bindings.ChannelUpdate(
-					cType: self.cType!.msg, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)",
-					anchor: self)
-
-				return returnValue
-			}
-
-
 		}
 
 

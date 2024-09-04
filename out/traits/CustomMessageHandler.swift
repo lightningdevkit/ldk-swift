@@ -137,6 +137,61 @@ extension Bindings {
 				return returnValue
 			}
 
+			func peerDisconnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::peerDisconnectedLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.peerDisconnected(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func peerConnectedLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKInit>, inbound: Bool
+			) -> LDKCResult_NoneNoneZ {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::peerConnectedLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.peerConnected(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: BindingsInit(
+						cType: msg.pointee,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone(), inbound: inbound)
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
 				let instance: CustomMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedNodeFeaturesLambda")
@@ -205,6 +260,8 @@ extension Bindings {
 				this_arg: thisArg,
 				handle_custom_message: handleCustomMessageLambda,
 				get_and_clear_pending_msg: getAndClearPendingMsgLambda,
+				peer_disconnected: peerDisconnectedLambda,
+				peer_connected: peerConnectedLambda,
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
 				CustomMessageReader: customMessageReader.activate().cType!,
@@ -231,6 +288,28 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: CustomMessageHandler::getAndClearPendingMsg MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Indicates a peer disconnected.
+		open func peerDisconnected(theirNodeId: [UInt8]) {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::peerDisconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle a peer connecting.
+		///
+		/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
+		/// with us. Implementors should be somewhat conservative about doing so, however, as other
+		/// message handlers may still wish to communicate with this peer.
+		open func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::peerConnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -353,6 +432,63 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
+
+			return returnValue
+		}
+
+		/// Indicates a peer disconnected.
+		public override func peerDisconnected(theirNodeId: [UInt8]) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.peer_disconnected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle a peer connecting.
+		///
+		/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
+		/// with us. Implementors should be somewhat conservative about doing so, however, as other
+		/// message handlers may still wish to communicate with this peer.
+		public override func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKInit>) in
+					self.cType!
+						.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer, inbound)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 			return returnValue
 		}

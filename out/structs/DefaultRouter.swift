@@ -3,12 +3,22 @@
 #endif
 
 /// A [`Router`] implemented using [`find_route`].
+///
+/// # Privacy
+///
+/// Implements [`MessageRouter`] by delegating to [`DefaultMessageRouter`]. See those docs for
+/// privacy implications.
 public typealias DefaultRouter = Bindings.DefaultRouter
 
 extension Bindings {
 
 
 	/// A [`Router`] implemented using [`find_route`].
+	///
+	/// # Privacy
+	///
+	/// Implements [`MessageRouter`] by delegating to [`DefaultMessageRouter`]. See those docs for
+	/// privacy implications.
 	public class DefaultRouter: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

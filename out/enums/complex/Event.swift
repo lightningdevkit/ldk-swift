@@ -69,9 +69,27 @@ extension Bindings {
 			/// Note that *all inputs* in the funding transaction must spend SegWit outputs or your
 			/// counterparty can steal your funds!
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`), but won't be persisted across restarts.
+			///
 			/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 			/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
 			case FundingGenerationReady
+
+			/// Used to indicate that the counterparty node has provided the signature(s) required to
+			/// recover our funds in case they go offline.
+			///
+			/// It is safe (and your responsibility) to broadcast the funding transaction upon receiving this
+			/// event.
+			///
+			/// This event is only emitted if you called
+			/// [`ChannelManager::unsafe_manual_funding_transaction_generated`] instead of
+			/// [`ChannelManager::funding_transaction_generated`].
+			///
+			/// [`ChannelManager::unsafe_manual_funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::unsafe_manual_funding_transaction_generated
+			/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
+			case FundingTxBroadcastSafe
 
 			/// Indicates that we've been offered a payment and it needs to be claimed via calling
 			/// [`ChannelManager::claim_funds`] with the preimage given in [`PaymentPurpose`].
@@ -102,6 +120,10 @@ extension Bindings {
 			/// # Note
 			/// This event used to be called `PaymentReceived` in LDK versions 0.0.112 and earlier.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			/// [`ChannelManager::claim_funds_with_known_custom_tlvs`]: crate::ln::channelmanager::ChannelManager::claim_funds_with_known_custom_tlvs
 			/// [`FailureCode::InvalidOnionPayload`]: crate::ln::channelmanager::FailureCode::InvalidOnionPayload
@@ -122,6 +144,10 @@ extension Bindings {
 			/// [`ChannelManager::claim_funds`] twice for the same [`Event::PaymentClaimable`] you may get
 			/// multiple `PaymentClaimed` events.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			case PaymentClaimed
 
@@ -134,27 +160,45 @@ extension Bindings {
 			/// This event will not be generated for onion message forwards; only for sends including
 			/// replies. Handlers should connect to the node otherwise any buffered messages may be lost.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event won't be replayed after failures-to-handle
+			/// (i.e., the event handler returning `Err(ReplayEvent ())`), and also won't be persisted
+			/// across restarts.
+			///
 			/// [`OnionMessage`]: msgs::OnionMessage
 			/// [`MessageRouter`]: crate::onion_message::messenger::MessageRouter
 			/// [`Destination`]: crate::onion_message::messenger::Destination
 			/// [`OnionMessageHandler`]: crate::ln::msgs::OnionMessageHandler
 			case ConnectionNeeded
 
-			/// Indicates a request for an invoice failed to yield a response in a reasonable amount of time
-			/// or was explicitly abandoned by [`ChannelManager::abandon_payment`]. This may be for an
-			/// [`InvoiceRequest`] sent for an [`Offer`] or for a [`Refund`] that hasn't been redeemed.
+			/// Indicates a [`Bolt12Invoice`] in response to an [`InvoiceRequest`] or a [`Refund`] was
+			/// received.
 			///
-			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+			/// This event will only be generated if [`UserConfig::manually_handle_bolt12_invoices`] is set.
+			/// Use [`ChannelManager::send_payment_for_bolt12_invoice`] to pay the invoice or
+			/// [`ChannelManager::abandon_payment`] to abandon the associated payment. See those docs for
+			/// further details.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
-			/// [`Offer`]: crate::offers::offer::Offer
 			/// [`Refund`]: crate::offers::refund::Refund
-			case InvoiceRequestFailed
+			/// [`UserConfig::manually_handle_bolt12_invoices`]: crate::util::config::UserConfig::manually_handle_bolt12_invoices
+			/// [`ChannelManager::send_payment_for_bolt12_invoice`]: crate::ln::channelmanager::ChannelManager::send_payment_for_bolt12_invoice
+			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+			case InvoiceReceived
 
 			/// Indicates an outbound payment we made succeeded (i.e. it made it all the way to its target
 			/// and we got back the payment preimage for it).
 			///
 			/// Note for MPP payments: in rare cases, this event may be preceded by a `PaymentPathFailed`
 			/// event. In this situation, you SHOULD treat this payment as having succeeded.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case PaymentSent
 
 			/// Indicates an outbound payment failed. Individual [`Event::PaymentPathFailed`] events
@@ -169,6 +213,10 @@ extension Bindings {
 			/// received and processed. In this case, the [`Event::PaymentFailed`] event MUST be ignored,
 			/// and the payment MUST be treated as having succeeded.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`Retry`]: crate::ln::channelmanager::Retry
 			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 			case PaymentFailed
@@ -177,6 +225,10 @@ extension Bindings {
 			///
 			/// Always generated after [`Event::PaymentSent`] and thus useful for scoring channels. See
 			/// [`Event::PaymentSent`] for obtaining the payment preimage.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case PaymentPathSuccessful
 
 			/// Indicates an outbound HTLC we sent failed, likely due to an intermediary node being unable to
@@ -188,17 +240,33 @@ extension Bindings {
 			/// See [`ChannelManager::abandon_payment`] for giving up on this payment before its retries have
 			/// been exhausted.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 			case PaymentPathFailed
 
 			/// Indicates that a probe payment we sent returned successful, i.e., only failed at the destination.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case ProbeSuccessful
 
 			/// Indicates that a probe payment we sent failed at an intermediary node on the path.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case ProbeFailed
 
 			/// Used to indicate that [`ChannelManager::process_pending_htlc_forwards`] should be called at
 			/// a time in the future.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be regenerated after restarts.
 			///
 			/// [`ChannelManager::process_pending_htlc_forwards`]: crate::ln::channelmanager::ChannelManager::process_pending_htlc_forwards
 			case PendingHTLCsForwardable
@@ -210,6 +278,10 @@ extension Bindings {
 			/// [`ChannelManager::forward_intercepted_htlc`] or
 			/// [`ChannelManager::fail_intercepted_htlc`] MUST be called in response to this event. See
 			/// their docs for more information.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			///
 			/// [`ChannelManager::get_intercept_scid`]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
 			/// [`UserConfig::accept_intercept_htlcs`]: crate::util::config::UserConfig::accept_intercept_htlcs
@@ -227,11 +299,19 @@ extension Bindings {
 			/// You may hand them to the [`OutputSweeper`] utility which will store and (re-)generate spending
 			/// transactions for you.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			///
 			/// [`OutputSweeper`]: crate::util::sweep::OutputSweeper
 			case SpendableOutputs
 
 			/// This event is generated when a payment has been successfully forwarded through us and a
 			/// forwarding fee earned.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case PaymentForwarded
 
 			/// Used to indicate that a channel with the given `channel_id` is being opened and pending
@@ -240,12 +320,20 @@ extension Bindings {
 			/// This event is emitted when the funding transaction has been signed and is broadcast to the
 			/// network. For 0conf channels it will be immediately followed by the corresponding
 			/// [`Event::ChannelReady`] event.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case ChannelPending
 
 			/// Used to indicate that a channel with the given `channel_id` is ready to
 			/// be used. This event is emitted either when the funding transaction has been confirmed
 			/// on-chain, or, in case of a 0conf channel, when both parties have confirmed the channel
 			/// establishment.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case ChannelReady
 
 			/// Used to indicate that a channel that got past the initial handshake with the given `channel_id` is in the
@@ -257,12 +345,20 @@ extension Bindings {
 			///
 			/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
 			/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case ChannelClosed
 
 			/// Used to indicate to the user that they can abandon the funding transaction and recycle the
 			/// inputs for another purpose.
 			///
 			/// This event is not guaranteed to be generated for channels that are closed due to a restart.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case DiscardFunding
 
 			/// Indicates a request to open a new channel by a peer.
@@ -273,6 +369,10 @@ extension Bindings {
 			///
 			/// The event is only triggered when a new open channel request is received and the
 			/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			///
 			/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
 			/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
@@ -291,6 +391,10 @@ extension Bindings {
 			///
 			/// This event, however, does not get generated if an HTLC fails to meet the forwarding
 			/// requirements (i.e. insufficient fees paid, or a CLTV that is too soon).
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
 			case HTLCHandlingFailed
 
 			/// Indicates that a transaction originating from LDK needs to have its fee bumped. This event
@@ -300,8 +404,37 @@ extension Bindings {
 			/// [`ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx`] config flag is set to true.
 			/// It is limited to the scope of channels with anchor outputs.
 			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`), but will only be regenerated as needed after restarts.
+			///
 			/// [`ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx`]: crate::util::config::ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx
 			case BumpTransaction
+
+			/// We received an onion message that is intended to be forwarded to a peer
+			/// that is currently offline. This event will only be generated if the
+			/// `OnionMessenger` was initialized with
+			/// [`OnionMessenger::new_with_offline_peer_interception`], see its docs.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`), but won't be persisted across restarts.
+			///
+			/// [`OnionMessenger::new_with_offline_peer_interception`]: crate::onion_message::messenger::OnionMessenger::new_with_offline_peer_interception
+			case OnionMessageIntercepted
+
+			/// Indicates that an onion message supporting peer has come online and it may
+			/// be time to forward any onion messages that were previously intercepted for
+			/// them. This event will only be generated if the `OnionMessenger` was
+			/// initialized with
+			/// [`OnionMessenger::new_with_offline_peer_interception`], see its docs.
+			///
+			/// # Failure Behavior and Persistence
+			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
+			/// returning `Err(ReplayEvent ())`), but won't be persisted across restarts.
+			///
+			/// [`OnionMessenger::new_with_offline_peer_interception`]: crate::onion_message::messenger::OnionMessenger::new_with_offline_peer_interception
+			case OnionMessagePeerConnected
 
 		}
 
@@ -309,6 +442,9 @@ extension Bindings {
 			switch self.cType!.tag {
 				case LDKEvent_FundingGenerationReady:
 					return .FundingGenerationReady
+
+				case LDKEvent_FundingTxBroadcastSafe:
+					return .FundingTxBroadcastSafe
 
 				case LDKEvent_PaymentClaimable:
 					return .PaymentClaimable
@@ -319,8 +455,8 @@ extension Bindings {
 				case LDKEvent_ConnectionNeeded:
 					return .ConnectionNeeded
 
-				case LDKEvent_InvoiceRequestFailed:
-					return .InvoiceRequestFailed
+				case LDKEvent_InvoiceReceived:
+					return .InvoiceReceived
 
 				case LDKEvent_PaymentSent:
 					return .PaymentSent
@@ -372,6 +508,12 @@ extension Bindings {
 
 				case LDKEvent_BumpTransaction:
 					return .BumpTransaction
+
+				case LDKEvent_OnionMessageIntercepted:
+					return .OnionMessageIntercepted
+
+				case LDKEvent_OnionMessagePeerConnected:
+					return .OnionMessagePeerConnected
 
 				default:
 					Bindings.print("Error: Invalid value type for Event! Aborting.", severity: .ERROR)
@@ -463,6 +605,42 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Utility method to constructs a new FundingTxBroadcastSafe-variant Event
+		public class func initWithFundingTxBroadcastSafe(
+			channelId: Bindings.ChannelId, userChannelId: [UInt8], fundingTxo: Bindings.OutPoint,
+			counterpartyNodeId: [UInt8], formerTemporaryChannelId: Bindings.ChannelId
+		) -> Event {
+			// native call variable prep
+
+			let userChannelIdPrimitiveWrapper = U128(
+				value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
+				value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Event_funding_tx_broadcast_safe(
+				channelId.dynamicallyDangledClone().cType!, userChannelIdPrimitiveWrapper.cType!,
+				fundingTxo.dynamicallyDangledClone().cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
+				formerTemporaryChannelId.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			userChannelIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Utility method to constructs a new PaymentClaimable-variant Event
 		public class func initWithPaymentClaimable(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], onionFields: Bindings.RecipientOnionFields,
@@ -514,7 +692,7 @@ extension Bindings {
 		/// Utility method to constructs a new PaymentClaimed-variant Event
 		public class func initWithPaymentClaimed(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose,
-			htlcs: [ClaimedHTLC], senderIntendedTotalMsat: UInt64?
+			htlcs: [ClaimedHTLC], senderIntendedTotalMsat: UInt64?, onionFields: Bindings.RecipientOnionFields
 		) -> Event {
 			// native call variable prep
 
@@ -536,7 +714,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_payment_claimed(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, amountMsat,
-				purpose.danglingClone().cType!, htlcsVector.cType!, senderIntendedTotalMsatOption.cType!)
+				purpose.danglingClone().cType!, htlcsVector.cType!, senderIntendedTotalMsatOption.cType!,
+				onionFields.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -587,16 +766,25 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Utility method to constructs a new InvoiceRequestFailed-variant Event
-		public class func initWithInvoiceRequestFailed(paymentId: [UInt8]) -> Event {
+		/// Utility method to constructs a new InvoiceReceived-variant Event
+		public class func initWithInvoiceReceived(
+			paymentId: [UInt8], invoice: Bindings.Bolt12Invoice, context: OffersContext?, responder: Bindings.Responder
+		) -> Event {
 			// native call variable prep
 
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
+			let contextOption = Option_OffersContextZ(
+				some: context, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
-			let nativeCallResult = Event_invoice_request_failed(paymentIdPrimitiveWrapper.cType!)
+			let nativeCallResult = Event_invoice_received(
+				paymentIdPrimitiveWrapper.cType!, invoice.dynamicallyDangledClone().cType!, contextOption.cType!,
+				responder.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -656,16 +844,18 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new PaymentFailed-variant Event
-		public class func initWithPaymentFailed(paymentId: [UInt8], paymentHash: [UInt8], reason: PaymentFailureReason?)
-			-> Event
-		{
+		public class func initWithPaymentFailed(
+			paymentId: [UInt8], paymentHash: [UInt8]?, reason: PaymentFailureReason?
+		) -> Event {
 			// native call variable prep
 
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
-			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let paymentHashOption = Option_ThirtyTwoBytesZ(
+				some: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let reasonOption = Option_PaymentFailureReasonZ(
 				some: reason, instantiationContext: "Event.swift::\(#function):\(#line)"
@@ -675,15 +865,12 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Event_payment_failed(
-				paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, reasonOption.cType!)
+				paymentIdPrimitiveWrapper.cType!, paymentHashOption.cType!, reasonOption.cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			paymentIdPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			paymentHashPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1081,23 +1268,15 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new DiscardFunding-variant Event
-		public class func initWithDiscardFunding(channelId: Bindings.ChannelId, transaction: [UInt8]) -> Event {
+		public class func initWithDiscardFunding(channelId: Bindings.ChannelId, fundingInfo: FundingInfo) -> Event {
 			// native call variable prep
-
-			let transactionPrimitiveWrapper = Transaction(
-				value: transaction, instantiationContext: "Event.swift::\(#function):\(#line)"
-			)
-			.dangle()
 
 
 			// native method call
 			let nativeCallResult = Event_discard_funding(
-				channelId.dynamicallyDangledClone().cType!, transactionPrimitiveWrapper.cType!)
+				channelId.dynamicallyDangledClone().cType!, fundingInfo.danglingClone().cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			transactionPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1110,7 +1289,8 @@ extension Bindings {
 		/// Utility method to constructs a new OpenChannelRequest-variant Event
 		public class func initWithOpenChannelRequest(
 			temporaryChannelId: Bindings.ChannelId, counterpartyNodeId: [UInt8], fundingSatoshis: UInt64,
-			pushMsat: UInt64, channelType: Bindings.ChannelTypeFeatures
+			pushMsat: UInt64, channelType: Bindings.ChannelTypeFeatures, isAnnounced: Bool,
+			params: Bindings.ChannelParameters
 		) -> Event {
 			// native call variable prep
 
@@ -1121,7 +1301,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_open_channel_request(
 				temporaryChannelId.dynamicallyDangledClone().cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
-				fundingSatoshis, pushMsat, channelType.dynamicallyDangledClone().cType!)
+				fundingSatoshis, pushMsat, channelType.dynamicallyDangledClone().cType!, isAnnounced,
+				params.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -1166,6 +1347,56 @@ extension Bindings {
 			let nativeCallResult = Event_bump_transaction(a.danglingClone().cType!)
 
 			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new OnionMessageIntercepted-variant Event
+		public class func initWithOnionMessageIntercepted(peerNodeId: [UInt8], message: Bindings.OnionMessage) -> Event
+		{
+			// native call variable prep
+
+			let peerNodeIdPrimitiveWrapper = PublicKey(
+				value: peerNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Event_onion_message_intercepted(
+				peerNodeIdPrimitiveWrapper.cType!, message.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			peerNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new OnionMessagePeerConnected-variant Event
+		public class func initWithOnionMessagePeerConnected(peerNodeId: [UInt8]) -> Event {
+			// native call variable prep
+
+			let peerNodeIdPrimitiveWrapper = PublicKey(
+				value: peerNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Event_onion_message_peer_connected(peerNodeIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			peerNodeIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1262,6 +1493,16 @@ extension Bindings {
 				anchor: self)
 		}
 
+		public func getValueAsFundingTxBroadcastSafe() -> FundingTxBroadcastSafe? {
+			if self.cType?.tag != LDKEvent_FundingTxBroadcastSafe {
+				return nil
+			}
+
+			return Event_LDKFundingTxBroadcastSafe_Body(
+				cType: self.cType!.funding_tx_broadcast_safe,
+				instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+		}
+
 		public func getValueAsPaymentClaimable() -> PaymentClaimable? {
 			if self.cType?.tag != LDKEvent_PaymentClaimable {
 				return nil
@@ -1292,13 +1533,13 @@ extension Bindings {
 				anchor: self)
 		}
 
-		public func getValueAsInvoiceRequestFailed() -> InvoiceRequestFailed? {
-			if self.cType?.tag != LDKEvent_InvoiceRequestFailed {
+		public func getValueAsInvoiceReceived() -> InvoiceReceived? {
+			if self.cType?.tag != LDKEvent_InvoiceReceived {
 				return nil
 			}
 
-			return Event_LDKInvoiceRequestFailed_Body(
-				cType: self.cType!.invoice_request_failed, instantiationContext: "Event.swift::\(#function):\(#line)",
+			return Event_LDKInvoiceReceived_Body(
+				cType: self.cType!.invoice_received, instantiationContext: "Event.swift::\(#function):\(#line)",
 				anchor: self)
 		}
 
@@ -1472,6 +1713,26 @@ extension Bindings {
 				anchor: self)
 		}
 
+		public func getValueAsOnionMessageIntercepted() -> OnionMessageIntercepted? {
+			if self.cType?.tag != LDKEvent_OnionMessageIntercepted {
+				return nil
+			}
+
+			return Event_LDKOnionMessageIntercepted_Body(
+				cType: self.cType!.onion_message_intercepted,
+				instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsOnionMessagePeerConnected() -> OnionMessagePeerConnected? {
+			if self.cType?.tag != LDKEvent_OnionMessagePeerConnected {
+				return nil
+			}
+
+			return Event_LDKOnionMessagePeerConnected_Body(
+				cType: self.cType!.onion_message_peer_connected,
+				instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+		}
+
 
 		internal func danglingClone() -> Event {
 			let dangledClone = self.clone()
@@ -1617,6 +1878,122 @@ extension Bindings {
 					anchor: self
 				)
 				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKFundingTxBroadcastSafe_Body = FundingTxBroadcastSafe
+
+
+		///
+		public class FundingTxBroadcastSafe: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKFundingTxBroadcastSafe_Body?
+
+			internal init(cType: LDKEvent_LDKFundingTxBroadcastSafe_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKFundingTxBroadcastSafe_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKFundingTxBroadcastSafe_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The `channel_id` indicating which channel has reached this stage.
+			public func getChannelId() -> Bindings.ChannelId {
+				// return value (do some wrapping)
+				let returnValue = Bindings.ChannelId(
+					cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+			/// The `user_channel_id` value passed in to [`ChannelManager::create_channel`].
+			///
+			/// [`ChannelManager::create_channel`]: crate::ln::channelmanager::ChannelManager::create_channel
+			public func getUserChannelId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = U128(
+					cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The outpoint of the channel's funding transaction.
+			public func getFundingTxo() -> Bindings.OutPoint {
+				// return value (do some wrapping)
+				let returnValue = Bindings.OutPoint(
+					cType: self.cType!.funding_txo, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+			/// The `node_id` of the channel counterparty.
+			public func getCounterpartyNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The `temporary_channel_id` this channel used to be known by during channel establishment.
+			public func getFormerTemporaryChannelId() -> Bindings.ChannelId {
+				// return value (do some wrapping)
+				let returnValue = Bindings.ChannelId(
+					cType: self.cType!.former_temporary_channel_id,
+					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 				return returnValue
 			}
@@ -1949,6 +2326,21 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// The fields in the onion which were received with each HTLC. Only fields which were
+			/// identical in each HTLC involved in the payment will be included here.
+			///
+			/// Payments received on LDK versions prior to 0.0.124 will have this field unset.
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getOnionFields() -> Bindings.RecipientOnionFields {
+				// return value (do some wrapping)
+				let returnValue = Bindings.RecipientOnionFields(
+					cType: self.cType!.onion_fields, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
 
 		}
 
@@ -2037,11 +2429,11 @@ extension Bindings {
 
 
 		///
-		internal typealias Event_LDKInvoiceRequestFailed_Body = InvoiceRequestFailed
+		internal typealias Event_LDKInvoiceReceived_Body = InvoiceReceived
 
 
 		///
-		public class InvoiceRequestFailed: NativeTypeWrapper {
+		public class InvoiceReceived: NativeTypeWrapper {
 
 
 			/// Set to false to suppress an individual type's deinit log statements.
@@ -2056,9 +2448,9 @@ extension Bindings {
 			private static var instanceCounter: UInt = 0
 			internal let instanceNumber: UInt
 
-			internal var cType: LDKEvent_LDKInvoiceRequestFailed_Body?
+			internal var cType: LDKEvent_LDKInvoiceReceived_Body?
 
-			internal init(cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String) {
+			internal init(cType: LDKEvent_LDKInvoiceReceived_Body, instantiationContext: String) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
 				self.cType = cType
@@ -2067,7 +2459,7 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper
+				cType: LDKEvent_LDKInvoiceReceived_Body, instantiationContext: String, anchor: NativeTypeWrapper
 			) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
@@ -2079,7 +2471,7 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				cType: LDKEvent_LDKInvoiceReceived_Body, instantiationContext: String, anchor: NativeTypeWrapper,
 				dangle: Bool = false
 			) {
 				Self.instanceCounter += 1
@@ -2092,7 +2484,7 @@ extension Bindings {
 			}
 
 
-			/// The `payment_id` to have been associated with payment for the requested invoice.
+			/// The `payment_id` associated with payment for the invoice.
 			public func getPaymentId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(
@@ -2100,6 +2492,45 @@ extension Bindings {
 					anchor: self
 				)
 				.getValue()
+
+				return returnValue
+			}
+
+			/// The invoice to pay.
+			public func getInvoice() -> Bindings.Bolt12Invoice {
+				// return value (do some wrapping)
+				let returnValue = Bindings.Bolt12Invoice(
+					cType: self.cType!.invoice, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+
+				return returnValue
+			}
+
+			/// The context of the [`BlindedMessagePath`] used to send the invoice.
+			///
+			/// [`BlindedMessagePath`]: crate::blinded_path::message::BlindedMessagePath
+			public func getContext() -> OffersContext? {
+				// return value (do some wrapping)
+				let returnValue = Option_OffersContextZ(
+					cType: self.cType!.context, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// A responder for replying with an [`InvoiceError`] if needed.
+			///
+			/// `None` if the invoice wasn't sent with a reply path.
+			///
+			/// [`InvoiceError`]: crate::offers::invoice_error::InvoiceError
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getResponder() -> Bindings.Responder {
+				// return value (do some wrapping)
+				let returnValue = Bindings.Responder(
+					cType: self.cType!.responder, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
 
 				return returnValue
 			}
@@ -2213,6 +2644,8 @@ extension Bindings {
 			/// If the recipient or an intermediate node misbehaves and gives us free money, this may
 			/// overstate the amount paid, though this is unlikely.
 			///
+			/// This is only `None` for payments initiated on LDK versions prior to 0.0.103.
+			///
 			/// [`Route::get_total_fees`]: crate::routing::router::Route::get_total_fees
 			public func getFeePaidMsat() -> UInt64? {
 				// return value (do some wrapping)
@@ -2299,12 +2732,14 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// The hash that was given to [`ChannelManager::send_payment`].
+			/// The hash that was given to [`ChannelManager::send_payment`]. `None` if the payment failed
+			/// before receiving an invoice when paying a BOLT12 [`Offer`].
 			///
 			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-			public func getPaymentHash() -> [UInt8] {
+			/// [`Offer`]: crate::offers::offer::Offer
+			public func getPaymentHash() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2314,7 +2749,8 @@ extension Bindings {
 			}
 
 			/// The reason the payment failed. This is only `None` for events generated or serialized
-			/// by versions prior to 0.0.115.
+			/// by versions prior to 0.0.115, or when downgrading to a version with a reason that was
+			/// added after.
 			public func getReason() -> PaymentFailureReason? {
 				// return value (do some wrapping)
 				let returnValue = Option_PaymentFailureReasonZ(
@@ -3704,13 +4140,11 @@ extension Bindings {
 			}
 
 			/// The full transaction received from the user
-			public func getTransaction() -> [UInt8] {
+			public func getFundingInfo() -> FundingInfo {
 				// return value (do some wrapping)
-				let returnValue = Transaction(
-					cType: self.cType!.transaction, instantiationContext: "Event.swift::\(#function):\(#line)",
-					anchor: self
-				)
-				.getValue()
+				let returnValue = FundingInfo(
+					cType: self.cType!.funding_info, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self)
 
 				return returnValue
 			}
@@ -3852,6 +4286,23 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// True if this channel is (or will be) publicly-announced.
+			public func isAnnounced() -> Bool {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.is_announced
+
+				return returnValue
+			}
+
+			/// Channel parameters given by the counterparty.
+			public func getParams() -> Bindings.ChannelParameters {
+				// return value (do some wrapping)
+				let returnValue = Bindings.ChannelParameters(
+					cType: self.cType!.params, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+
+				return returnValue
+			}
+
 
 		}
 
@@ -3928,6 +4379,162 @@ extension Bindings {
 				let returnValue = HTLCDestination(
 					cType: self.cType!.failed_next_destination,
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKOnionMessageIntercepted_Body = OnionMessageIntercepted
+
+
+		///
+		public class OnionMessageIntercepted: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKOnionMessageIntercepted_Body?
+
+			internal init(cType: LDKEvent_LDKOnionMessageIntercepted_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKOnionMessageIntercepted_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKOnionMessageIntercepted_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node id of the offline peer.
+			public func getPeerNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.peer_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The onion message intended to be forwarded to `peer_node_id`.
+			public func getMessage() -> Bindings.OnionMessage {
+				// return value (do some wrapping)
+				let returnValue = Bindings.OnionMessage(
+					cType: self.cType!.message, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKOnionMessagePeerConnected_Body = OnionMessagePeerConnected
+
+
+		///
+		public class OnionMessagePeerConnected: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKOnionMessagePeerConnected_Body?
+
+			internal init(cType: LDKEvent_LDKOnionMessagePeerConnected_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKOnionMessagePeerConnected_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKOnionMessagePeerConnected_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node id of the peer we just connected to, who advertises support for
+			/// onion messages.
+			public func getPeerNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.peer_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}

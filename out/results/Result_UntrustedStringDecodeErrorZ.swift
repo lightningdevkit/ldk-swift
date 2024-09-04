@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_UntrustedStringDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::util::string::UntrustedString on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::string::UntrustedString on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_UntrustedStringDecodeErrorZ = Bindings.Result_UntrustedStringDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_UntrustedStringDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::util::string::UntrustedString on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::string::UntrustedString on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_UntrustedStringDecodeErrorZ: NativeTypeWrapper {
 

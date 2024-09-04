@@ -9,7 +9,7 @@
 /// Thus, both channel counterparties' HTLC keys will appears in each HTLC output's script.
 ///
 /// [See the BOLT specs]
-/// (https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation)
+/// <https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation>
 /// for more information on key derivation details.
 public typealias HtlcKey = Bindings.HtlcKey
 
@@ -23,7 +23,7 @@ extension Bindings {
 	/// Thus, both channel counterparties' HTLC keys will appears in each HTLC output's script.
 	///
 	/// [See the BOLT specs]
-	/// (https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation)
+	/// <https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation>
 	/// for more information on key derivation details.
 	public class HtlcKey: NativeTypeWrapper {
 

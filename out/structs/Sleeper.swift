@@ -131,6 +131,40 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Constructs a new sleeper from three futures, allowing blocking on all three at once.
+		public class func initWithThreeFutures(futA: Future, futB: Future, futC: Future) -> Sleeper {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: futA.cType!) { (futAPointer: UnsafePointer<LDKFuture>) in
+
+					withUnsafePointer(to: futB.cType!) { (futBPointer: UnsafePointer<LDKFuture>) in
+
+						withUnsafePointer(to: futC.cType!) { (futCPointer: UnsafePointer<LDKFuture>) in
+							Sleeper_from_three_futures(futAPointer, futBPointer, futCPointer)
+						}
+
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Sleeper(
+				cType: nativeCallResult, instantiationContext: "Sleeper.swift::\(#function):\(#line)")
+
+
+			try! returnValue.addAnchor(anchor: futA)
+			try! returnValue.addAnchor(anchor: futB)
+			try! returnValue.addAnchor(anchor: futC)
+			return returnValue
+		}
+
 		/// Constructs a new sleeper on many futures, allowing blocking on all at once.
 		public init(futures: [Future]) {
 			// native call variable prep

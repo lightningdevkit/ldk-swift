@@ -114,6 +114,153 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Duration since the Unix epoch when the invoice was created.
+		public func createdAt() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_created_at(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Duration since
+		/// [`Bolt12Invoice::created_at`]
+		/// when the invoice has expired and therefore should no longer be paid.
+		public func relativeExpiry() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_relative_expiry(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Whether the invoice has expired.
+		public func isExpired() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_is_expired(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Fallback addresses for paying the invoice on-chain, in order of most-preferred to
+		/// least-preferred.
+		public func fallbacks() -> [String] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_fallbacks(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_StrZ(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Features pertaining to paying an invoice.
+		public func invoiceFeatures() -> Bolt12InvoiceFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_invoice_features(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Bolt12InvoiceFeatures(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// The public key corresponding to the key used to sign the invoice.
+		public func signingPubkey() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_signing_pubkey(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// The chains that may be used when paying a requested invoice.
 		///
 		/// From [`Offer::chains`]; `None` if the invoice was created in response to a [`Refund`].
@@ -412,7 +559,7 @@ extension Bindings {
 		/// From [`Offer::paths`] or [`Refund::paths`].
 		///
 		/// [`Offer::paths`]: crate::offers::offer::Offer::paths
-		public func messagePaths() -> [BlindedPath] {
+		public func messagePaths() -> [BlindedMessagePath] {
 			// native call variable prep
 
 
@@ -427,7 +574,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_BlindedPathZ(
+			let returnValue = Vec_BlindedMessagePathZ(
 				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -624,73 +771,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Duration since the Unix epoch when the invoice was created.
-		public func createdAt() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_created_at(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Duration since [`Bolt12Invoice::created_at`] when the invoice has expired and therefore
-		/// should no longer be paid.
-		public func relativeExpiry() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_relative_expiry(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Whether the invoice has expired.
-		public func isExpired() -> Bool {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_is_expired(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// SHA256 hash of the payment preimage that will be given in return for paying the invoice.
 		public func paymentHash() -> [UInt8] {
 			// native call variable prep
@@ -734,58 +814,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Features pertaining to paying an invoice.
-		public func invoiceFeatures() -> Bolt12InvoiceFeatures {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_invoice_features(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Bolt12InvoiceFeatures(
-				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// The public key corresponding to the key used to sign the invoice.
-		public func signingPubkey() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_signing_pubkey(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = PublicKey(
-				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
 
 
 			return returnValue
@@ -843,9 +871,11 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Verifies that the invoice was for a request or refund created using the given key. Returns
-		/// the associated [`PaymentId`] to use when sending the payment.
-		public func verify(key: ExpandedKey) -> Result_ThirtyTwoBytesNoneZ {
+		/// Verifies that the invoice was for a request or refund created using the given key by
+		/// checking the payer metadata from the invoice request.
+		///
+		/// Returns the associated [`PaymentId`] to use when sending the payment.
+		public func verifyUsingMetadata(key: ExpandedKey) -> Result_ThirtyTwoBytesNoneZ {
 			// native call variable prep
 
 
@@ -854,13 +884,55 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
 
 					withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
-						Bolt12Invoice_verify(thisArgPointer, keyPointer)
+						Bolt12Invoice_verify_using_metadata(thisArgPointer, keyPointer)
 					}
 
 				}
 
 
 			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_ThirtyTwoBytesNoneZ(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Verifies that the invoice was for a request or refund created using the given key by
+		/// checking a payment id and nonce included with the [`BlindedMessagePath`] for which the invoice was
+		/// sent through.
+		public func verifyUsingPayerData(paymentId: [UInt8], nonce: Nonce, key: ExpandedKey)
+			-> Result_ThirtyTwoBytesNoneZ
+		{
+			// native call variable prep
+
+			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentId, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+
+					withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
+						Bolt12Invoice_verify_using_payer_data(
+							thisArgPointer, paymentIdPrimitiveWrapper.cType!, nonce.dynamicallyDangledClone().cType!,
+							keyPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -917,6 +989,31 @@ extension Bindings {
 				anchor: self
 			)
 			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a Bolt12Invoice from a byte array, created by Bolt12Invoice_write
+		public class func read(ser: [UInt8]) -> Result_Bolt12InvoiceDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Bolt12Invoice_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_Bolt12InvoiceDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)")
 
 
 			return returnValue

@@ -377,6 +377,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the string representation of a DecodeError object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKDecodeError>) in
+					DecodeError_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 
 		public func getValueAsIo() -> IOError? {
 			if self.cType?.tag != LDKDecodeError_Io {

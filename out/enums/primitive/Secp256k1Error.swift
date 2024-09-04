@@ -47,6 +47,9 @@ extension Bindings {
 		/// The only valid parity values are 0 or 1.
 		case InvalidParityValue
 
+		/// Invalid Elligator Swift Value
+		case InvalidEllSwift
+
 
 		internal init(value: LDKSecp256k1Error) {
 			switch value {
@@ -83,6 +86,9 @@ extension Bindings {
 
 				case LDKSecp256k1Error_InvalidParityValue:
 					self = .InvalidParityValue
+
+				case LDKSecp256k1Error_InvalidEllSwift:
+					self = .InvalidEllSwift
 
 				default:
 					Bindings.print("Error: Invalid value type for Secp256k1Error! Aborting.", severity: .ERROR)
@@ -126,6 +132,9 @@ extension Bindings {
 
 				case .InvalidParityValue:
 					return LDKSecp256k1Error_InvalidParityValue
+
+				case .InvalidEllSwift:
+					return LDKSecp256k1Error_InvalidEllSwift
 
 			}
 		}

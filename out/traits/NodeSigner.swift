@@ -141,7 +141,7 @@ extension Bindings {
 			}
 
 			func signInvoiceLambda(
-				this_arg: UnsafeRawPointer?, hrp_bytes: LDKu8slice, invoice_data: LDKCVec_U5Z, recipient: LDKRecipient
+				this_arg: UnsafeRawPointer?, invoice: UnsafePointer<LDKRawBolt11Invoice>, recipient: LDKRecipient
 			) -> LDKCResult_RecoverableSignatureNoneZ {
 				let instance: NodeSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "NodeSigner::signInvoiceLambda")
@@ -151,14 +151,10 @@ extension Bindings {
 
 				// Swift callback call
 				let swiftCallbackResult = instance.signInvoice(
-					hrpBytes: u8slice(
-						cType: hrp_bytes, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
+					invoice: RawBolt11Invoice(
+						cType: invoice.pointee, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().getValue(),
-					invoiceData: Vec_U5Z(
-						cType: invoice_data, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
-					)
-					.getValue(), recipient: Recipient(value: recipient))
+					.dangle().clone(), recipient: Recipient(value: recipient))
 
 				// cleanup
 
@@ -335,9 +331,7 @@ extension Bindings {
 		/// The secret key used to sign the invoice is dependent on the [`Recipient`].
 		///
 		/// Errors if the [`Recipient`] variant is not supported by the implementation.
-		open func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Recipient)
-			-> Result_RecoverableSignatureNoneZ
-		{
+		open func signInvoice(invoice: RawBolt11Invoice, recipient: Recipient) -> Result_RecoverableSignatureNoneZ {
 
 			Bindings.print(
 				"Error: NodeSigner::signInvoice MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -532,32 +526,20 @@ extension Bindings {
 		/// The secret key used to sign the invoice is dependent on the [`Recipient`].
 		///
 		/// Errors if the [`Recipient`] variant is not supported by the implementation.
-		public override func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Recipient)
+		public override func signInvoice(invoice: RawBolt11Invoice, recipient: Recipient)
 			-> Result_RecoverableSignatureNoneZ
 		{
 			// native call variable prep
 
-			let hrpBytesPrimitiveWrapper = u8slice(
-				value: hrpBytes, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
-
-			let invoiceDataVector = Vec_U5Z(
-				array: invoiceData, instantiationContext: "NodeSigner.swift::\(#function):\(#line)"
-			)
-			.dangle()
-
 
 			// native method call
-			let nativeCallResult = self.cType!
-				.sign_invoice(
-					self.cType!.this_arg, hrpBytesPrimitiveWrapper.cType!, invoiceDataVector.cType!,
-					recipient.getCValue())
+			let nativeCallResult =
+				withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKRawBolt11Invoice>) in
+					self.cType!.sign_invoice(self.cType!.this_arg, invoicePointer, recipient.getCValue())
+				}
+
 
 			// cleanup
-
-			// for elided types, we need this
-			hrpBytesPrimitiveWrapper.noOpRetain()
-
-			// invoiceDataVector.noOpRetain()
 
 
 			// return value (do some wrapping)

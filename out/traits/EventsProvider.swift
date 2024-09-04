@@ -21,8 +21,12 @@ import Foundation
 ///
 /// In order to ensure no [`Event`]s are lost, implementors of this trait will persist [`Event`]s
 /// and replay any unhandled events on startup. An [`Event`] is considered handled when
-/// [`process_pending_events`] returns, thus handlers MUST fully handle [`Event`]s and persist any
-/// relevant changes to disk *before* returning.
+/// [`process_pending_events`] returns `Ok(())`, thus handlers MUST fully handle [`Event`]s and
+/// persist any relevant changes to disk *before* returning `Ok(())`. In case of an error (e.g.,
+/// persistence failure) implementors should return `Err(ReplayEvent())`, signalling to the
+/// [`EventsProvider`] to replay unhandled events on the next invocation (generally immediately).
+/// Note that some events might not be replayed, please refer to the documentation for
+/// the individual [`Event`] variants for more detail.
 ///
 /// Further, because an application may crash between an [`Event`] being handled and the
 /// implementor of this trait being re-serialized, [`Event`] handling must be idempotent - in
@@ -61,8 +65,12 @@ extension Bindings {
 	///
 	/// In order to ensure no [`Event`]s are lost, implementors of this trait will persist [`Event`]s
 	/// and replay any unhandled events on startup. An [`Event`] is considered handled when
-	/// [`process_pending_events`] returns, thus handlers MUST fully handle [`Event`]s and persist any
-	/// relevant changes to disk *before* returning.
+	/// [`process_pending_events`] returns `Ok(())`, thus handlers MUST fully handle [`Event`]s and
+	/// persist any relevant changes to disk *before* returning `Ok(())`. In case of an error (e.g.,
+	/// persistence failure) implementors should return `Err(ReplayEvent())`, signalling to the
+	/// [`EventsProvider`] to replay unhandled events on the next invocation (generally immediately).
+	/// Note that some events might not be replayed, please refer to the documentation for
+	/// the individual [`Event`] variants for more detail.
 	///
 	/// Further, because an application may crash between an [`Event`] being handled and the
 	/// implementor of this trait being re-serialized, [`Event`] handling must be idempotent - in

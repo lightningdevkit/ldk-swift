@@ -177,7 +177,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Derive an old [`WriteableEcdsaChannelSigner`] containing per-channel secrets based on a key derivation parameters.
+		/// Derive an old [`EcdsaChannelSigner`] containing per-channel secrets based on a key derivation parameters.
 		public func deriveChannelKeys(channelValueSatoshis: UInt64, params: [UInt8]) -> InMemorySigner {
 			// native call variable prep
 
@@ -208,7 +208,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Signs the given [`PartiallySignedTransaction`] which spends the given [`SpendableOutputDescriptor`]s.
+		/// Signs the given [`Psbt`] which spends the given [`SpendableOutputDescriptor`]s.
 		/// The resulting inputs will be finalized and the PSBT will be ready for broadcast if there
 		/// are no other inputs that need signing.
 		///

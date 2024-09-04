@@ -104,7 +104,7 @@ extension Bindings {
 
 			func deriveChannelSignerLambda(
 				this_arg: UnsafeRawPointer?, channel_value_satoshis: UInt64, channel_keys_id: LDKThirtyTwoBytes
-			) -> LDKWriteableEcdsaChannelSigner {
+			) -> LDKEcdsaChannelSigner {
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::deriveChannelSignerLambda")
 
@@ -130,7 +130,7 @@ extension Bindings {
 			}
 
 			func readChanSignerLambda(this_arg: UnsafeRawPointer?, reader: LDKu8slice)
-				-> LDKCResult_WriteableEcdsaChannelSignerDecodeErrorZ
+				-> LDKCResult_EcdsaChannelSignerDecodeErrorZ
 			{
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::readChanSignerLambda")
@@ -252,9 +252,7 @@ extension Bindings {
 		/// [`SignerProvider::generate_channel_keys_id`]. Otherwise, an existing `Signer` can be
 		/// re-derived from its `channel_keys_id`, which can be obtained through its trait method
 		/// [`ChannelSigner::channel_keys_id`].
-		open func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8])
-			-> WriteableEcdsaChannelSigner
-		{
+		open func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> EcdsaChannelSigner {
 
 			Bindings.print(
 				"Error: SignerProvider::deriveChannelSigner MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -264,7 +262,7 @@ extension Bindings {
 
 		/// Reads a [`Signer`] for this [`SignerProvider`] from the given input stream.
 		/// This is only called during deserialization of other objects which contain
-		/// [`WriteableEcdsaChannelSigner`]-implementing objects (i.e., [`ChannelMonitor`]s and [`ChannelManager`]s).
+		/// [`EcdsaChannelSigner`]-implementing objects (i.e., [`ChannelMonitor`]s and [`ChannelManager`]s).
 		/// The bytes are exactly those which `<Self::Signer as Writeable>::write()` writes, and
 		/// contain no versioning scheme. You may wish to include your own version prefix and ensure
 		/// you've read all of the provided bytes to ensure no corruption occurred.
@@ -275,7 +273,7 @@ extension Bindings {
 		/// [`Signer`]: Self::EcdsaSigner
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-		open func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
+		open func readChanSigner(reader: [UInt8]) -> Result_EcdsaChannelSignerDecodeErrorZ {
 
 			Bindings.print(
 				"Error: SignerProvider::readChanSigner MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -391,7 +389,7 @@ extension Bindings {
 		/// re-derived from its `channel_keys_id`, which can be obtained through its trait method
 		/// [`ChannelSigner::channel_keys_id`].
 		public override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8])
-			-> WriteableEcdsaChannelSigner
+			-> EcdsaChannelSigner
 		{
 			// native call variable prep
 
@@ -410,7 +408,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(
+			let returnValue = NativelyImplementedEcdsaChannelSigner(
 				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)",
 				anchor: self)
 
@@ -419,7 +417,7 @@ extension Bindings {
 
 		/// Reads a [`Signer`] for this [`SignerProvider`] from the given input stream.
 		/// This is only called during deserialization of other objects which contain
-		/// [`WriteableEcdsaChannelSigner`]-implementing objects (i.e., [`ChannelMonitor`]s and [`ChannelManager`]s).
+		/// [`EcdsaChannelSigner`]-implementing objects (i.e., [`ChannelMonitor`]s and [`ChannelManager`]s).
 		/// The bytes are exactly those which `<Self::Signer as Writeable>::write()` writes, and
 		/// contain no versioning scheme. You may wish to include your own version prefix and ensure
 		/// you've read all of the provided bytes to ensure no corruption occurred.
@@ -430,7 +428,7 @@ extension Bindings {
 		/// [`Signer`]: Self::EcdsaSigner
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-		public override func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
+		public override func readChanSigner(reader: [UInt8]) -> Result_EcdsaChannelSignerDecodeErrorZ {
 			// native call variable prep
 
 			let readerPrimitiveWrapper = u8slice(
@@ -447,7 +445,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_WriteableEcdsaChannelSignerDecodeErrorZ(
+			let returnValue = Result_EcdsaChannelSignerDecodeErrorZ(
 				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 			return returnValue

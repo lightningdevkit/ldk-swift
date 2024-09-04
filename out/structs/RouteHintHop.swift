@@ -67,6 +67,56 @@ extension Bindings {
 		}
 
 
+		/// Serialize the RouteHintHop object into a byte array which can be read by RouteHintHop_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKRouteHintHop>) in
+					RouteHintHop_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a RouteHintHop from a byte array, created by RouteHintHop_write
+		public class func read(ser: [UInt8]) -> Result_RouteHintHopDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = RouteHintHop_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RouteHintHopDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Frees any resources used by the RouteHintHop, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
@@ -492,56 +542,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Serialize the RouteHintHop object into a byte array which can be read by RouteHintHop_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKRouteHintHop>) in
-					RouteHintHop_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a RouteHintHop from a byte array, created by RouteHintHop_write
-		public class func read(ser: [UInt8]) -> Result_RouteHintHopDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = RouteHintHop_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_RouteHintHopDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
 
 
 			return returnValue

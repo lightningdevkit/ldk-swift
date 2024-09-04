@@ -156,8 +156,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new `Description` if `description` is at most 1023 __bytes__ long,
-		/// returns [`CreationError::DescriptionTooLong`] otherwise
+		/// Creates a new `Description` if `description` is at most 1023 * 5 bits (i.e., 639 bytes)
+		/// long, and returns [`CreationError::DescriptionTooLong`] otherwise.
 		///
 		/// Please note that single characters may use more than one byte due to UTF8 encoding.
 		public class func new(description: String) -> Result_DescriptionCreationErrorZ {
@@ -200,6 +200,31 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = UntrustedString(
 				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Get a reference to the underlying description [`UntrustedString`]
+		public func asInner() -> UntrustedString {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKDescription>) in
+					Description_as_inner(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = UntrustedString(
+				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue

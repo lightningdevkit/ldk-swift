@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// An stfu (quiescence) message to be sent by or received from the stfu initiator.
+/// An `stfu` (quiescence) message to be sent by or received from the stfu initiator.
 public typealias Stfu = Bindings.Stfu
 
 extension Bindings {
 
 
-	/// An stfu (quiescence) message to be sent by or received from the stfu initiator.
+	/// An `stfu` (quiescence) message to be sent by or received from the stfu initiator.
 	public class Stfu: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

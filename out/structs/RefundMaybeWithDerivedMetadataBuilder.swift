@@ -168,17 +168,20 @@ extension Bindings {
 		/// different payer id for each refund, assuming a different nonce is used.  Otherwise, the
 		/// provided `node_id` is used for the payer id.
 		///
-		/// Also, sets the metadata when [`RefundBuilder::build`] is called such that it can be used to
-		/// verify that an [`InvoiceRequest`] was produced for the refund given an [`ExpandedKey`].
+		/// Also, sets the metadata when [`RefundBuilder::build`] is called such that it can be used by
+		/// [`Bolt12Invoice::verify_using_metadata`] to determine if the invoice was produced for the
+		/// refund given an [`ExpandedKey`]. However, if [`RefundBuilder::path`] is called, then the
+		/// metadata must be included in each [`BlindedMessagePath`] instead. In this case, use
+		/// [`Bolt12Invoice::verify_using_payer_data`].
 		///
 		/// The `payment_id` is encrypted in the metadata and should be unique. This ensures that only
 		/// one invoice will be paid for the refund and that payments can be uniquely identified.
 		///
-		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+		/// [`Bolt12Invoice::verify_using_metadata`]: crate::offers::invoice::Bolt12Invoice::verify_using_metadata
+		/// [`Bolt12Invoice::verify_using_payer_data`]: crate::offers::invoice::Bolt12Invoice::verify_using_payer_data
 		/// [`ExpandedKey`]: crate::ln::inbound_payment::ExpandedKey
 		public class func derivingPayerId(
-			nodeId: [UInt8], expandedKey: ExpandedKey, entropySource: EntropySource, amountMsats: UInt64,
-			paymentId: [UInt8]
+			nodeId: [UInt8], expandedKey: ExpandedKey, nonce: Nonce, amountMsats: UInt64, paymentId: [UInt8]
 		) -> Result_RefundMaybeWithDerivedMetadataBuilderBolt12SemanticErrorZ {
 			// native call variable prep
 
@@ -195,8 +198,8 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: expandedKey.cType!) { (expandedKeyPointer: UnsafePointer<LDKExpandedKey>) in
 					RefundMaybeWithDerivedMetadataBuilder_deriving_payer_id(
-						nodeIdPrimitiveWrapper.cType!, expandedKeyPointer, entropySource.activate().cType!, amountMsats,
-						paymentIdPrimitiveWrapper.cType!)
+						nodeIdPrimitiveWrapper.cType!, expandedKeyPointer, nonce.dynamicallyDangledClone().cType!,
+						amountMsats, paymentIdPrimitiveWrapper.cType!)
 				}
 
 
@@ -306,7 +309,7 @@ extension Bindings {
 		///
 		/// Successive calls to this method will add another blinded path. Caller is responsible for not
 		/// adding duplicate paths.
-		public func path(path: BlindedPath) {
+		public func path(path: BlindedMessagePath) {
 			// native call variable prep
 
 

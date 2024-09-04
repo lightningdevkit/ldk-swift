@@ -10,7 +10,7 @@ public typealias IntroductionNode = Bindings.IntroductionNode
 
 extension Bindings {
 
-	/// The unblinded node in a [`BlindedPath`].
+	/// The unblinded node in a blinded path.
 	public class IntroductionNode: NativeTypeWrapper {
 
 

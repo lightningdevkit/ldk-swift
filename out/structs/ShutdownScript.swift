@@ -347,6 +347,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the string representation of a ShutdownScript object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKShutdownScript>) in
+					ShutdownScript_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

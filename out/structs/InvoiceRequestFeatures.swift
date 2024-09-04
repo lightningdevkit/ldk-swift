@@ -170,6 +170,55 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the feature set as a list of bytes, in little-endian. This is in reverse byte order
+		/// from most on-the-wire encodings.
+		public func leFlags() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
+					InvoiceRequestFeatures_le_flags(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = u8slice(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle().getValue()
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` has any optional flags set
+		public func supportsAnyOptionalBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
+					InvoiceRequestFeatures_supports_any_optional_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Returns true if this `Features` object contains required features unknown by `other`.
 		public func requiresUnknownBitsFrom() -> Bool {
 			// native call variable prep
@@ -196,6 +245,36 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the set of required features unknown by `other`, as their bit position.
+		public func requiredUnknownBitsFrom() -> [UInt64] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
+
+					withUnsafePointer(to: self.cType!) { (otherPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
+						InvoiceRequestFeatures_required_unknown_bits_from(thisArgPointer, otherPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u64Z(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Returns true if this `Features` object contains unknown feature flags which are set as
 		/// \"required\".
 		public func requiresUnknownBits() -> Bool {
@@ -206,6 +285,28 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
 					InvoiceRequestFeatures_requires_unknown_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` supports any bits which we do not know of
+		public func supportsUnknownBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequestFeatures>) in
+					InvoiceRequestFeatures_supports_unknown_bits(thisArgPointer)
 				}
 
 

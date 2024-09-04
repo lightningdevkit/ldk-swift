@@ -4,8 +4,8 @@
 
 /// Top-level config which holds ChannelHandshakeLimits and ChannelConfig.
 ///
-/// Default::default() provides sane defaults for most configurations
-/// (but currently with 0 relay fees!)
+/// `Default::default()` provides sane defaults for most configurations
+/// (but currently with zero relay fees!)
 public typealias UserConfig = Bindings.UserConfig
 
 extension Bindings {
@@ -13,8 +13,8 @@ extension Bindings {
 
 	/// Top-level config which holds ChannelHandshakeLimits and ChannelConfig.
 	///
-	/// Default::default() provides sane defaults for most configurations
-	/// (but currently with 0 relay fees!)
+	/// `Default::default()` provides sane defaults for most configurations
+	/// (but currently with zero relay fees!)
 	public class UserConfig: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -224,13 +224,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, we will reject any HTLCs which were to be forwarded over private
+		/// If this is set to `false`, we will reject any HTLCs which were to be forwarded over private
 		/// channels. This prevents us from taking on HTLC-forwarding risk when we intend to run as a
 		/// node which is not online reliably.
 		///
 		/// For nodes which are not online reliably, you should set all channels to *not* be announced
-		/// (using [`ChannelHandshakeConfig::announced_channel`] and
-		/// [`ChannelHandshakeLimits::force_announced_channel_preference`]) and set this to false to
+		/// (using [`ChannelHandshakeConfig::announce_for_forwarding`] and
+		/// [`ChannelHandshakeLimits::force_announced_channel_preference`]) and set this to `false` to
 		/// ensure you are not exposed to any forwarding risk.
 		///
 		/// Note that because you cannot change a channel's announced state after creation, there is no
@@ -239,7 +239,7 @@ extension Bindings {
 		/// all your channels and open new ones. For privacy, you should also change your node_id
 		/// (swapping all private and public key material for new ones) at that time.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		public func getAcceptForwardsToPrivChannels() -> Bool {
 			// native call variable prep
 
@@ -261,13 +261,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, we will reject any HTLCs which were to be forwarded over private
+		/// If this is set to `false`, we will reject any HTLCs which were to be forwarded over private
 		/// channels. This prevents us from taking on HTLC-forwarding risk when we intend to run as a
 		/// node which is not online reliably.
 		///
 		/// For nodes which are not online reliably, you should set all channels to *not* be announced
-		/// (using [`ChannelHandshakeConfig::announced_channel`] and
-		/// [`ChannelHandshakeLimits::force_announced_channel_preference`]) and set this to false to
+		/// (using [`ChannelHandshakeConfig::announce_for_forwarding`] and
+		/// [`ChannelHandshakeLimits::force_announced_channel_preference`]) and set this to `false` to
 		/// ensure you are not exposed to any forwarding risk.
 		///
 		/// Note that because you cannot change a channel's announced state after creation, there is no
@@ -276,7 +276,7 @@ extension Bindings {
 		/// all your channels and open new ones. For privacy, you should also change your node_id
 		/// (swapping all private and public key material for new ones) at that time.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		public func setAcceptForwardsToPrivChannels(val: Bool) {
 			// native call variable prep
 
@@ -298,8 +298,9 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, we do not accept inbound requests to open a new channel.
-		/// Default value: true.
+		/// If this is set to `false`, we do not accept inbound requests to open a new channel.
+		///
+		/// Default value: `true`
 		public func getAcceptInboundChannels() -> Bool {
 			// native call variable prep
 
@@ -321,8 +322,9 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, we do not accept inbound requests to open a new channel.
-		/// Default value: true.
+		/// If this is set to `false`, we do not accept inbound requests to open a new channel.
+		///
+		/// Default value: `true`
 		public func setAcceptInboundChannels(val: Bool) {
 			// native call variable prep
 
@@ -344,15 +346,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to true, the user needs to manually accept inbound requests to open a new
+		/// If this is set to `true`, the user needs to manually accept inbound requests to open a new
 		/// channel.
 		///
-		/// When set to true, [`Event::OpenChannelRequest`] will be triggered once a request to open a
+		/// When set to `true`, [`Event::OpenChannelRequest`] will be triggered once a request to open a
 		/// new inbound channel is received through a [`msgs::OpenChannel`] message. In that case, a
 		/// [`msgs::AcceptChannel`] message will not be sent back to the counterparty node unless the
 		/// user explicitly chooses to accept the request.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`Event::OpenChannelRequest`]: crate::events::Event::OpenChannelRequest
 		/// [`msgs::OpenChannel`]: crate::ln::msgs::OpenChannel
@@ -378,15 +380,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to true, the user needs to manually accept inbound requests to open a new
+		/// If this is set to `true`, the user needs to manually accept inbound requests to open a new
 		/// channel.
 		///
-		/// When set to true, [`Event::OpenChannelRequest`] will be triggered once a request to open a
+		/// When set to `true`, [`Event::OpenChannelRequest`] will be triggered once a request to open a
 		/// new inbound channel is received through a [`msgs::OpenChannel`] message. In that case, a
 		/// [`msgs::AcceptChannel`] message will not be sent back to the counterparty node unless the
 		/// user explicitly chooses to accept the request.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`Event::OpenChannelRequest`]: crate::events::Event::OpenChannelRequest
 		/// [`msgs::OpenChannel`]: crate::ln::msgs::OpenChannel
@@ -412,13 +414,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to true, LDK will intercept HTLCs that are attempting to be forwarded over
+		/// If this is set to `true`, LDK will intercept HTLCs that are attempting to be forwarded over
 		/// fake short channel ids generated via [`ChannelManager::get_intercept_scid`]. Upon HTLC
 		/// intercept, LDK will generate an [`Event::HTLCIntercepted`] which MUST be handled by the user.
 		///
-		/// Setting this to true may break backwards compatibility with LDK versions < 0.0.113.
+		/// Setting this to `true` may break backwards compatibility with LDK versions < 0.0.113.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`ChannelManager::get_intercept_scid`]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
 		/// [`Event::HTLCIntercepted`]: crate::events::Event::HTLCIntercepted
@@ -443,13 +445,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to true, LDK will intercept HTLCs that are attempting to be forwarded over
+		/// If this is set to `true`, LDK will intercept HTLCs that are attempting to be forwarded over
 		/// fake short channel ids generated via [`ChannelManager::get_intercept_scid`]. Upon HTLC
 		/// intercept, LDK will generate an [`Event::HTLCIntercepted`] which MUST be handled by the user.
 		///
-		/// Setting this to true may break backwards compatibility with LDK versions < 0.0.113.
+		/// Setting this to `true` may break backwards compatibility with LDK versions < 0.0.113.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`ChannelManager::get_intercept_scid`]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
 		/// [`Event::HTLCIntercepted`]: crate::events::Event::HTLCIntercepted
@@ -474,14 +476,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, when receiving a keysend payment we'll fail it if it has multiple
-		/// parts. If this is set to true, we'll accept the payment.
+		/// If this is set to `false`, when receiving a keysend payment we'll fail it if it has multiple
+		/// parts. If this is set to `true`, we'll accept the payment.
 		///
-		/// Setting this to true will break backwards compatibility upon downgrading to an LDK
-		/// version < 0.0.116 while receiving an MPP keysend. If we have already received an MPP
+		/// Setting this to `true` will break backwards compatibility upon downgrading to an LDK
+		/// version prior to 0.0.116 while receiving an MPP keysend. If we have already received an MPP
 		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		public func getAcceptMppKeysend() -> Bool {
@@ -505,14 +507,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to false, when receiving a keysend payment we'll fail it if it has multiple
-		/// parts. If this is set to true, we'll accept the payment.
+		/// If this is set to `false`, when receiving a keysend payment we'll fail it if it has multiple
+		/// parts. If this is set to `true`, we'll accept the payment.
 		///
-		/// Setting this to true will break backwards compatibility upon downgrading to an LDK
-		/// version < 0.0.116 while receiving an MPP keysend. If we have already received an MPP
+		/// Setting this to `true` will break backwards compatibility upon downgrading to an LDK
+		/// version prior to 0.0.116 while receiving an MPP keysend. If we have already received an MPP
 		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		public func setAcceptMppKeysend(val: Bool) {
@@ -536,11 +538,80 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// If this is set to `true`, the user needs to manually pay [`Bolt12Invoice`]s when received.
+		///
+		/// When set to `true`, [`Event::InvoiceReceived`] will be generated for each received
+		/// [`Bolt12Invoice`] instead of being automatically paid after verification. Use
+		/// [`ChannelManager::send_payment_for_bolt12_invoice`] to pay the invoice or
+		/// [`ChannelManager::abandon_payment`] to abandon the associated payment.
+		///
+		/// Default value: `false`
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		/// [`Event::InvoiceReceived`]: crate::events::Event::InvoiceReceived
+		/// [`ChannelManager::send_payment_for_bolt12_invoice`]: crate::ln::channelmanager::ChannelManager::send_payment_for_bolt12_invoice
+		/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+		public func getManuallyHandleBolt12Invoices() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUserConfig>) in
+					UserConfig_get_manually_handle_bolt12_invoices(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// If this is set to `true`, the user needs to manually pay [`Bolt12Invoice`]s when received.
+		///
+		/// When set to `true`, [`Event::InvoiceReceived`] will be generated for each received
+		/// [`Bolt12Invoice`] instead of being automatically paid after verification. Use
+		/// [`ChannelManager::send_payment_for_bolt12_invoice`] to pay the invoice or
+		/// [`ChannelManager::abandon_payment`] to abandon the associated payment.
+		///
+		/// Default value: `false`
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		/// [`Event::InvoiceReceived`]: crate::events::Event::InvoiceReceived
+		/// [`ChannelManager::send_payment_for_bolt12_invoice`]: crate::ln::channelmanager::ChannelManager::send_payment_for_bolt12_invoice
+		/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+		public func setManuallyHandleBolt12Invoices(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUserConfig>) in
+					UserConfig_set_manually_handle_bolt12_invoices(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new UserConfig given each field
 		public init(
 			channelHandshakeConfigArg: ChannelHandshakeConfig, channelHandshakeLimitsArg: ChannelHandshakeLimits,
 			channelConfigArg: ChannelConfig, acceptForwardsToPrivChannelsArg: Bool, acceptInboundChannelsArg: Bool,
-			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool, acceptMppKeysendArg: Bool
+			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool, acceptMppKeysendArg: Bool,
+			manuallyHandleBolt12InvoicesArg: Bool
 		) {
 			// native call variable prep
 
@@ -550,8 +621,8 @@ extension Bindings {
 				channelHandshakeConfigArg.dynamicallyDangledClone().cType!,
 				channelHandshakeLimitsArg.dynamicallyDangledClone().cType!,
 				channelConfigArg.dynamicallyDangledClone().cType!, acceptForwardsToPrivChannelsArg,
-				acceptInboundChannelsArg, manuallyAcceptInboundChannelsArg, acceptInterceptHtlcsArg, acceptMppKeysendArg
-			)
+				acceptInboundChannelsArg, manuallyAcceptInboundChannelsArg, acceptInterceptHtlcsArg,
+				acceptMppKeysendArg, manuallyHandleBolt12InvoicesArg)
 
 			// cleanup
 

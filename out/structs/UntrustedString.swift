@@ -59,6 +59,57 @@ extension Bindings {
 		}
 
 
+		/// Serialize the UntrustedString object into a byte array which can be read by UntrustedString_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKUntrustedString>) in
+					UntrustedString_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a UntrustedString from a byte array, created by UntrustedString_write
+		public class func read(ser: [UInt8]) -> Result_UntrustedStringDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = UntrustedString_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_UntrustedStringDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Frees any resources used by the UntrustedString, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
@@ -246,15 +297,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Serialize the UntrustedString object into a byte array which can be read by UntrustedString_read
-		public func write() -> [UInt8] {
+		/// Get the string representation of a UntrustedString object
+		public func toStr() -> String {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKUntrustedString>) in
-					UntrustedString_write(objPointer)
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKUntrustedString>) in
+					UntrustedString_to_str(oPointer)
 				}
 
 
@@ -262,36 +313,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
+			let returnValue = Str(
 				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)",
 				anchor: self
 			)
 			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a UntrustedString from a byte array, created by UntrustedString_write
-		public class func read(ser: [UInt8]) -> Result_UntrustedStringDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = UntrustedString_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_UntrustedStringDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
 
 
 			return returnValue

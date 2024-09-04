@@ -183,22 +183,103 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Overrides the next hop's [`msgs::UpdateAddHTLC::blinding_point`]. Set if this HTLC is being
+		/// forwarded within a [`BlindedPaymentPath`] that was concatenated to another blinded path that
+		/// starts at the next hop.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getNextBlindingOverride() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedForward>) in
+					BlindedForward_get_next_blinding_override(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustPrimitiveWrapper
+			// Type: LDKPublicKey
+
+			if nativeCallResult.compressed_form == Bindings.arrayToUInt8Tuple33(array: [UInt8](repeating: 0, count: 33))
+			{
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "BlindedForward.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Overrides the next hop's [`msgs::UpdateAddHTLC::blinding_point`]. Set if this HTLC is being
+		/// forwarded within a [`BlindedPaymentPath`] that was concatenated to another blinded path that
+		/// starts at the next hop.
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setNextBlindingOverride(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "BlindedForward.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKBlindedForward>) in
+					BlindedForward_set_next_blinding_override(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new BlindedForward given each field
-		public init(inboundBlindingPointArg: [UInt8], failureArg: BlindedFailure) {
+		///
+		/// Note that next_blinding_override_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(inboundBlindingPointArg: [UInt8], failureArg: BlindedFailure, nextBlindingOverrideArg: [UInt8]) {
 			// native call variable prep
 
 			let inboundBlindingPointArgPrimitiveWrapper = PublicKey(
 				value: inboundBlindingPointArg, instantiationContext: "BlindedForward.swift::\(#function):\(#line)")
 
+			let nextBlindingOverrideArgPrimitiveWrapper = PublicKey(
+				value: nextBlindingOverrideArg, instantiationContext: "BlindedForward.swift::\(#function):\(#line)")
+
 
 			// native method call
 			let nativeCallResult = BlindedForward_new(
-				inboundBlindingPointArgPrimitiveWrapper.cType!, failureArg.getCValue())
+				inboundBlindingPointArgPrimitiveWrapper.cType!, failureArg.getCValue(),
+				nextBlindingOverrideArgPrimitiveWrapper.cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			inboundBlindingPointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			nextBlindingOverrideArgPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 

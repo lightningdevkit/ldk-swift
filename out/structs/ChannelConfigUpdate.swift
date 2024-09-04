@@ -413,25 +413,6 @@ extension Bindings {
 
 		}
 
-		/// Creates a "default" ChannelConfigUpdate. See struct and individual field documentaiton for details on which values are used.
-		public class func initWithDefault() -> ChannelConfigUpdate {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = ChannelConfigUpdate_default()
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = ChannelConfigUpdate(
-				cType: nativeCallResult, instantiationContext: "ChannelConfigUpdate.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A splice_locked message to be sent to or received from a peer.
+/// A `splice_locked` message to be sent to or received from a peer.
 public typealias SpliceLocked = Bindings.SpliceLocked
 
 extension Bindings {
 
 
-	/// A splice_locked message to be sent to or received from a peer.
+	/// A `splice_locked` message to be sent to or received from a peer.
 	public class SpliceLocked: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -124,15 +124,76 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new SpliceLocked given each field
-		public init(channelIdArg: ChannelId) {
+		/// The ID of the new funding transaction that has been locked
+		public func getSpliceTxid() -> [UInt8]? {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = SpliceLocked_new(channelIdArg.dynamicallyDangledClone().cType!)
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKSpliceLocked>) in
+					SpliceLocked_get_splice_txid(thisPtrPointer)
+				}
+
 
 			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
+
+
+			return returnValue
+		}
+
+		/// The ID of the new funding transaction that has been locked
+		public func setSpliceTxid(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = ThirtyTwoBytes(
+				value: val, instantiationContext: "SpliceLocked.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKSpliceLocked>) in
+					SpliceLocked_set_splice_txid(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new SpliceLocked given each field
+		public init(channelIdArg: ChannelId, spliceTxidArg: [UInt8]) {
+			// native call variable prep
+
+			let spliceTxidArgPrimitiveWrapper = ThirtyTwoBytes(
+				value: spliceTxidArg, instantiationContext: "SpliceLocked.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = SpliceLocked_new(
+				channelIdArg.dynamicallyDangledClone().cType!, spliceTxidArgPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			spliceTxidArgPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 

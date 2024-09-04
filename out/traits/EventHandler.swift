@@ -10,7 +10,7 @@ import Foundation
 ///
 /// An async variation also exists for implementations of [`EventsProvider`] that support async
 /// event handling. The async event handler should satisfy the generic bounds: `F:
-/// core::future::Future, H: Fn(Event) -> F`.
+/// core::future::Future<Output = Result<(), ReplayEvent>>, H: Fn(Event) -> F`.
 public typealias EventHandler = Bindings.EventHandler
 
 extension Bindings {
@@ -19,7 +19,7 @@ extension Bindings {
 	///
 	/// An async variation also exists for implementations of [`EventsProvider`] that support async
 	/// event handling. The async event handler should satisfy the generic bounds: `F:
-	/// core::future::Future, H: Fn(Event) -> F`.
+	/// core::future::Future<Output = Result<(), ReplayEvent>>, H: Fn(Event) -> F`.
 	open class EventHandler: NativeTraitWrapper {
 
 
@@ -78,7 +78,7 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func handleEventLambda(this_arg: UnsafeRawPointer?, event: LDKEvent) {
+			func handleEventLambda(this_arg: UnsafeRawPointer?, event: LDKEvent) -> LDKCResult_NoneReplayEventZ {
 				let instance: EventHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EventHandler::handleEventLambda")
 
@@ -94,7 +94,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -130,7 +130,7 @@ extension Bindings {
 		/// Handles the given [`Event`].
 		///
 		/// See [`EventsProvider`] for details that must be considered when implementing this method.
-		open func handleEvent(event: Event) {
+		open func handleEvent(event: Event) -> Result_NoneReplayEventZ {
 
 			Bindings.print(
 				"Error: EventHandler::handleEvent MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -176,7 +176,7 @@ extension Bindings {
 		/// Handles the given [`Event`].
 		///
 		/// See [`EventsProvider`] for details that must be considered when implementing this method.
-		public override func handleEvent(event: Event) {
+		public override func handleEvent(event: Event) -> Result_NoneReplayEventZ {
 			// native call variable prep
 
 
@@ -187,7 +187,8 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Result_NoneReplayEventZ(
+				cType: nativeCallResult, instantiationContext: "EventHandler.swift::\(#function):\(#line)")
 
 			return returnValue
 		}

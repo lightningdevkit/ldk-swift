@@ -90,9 +90,10 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKOnionMessageContents)
-				-> LDKCOption_OnionMessageContentsZ
-			{
+			func handleCustomMessageLambda(
+				this_arg: UnsafeRawPointer?, message: LDKOnionMessageContents, context: LDKCOption_CVec_u8ZZ,
+				responder: LDKResponder
+			) -> LDKCOption_C2Tuple_OnionMessageContentsResponseInstructionZZ {
 				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::handleCustomMessageLambda")
 
@@ -101,15 +102,23 @@ extension Bindings {
 
 				// Swift callback call
 				let swiftCallbackResult = instance.handleCustomMessage(
-					msg: NativelyImplementedOnionMessageContents(
-						cType: msg,
+					message: NativelyImplementedOnionMessageContents(
+						cType: message,
+						instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"),
+					context: Option_CVec_u8ZZ(
+						cType: context,
+						instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					responder: Responder(
+						cType: responder,
 						instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"))
 
 				// cleanup
 
 
 				// return value (do some wrapping)
-				let returnValue = Option_OnionMessageContentsZ(
+				let returnValue = Option_C2Tuple_OnionMessageContentsResponseInstructionZZ(
 					some: swiftCallbackResult,
 					instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -146,7 +155,7 @@ extension Bindings {
 			}
 
 			func releasePendingCustomMessagesLambda(this_arg: UnsafeRawPointer?)
-				-> LDKCVec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ
+				-> LDKCVec_C2Tuple_OnionMessageContentsMessageSendInstructionsZZ
 			{
 				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::releasePendingCustomMessagesLambda")
@@ -161,7 +170,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ(
+				let returnValue = Vec_C2Tuple_OnionMessageContentsMessageSendInstructionsZZ(
 					array: swiftCallbackResult,
 					instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -203,7 +212,11 @@ extension Bindings {
 		/// Called with the custom message that was received, returning a response to send, if any.
 		///
 		/// The returned [`Self::CustomMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
-		open func handleCustomMessage(msg: OnionMessageContents) -> OnionMessageContents? {
+		///
+		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
+		open func handleCustomMessage(message: OnionMessageContents, context: [UInt8]?, responder: Responder) -> (
+			OnionMessageContents, ResponseInstruction
+		)? {
 
 			Bindings.print(
 				"Error: CustomOnionMessageHandler::handleCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -227,7 +240,7 @@ extension Bindings {
 		///
 		/// Typically, this is used for messages initiating a message flow rather than in response to
 		/// another message. The latter should use the return value of [`Self::handle_custom_message`].
-		open func releasePendingCustomMessages() -> [(OnionMessageContents, Destination, BlindedPath)] {
+		open func releasePendingCustomMessages() -> [(OnionMessageContents, MessageSendInstructions)] {
 
 			Bindings.print(
 				"Error: CustomOnionMessageHandler::releasePendingCustomMessages MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -274,18 +287,30 @@ extension Bindings {
 		/// Called with the custom message that was received, returning a response to send, if any.
 		///
 		/// The returned [`Self::CustomMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
-		public override func handleCustomMessage(msg: OnionMessageContents) -> OnionMessageContents? {
+		///
+		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public override func handleCustomMessage(message: OnionMessageContents, context: [UInt8]?, responder: Responder)
+			-> (OnionMessageContents, ResponseInstruction)?
+		{
 			// native call variable prep
+
+			let contextOption = Option_CVec_u8ZZ(
+				some: context, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = self.cType!.handle_custom_message(self.cType!.this_arg, msg.activate().cType!)
+			let nativeCallResult = self.cType!
+				.handle_custom_message(
+					self.cType!.this_arg, message.activate().cType!, contextOption.cType!,
+					responder.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_OnionMessageContentsZ(
+			let returnValue = Option_C2Tuple_OnionMessageContentsResponseInstructionZZ(
 				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
@@ -325,7 +350,7 @@ extension Bindings {
 		///
 		/// Typically, this is used for messages initiating a message flow rather than in response to
 		/// another message. The latter should use the return value of [`Self::handle_custom_message`].
-		public override func releasePendingCustomMessages() -> [(OnionMessageContents, Destination, BlindedPath)] {
+		public override func releasePendingCustomMessages() -> [(OnionMessageContents, MessageSendInstructions)] {
 			// native call variable prep
 
 
@@ -336,7 +361,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ(
+			let returnValue = Vec_C2Tuple_OnionMessageContentsMessageSendInstructionsZZ(
 				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()

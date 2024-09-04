@@ -173,6 +173,103 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Source node of the second direction of a channel
+		public func getNodeTwo() -> NodeId {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelInfo>) in
+					ChannelInfo_get_node_two(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeId(
+				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Source node of the second direction of a channel
+		public func setNodeTwo(val: NodeId) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+					ChannelInfo_set_node_two(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The channel capacity as seen on-chain, if chain lookup is available.
+		public func getCapacitySats() -> UInt64? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelInfo>) in
+					ChannelInfo_get_capacity_sats(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_u64Z(
+				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The channel capacity as seen on-chain, if chain lookup is available.
+		public func setCapacitySats(val: UInt64?) {
+			// native call variable prep
+
+			let valOption = Option_u64Z(some: val, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)")
+				.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+					ChannelInfo_set_capacity_sats(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Details about the first direction of a channel
 		///
 		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -237,53 +334,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Source node of the second direction of a channel
-		public func getNodeTwo() -> NodeId {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelInfo>) in
-					ChannelInfo_get_node_two(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NodeId(
-				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Source node of the second direction of a channel
-		public func setNodeTwo(val: NodeId) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
-					ChannelInfo_set_node_two(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Details about the second direction of a channel
 		///
 		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -335,56 +385,6 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
 					ChannelInfo_set_two_to_one(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The channel capacity as seen on-chain, if chain lookup is available.
-		public func getCapacitySats() -> UInt64? {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelInfo>) in
-					ChannelInfo_get_capacity_sats(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Option_u64Z(
-				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
-			)
-			.getValue()
-
-
-			return returnValue
-		}
-
-		/// The channel capacity as seen on-chain, if chain lookup is available.
-		public func setCapacitySats(val: UInt64?) {
-			// native call variable prep
-
-			let valOption = Option_u64Z(some: val, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)")
-				.danglingClone()
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
-					ChannelInfo_set_capacity_sats(thisPtrPointer, valOption.cType!)
 				}
 
 
@@ -554,6 +554,31 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a ChannelInfo object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKChannelInfo>) in
+					ChannelInfo_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

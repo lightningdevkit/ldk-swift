@@ -1191,6 +1191,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The [`ChannelParameters`] for this channel.
+		public func channelParameters() -> ChannelParameters {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKCommonOpenChannelFields>) in
+					CommonOpenChannelFields_channel_parameters(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ChannelParameters(
+				cType: nativeCallResult, instantiationContext: "CommonOpenChannelFields.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::lightning::ln::channelmanager::ChannelDetailss of arbitrary size.
+/// A dynamically-allocated array of crate::lightning::ln::channel_state::ChannelDetailss of arbitrary size.
 /// This corresponds to std::vector in C++
 internal typealias Vec_ChannelDetailsZ = Bindings.Vec_ChannelDetailsZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::lightning::ln::channelmanager::ChannelDetailss of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning::ln::channel_state::ChannelDetailss of arbitrary size.
 	/// This corresponds to std::vector in C++
 	internal class Vec_ChannelDetailsZ: NativeTypeWrapper {
 

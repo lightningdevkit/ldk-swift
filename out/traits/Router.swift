@@ -156,7 +156,7 @@ extension Bindings {
 			func createBlindedPaymentPathsLambda(
 				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, first_hops: LDKCVec_ChannelDetailsZ,
 				tlvs: LDKReceiveTlvs, amount_msats: UInt64
-			) -> LDKCResult_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+			) -> LDKCResult_CVec_BlindedPaymentPathZNoneZ {
 				let instance: Router = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Router::createBlindedPaymentPathsLambda")
 
@@ -252,12 +252,12 @@ extension Bindings {
 			abort()
 		}
 
-		/// Creates [`BlindedPath`]s for payment to the `recipient` node. The channels in `first_hops`
+		/// Creates [`BlindedPaymentPath`]s for payment to the `recipient` node. The channels in `first_hops`
 		/// are assumed to be with the `recipient`'s peers. The payment secret and any constraints are
 		/// given in `tlvs`.
 		open func createBlindedPaymentPaths(
 			recipient: [UInt8], firstHops: [ChannelDetails], tlvs: ReceiveTlvs, amountMsats: UInt64
-		) -> Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+		) -> Result_CVec_BlindedPaymentPathZNoneZ {
 
 			Bindings.print(
 				"Error: Router::createBlindedPaymentPaths MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -430,12 +430,12 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates [`BlindedPath`]s for payment to the `recipient` node. The channels in `first_hops`
+		/// Creates [`BlindedPaymentPath`]s for payment to the `recipient` node. The channels in `first_hops`
 		/// are assumed to be with the `recipient`'s peers. The payment secret and any constraints are
 		/// given in `tlvs`.
 		public override func createBlindedPaymentPaths(
 			recipient: [UInt8], firstHops: [ChannelDetails], tlvs: ReceiveTlvs, amountMsats: UInt64
-		) -> Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+		) -> Result_CVec_BlindedPaymentPathZNoneZ {
 			// native call variable prep
 
 			let recipientPrimitiveWrapper = PublicKey(
@@ -462,7 +462,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ(
+			let returnValue = Result_CVec_BlindedPaymentPathZNoneZ(
 				cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 			return returnValue

@@ -11,7 +11,7 @@
 /// Offers may be denominated in currency other than bitcoin but are ultimately paid using the
 /// latter.
 ///
-/// Through the use of [`BlindedPath`]s, offers provide recipient privacy.
+/// Through the use of [`BlindedMessagePath`]s, offers provide recipient privacy.
 ///
 /// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
 /// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
@@ -29,7 +29,7 @@ extension Bindings {
 	/// Offers may be denominated in currency other than bitcoin but are ultimately paid using the
 	/// latter.
 	///
-	/// Through the use of [`BlindedPath`]s, offers provide recipient privacy.
+	/// Through the use of [`BlindedMessagePath`]s, offers provide recipient privacy.
 	///
 	/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
 	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
@@ -335,7 +335,7 @@ extension Bindings {
 
 		/// Paths to the recipient originating from publicly reachable nodes. Blinded paths provide
 		/// recipient privacy by obfuscating its node id.
-		public func paths() -> [BlindedPath] {
+		public func paths() -> [BlindedMessagePath] {
 			// native call variable prep
 
 
@@ -350,7 +350,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_BlindedPathZ(
+			let returnValue = Vec_BlindedMessagePathZ(
 				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
@@ -565,8 +565,9 @@ extension Bindings {
 		/// - derives the [`InvoiceRequest::payer_id`] such that a different key can be used for each
 		/// request,
 		/// - sets [`InvoiceRequest::payer_metadata`] when [`InvoiceRequestBuilder::build`] is called
-		/// such that it can be used by [`Bolt12Invoice::verify`] to determine if the invoice was
-		/// requested using a base [`ExpandedKey`] from which the payer id was derived, and
+		/// such that it can be used by [`Bolt12Invoice::verify_using_metadata`] to determine if the
+		/// invoice was requested using a base [`ExpandedKey`] from which the payer id was derived,
+		/// and
 		/// - includes the [`PaymentId`] encrypted in [`InvoiceRequest::payer_metadata`] so that it can
 		/// be used when sending the payment for the requested invoice.
 		///
@@ -574,11 +575,11 @@ extension Bindings {
 		///
 		/// [`InvoiceRequest::payer_id`]: crate::offers::invoice_request::InvoiceRequest::payer_id
 		/// [`InvoiceRequest::payer_metadata`]: crate::offers::invoice_request::InvoiceRequest::payer_metadata
-		/// [`Bolt12Invoice::verify`]: crate::offers::invoice::Bolt12Invoice::verify
+		/// [`Bolt12Invoice::verify_using_metadata`]: crate::offers::invoice::Bolt12Invoice::verify_using_metadata
 		/// [`ExpandedKey`]: crate::ln::inbound_payment::ExpandedKey
-		public func requestInvoiceDerivingPayerId(
-			expandedKey: ExpandedKey, entropySource: EntropySource, paymentId: [UInt8]
-		) -> Result_InvoiceRequestWithDerivedPayerIdBuilderBolt12SemanticErrorZ {
+		public func requestInvoiceDerivingPayerId(expandedKey: ExpandedKey, nonce: Nonce, paymentId: [UInt8])
+			-> Result_InvoiceRequestWithDerivedPayerIdBuilderBolt12SemanticErrorZ
+		{
 			// native call variable prep
 
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
@@ -591,7 +592,7 @@ extension Bindings {
 
 					withUnsafePointer(to: expandedKey.cType!) { (expandedKeyPointer: UnsafePointer<LDKExpandedKey>) in
 						Offer_request_invoice_deriving_payer_id(
-							thisArgPointer, expandedKeyPointer, entropySource.activate().cType!,
+							thisArgPointer, expandedKeyPointer, nonce.dynamicallyDangledClone().cType!,
 							paymentIdPrimitiveWrapper.cType!)
 					}
 
@@ -621,7 +622,7 @@ extension Bindings {
 		///
 		/// [`InvoiceRequest::payer_id`]: crate::offers::invoice_request::InvoiceRequest::payer_id
 		public func requestInvoiceDerivingMetadata(
-			payerId: [UInt8], expandedKey: ExpandedKey, entropySource: EntropySource, paymentId: [UInt8]
+			payerId: [UInt8], expandedKey: ExpandedKey, nonce: Nonce, paymentId: [UInt8]
 		) -> Result_InvoiceRequestWithExplicitPayerIdBuilderBolt12SemanticErrorZ {
 			// native call variable prep
 
@@ -639,7 +640,7 @@ extension Bindings {
 					withUnsafePointer(to: expandedKey.cType!) { (expandedKeyPointer: UnsafePointer<LDKExpandedKey>) in
 						Offer_request_invoice_deriving_metadata(
 							thisArgPointer, payerIdPrimitiveWrapper.cType!, expandedKeyPointer,
-							entropySource.activate().cType!, paymentIdPrimitiveWrapper.cType!)
+							nonce.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
 					}
 
 				}
@@ -736,6 +737,30 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Read a Offer from a byte array, created by Offer_write
+		public class func read(ser: [UInt8]) -> Result_OfferDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Offer.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Offer_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_OfferDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Serialize the Offer object into a byte array which can be read by Offer_read
 		public func write() -> [UInt8] {
 			// native call variable prep
@@ -780,6 +805,31 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_OfferBolt12ParseErrorZ(
 				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a Offer object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKOffer>) in
+					Offer_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

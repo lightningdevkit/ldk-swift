@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_BlindedPayInfoDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::offers::invoice::BlindedPayInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::blinded_path::payment::BlindedPayInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_BlindedPayInfoDecodeErrorZ = Bindings.Result_BlindedPayInfoDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_BlindedPayInfoDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::offers::invoice::BlindedPayInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::blinded_path::payment::BlindedPayInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_BlindedPayInfoDecodeErrorZ: NativeTypeWrapper {
 

@@ -113,19 +113,22 @@ extension Bindings {
 		}
 
 		/// Similar to [`OfferBuilder::new`] except, if [`OfferBuilder::path`] is called, the signing
-		/// pubkey is derived from the given [`ExpandedKey`] and [`EntropySource`]. This provides
-		/// recipient privacy by using a different signing pubkey for each offer. Otherwise, the
-		/// provided `node_id` is used for the signing pubkey.
+		/// pubkey is derived from the given [`ExpandedKey`] and [`Nonce`]. This provides recipient
+		/// privacy by using a different signing pubkey for each offer. Otherwise, the provided
+		/// `node_id` is used for the signing pubkey.
 		///
 		/// Also, sets the metadata when [`OfferBuilder::build`] is called such that it can be used by
-		/// [`InvoiceRequest::verify`] to determine if the request was produced for the offer given an
-		/// [`ExpandedKey`].
+		/// [`InvoiceRequest::verify_using_metadata`] to determine if the request was produced for the
+		/// offer given an [`ExpandedKey`]. However, if [`OfferBuilder::path`] is called, then the
+		/// metadata will not be set and must be included in each [`BlindedMessagePath`] instead. In this case,
+		/// use [`InvoiceRequest::verify_using_recipient_data`].
 		///
-		/// [`InvoiceRequest::verify`]: crate::offers::invoice_request::InvoiceRequest::verify
+		/// [`InvoiceRequest::verify_using_metadata`]: crate::offers::invoice_request::InvoiceRequest::verify_using_metadata
+		/// [`InvoiceRequest::verify_using_recipient_data`]: crate::offers::invoice_request::InvoiceRequest::verify_using_recipient_data
 		/// [`ExpandedKey`]: crate::ln::inbound_payment::ExpandedKey
-		public class func initWithDerivingSigningPubkey(
-			nodeId: [UInt8], expandedKey: ExpandedKey, entropySource: EntropySource
-		) -> OfferWithDerivedMetadataBuilder {
+		public class func initWithDerivingSigningPubkey(nodeId: [UInt8], expandedKey: ExpandedKey, nonce: Nonce)
+			-> OfferWithDerivedMetadataBuilder
+		{
 			// native call variable prep
 
 			let nodeIdPrimitiveWrapper = PublicKey(
@@ -136,7 +139,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: expandedKey.cType!) { (expandedKeyPointer: UnsafePointer<LDKExpandedKey>) in
 					OfferWithDerivedMetadataBuilder_deriving_signing_pubkey(
-						nodeIdPrimitiveWrapper.cType!, expandedKeyPointer, entropySource.activate().cType!)
+						nodeIdPrimitiveWrapper.cType!, expandedKeyPointer, nonce.dynamicallyDangledClone().cType!)
 				}
 
 
@@ -286,7 +289,7 @@ extension Bindings {
 		///
 		/// Successive calls to this method will add another blinded path. Caller is responsible for not
 		/// adding duplicate paths.
-		public func path(path: BlindedPath) {
+		public func path(path: BlindedMessagePath) {
 			// native call variable prep
 
 

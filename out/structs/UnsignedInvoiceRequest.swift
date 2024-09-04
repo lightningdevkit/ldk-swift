@@ -358,7 +358,7 @@ extension Bindings {
 
 		/// Paths to the recipient originating from publicly reachable nodes. Blinded paths provide
 		/// recipient privacy by obfuscating its node id.
-		public func paths() -> [BlindedPath] {
+		public func paths() -> [BlindedMessagePath] {
 			// native call variable prep
 
 
@@ -373,7 +373,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_BlindedPathZ(
+			let returnValue = Vec_BlindedMessagePathZ(
 				cType: nativeCallResult, instantiationContext: "UnsignedInvoiceRequest.swift::\(#function):\(#line)",
 				anchor: self
 			)

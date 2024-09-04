@@ -65,7 +65,7 @@ extension Bindings {
 			/// Forwarded onion, with the next node id and a new onion
 			case Forward
 
-			/// Received onion message, with decrypted contents, path_id, and reply path
+			/// Received onion message, with decrypted contents, context, and reply path
 			case Receive
 
 		}
@@ -147,23 +147,22 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new Receive-variant PeeledOnion
-		public class func initWithReceive(a: ParsedOnionMessageContents, b: [UInt8], c: Bindings.BlindedPath)
-			-> PeeledOnion
-		{
+		public class func initWithReceive(
+			a: ParsedOnionMessageContents, b: MessageContext?, c: Bindings.BlindedMessagePath
+		) -> PeeledOnion {
 			// native call variable prep
 
-			let bPrimitiveWrapper = ThirtyTwoBytes(
-				value: b, instantiationContext: "PeeledOnion.swift::\(#function):\(#line)")
+			let bOption = Option_MessageContextZ(
+				some: b, instantiationContext: "PeeledOnion.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult = PeeledOnion_receive(
-				a.danglingClone().cType!, bPrimitiveWrapper.cType!, c.dynamicallyDangledClone().cType!)
+				a.danglingClone().cType!, bOption.cType!, c.dynamicallyDangledClone().cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			bPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -367,10 +366,10 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func get1() -> [UInt8] {
+			///
+			public func get1() -> MessageContext? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_MessageContextZ(
 					cType: self.cType!._1, instantiationContext: "PeeledOnion.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -380,9 +379,9 @@ extension Bindings {
 			}
 
 			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func get2() -> Bindings.BlindedPath {
+			public func get2() -> Bindings.BlindedMessagePath {
 				// return value (do some wrapping)
-				let returnValue = Bindings.BlindedPath(
+				let returnValue = Bindings.BlindedMessagePath(
 					cType: self.cType!._2, instantiationContext: "PeeledOnion.swift::\(#function):\(#line)",
 					anchor: self)
 

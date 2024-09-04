@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::lightning::routing::router::RouteHintHops of arbitrary size.
+/// A dynamically-allocated array of crate::lightning_types::routing::RouteHintHops of arbitrary size.
 /// This corresponds to std::vector in C++
 internal typealias Vec_RouteHintHopZ = Bindings.Vec_RouteHintHopZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::lightning::routing::router::RouteHintHops of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning_types::routing::RouteHintHops of arbitrary size.
 	/// This corresponds to std::vector in C++
 	internal class Vec_RouteHintHopZ: NativeTypeWrapper {
 

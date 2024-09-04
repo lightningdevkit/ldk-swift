@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_Bolt12InvoiceFeaturesDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::ln::features::Bolt12InvoiceFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::features::Bolt12InvoiceFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_Bolt12InvoiceFeaturesDecodeErrorZ = Bindings.Result_Bolt12InvoiceFeaturesDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_Bolt12InvoiceFeaturesDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::ln::features::Bolt12InvoiceFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::features::Bolt12InvoiceFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_Bolt12InvoiceFeaturesDecodeErrorZ: NativeTypeWrapper {
 

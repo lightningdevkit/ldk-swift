@@ -433,6 +433,30 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Converts HTLC's value with millisatoshi precision into [bitcoin::Amount] with satoshi precision.
+		/// Typically this conversion is needed when transitioning from LN into base-layer Bitcoin,
+		/// e. g. in commitment transactions.
+		public func toBitcoinAmount() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+					HTLCOutputInCommitment_to_bitcoin_amount(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Serialize the HTLCOutputInCommitment object into a byte array which can be read by HTLCOutputInCommitment_read
 		public func write() -> [UInt8] {
 			// native call variable prep

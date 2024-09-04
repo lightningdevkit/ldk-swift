@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A splice_ack message to be received by or sent to the splice initiator.
+/// A `splice_ack` message to be received by or sent to the splice initiator.
 public typealias SpliceAck = Bindings.SpliceAck
 
 extension Bindings {
 
 
-	/// A splice_ack message to be received by or sent to the splice initiator.
+	/// A `splice_ack` message to be received by or sent to the splice initiator.
 	public class SpliceAck: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -124,70 +124,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The genesis hash of the blockchain where the channel is intended to be spliced
-		public func getChainHash() -> [UInt8]? {
+		/// The amount the splice acceptor is intending to add to its channel balance (splice-in)
+		/// or remove from its channel balance (splice-out).
+		public func getFundingContributionSatoshis() -> Int64 {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKSpliceAck>) in
-					SpliceAck_get_chain_hash(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-			guard let nativeCallResult = nativeCallResult else {
-				return nil
-			}
-
-
-			// return value (do some wrapping)
-			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
-
-
-			return returnValue
-		}
-
-		/// The genesis hash of the blockchain where the channel is intended to be spliced
-		public func setChainHash(val: [UInt8]) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "SpliceAck.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKSpliceAck>) in
-					SpliceAck_set_chain_hash(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The intended change in channel capacity: the amount to be added (positive value)
-		/// or removed (negative value) by the sender (splice acceptor) by splicing into/from the channel.
-		public func getRelativeSatoshis() -> Int64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKSpliceAck>) in
-					SpliceAck_get_relative_satoshis(thisPtrPointer)
+					SpliceAck_get_funding_contribution_satoshis(thisPtrPointer)
 				}
 
 
@@ -201,16 +147,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The intended change in channel capacity: the amount to be added (positive value)
-		/// or removed (negative value) by the sender (splice acceptor) by splicing into/from the channel.
-		public func setRelativeSatoshis(val: Int64) {
+		/// The amount the splice acceptor is intending to add to its channel balance (splice-in)
+		/// or remove from its channel balance (splice-out).
+		public func setFundingContributionSatoshis(val: Int64) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKSpliceAck>) in
-					SpliceAck_set_relative_satoshis(thisPtrPointer, val)
+					SpliceAck_set_funding_contribution_satoshis(thisPtrPointer, val)
 				}
 
 
@@ -277,14 +223,65 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new SpliceAck given each field
-		public init(
-			channelIdArg: ChannelId, chainHashArg: [UInt8], relativeSatoshisArg: Int64, fundingPubkeyArg: [UInt8]
-		) {
+		/// If set, only confirmed inputs added (by the splice initiator) will be accepted
+		public func getRequireConfirmedInputs() -> Option_NoneZ {
 			// native call variable prep
 
-			let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: chainHashArg, instantiationContext: "SpliceAck.swift::\(#function):\(#line)")
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKSpliceAck>) in
+					SpliceAck_get_require_confirmed_inputs(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_NoneZ(value: nativeCallResult)
+
+
+			return returnValue
+		}
+
+		/// If set, only confirmed inputs added (by the splice initiator) will be accepted
+		@available(
+			*, deprecated,
+			message: "This method passes the following non-cloneable, but freeable objects by value: `val`."
+		)
+		public func setRequireConfirmedInputs(val: Option_NoneZ) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKSpliceAck>) in
+					SpliceAck_set_require_confirmed_inputs(thisPtrPointer, val.getCValue())
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new SpliceAck given each field
+		@available(
+			*, deprecated,
+			message:
+				"This method passes the following non-cloneable, but freeable objects by value: `requireConfirmedInputsArg`."
+		)
+		public init(
+			channelIdArg: ChannelId, fundingContributionSatoshisArg: Int64, fundingPubkeyArg: [UInt8],
+			requireConfirmedInputsArg: Option_NoneZ
+		) {
+			// native call variable prep
 
 			let fundingPubkeyArgPrimitiveWrapper = PublicKey(
 				value: fundingPubkeyArg, instantiationContext: "SpliceAck.swift::\(#function):\(#line)")
@@ -292,13 +289,10 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = SpliceAck_new(
-				channelIdArg.dynamicallyDangledClone().cType!, chainHashArgPrimitiveWrapper.cType!, relativeSatoshisArg,
-				fundingPubkeyArgPrimitiveWrapper.cType!)
+				channelIdArg.dynamicallyDangledClone().cType!, fundingContributionSatoshisArg,
+				fundingPubkeyArgPrimitiveWrapper.cType!, requireConfirmedInputsArg.getCValue())
 
 			// cleanup
-
-			// for elided types, we need this
-			chainHashArgPrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			fundingPubkeyArgPrimitiveWrapper.noOpRetain()

@@ -211,8 +211,8 @@ public class HumanObjectPeerTestInstance {
                 self.interface = underlyingInterface
                 super.init()
             }
-
-			override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.WriteableEcdsaChannelSigner {
+            
+            override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.EcdsaChannelSigner {
                 let ck = self.interface.deriveChannelSigner(channelValueSatoshis: channelValueSatoshis, channelKeysId: channelKeysId)
                 return ck
             }
@@ -226,14 +226,14 @@ public class HumanObjectPeerTestInstance {
                 self.master = master
                 super.init()
             }
-
-            func handleEvent(event: Event) {
-                // let eventClone = event.clone()
+            
+            func handleEvent(event: Event) -> Result_NoneReplayEventZ {
                 print("peer \(self.master.seed) received event: \(event.getValueType())")
                 Task {
                     // clone to avoid deallocation-related issues
                     await master.pendingEventTracker.addEvent(event: event)
                 }
+                return .initWithOk()
             }
 
             override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
@@ -252,10 +252,12 @@ public class HumanObjectPeerTestInstance {
         }
 
         fileprivate class TestPersister: Persist {
-            override func persistNewChannel(channelFundingOutpoint channelId: Bindings.OutPoint, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
+            
+            override func persistNewChannel(channelFundingOutpoint: Bindings.OutPoint, monitor: Bindings.ChannelMonitor) -> Bindings.ChannelMonitorUpdateStatus {
                 .Completed
             }
-            override func updatePersistedChannel(channelFundingOutpoint channelId: Bindings.OutPoint, update: Bindings.ChannelMonitorUpdate, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
+            
+            override func updatePersistedChannel(channelFundingOutpoint: Bindings.OutPoint, monitorUpdate: Bindings.ChannelMonitorUpdate, monitor: Bindings.ChannelMonitor) -> Bindings.ChannelMonitorUpdateStatus {
                 .Completed
             }
         }

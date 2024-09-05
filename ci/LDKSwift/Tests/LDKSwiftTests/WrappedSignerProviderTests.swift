@@ -37,7 +37,7 @@ class WrappedSignerProviderTests: XCTestCase {
 
         let handshakeConfig = ChannelHandshakeConfig.initWithDefault()
         handshakeConfig.setMinimumDepth(val: 1)
-        handshakeConfig.setAnnouncedChannel(val: false)
+        // handshakeConfig.setAnnouncedChannel(val: false)
 
         let handshakeLimits = ChannelHandshakeLimits.initWithDefault()
         handshakeLimits.setForceAnnouncedChannelPreference(val: false)
@@ -105,10 +105,10 @@ class WrappedSignerProviderTests: XCTestCase {
             print("entering wrapper: signGossipMessage()")
             return myKeysManager!.keysManager.asNodeSigner().signGossipMessage(msg: msg)
         }
-
-        override func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Bindings.Recipient) -> Bindings.Result_RecoverableSignatureNoneZ {
+        
+        override func signInvoice(invoice: Bindings.RawBolt11Invoice, recipient: Bindings.Recipient) -> Bindings.Result_RecoverableSignatureNoneZ {
             print("entering wrapper: signInvoice()")
-            return myKeysManager!.keysManager.asNodeSigner().signInvoice(hrpBytes: hrpBytes, invoiceData: invoiceData, recipient: recipient)
+            return myKeysManager!.keysManager.asNodeSigner().signInvoice(invoice: invoice, recipient: recipient)
         }
     }
 
@@ -122,17 +122,18 @@ class WrappedSignerProviderTests: XCTestCase {
 
     class MySignerProvider: SignerProvider {
         weak var myKeysManager: MyKeysManager?
-        override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.WriteableEcdsaChannelSigner {
+        
+        override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.EcdsaChannelSigner {
             print("entering wrapper: deriveChannelSigner()")
-            return myKeysManager!.keysManager.asSignerProvider().deriveChannelSigner(channelValueSatoshis: channelValueSatoshis, channelKeysId: channelKeysId)
+            return myKeysManager!.keysManager.deriveChannelKeys(channelValueSatoshis: channelValueSatoshis, params: channelKeysId).asEcdsaChannelSigner()
         }
 
         override func generateChannelKeysId(inbound: Bool, channelValueSatoshis: UInt64, userChannelId: [UInt8]) -> [UInt8] {
             print("entering wrapper: generateChannelKeysId()")
             return myKeysManager!.keysManager.asSignerProvider().generateChannelKeysId(inbound: inbound, channelValueSatoshis: channelValueSatoshis, userChannelId: userChannelId)
         }
-
-        override func readChanSigner(reader: [UInt8]) -> Bindings.Result_WriteableEcdsaChannelSignerDecodeErrorZ {
+        
+        override func readChanSigner(reader: [UInt8]) -> Bindings.Result_EcdsaChannelSignerDecodeErrorZ {
             print("entering wrapper: readChanSigner()")
             return myKeysManager!.keysManager.asSignerProvider().readChanSigner(reader: reader)
         }

@@ -18,9 +18,9 @@ class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
 		self.channelManager = channelManager
 		super.init()
 	}
-
-    func handleEvent(event: Event) {
-        // privateHandleEvent(event: event)
+    
+    func handleEvent(event: Event) -> Result_NoneReplayEventZ {
+        .initWithOk()
     }
     
     override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {

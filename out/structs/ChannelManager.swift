@@ -54,7 +54,7 @@
 ///
 /// ```
 /// use bitcoin::BlockHash;
-/// use bitcoin::network::constants::Network;
+/// use bitcoin::network::Network;
 /// use lightning::chain::BestBlock;
 /// # use lightning::chain::channelmonitor::ChannelMonitor;
 /// use lightning::ln::channelmanager::{ChainParameters, ChannelManager, ChannelManagerReadArgs};
@@ -189,7 +189,8 @@
 /// }
 ///
 /// // On the event processing thread once the peer has responded
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::FundingGenerationReady {
 /// temporary_channel_id, counterparty_node_id, channel_value_satoshis, output_script,
 /// user_channel_id, ..
@@ -199,7 +200,7 @@
 /// channel_value_satoshis, output_script
 /// );
 /// match channel_manager.funding_transaction_generated(
-/// &temporary_channel_id, &counterparty_node_id, funding_transaction
+/// temporary_channel_id, counterparty_node_id, funding_transaction
 /// ) {
 /// Ok(()) => println!(\"Funding channel {}\", temporary_channel_id),
 /// Err(e) => println!(\"Error funding channel {}: {:?}\", temporary_channel_id, e),
@@ -218,6 +219,8 @@
 /// },
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -240,16 +243,18 @@
 /// #
 /// # fn example<T: AChannelManager>(channel_manager: T) {
 /// # let channel_manager = channel_manager.get_cm();
-/// channel_manager.process_pending_events(&|event| match event {
+/// # let error_message = \"Channel force-closed\";
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::OpenChannelRequest { temporary_channel_id, counterparty_node_id, ..  } => {
 /// if !is_trusted(counterparty_node_id) {
 /// match channel_manager.force_close_without_broadcasting_txn(
-/// &temporary_channel_id, &counterparty_node_id
+/// &temporary_channel_id, &counterparty_node_id, error_message.to_string()
 /// ) {
 /// Ok(()) => println!(\"Rejecting channel {}\", temporary_channel_id),
 /// Err(e) => println!(\"Error rejecting channel {}: {:?}\", temporary_channel_id, e),
 /// }
-/// return;
+/// return Ok(());
 /// }
 ///
 /// let user_channel_id = 43;
@@ -262,6 +267,8 @@
 /// },
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -290,13 +297,16 @@
 /// }
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::ChannelClosed { channel_id, user_channel_id, ..  } => {
 /// assert_eq!(user_channel_id, 42);
 /// println!(\"Channel {} closed\", channel_id);
 /// },
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -346,7 +356,8 @@
 /// };
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 /// PaymentPurpose::Bolt11InvoicePayment { payment_preimage: Some(payment_preimage), .. } => {
 /// assert_eq!(payment_hash, known_payment_hash);
@@ -362,14 +373,16 @@
 /// channel_manager.claim_funds(payment_preimage);
 /// },
 /// // ...
-/// #         _ => {},
+/// #           _ => {},
 /// },
 /// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 /// assert_eq!(payment_hash, known_payment_hash);
 /// println!(\"Claimed {} msats\", amount_msat);
 /// },
 /// // ...
-/// #     _ => {},
+/// #       _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -412,11 +425,15 @@
 /// );
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentSent { payment_hash, .. } => println!(\"Paid {}\", payment_hash),
-/// Event::PaymentFailed { payment_hash, .. } => println!(\"Failed paying {}\", payment_hash),
+/// Event::PaymentFailed { payment_hash: Some(payment_hash), .. } =>
+/// println!(\"Failed paying {}\", payment_hash),
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -437,8 +454,9 @@
 /// #
 /// # fn example<T: AChannelManager>(channel_manager: T) -> Result<(), Bolt12SemanticError> {
 /// # let channel_manager = channel_manager.get_cm();
+/// # let absolute_expiry = None;
 /// let offer = channel_manager
-/// .create_offer_builder()?
+/// .create_offer_builder(absolute_expiry)?
 /// # ;
 /// # // Needed for compiling for c_bindings
 /// # let builder: lightning::offers::offer::OfferBuilder<_, _> = offer.into();
@@ -449,7 +467,8 @@
 /// let bech32_offer = offer.to_string();
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 /// PaymentPurpose::Bolt12OfferPayment { payment_preimage: Some(payment_preimage), .. } => {
 /// println!(\"Claiming payment {}\", payment_hash);
@@ -457,23 +476,23 @@
 /// },
 /// PaymentPurpose::Bolt12OfferPayment { payment_preimage: None, .. } => {
 /// println!(\"Unknown payment hash: {}\", payment_hash);
-/// },
-/// // ...
-/// #         _ => {},
+/// }
+/// #           _ => {},
 /// },
 /// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 /// println!(\"Claimed {} msats\", amount_msat);
 /// },
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # Ok(())
 /// # }
 /// ```
 ///
 /// Use [`pay_for_offer`] to initiated payment, which sends an [`InvoiceRequest`] for an [`Offer`]
-/// and pays the [`Bolt12Invoice`] response. In addition to success and failure events,
-/// [`ChannelManager`] may also generate an [`Event::InvoiceRequestFailed`].
+/// and pays the [`Bolt12Invoice`] response.
 ///
 /// ```
 /// # use lightning::events::{Event, EventsProvider};
@@ -511,12 +530,14 @@
 /// );
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentSent { payment_id: Some(payment_id), .. } => println!(\"Paid {}\", payment_id),
 /// Event::PaymentFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
-/// Event::InvoiceRequestFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -571,11 +592,14 @@
 /// );
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentSent { payment_id: Some(payment_id), .. } => println!(\"Paid {}\", payment_id),
 /// Event::PaymentFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # Ok(())
 /// # }
@@ -601,18 +625,19 @@
 /// };
 ///
 /// // On the event processing thread
-/// channel_manager.process_pending_events(&|event| match event {
+/// channel_manager.process_pending_events(&|event| {
+/// match event {
 /// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
-/// \tPaymentPurpose::Bolt12RefundPayment { payment_preimage: Some(payment_preimage), .. } => {
+/// PaymentPurpose::Bolt12RefundPayment { payment_preimage: Some(payment_preimage), .. } => {
 /// assert_eq!(payment_hash, known_payment_hash);
 /// println!(\"Claiming payment {}\", payment_hash);
 /// channel_manager.claim_funds(payment_preimage);
 /// },
-/// \tPaymentPurpose::Bolt12RefundPayment { payment_preimage: None, .. } => {
+/// PaymentPurpose::Bolt12RefundPayment { payment_preimage: None, .. } => {
 /// println!(\"Unknown payment hash: {}\", payment_hash);
-/// \t},
+/// },
 /// // ...
-/// #         _ => {},
+/// #           _ => {},
 /// },
 /// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 /// assert_eq!(payment_hash, known_payment_hash);
@@ -620,6 +645,8 @@
 /// },
 /// // ...
 /// #     _ => {},
+/// }
+/// Ok(())
 /// });
 /// # }
 /// ```
@@ -769,7 +796,7 @@ extension Bindings {
 	///
 	/// ```
 	/// use bitcoin::BlockHash;
-	/// use bitcoin::network::constants::Network;
+	/// use bitcoin::network::Network;
 	/// use lightning::chain::BestBlock;
 	/// # use lightning::chain::channelmonitor::ChannelMonitor;
 	/// use lightning::ln::channelmanager::{ChainParameters, ChannelManager, ChannelManagerReadArgs};
@@ -904,7 +931,8 @@ extension Bindings {
 	/// }
 	///
 	/// // On the event processing thread once the peer has responded
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::FundingGenerationReady {
 	/// temporary_channel_id, counterparty_node_id, channel_value_satoshis, output_script,
 	/// user_channel_id, ..
@@ -914,7 +942,7 @@ extension Bindings {
 	/// channel_value_satoshis, output_script
 	/// );
 	/// match channel_manager.funding_transaction_generated(
-	/// &temporary_channel_id, &counterparty_node_id, funding_transaction
+	/// temporary_channel_id, counterparty_node_id, funding_transaction
 	/// ) {
 	/// Ok(()) => println!(\"Funding channel {}\", temporary_channel_id),
 	/// Err(e) => println!(\"Error funding channel {}: {:?}\", temporary_channel_id, e),
@@ -933,6 +961,8 @@ extension Bindings {
 	/// },
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -955,16 +985,18 @@ extension Bindings {
 	/// #
 	/// # fn example<T: AChannelManager>(channel_manager: T) {
 	/// # let channel_manager = channel_manager.get_cm();
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// # let error_message = \"Channel force-closed\";
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::OpenChannelRequest { temporary_channel_id, counterparty_node_id, ..  } => {
 	/// if !is_trusted(counterparty_node_id) {
 	/// match channel_manager.force_close_without_broadcasting_txn(
-	/// &temporary_channel_id, &counterparty_node_id
+	/// &temporary_channel_id, &counterparty_node_id, error_message.to_string()
 	/// ) {
 	/// Ok(()) => println!(\"Rejecting channel {}\", temporary_channel_id),
 	/// Err(e) => println!(\"Error rejecting channel {}: {:?}\", temporary_channel_id, e),
 	/// }
-	/// return;
+	/// return Ok(());
 	/// }
 	///
 	/// let user_channel_id = 43;
@@ -977,6 +1009,8 @@ extension Bindings {
 	/// },
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1005,13 +1039,16 @@ extension Bindings {
 	/// }
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::ChannelClosed { channel_id, user_channel_id, ..  } => {
 	/// assert_eq!(user_channel_id, 42);
 	/// println!(\"Channel {} closed\", channel_id);
 	/// },
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1061,7 +1098,8 @@ extension Bindings {
 	/// };
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 	/// PaymentPurpose::Bolt11InvoicePayment { payment_preimage: Some(payment_preimage), .. } => {
 	/// assert_eq!(payment_hash, known_payment_hash);
@@ -1077,14 +1115,16 @@ extension Bindings {
 	/// channel_manager.claim_funds(payment_preimage);
 	/// },
 	/// // ...
-	/// #         _ => {},
+	/// #           _ => {},
 	/// },
 	/// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 	/// assert_eq!(payment_hash, known_payment_hash);
 	/// println!(\"Claimed {} msats\", amount_msat);
 	/// },
 	/// // ...
-	/// #     _ => {},
+	/// #       _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1127,11 +1167,15 @@ extension Bindings {
 	/// );
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentSent { payment_hash, .. } => println!(\"Paid {}\", payment_hash),
-	/// Event::PaymentFailed { payment_hash, .. } => println!(\"Failed paying {}\", payment_hash),
+	/// Event::PaymentFailed { payment_hash: Some(payment_hash), .. } =>
+	/// println!(\"Failed paying {}\", payment_hash),
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1152,8 +1196,9 @@ extension Bindings {
 	/// #
 	/// # fn example<T: AChannelManager>(channel_manager: T) -> Result<(), Bolt12SemanticError> {
 	/// # let channel_manager = channel_manager.get_cm();
+	/// # let absolute_expiry = None;
 	/// let offer = channel_manager
-	/// .create_offer_builder()?
+	/// .create_offer_builder(absolute_expiry)?
 	/// # ;
 	/// # // Needed for compiling for c_bindings
 	/// # let builder: lightning::offers::offer::OfferBuilder<_, _> = offer.into();
@@ -1164,7 +1209,8 @@ extension Bindings {
 	/// let bech32_offer = offer.to_string();
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 	/// PaymentPurpose::Bolt12OfferPayment { payment_preimage: Some(payment_preimage), .. } => {
 	/// println!(\"Claiming payment {}\", payment_hash);
@@ -1172,23 +1218,23 @@ extension Bindings {
 	/// },
 	/// PaymentPurpose::Bolt12OfferPayment { payment_preimage: None, .. } => {
 	/// println!(\"Unknown payment hash: {}\", payment_hash);
-	/// },
-	/// // ...
-	/// #         _ => {},
+	/// }
+	/// #           _ => {},
 	/// },
 	/// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 	/// println!(\"Claimed {} msats\", amount_msat);
 	/// },
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # Ok(())
 	/// # }
 	/// ```
 	///
 	/// Use [`pay_for_offer`] to initiated payment, which sends an [`InvoiceRequest`] for an [`Offer`]
-	/// and pays the [`Bolt12Invoice`] response. In addition to success and failure events,
-	/// [`ChannelManager`] may also generate an [`Event::InvoiceRequestFailed`].
+	/// and pays the [`Bolt12Invoice`] response.
 	///
 	/// ```
 	/// # use lightning::events::{Event, EventsProvider};
@@ -1226,12 +1272,14 @@ extension Bindings {
 	/// );
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentSent { payment_id: Some(payment_id), .. } => println!(\"Paid {}\", payment_id),
 	/// Event::PaymentFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
-	/// Event::InvoiceRequestFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1286,11 +1334,14 @@ extension Bindings {
 	/// );
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentSent { payment_id: Some(payment_id), .. } => println!(\"Paid {}\", payment_id),
 	/// Event::PaymentFailed { payment_id, .. } => println!(\"Failed paying {}\", payment_id),
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # Ok(())
 	/// # }
@@ -1316,18 +1367,19 @@ extension Bindings {
 	/// };
 	///
 	/// // On the event processing thread
-	/// channel_manager.process_pending_events(&|event| match event {
+	/// channel_manager.process_pending_events(&|event| {
+	/// match event {
 	/// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
-	/// \tPaymentPurpose::Bolt12RefundPayment { payment_preimage: Some(payment_preimage), .. } => {
+	/// PaymentPurpose::Bolt12RefundPayment { payment_preimage: Some(payment_preimage), .. } => {
 	/// assert_eq!(payment_hash, known_payment_hash);
 	/// println!(\"Claiming payment {}\", payment_hash);
 	/// channel_manager.claim_funds(payment_preimage);
 	/// },
-	/// \tPaymentPurpose::Bolt12RefundPayment { payment_preimage: None, .. } => {
+	/// PaymentPurpose::Bolt12RefundPayment { payment_preimage: None, .. } => {
 	/// println!(\"Unknown payment hash: {}\", payment_hash);
-	/// \t},
+	/// },
 	/// // ...
-	/// #         _ => {},
+	/// #           _ => {},
 	/// },
 	/// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
 	/// assert_eq!(payment_hash, known_payment_hash);
@@ -1335,6 +1387,8 @@ extension Bindings {
 	/// },
 	/// // ...
 	/// #     _ => {},
+	/// }
+	/// Ok(())
 	/// });
 	/// # }
 	/// ```
@@ -1915,17 +1969,26 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Force closes a channel, immediately broadcasting the latest local transaction(s) and
-		/// rejecting new HTLCs on the given channel. Fails if `channel_id` is unknown to
-		/// the manager, or if the `counterparty_node_id` isn't the counterparty of the corresponding
-		/// channel.
-		public func forceCloseBroadcastingLatestTxn(channelId: ChannelId, counterpartyNodeId: [UInt8])
-			-> Result_NoneAPIErrorZ
-		{
+		/// Force closes a channel, immediately broadcasting the latest local transaction(s),
+		/// rejecting new HTLCs.
+		///
+		/// The provided `error_message` is sent to connected peers for closing
+		/// channels and should be a human-readable description of what went wrong.
+		///
+		/// Fails if `channel_id` is unknown to the manager, or if the `counterparty_node_id`
+		/// isn't the counterparty of the corresponding channel.
+		public func forceCloseBroadcastingLatestTxn(
+			channelId: ChannelId, counterpartyNodeId: [UInt8], errorMessage: String
+		) -> Result_NoneAPIErrorZ {
 			// native call variable prep
 
 			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
 				value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let errorMessagePrimitiveWrapper = Str(
+				value: errorMessage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
 
 			// native method call
@@ -1934,7 +1997,8 @@ extension Bindings {
 
 					withUnsafePointer(to: channelId.cType!) { (channelIdPointer: UnsafePointer<LDKChannelId>) in
 						ChannelManager_force_close_broadcasting_latest_txn(
-							thisArgPointer, channelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!)
+							thisArgPointer, channelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!,
+							errorMessagePrimitiveWrapper.cType!)
 					}
 
 				}
@@ -1944,6 +2008,9 @@ extension Bindings {
 
 			// for elided types, we need this
 			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			errorMessagePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1958,18 +2025,27 @@ extension Bindings {
 		}
 
 		/// Force closes a channel, rejecting new HTLCs on the given channel but skips broadcasting
-		/// the latest local transaction(s). Fails if `channel_id` is unknown to the manager, or if the
-		/// `counterparty_node_id` isn't the counterparty of the corresponding channel.
+		/// the latest local transaction(s).
 		///
+		/// The provided `error_message` is sent to connected peers for closing channels and should
+		/// be a human-readable description of what went wrong.
+		///
+		/// Fails if `channel_id` is unknown to the manager, or if the
+		/// `counterparty_node_id` isn't the counterparty of the corresponding channel.
 		/// You can always broadcast the latest local transaction(s) via
 		/// [`ChannelMonitor::broadcast_latest_holder_commitment_txn`].
-		public func forceCloseWithoutBroadcastingTxn(channelId: ChannelId, counterpartyNodeId: [UInt8])
-			-> Result_NoneAPIErrorZ
-		{
+		public func forceCloseWithoutBroadcastingTxn(
+			channelId: ChannelId, counterpartyNodeId: [UInt8], errorMessage: String
+		) -> Result_NoneAPIErrorZ {
 			// native call variable prep
 
 			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
 				value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let errorMessagePrimitiveWrapper = Str(
+				value: errorMessage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
 
 			// native method call
@@ -1978,7 +2054,8 @@ extension Bindings {
 
 					withUnsafePointer(to: channelId.cType!) { (channelIdPointer: UnsafePointer<LDKChannelId>) in
 						ChannelManager_force_close_without_broadcasting_txn(
-							thisArgPointer, channelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!)
+							thisArgPointer, channelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!,
+							errorMessagePrimitiveWrapper.cType!)
 					}
 
 				}
@@ -1988,6 +2065,9 @@ extension Bindings {
 
 			// for elided types, we need this
 			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			errorMessagePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -2003,18 +2083,30 @@ extension Bindings {
 
 		/// Force close all channels, immediately broadcasting the latest local commitment transaction
 		/// for each to the chain and rejecting new HTLCs on each.
-		public func forceCloseAllChannelsBroadcastingLatestTxn() {
+		///
+		/// The provided `error_message` is sent to connected peers for closing channels and should
+		/// be a human-readable description of what went wrong.
+		public func forceCloseAllChannelsBroadcastingLatestTxn(errorMessage: String) {
 			// native call variable prep
+
+			let errorMessagePrimitiveWrapper = Str(
+				value: errorMessage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_force_close_all_channels_broadcasting_latest_txn(thisArgPointer)
+					ChannelManager_force_close_all_channels_broadcasting_latest_txn(
+						thisArgPointer, errorMessagePrimitiveWrapper.cType!)
 				}
 
 
 			// cleanup
+
+			// for elided types, we need this
+			errorMessagePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -2026,18 +2118,30 @@ extension Bindings {
 
 		/// Force close all channels rejecting new HTLCs on each but without broadcasting the latest
 		/// local transaction(s).
-		public func forceCloseAllChannelsWithoutBroadcastingTxn() {
+		///
+		/// The provided `error_message` is sent to connected peers for closing channels and
+		/// should be a human-readable description of what went wrong.
+		public func forceCloseAllChannelsWithoutBroadcastingTxn(errorMessage: String) {
 			// native call variable prep
+
+			let errorMessagePrimitiveWrapper = Str(
+				value: errorMessage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_force_close_all_channels_without_broadcasting_txn(thisArgPointer)
+					ChannelManager_force_close_all_channels_without_broadcasting_txn(
+						thisArgPointer, errorMessagePrimitiveWrapper.cType!)
 				}
 
 
 			// cleanup
+
+			// for elided types, we need this
+			errorMessagePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -2048,6 +2152,10 @@ extension Bindings {
 		}
 
 		/// Sends a payment along a given route.
+		///
+		/// This method is *DEPRECATED*, use [`Self::send_payment`] instead. If you wish to fix the
+		/// route for a payment, do so by matching the [`PaymentId`] passed to
+		/// [`Router::find_route_with_id`].
 		///
 		/// Value parameters are provided via the last hop in route, see documentation for [`RouteHop`]
 		/// fields for more info.
@@ -2113,13 +2221,9 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-
-					withUnsafePointer(to: route.cType!) { (routePointer: UnsafePointer<LDKRoute>) in
-						ChannelManager_send_payment_with_route(
-							thisArgPointer, routePointer, paymentHashPrimitiveWrapper.cType!,
-							recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
-					}
-
+					ChannelManager_send_payment_with_route(
+						thisArgPointer, route.dynamicallyDangledClone().cType!, paymentHashPrimitiveWrapper.cType!,
+						recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
 				}
 
 
@@ -2204,15 +2308,13 @@ extension Bindings {
 		/// # Requested Invoices
 		///
 		/// In the case of paying a [`Bolt12Invoice`] via [`ChannelManager::pay_for_offer`], abandoning
-		/// the payment prior to receiving the invoice will result in an [`Event::InvoiceRequestFailed`]
-		/// and prevent any attempts at paying it once received. The other events may only be generated
-		/// once the invoice has been received.
+		/// the payment prior to receiving the invoice will result in an [`Event::PaymentFailed`] and
+		/// prevent any attempts at paying it once received.
 		///
 		/// # Restart Behavior
 		///
 		/// If an [`Event::PaymentFailed`] is generated and we restart without first persisting the
-		/// [`ChannelManager`], another [`Event::PaymentFailed`] may be generated; likewise for
-		/// [`Event::InvoiceRequestFailed`].
+		/// [`ChannelManager`], another [`Event::PaymentFailed`] may be generated.
 		///
 		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 		public func abandonPayment(paymentId: [UInt8]) {
@@ -2515,14 +2617,9 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-
-					withUnsafePointer(to: temporaryChannelId.cType!) {
-						(temporaryChannelIdPointer: UnsafePointer<LDKChannelId>) in
-						ChannelManager_funding_transaction_generated(
-							thisArgPointer, temporaryChannelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!,
-							fundingTransactionPrimitiveWrapper.cType!)
-					}
-
+					ChannelManager_funding_transaction_generated(
+						thisArgPointer, temporaryChannelId.dynamicallyDangledClone().cType!,
+						counterpartyNodeIdPrimitiveWrapper.cType!, fundingTransactionPrimitiveWrapper.cType!)
 				}
 
 
@@ -2533,6 +2630,68 @@ extension Bindings {
 
 			// for elided types, we need this
 			fundingTransactionPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// **Unsafe**: This method does not validate the spent output. It is the caller's
+		/// responsibility to ensure the spent outputs are SegWit, as well as making sure the funding
+		/// transaction has a final absolute locktime, i.e., its locktime is lower than the next block height.
+		///
+		/// For a safer method, please refer to [`ChannelManager::funding_transaction_generated`].
+		///
+		/// Call this in response to a [`Event::FundingGenerationReady`] event.
+		///
+		/// Note that if this method is called successfully, the funding transaction won't be
+		/// broadcasted and you are expected to broadcast it manually when receiving the
+		/// [`Event::FundingTxBroadcastSafe`] event.
+		///
+		/// Returns [`APIError::ChannelUnavailable`] if a funding transaction has already been provided
+		/// for the channel or if the channel has been closed as indicated by [`Event::ChannelClosed`].
+		///
+		/// May panic if the funding output is duplicative with some other channel (note that this
+		/// should be trivially prevented by using unique funding transaction keys per-channel).
+		///
+		/// Note to keep the miner incentives aligned in moving the blockchain forward, we recommend
+		/// the wallet software generating the funding transaction to apply anti-fee sniping as
+		/// implemented by Bitcoin Core wallet. See <https://bitcoinops.org/en/topics/fee-sniping/> for
+		/// more details.
+		///
+		/// [`Event::FundingGenerationReady`]: crate::events::Event::FundingGenerationReady
+		/// [`Event::FundingTxBroadcastSafe`]: crate::events::Event::FundingTxBroadcastSafe
+		/// [`Event::ChannelClosed`]: crate::events::Event::ChannelClosed
+		/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
+		public func unsafeManualFundingTransactionGenerated(
+			temporaryChannelId: ChannelId, counterpartyNodeId: [UInt8], funding: OutPoint
+		) -> Result_NoneAPIErrorZ {
+			// native call variable prep
+
+			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
+				value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_unsafe_manual_funding_transaction_generated(
+						thisArgPointer, temporaryChannelId.dynamicallyDangledClone().cType!,
+						counterpartyNodeIdPrimitiveWrapper.cType!, funding.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -3225,16 +3384,15 @@ extension Bindings {
 		}
 
 		/// Creates an [`OfferBuilder`] such that the [`Offer`] it builds is recognized by the
-		/// [`ChannelManager`] when handling [`InvoiceRequest`] messages for the offer. The offer will
-		/// not have an expiration unless otherwise set on the builder.
+		/// [`ChannelManager`] when handling [`InvoiceRequest`] messages for the offer. The offer's
+		/// expiration will be `absolute_expiry` if `Some`, otherwise it will not expire.
 		///
 		/// # Privacy
 		///
-		/// Uses [`MessageRouter::create_blinded_paths`] to construct a [`BlindedPath`] for the offer.
-		/// However, if one is not found, uses a one-hop [`BlindedPath`] with
-		/// [`ChannelManager::get_our_node_id`] as the introduction node instead. In the latter case,
-		/// the node must be announced, otherwise, there is no way to find a path to the introduction in
-		/// order to send the [`InvoiceRequest`].
+		/// Uses [`MessageRouter`] to construct a [`BlindedMessagePath`] for the offer based on the given
+		/// `absolute_expiry` according to [`MAX_SHORT_LIVED_RELATIVE_EXPIRY`]. See those docs for
+		/// privacy implications as well as those of the parameterized [`Router`], which implements
+		/// [`MessageRouter`].
 		///
 		/// Also, uses a derived signing pubkey in the offer for recipient privacy.
 		///
@@ -3249,14 +3407,21 @@ extension Bindings {
 		///
 		/// [`Offer`]: crate::offers::offer::Offer
 		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
-		public func createOfferBuilder() -> Result_OfferWithDerivedMetadataBuilderBolt12SemanticErrorZ {
+		public func createOfferBuilder(absoluteExpiry: UInt64?)
+			-> Result_OfferWithDerivedMetadataBuilderBolt12SemanticErrorZ
+		{
 			// native call variable prep
+
+			let absoluteExpiryOption = Option_u64Z(
+				some: absoluteExpiry, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_create_offer_builder(thisArgPointer)
+					ChannelManager_create_offer_builder(thisArgPointer, absoluteExpiryOption.cType!)
 				}
 
 
@@ -3289,18 +3454,17 @@ extension Bindings {
 		///
 		/// To revoke the refund, use [`ChannelManager::abandon_payment`] prior to receiving the
 		/// invoice. If abandoned, or an invoice isn't received before expiration, the payment will fail
-		/// with an [`Event::InvoiceRequestFailed`].
+		/// with an [`Event::PaymentFailed`].
 		///
 		/// If `max_total_routing_fee_msat` is not specified, The default from
 		/// [`RouteParameters::from_payment_params_and_value`] is applied.
 		///
 		/// # Privacy
 		///
-		/// Uses [`MessageRouter::create_blinded_paths`] to construct a [`BlindedPath`] for the refund.
-		/// However, if one is not found, uses a one-hop [`BlindedPath`] with
-		/// [`ChannelManager::get_our_node_id`] as the introduction node instead. In the latter case,
-		/// the node must be announced, otherwise, there is no way to find a path to the introduction in
-		/// order to send the [`Bolt12Invoice`].
+		/// Uses [`MessageRouter`] to construct a [`BlindedMessagePath`] for the refund based on the given
+		/// `absolute_expiry` according to [`MAX_SHORT_LIVED_RELATIVE_EXPIRY`]. See those docs for
+		/// privacy implications as well as those of the parameterized [`Router`], which implements
+		/// [`MessageRouter`].
 		///
 		/// Also, uses a derived payer id in the refund for payer privacy.
 		///
@@ -3384,14 +3548,13 @@ extension Bindings {
 		///
 		/// To revoke the request, use [`ChannelManager::abandon_payment`] prior to receiving the
 		/// invoice. If abandoned, or an invoice isn't received in a reasonable amount of time, the
-		/// payment will fail with an [`Event::InvoiceRequestFailed`].
+		/// payment will fail with an [`Event::PaymentFailed`].
 		///
 		/// # Privacy
 		///
-		/// Uses a one-hop [`BlindedPath`] for the reply path with [`ChannelManager::get_our_node_id`]
-		/// as the introduction node and a derived payer id for payer privacy. As such, currently, the
-		/// node must be announced. Otherwise, there is no way to find a path to the introduction node
-		/// in order to send the [`Bolt12Invoice`].
+		/// For payer privacy, uses a derived payer id and uses [`MessageRouter::create_blinded_paths`]
+		/// to construct a [`BlindedMessagePath`] for the reply path. For further privacy implications, see the
+		/// docs of the parameterized [`Router`], which implements [`MessageRouter`].
 		///
 		/// # Limitations
 		///
@@ -3480,8 +3643,8 @@ extension Bindings {
 		/// message.
 		///
 		/// The resulting invoice uses a [`PaymentHash`] recognized by the [`ChannelManager`] and a
-		/// [`BlindedPath`] containing the [`PaymentSecret`] needed to reconstruct the corresponding
-		/// [`PaymentPreimage`]. It is returned purely for informational purposes.
+		/// [`BlindedPaymentPath`] containing the [`PaymentSecret`] needed to reconstruct the
+		/// corresponding [`PaymentPreimage`]. It is returned purely for informational purposes.
 		///
 		/// # Limitations
 		///
@@ -4172,6 +4335,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedOffersMessageHandler(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new AsyncPaymentsMessageHandler which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned AsyncPaymentsMessageHandler must be freed before this_arg is
+		public func asAsyncPaymentsMessageHandler() -> AsyncPaymentsMessageHandler {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_as_AsyncPaymentsMessageHandler(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedAsyncPaymentsMessageHandler(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self)
 

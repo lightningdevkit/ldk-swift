@@ -111,31 +111,6 @@ extension Bindings {
 
 		}
 
-		/// Constructs a new EventsProvider which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned EventsProvider must be freed before this_arg is
-		public func asEventsProvider() -> EventsProvider {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
-					IgnoringMessageHandler_as_EventsProvider(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedEventsProvider(
-				cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
 		/// Constructs a new MessageSendEventsProvider which calls the relevant methods on this_arg.
 		/// This copies the `inner` pointer in this_arg and thus the returned MessageSendEventsProvider must be freed before this_arg is
 		public func asMessageSendEventsProvider() -> MessageSendEventsProvider {
@@ -229,6 +204,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedOffersMessageHandler(
+				cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new AsyncPaymentsMessageHandler which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned AsyncPaymentsMessageHandler must be freed before this_arg is
+		public func asAsyncPaymentsMessageHandler() -> AsyncPaymentsMessageHandler {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+					IgnoringMessageHandler_as_AsyncPaymentsMessageHandler(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedAsyncPaymentsMessageHandler(
 				cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)",
 				anchor: self)
 

@@ -60,6 +60,57 @@ extension Bindings {
 		}
 
 
+		/// Serialize the Bolt11InvoiceFeatures object into a byte array which can be read by Bolt11InvoiceFeatures_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+					Bolt11InvoiceFeatures_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a Bolt11InvoiceFeatures from a byte array, created by Bolt11InvoiceFeatures_write
+		public class func read(ser: [UInt8]) -> Result_Bolt11InvoiceFeaturesDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Bolt11InvoiceFeatures_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_Bolt11InvoiceFeaturesDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Checks if two Bolt11InvoiceFeaturess contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.
@@ -151,6 +202,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Getting a route for a keysend payment to a private node requires providing the payee's
+		/// features (since they were not announced in a node announcement). However, keysend payments
+		/// don't have an invoice to pull the payee's features from, so this method is provided for use
+		/// when a [`Bolt11InvoiceFeatures`] is required in a route.
+		///
+		/// MPP keysend is not widely supported yet, so we parameterize support to allow the user to
+		/// choose whether their router should find multi-part routes.
+		public class func initForKeysend(allowMpp: Bool) -> Bolt11InvoiceFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = Bolt11InvoiceFeatures_for_keysend(allowMpp)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Bolt11InvoiceFeatures(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Create a blank Features with no features set
 		public class func initWithEmpty() -> Bolt11InvoiceFeatures {
 			// native call variable prep
@@ -165,6 +241,55 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Bolt11InvoiceFeatures(
 				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns the feature set as a list of bytes, in little-endian. This is in reverse byte order
+		/// from most on-the-wire encodings.
+		public func leFlags() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+					Bolt11InvoiceFeatures_le_flags(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = u8slice(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle().getValue()
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` has any optional flags set
+		public func supportsAnyOptionalBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+					Bolt11InvoiceFeatures_supports_any_optional_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue
@@ -196,6 +321,36 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the set of required features unknown by `other`, as their bit position.
+		public func requiredUnknownBitsFrom() -> [UInt64] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+
+					withUnsafePointer(to: self.cType!) { (otherPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+						Bolt11InvoiceFeatures_required_unknown_bits_from(thisArgPointer, otherPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u64Z(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Returns true if this `Features` object contains unknown feature flags which are set as
 		/// \"required\".
 		public func requiresUnknownBits() -> Bool {
@@ -206,6 +361,28 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
 					Bolt11InvoiceFeatures_requires_unknown_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` supports any bits which we do not know of
+		public func supportsUnknownBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
+					Bolt11InvoiceFeatures_supports_unknown_bits(thisArgPointer)
 				}
 
 
@@ -346,57 +523,6 @@ extension Bindings {
 				anchor: self
 			)
 			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Serialize the Bolt11InvoiceFeatures object into a byte array which can be read by Bolt11InvoiceFeatures_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKBolt11InvoiceFeatures>) in
-					Bolt11InvoiceFeatures_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a Bolt11InvoiceFeatures from a byte array, created by Bolt11InvoiceFeatures_write
-		public class func read(ser: [UInt8]) -> Result_Bolt11InvoiceFeaturesDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = Bolt11InvoiceFeatures_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_Bolt11InvoiceFeaturesDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceFeatures.swift::\(#function):\(#line)")
 
 
 			return returnValue

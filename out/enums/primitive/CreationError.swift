@@ -26,15 +26,10 @@ extension Bindings {
 		/// The supplied millisatoshi amount was greater than the total bitcoin supply.
 		case InvalidAmount
 
-		/// Route hints were required for this invoice and were missing. Applies to
-		/// [phantom invoices].
-		///
-		/// [phantom invoices]: crate::utils::create_phantom_invoice
+		/// Route hints were required for this invoice and were missing.
 		case MissingRouteHints
 
-		/// The provided `min_final_cltv_expiry_delta` was less than [`MIN_FINAL_CLTV_EXPIRY_DELTA`].
-		///
-		/// [`MIN_FINAL_CLTV_EXPIRY_DELTA`]: lightning::ln::channelmanager::MIN_FINAL_CLTV_EXPIRY_DELTA
+		/// The provided `min_final_cltv_expiry_delta` was less than rust-lightning's minimum.
 		case MinFinalCltvExpiryDeltaTooShort
 
 

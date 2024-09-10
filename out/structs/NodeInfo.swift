@@ -133,7 +133,7 @@ extension Bindings {
 		/// Optional because we store a Node entry after learning about it from
 		/// a channel announcement, but before receiving a node announcement.
 		///
-		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Returns a copy of the field.
 		public func getAnnouncementInfo() -> NodeAnnouncementInfo? {
 			// native call variable prep
 
@@ -147,25 +147,12 @@ extension Bindings {
 
 			// cleanup
 
-			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-			// Type group: RustStruct
-			// Type: LDKNodeAnnouncementInfo
-
-			if nativeCallResult.inner == nil {
-				return nil
-			}
-
-			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
-			if pointerValue == 0 {
-				return nil
-			}
-
 
 			// return value (do some wrapping)
-			let returnValue = NodeAnnouncementInfo(
+			let returnValue = Option_NodeAnnouncementInfoZ(
 				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self
 			)
-			.dangle(false)
+			.getValue()
 
 
 			return returnValue
@@ -174,16 +161,19 @@ extension Bindings {
 		/// More information about a node from node_announcement.
 		/// Optional because we store a Node entry after learning about it from
 		/// a channel announcement, but before receiving a node announcement.
-		///
-		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func setAnnouncementInfo(val: NodeAnnouncementInfo) {
+		public func setAnnouncementInfo(val: NodeAnnouncementInfo?) {
 			// native call variable prep
+
+			let valOption = Option_NodeAnnouncementInfoZ(
+				some: val, instantiationContext: "NodeInfo.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
-					NodeInfo_set_announcement_info(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+					NodeInfo_set_announcement_info(thisPtrPointer, valOption.cType!)
 				}
 
 
@@ -195,44 +185,6 @@ extension Bindings {
 
 
 			return returnValue
-		}
-
-		/// Constructs a new NodeInfo given each field
-		///
-		/// Note that announcement_info_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
-			// native call variable prep
-
-			let channelsArgVector = Vec_u64Z(
-				array: channelsArg, instantiationContext: "NodeInfo.swift::\(#function):\(#line)"
-			)
-			.dangle()
-
-
-			// native method call
-			let nativeCallResult = NodeInfo_new(
-				channelsArgVector.cType!, announcementInfoArg.dynamicallyDangledClone().cType!)
-
-			// cleanup
-
-			// channelsArgVector.noOpRetain()
-
-			self.initialCFreeability = nativeCallResult.is_owned
-
-
-			/*
-						// return value (do some wrapping)
-						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-						*/
-
-
-			self.cType = nativeCallResult
-
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-
-
 		}
 
 		/// Creates a copy of the NodeInfo
@@ -303,6 +255,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a NodeInfo object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKNodeInfo>) in
+					NodeInfo_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

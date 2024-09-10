@@ -88,8 +88,8 @@ extension Bindings {
 			/// Used to indicate that a stfu message should be sent to the peer with the given node id.
 			case SendStfu
 
-			/// Used to indicate that a splice message should be sent to the peer with the given node id.
-			case SendSplice
+			/// Used to indicate that a splice_init message should be sent to the peer with the given node id.
+			case SendSpliceInit
 
 			/// Used to indicate that a splice_ack message should be sent to the peer with the given node id.
 			case SendSpliceAck
@@ -216,8 +216,8 @@ extension Bindings {
 				case LDKMessageSendEvent_SendStfu:
 					return .SendStfu
 
-				case LDKMessageSendEvent_SendSplice:
-					return .SendSplice
+				case LDKMessageSendEvent_SendSpliceInit:
+					return .SendSpliceInit
 
 				case LDKMessageSendEvent_SendSpliceAck:
 					return .SendSpliceAck
@@ -537,8 +537,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Utility method to constructs a new SendSplice-variant MessageSendEvent
-		public class func initWithSendSplice(nodeId: [UInt8], msg: Bindings.Splice) -> MessageSendEvent {
+		/// Utility method to constructs a new SendSpliceInit-variant MessageSendEvent
+		public class func initWithSendSpliceInit(nodeId: [UInt8], msg: Bindings.SpliceInit) -> MessageSendEvent {
 			// native call variable prep
 
 			let nodeIdPrimitiveWrapper = PublicKey(
@@ -546,7 +546,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = MessageSendEvent_send_splice(
+			let nativeCallResult = MessageSendEvent_send_splice_init(
 				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
@@ -1360,14 +1360,14 @@ extension Bindings {
 				anchor: self)
 		}
 
-		public func getValueAsSendSplice() -> SendSplice? {
-			if self.cType?.tag != LDKMessageSendEvent_SendSplice {
+		public func getValueAsSendSpliceInit() -> SendSpliceInit? {
+			if self.cType?.tag != LDKMessageSendEvent_SendSpliceInit {
 				return nil
 			}
 
-			return MessageSendEvent_LDKSendSplice_Body(
-				cType: self.cType!.send_splice, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
-				anchor: self)
+			return MessageSendEvent_LDKSendSpliceInit_Body(
+				cType: self.cType!.send_splice_init,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
 		}
 
 		public func getValueAsSendSpliceAck() -> SendSpliceAck? {
@@ -2258,11 +2258,11 @@ extension Bindings {
 
 
 		///
-		internal typealias MessageSendEvent_LDKSendSplice_Body = SendSplice
+		internal typealias MessageSendEvent_LDKSendSpliceInit_Body = SendSpliceInit
 
 
 		///
-		public class SendSplice: NativeTypeWrapper {
+		public class SendSpliceInit: NativeTypeWrapper {
 
 
 			/// Set to false to suppress an individual type's deinit log statements.
@@ -2277,9 +2277,9 @@ extension Bindings {
 			private static var instanceCounter: UInt = 0
 			internal let instanceNumber: UInt
 
-			internal var cType: LDKMessageSendEvent_LDKSendSplice_Body?
+			internal var cType: LDKMessageSendEvent_LDKSendSpliceInit_Body?
 
-			internal init(cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String) {
+			internal init(cType: LDKMessageSendEvent_LDKSendSpliceInit_Body, instantiationContext: String) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
 				self.cType = cType
@@ -2288,7 +2288,8 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String, anchor: NativeTypeWrapper
+				cType: LDKMessageSendEvent_LDKSendSpliceInit_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
 			) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
@@ -2300,8 +2301,8 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKMessageSendEvent_LDKSendSplice_Body, instantiationContext: String, anchor: NativeTypeWrapper,
-				dangle: Bool = false
+				cType: LDKMessageSendEvent_LDKSendSpliceInit_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
 			) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
@@ -2326,9 +2327,9 @@ extension Bindings {
 			}
 
 			/// The message which should be sent.
-			public func getMsg() -> Bindings.Splice {
+			public func getMsg() -> Bindings.SpliceInit {
 				// return value (do some wrapping)
-				let returnValue = Bindings.Splice(
+				let returnValue = Bindings.SpliceInit(
 					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
 					anchor: self)
 

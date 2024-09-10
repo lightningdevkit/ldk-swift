@@ -11,6 +11,9 @@
 /// If `block_hash` is `Some`, this indicates the output was created in the corresponding block and
 /// may have been spent there. See [`Filter::register_output`] for details.
 ///
+/// Depending on your block source, you may need one or both of either [`Self::outpoint`] or
+/// [`Self::script_pubkey`].
+///
 /// [`ChannelMonitor`]: channelmonitor::ChannelMonitor
 /// [`ChannelMonitor::block_connected`]: channelmonitor::ChannelMonitor::block_connected
 public typealias WatchedOutput = Bindings.WatchedOutput
@@ -26,6 +29,9 @@ extension Bindings {
 	///
 	/// If `block_hash` is `Some`, this indicates the output was created in the corresponding block and
 	/// may have been spent there. See [`Filter::register_output`] for details.
+	///
+	/// Depending on your block source, you may need one or both of either [`Self::outpoint`] or
+	/// [`Self::script_pubkey`].
 	///
 	/// [`ChannelMonitor`]: channelmonitor::ChannelMonitor
 	/// [`ChannelMonitor::block_connected`]: channelmonitor::ChannelMonitor::block_connected

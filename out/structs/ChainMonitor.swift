@@ -157,8 +157,7 @@ extension Bindings {
 		/// claims which are awaiting confirmation.
 		///
 		/// Includes the balances from each [`ChannelMonitor`] *except* those included in
-		/// `ignored_channels`, allowing you to filter out balances from channels which are still open
-		/// (and whose balance should likely be pulled from the [`ChannelDetails`]).
+		/// `ignored_channels`.
 		///
 		/// See [`ChannelMonitor::get_claimable_balances`] for more details on the exact criteria for
 		/// inclusion in the return value.
@@ -251,7 +250,10 @@ extension Bindings {
 		}
 
 		/// Lists the pending updates for each [`ChannelMonitor`] (by `OutPoint` being monitored).
-		public func listPendingMonitorUpdates() -> [(OutPoint, [MonitorUpdateId])] {
+		/// Each `Vec<u64>` contains `update_id`s from [`ChannelMonitor::get_latest_update_id`] for updates
+		/// that have not yet been fully persisted. Note that if a full monitor is persisted all the pending
+		/// monitor updates must be individually marked completed by calling [`ChainMonitor::channel_monitor_updated`].
+		public func listPendingMonitorUpdates() -> [(OutPoint, [UInt64])] {
 			// native call variable prep
 
 
@@ -266,7 +268,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(
+			let returnValue = Vec_C2Tuple_OutPointCVec_u64ZZZ(
 				cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
@@ -282,15 +284,20 @@ extension Bindings {
 		/// 1) This [`ChainMonitor`] calls [`Persist::update_persisted_channel`] which stores the
 		/// update to disk and begins updating any remote (e.g. watchtower/backup) copies,
 		/// returning [`ChannelMonitorUpdateStatus::InProgress`],
-		/// 2) once all remote copies are updated, you call this function with the
-		/// `completed_update_id` that completed, and once all pending updates have completed the
-		/// channel will be re-enabled.
+		/// 2) once all remote copies are updated, you call this function with [`ChannelMonitor::get_latest_update_id`]
+		/// or [`ChannelMonitorUpdate::update_id`] as the `completed_update_id`, and once all pending
+		/// updates have completed the channel will be re-enabled.
+		///
+		/// It is only necessary to call [`ChainMonitor::channel_monitor_updated`] when you return [`ChannelMonitorUpdateStatus::InProgress`]
+		/// from [`Persist`] and either:
+		/// 1. A new [`ChannelMonitor`] was added in [`Persist::persist_new_channel`], or
+		/// 2. A [`ChannelMonitorUpdate`] was provided as part of [`Persist::update_persisted_channel`].
+		/// Note that we don't care about calls to [`Persist::update_persisted_channel`] where no
+		/// [`ChannelMonitorUpdate`] was provided.
 		///
 		/// Returns an [`APIError::APIMisuseError`] if `funding_txo` does not match any currently
 		/// registered [`ChannelMonitor`]s.
-		public func channelMonitorUpdated(fundingTxo: OutPoint, completedUpdateId: MonitorUpdateId)
-			-> Result_NoneAPIErrorZ
-		{
+		public func channelMonitorUpdated(fundingTxo: OutPoint, completedUpdateId: UInt64) -> Result_NoneAPIErrorZ {
 			// native call variable prep
 
 
@@ -298,8 +305,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChainMonitor>) in
 					ChainMonitor_channel_monitor_updated(
-						thisArgPointer, fundingTxo.dynamicallyDangledClone().cType!,
-						completedUpdateId.dynamicallyDangledClone().cType!)
+						thisArgPointer, fundingTxo.dynamicallyDangledClone().cType!, completedUpdateId)
 				}
 
 

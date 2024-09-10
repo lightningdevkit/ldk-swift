@@ -10,10 +10,9 @@ public typealias PaymentContext = Bindings.PaymentContext
 
 extension Bindings {
 
-	/// The context of an inbound payment, which is included in a [`BlindedPath`] via [`ReceiveTlvs`]
-	/// and surfaced in [`PaymentPurpose`].
+	/// The context of an inbound payment, which is included in a [`BlindedPaymentPath`] via
+	/// [`ReceiveTlvs`] and surfaced in [`PaymentPurpose`].
 	///
-	/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 	/// [`PaymentPurpose`]: crate::events::PaymentPurpose
 	public class PaymentContext: NativeTypeWrapper {
 

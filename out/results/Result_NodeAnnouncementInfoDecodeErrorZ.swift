@@ -69,7 +69,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CResult_NodeAnnouncementInfoDecodeErrorZ_ok(o.dynamicallyDangledClone().cType!)
+			let nativeCallResult = CResult_NodeAnnouncementInfoDecodeErrorZ_ok(o.danglingClone().cType!)
 
 			// cleanup
 

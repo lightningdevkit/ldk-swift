@@ -8,12 +8,20 @@ import Foundation
 
 /// A trait to handle Lightning channel key material without concretizing the channel type or
 /// the signature mechanism.
+///
+/// Several methods allow error types to be returned to support async signing. This feature
+/// is not yet complete, and panics may occur in certain situations when returning errors
+/// for these methods.
 public typealias ChannelSigner = Bindings.ChannelSigner
 
 extension Bindings {
 
 	/// A trait to handle Lightning channel key material without concretizing the channel type or
 	/// the signature mechanism.
+	///
+	/// Several methods allow error types to be returned to support async signing. This feature
+	/// is not yet complete, and panics may occur in certain situations when returning errors
+	/// for these methods.
 	open class ChannelSigner: NativeTraitWrapper {
 
 
@@ -72,7 +80,7 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func getPerCommitmentPointLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKPublicKey {
+			func getPerCommitmentPointLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKCResult_PublicKeyNoneZ {
 				let instance: ChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelSigner::getPerCommitmentPointLambda")
 
@@ -86,16 +94,12 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = PublicKey(
-					value: swiftCallbackResult,
-					instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
-				)
-				.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
 
-			func releaseCommitmentSecretLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKThirtyTwoBytes {
+			func releaseCommitmentSecretLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKCResult__u832NoneZ {
 				let instance: ChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelSigner::releaseCommitmentSecretLambda")
 
@@ -109,11 +113,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
-					value: swiftCallbackResult,
-					instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
-				)
-				.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -263,7 +263,11 @@ extension Bindings {
 		/// Gets the per-commitment point for a specific commitment number
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-		open func getPerCommitmentPoint(idx: UInt64) -> [UInt8] {
+		///
+		/// If the signer returns `Err`, then the user is responsible for either force-closing the channel
+		/// or calling `ChannelManager::signer_unblocked` (this method is only available when the
+		/// `async_signing` cfg flag is enabled) once the signature is ready.
+		open func getPerCommitmentPoint(idx: UInt64) -> Result_PublicKeyNoneZ {
 
 			Bindings.print(
 				"Error: ChannelSigner::getPerCommitmentPoint MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -279,7 +283,7 @@ extension Bindings {
 		/// May be called more than once for the same index.
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-		open func releaseCommitmentSecret(idx: UInt64) -> [UInt8] {
+		open func releaseCommitmentSecret(idx: UInt64) -> Result__u832NoneZ {
 
 			Bindings.print(
 				"Error: ChannelSigner::releaseCommitmentSecret MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -399,7 +403,11 @@ extension Bindings {
 		/// Gets the per-commitment point for a specific commitment number
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-		public override func getPerCommitmentPoint(idx: UInt64) -> [UInt8] {
+		///
+		/// If the signer returns `Err`, then the user is responsible for either force-closing the channel
+		/// or calling `ChannelManager::signer_unblocked` (this method is only available when the
+		/// `async_signing` cfg flag is enabled) once the signature is ready.
+		public override func getPerCommitmentPoint(idx: UInt64) -> Result_PublicKeyNoneZ {
 			// native call variable prep
 
 
@@ -410,10 +418,8 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
-				cType: nativeCallResult, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)"
-			)
-			.getValue()
+			let returnValue = Result_PublicKeyNoneZ(
+				cType: nativeCallResult, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
@@ -426,7 +432,7 @@ extension Bindings {
 		/// May be called more than once for the same index.
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-		public override func releaseCommitmentSecret(idx: UInt64) -> [UInt8] {
+		public override func releaseCommitmentSecret(idx: UInt64) -> Result__u832NoneZ {
 			// native call variable prep
 
 
@@ -437,10 +443,8 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = ThirtyTwoBytes(
-				cType: nativeCallResult, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)"
-			)
-			.getValue()
+			let returnValue = Result__u832NoneZ(
+				cType: nativeCallResult, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
 		}

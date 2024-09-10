@@ -272,6 +272,53 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The maximum number of [`Path::hops`] in any returned path.
+		/// Defaults to [`MAX_PATH_LENGTH_ESTIMATE`].
+		public func getMaxPathLength() -> UInt8 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
+					PaymentParameters_get_max_path_length(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The maximum number of [`Path::hops`] in any returned path.
+		/// Defaults to [`MAX_PATH_LENGTH_ESTIMATE`].
+		public func setMaxPathLength(val: UInt8) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
+					PaymentParameters_set_max_path_length(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Selects the maximum share of a channel's total capacity which will be sent over a channel,
 		/// as a power of 1/2. A higher value prefers to send the payment using more MPP parts whereas
 		/// a lower value prefers to send larger MPP parts, potentially saturating channels and
@@ -464,7 +511,7 @@ extension Bindings {
 		/// Constructs a new PaymentParameters given each field
 		public init(
 			payeeArg: Payee, expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8,
-			maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64],
+			maxPathLengthArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64],
 			previouslyFailedBlindedPathIdxsArg: [UInt64]
 		) {
 			// native call variable prep
@@ -490,8 +537,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = PaymentParameters_new(
 				payeeArg.danglingClone().cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg,
-				maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!,
-				previouslyFailedBlindedPathIdxsArgVector.cType!)
+				maxPathCountArg, maxPathLengthArg, maxChannelSaturationPowerOfHalfArg,
+				previouslyFailedChannelsArgVector.cType!, previouslyFailedBlindedPathIdxsArgVector.cType!)
 
 			// cleanup
 
@@ -738,10 +785,10 @@ extension Bindings {
 		}
 
 		/// Creates parameters for paying to a blinded payee from the provided blinded route hints.
-		public class func initWithBlinded(blindedRouteHints: [(BlindedPayInfo, BlindedPath)]) -> PaymentParameters {
+		public class func initWithBlinded(blindedRouteHints: [BlindedPaymentPath]) -> PaymentParameters {
 			// native call variable prep
 
-			let blindedRouteHintsVector = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+			let blindedRouteHintsVector = Vec_BlindedPaymentPathZ(
 				array: blindedRouteHints, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)"
 			)
 			.dangle()

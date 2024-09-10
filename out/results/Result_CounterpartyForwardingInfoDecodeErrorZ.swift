@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_CounterpartyForwardingInfoDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::ln::channelmanager::CounterpartyForwardingInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::ln::channel_state::CounterpartyForwardingInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_CounterpartyForwardingInfoDecodeErrorZ = Bindings.Result_CounterpartyForwardingInfoDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_CounterpartyForwardingInfoDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::ln::channelmanager::CounterpartyForwardingInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::ln::channel_state::CounterpartyForwardingInfo on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_CounterpartyForwardingInfoDecodeErrorZ: NativeTypeWrapper {
 

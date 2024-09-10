@@ -183,8 +183,8 @@ extension Bindings {
 		)
 		public class func start(
 			persister: Persister, eventHandler: EventHandler, chainMonitor: ChainMonitor,
-			channelManager: ChannelManager, gossipSync: GossipSync, peerManager: PeerManager, logger: Logger,
-			scorer: WriteableScore?
+			channelManager: ChannelManager, onionMessenger: OnionMessenger, gossipSync: GossipSync,
+			peerManager: PeerManager, logger: Logger, scorer: WriteableScore?
 		) -> BackgroundProcessor {
 			// native call variable prep
 
@@ -201,12 +201,17 @@ extension Bindings {
 					withUnsafePointer(to: channelManager.cType!) {
 						(channelManagerPointer: UnsafePointer<LDKChannelManager>) in
 
-						withUnsafePointer(to: peerManager.cType!) {
-							(peerManagerPointer: UnsafePointer<LDKPeerManager>) in
-							BackgroundProcessor_start(
-								persister.activate().cType!, eventHandler.activate().cType!, chainMonitorPointer,
-								channelManagerPointer, gossipSync.dangle().cType!, peerManagerPointer,
-								logger.activate().cType!, scorerOption.cType!)
+						withUnsafePointer(to: onionMessenger.cType!) {
+							(onionMessengerPointer: UnsafePointer<LDKOnionMessenger>) in
+
+							withUnsafePointer(to: peerManager.cType!) {
+								(peerManagerPointer: UnsafePointer<LDKPeerManager>) in
+								BackgroundProcessor_start(
+									persister.activate().cType!, eventHandler.activate().cType!, chainMonitorPointer,
+									channelManagerPointer, onionMessengerPointer, gossipSync.dangle().cType!,
+									peerManagerPointer, logger.activate().cType!, scorerOption.cType!)
+							}
+
 						}
 
 					}
@@ -224,6 +229,7 @@ extension Bindings {
 
 			try! returnValue.addAnchor(anchor: chainMonitor)
 			try! returnValue.addAnchor(anchor: channelManager)
+			try! returnValue.addAnchor(anchor: onionMessenger)
 			try! returnValue.addAnchor(anchor: peerManager)
 			return returnValue
 		}

@@ -18,11 +18,11 @@ class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersiste
         super.init()
     }
     
-    func handleEvent(event: Event) {
+    func handleEvent(event: Event) -> Result_NoneReplayEventZ {
         privateHandleEvent(event: event)
     }
     
-    private func privateHandleEvent(event: Event) {
+    private func privateHandleEvent(event: Event) -> Result_NoneReplayEventZ {
         if let spendableOutputEvent = event.getValueAsSpendableOutputs() {
             
             let outputs = spendableOutputEvent.getOutputs()
@@ -31,14 +31,14 @@ class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersiste
             let destinationScriptHardcoded: [UInt8] = [118,169,20,25,18,157,83,230,49,155,175,25,219,160,89,190,173,22,109,249,10,184,245,136,172]
             
             guard let result = self.keysManager?.asOutputSpender().spendSpendableOutputs(descriptors: outputs, outputs: [], changeDestinationScript: destinationScriptHardcoded, feerateSatPer1000Weight: UInt32(fastFeerate), locktime: nil) else {
-                return
+                return .initWithErr(e: ReplayEvent())
             }
 
             if let transaction = result.getValue() {
                 // sendEvent(eventName: MARKER_BROADCAST, eventBody: ["txhex": bytesToHex(bytes: transaction)])
             }
             
-            return
+            return .initWithOk()
             
         }else if let paymentSentEvent = event.getValueAsPaymentSent() {
             // print what needs printing
@@ -81,6 +81,8 @@ class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersiste
             })
             task.resume()
         }
+        
+        return .initWithOk()
     }
     
     override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {

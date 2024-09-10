@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_ChannelFeaturesDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::ln::features::ChannelFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::features::ChannelFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_ChannelFeaturesDecodeErrorZ = Bindings.Result_ChannelFeaturesDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_ChannelFeaturesDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::ln::features::ChannelFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::features::ChannelFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 

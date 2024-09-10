@@ -333,7 +333,7 @@ extension Bindings {
 
 		/// Paths to the recipient originating from publicly reachable nodes. Blinded paths provide
 		/// recipient privacy by obfuscating its node id.
-		public func paths() -> [BlindedPath] {
+		public func paths() -> [BlindedMessagePath] {
 			// native call variable prep
 
 
@@ -348,7 +348,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_BlindedPathZ(
+			let returnValue = Vec_BlindedMessagePathZ(
 				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -630,12 +630,12 @@ extension Bindings {
 		/// creation time is used for the `created_at` parameter.
 		///
 		/// [`Duration`]: core::time::Duration
-		public func respondWith(paymentPaths: [(BlindedPayInfo, BlindedPath)], paymentHash: [UInt8])
+		public func respondWith(paymentPaths: [BlindedPaymentPath], paymentHash: [UInt8])
 			-> Result_InvoiceWithExplicitSigningPubkeyBuilderBolt12SemanticErrorZ
 		{
 			// native call variable prep
 
-			let paymentPathsVector = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+			let paymentPathsVector = Vec_BlindedPaymentPathZ(
 				array: paymentPaths, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -690,16 +690,18 @@ extension Bindings {
 		/// # Note
 		///
 		/// If the originating [`Offer`] was created using [`OfferBuilder::deriving_signing_pubkey`],
-		/// then use [`InvoiceRequest::verify`] and [`VerifiedInvoiceRequest`] methods instead.
+		/// then first use [`InvoiceRequest::verify_using_metadata`] or
+		/// [`InvoiceRequest::verify_using_recipient_data`] and then [`VerifiedInvoiceRequest`] methods
+		/// instead.
 		///
 		/// [`Bolt12Invoice::created_at`]: crate::offers::invoice::Bolt12Invoice::created_at
 		/// [`OfferBuilder::deriving_signing_pubkey`]: crate::offers::offer::OfferBuilder::deriving_signing_pubkey
-		public func respondWithNoStd(
-			paymentPaths: [(BlindedPayInfo, BlindedPath)], paymentHash: [UInt8], createdAt: UInt64
-		) -> Result_InvoiceWithExplicitSigningPubkeyBuilderBolt12SemanticErrorZ {
+		public func respondWithNoStd(paymentPaths: [BlindedPaymentPath], paymentHash: [UInt8], createdAt: UInt64)
+			-> Result_InvoiceWithExplicitSigningPubkeyBuilderBolt12SemanticErrorZ
+		{
 			// native call variable prep
 
-			let paymentPathsVector = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+			let paymentPathsVector = Vec_BlindedPaymentPathZ(
 				array: paymentPaths, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -735,19 +737,51 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Verifies that the request was for an offer created using the given key. Returns the verified
-		/// request which contains the derived keys needed to sign a [`Bolt12Invoice`] for the request
-		/// if they could be extracted from the metadata.
+		/// Verifies that the request was for an offer created using the given key by checking the
+		/// metadata from the offer.
+		///
+		/// Returns the verified request which contains the derived keys needed to sign a
+		/// [`Bolt12Invoice`] for the request if they could be extracted from the metadata.
 		///
 		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
-		public func verify(key: ExpandedKey) -> Result_VerifiedInvoiceRequestNoneZ {
+		public func verifyUsingMetadata(key: ExpandedKey) -> Result_VerifiedInvoiceRequestNoneZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
-					InvoiceRequest_verify(self.dynamicallyDangledClone().cType!, keyPointer)
+					InvoiceRequest_verify_using_metadata(self.dynamicallyDangledClone().cType!, keyPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_VerifiedInvoiceRequestNoneZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Verifies that the request was for an offer created using the given key by checking a nonce
+		/// included with the [`BlindedMessagePath`] for which the request was sent through.
+		///
+		/// Returns the verified request which contains the derived keys needed to sign a
+		/// [`Bolt12Invoice`] for the request if they could be extracted from the metadata.
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		public func verifyUsingRecipientData(nonce: Nonce, key: ExpandedKey) -> Result_VerifiedInvoiceRequestNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
+					InvoiceRequest_verify_using_recipient_data(
+						self.dynamicallyDangledClone().cType!, nonce.dynamicallyDangledClone().cType!, keyPointer)
 				}
 
 

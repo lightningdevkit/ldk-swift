@@ -2,7 +2,7 @@
 	import LDKHeaders
 #endif
 
-/// A simple implementation of [`WriteableEcdsaChannelSigner`] that just keeps the private keys in memory.
+/// A simple implementation of [`EcdsaChannelSigner`] that just keeps the private keys in memory.
 ///
 /// This implementation performs no policy checks and is insufficient by itself as
 /// a secure external signer.
@@ -11,7 +11,7 @@ public typealias InMemorySigner = Bindings.InMemorySigner
 extension Bindings {
 
 
-	/// A simple implementation of [`WriteableEcdsaChannelSigner`] that just keeps the private keys in memory.
+	/// A simple implementation of [`EcdsaChannelSigner`] that just keeps the private keys in memory.
 	///
 	/// This implementation performs no policy checks and is insufficient by itself as
 	/// a secure external signer.
@@ -962,31 +962,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedEcdsaChannelSigner(
-				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
-		/// Constructs a new WriteableEcdsaChannelSigner which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned WriteableEcdsaChannelSigner must be freed before this_arg is
-		public func asWriteableEcdsaChannelSigner() -> WriteableEcdsaChannelSigner {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
-					InMemorySigner_as_WriteableEcdsaChannelSigner(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(
 				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
 				anchor: self)
 

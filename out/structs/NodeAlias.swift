@@ -244,6 +244,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the string representation of a NodeAlias object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKNodeAlias>) in
+					NodeAlias_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "NodeAlias.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Serialize the NodeAlias object into a byte array which can be read by NodeAlias_read
 		public func write() -> [UInt8] {
 			// native call variable prep

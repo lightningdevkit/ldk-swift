@@ -187,6 +187,11 @@ extension Bindings {
 
 		/// Registers interest in a transaction with `txid` and having an output with `script_pubkey` as
 		/// a spending condition.
+		///
+		/// This may be used, for example, to monitor for when a funding transaction confirms.
+		///
+		/// The `script_pubkey` is provided for informational purposes and may be useful for block
+		/// sources which only support filtering on scripts.
 		open func registerTx(txid: [UInt8]?, scriptPubkey: [UInt8]) {
 
 			Bindings.print(
@@ -201,6 +206,9 @@ extension Bindings {
 		/// to ensure that also dependent output spents within an already connected block are correctly
 		/// handled, e.g., by re-scanning the block in question whenever new outputs have been
 		/// registered mid-processing.
+		///
+		/// This may be used, for example, to monitor for when a funding output is spent (by any
+		/// transaction).
 		open func registerOutput(output: WatchedOutput) {
 
 			Bindings.print(
@@ -244,6 +252,11 @@ extension Bindings {
 
 		/// Registers interest in a transaction with `txid` and having an output with `script_pubkey` as
 		/// a spending condition.
+		///
+		/// This may be used, for example, to monitor for when a funding transaction confirms.
+		///
+		/// The `script_pubkey` is provided for informational purposes and may be useful for block
+		/// sources which only support filtering on scripts.
 		public override func registerTx(txid: [UInt8]?, scriptPubkey: [UInt8]) {
 			// native call variable prep
 
@@ -282,6 +295,9 @@ extension Bindings {
 		/// to ensure that also dependent output spents within an already connected block are correctly
 		/// handled, e.g., by re-scanning the block in question whenever new outputs have been
 		/// registered mid-processing.
+		///
+		/// This may be used, for example, to monitor for when a funding output is spent (by any
+		/// transaction).
 		public override func registerOutput(output: WatchedOutput) {
 			// native call variable prep
 

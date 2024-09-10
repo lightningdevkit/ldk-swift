@@ -77,6 +77,57 @@ extension Bindings {
 		}
 
 
+		/// Serialize the ChannelTypeFeatures object into a byte array which can be read by ChannelTypeFeatures_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a ChannelTypeFeatures from a byte array, created by ChannelTypeFeatures_write
+		public class func read(ser: [UInt8]) -> Result_ChannelTypeFeaturesDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = ChannelTypeFeatures_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_ChannelTypeFeaturesDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Checks if two ChannelTypeFeaturess contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.
@@ -168,6 +219,44 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Constructs a ChannelTypeFeatures with only static_remotekey set
+		public class func initWithOnlyStaticRemoteKey() -> ChannelTypeFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ChannelTypeFeatures_only_static_remote_key()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ChannelTypeFeatures(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Constructs a ChannelTypeFeatures with anchors support
+		public class func initWithAnchorsZeroHtlcFeeAndDependencies() -> ChannelTypeFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ChannelTypeFeatures_anchors_zero_htlc_fee_and_dependencies()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ChannelTypeFeatures(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Create a blank Features with no features set
 		public class func initWithEmpty() -> ChannelTypeFeatures {
 			// native call variable prep
@@ -182,6 +271,55 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = ChannelTypeFeatures(
 				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns the feature set as a list of bytes, in little-endian. This is in reverse byte order
+		/// from most on-the-wire encodings.
+		public func leFlags() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_le_flags(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = u8slice(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle().getValue()
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` has any optional flags set
+		public func supportsAnyOptionalBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_supports_any_optional_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue
@@ -213,6 +351,36 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the set of required features unknown by `other`, as their bit position.
+		public func requiredUnknownBitsFrom() -> [UInt64] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+
+					withUnsafePointer(to: self.cType!) { (otherPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+						ChannelTypeFeatures_required_unknown_bits_from(thisArgPointer, otherPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u64Z(
+				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Returns true if this `Features` object contains unknown feature flags which are set as
 		/// \"required\".
 		public func requiresUnknownBits() -> Bool {
@@ -223,6 +391,28 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
 					ChannelTypeFeatures_requires_unknown_bits(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Returns true if this `Features` supports any bits which we do not know of
+		public func supportsUnknownBits() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_supports_unknown_bits(thisArgPointer)
 				}
 
 
@@ -368,15 +558,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Serialize the ChannelTypeFeatures object into a byte array which can be read by ChannelTypeFeatures_read
-		public func write() -> [UInt8] {
+		/// Unsets the `scid_privacy` feature
+		public func clearScidPrivacy() {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKChannelTypeFeatures>) in
-					ChannelTypeFeatures_write(objPointer)
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisArgPointer: UnsafeMutablePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_clear_scid_privacy(thisArgPointer)
 				}
 
 
@@ -384,36 +575,30 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
+			let returnValue = nativeCallResult
 
 
 			return returnValue
 		}
 
-		/// Read a ChannelTypeFeatures from a byte array, created by ChannelTypeFeatures_write
-		public class func read(ser: [UInt8]) -> Result_ChannelTypeFeaturesDecodeErrorZ {
+		/// Unsets the `anchors_zero_fee_htlc_tx` feature
+		public func clearAnchorsZeroFeeHtlcTx() {
 			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = ChannelTypeFeatures_read(serPrimitiveWrapper.cType!)
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisArgPointer: UnsafeMutablePointer<LDKChannelTypeFeatures>) in
+					ChannelTypeFeatures_clear_anchors_zero_fee_htlc_tx(thisArgPointer)
+				}
+
 
 			// cleanup
 
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
 
 			// return value (do some wrapping)
-			let returnValue = Result_ChannelTypeFeaturesDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "ChannelTypeFeatures.swift::\(#function):\(#line)")
+			let returnValue = nativeCallResult
 
 
 			return returnValue

@@ -243,8 +243,79 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Optional batch size and other parameters
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getBatch() -> CommitmentSignedBatch? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKCommitmentSigned>) in
+					CommitmentSigned_get_batch(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKCommitmentSignedBatch
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = CommitmentSignedBatch(
+				cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Optional batch size and other parameters
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setBatch(val: CommitmentSignedBatch) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKCommitmentSigned>) in
+					CommitmentSigned_set_batch(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new CommitmentSigned given each field
-		public init(channelIdArg: ChannelId, signatureArg: [UInt8], htlcSignaturesArg: [[UInt8]]) {
+		///
+		/// Note that batch_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(
+			channelIdArg: ChannelId, signatureArg: [UInt8], htlcSignaturesArg: [[UInt8]],
+			batchArg: CommitmentSignedBatch
+		) {
 			// native call variable prep
 
 			let signatureArgPrimitiveWrapper = ECDSASignature(
@@ -259,7 +330,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = CommitmentSigned_new(
 				channelIdArg.dynamicallyDangledClone().cType!, signatureArgPrimitiveWrapper.cType!,
-				htlcSignaturesArgVector.cType!)
+				htlcSignaturesArgVector.cType!, batchArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 

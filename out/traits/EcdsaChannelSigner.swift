@@ -392,6 +392,7 @@ extension Bindings {
 				sign_holder_anchor_input: signHolderAnchorInputLambda,
 				sign_channel_announcement_with_funding_key: signChannelAnnouncementWithFundingKeyLambda,
 				ChannelSigner: channelSigner.activate().cType!,
+				cloned: nil,
 				free: freeLambda
 			)
 		}
@@ -631,6 +632,30 @@ extension Bindings {
 				"Error: EcdsaChannelSigner::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
+		}
+
+
+		/// Creates a copy of a EcdsaChannelSigner
+		internal func clone() -> EcdsaChannelSigner {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKEcdsaChannelSigner>) in
+					EcdsaChannelSigner_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedEcdsaChannelSigner(
+				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
+
+
+			return returnValue
 		}
 
 

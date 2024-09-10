@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_BlindedHopFeaturesDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::ln::features::BlindedHopFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::features::BlindedHopFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_BlindedHopFeaturesDecodeErrorZ = Bindings.Result_BlindedHopFeaturesDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_BlindedHopFeaturesDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::ln::features::BlindedHopFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::features::BlindedHopFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_BlindedHopFeaturesDecodeErrorZ: NativeTypeWrapper {
 

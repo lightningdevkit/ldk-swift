@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_InitFeaturesDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::ln::features::InitFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning_types::features::InitFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_InitFeaturesDecodeErrorZ = Bindings.Result_InitFeaturesDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_InitFeaturesDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::ln::features::InitFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning_types::features::InitFeatures on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_InitFeaturesDecodeErrorZ: NativeTypeWrapper {
 

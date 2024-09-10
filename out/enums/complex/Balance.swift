@@ -170,12 +170,18 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ClaimableOnChannelClose-variant Balance
-		public class func initWithClaimableOnChannelClose(amountSatoshis: UInt64) -> Balance {
+		public class func initWithClaimableOnChannelClose(
+			amountSatoshis: UInt64, transactionFeeSatoshis: UInt64, outboundPaymentHtlcRoundedMsat: UInt64,
+			outboundForwardedHtlcRoundedMsat: UInt64, inboundClaimingHtlcRoundedMsat: UInt64,
+			inboundHtlcRoundedMsat: UInt64
+		) -> Balance {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = Balance_claimable_on_channel_close(amountSatoshis)
+			let nativeCallResult = Balance_claimable_on_channel_close(
+				amountSatoshis, transactionFeeSatoshis, outboundPaymentHtlcRoundedMsat,
+				outboundForwardedHtlcRoundedMsat, inboundClaimingHtlcRoundedMsat, inboundHtlcRoundedMsat)
 
 			// cleanup
 
@@ -189,14 +195,15 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ClaimableAwaitingConfirmations-variant Balance
-		public class func initWithClaimableAwaitingConfirmations(amountSatoshis: UInt64, confirmationHeight: UInt32)
-			-> Balance
-		{
+		public class func initWithClaimableAwaitingConfirmations(
+			amountSatoshis: UInt64, confirmationHeight: UInt32, source: BalanceSource
+		) -> Balance {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = Balance_claimable_awaiting_confirmations(amountSatoshis, confirmationHeight)
+			let nativeCallResult = Balance_claimable_awaiting_confirmations(
+				amountSatoshis, confirmationHeight, source.getCValue())
 
 			// cleanup
 
@@ -246,7 +253,7 @@ extension Bindings {
 
 		/// Utility method to constructs a new MaybeTimeoutClaimableHTLC-variant Balance
 		public class func initWithMaybeTimeoutClaimableHtlc(
-			amountSatoshis: UInt64, claimableHeight: UInt32, paymentHash: [UInt8]
+			amountSatoshis: UInt64, claimableHeight: UInt32, paymentHash: [UInt8], outboundPayment: Bool
 		) -> Balance {
 			// native call variable prep
 
@@ -256,7 +263,7 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Balance_maybe_timeout_claimable_htlc(
-				amountSatoshis, claimableHeight, paymentHashPrimitiveWrapper.cType!)
+				amountSatoshis, claimableHeight, paymentHashPrimitiveWrapper.cType!, outboundPayment)
 
 			// cleanup
 
@@ -346,9 +353,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The amount claimable, in satoshis. This excludes balances that we are unsure if we are able
-		/// to claim, this is because we are waiting for a preimage or for a timeout to expire. For more
-		/// information on these balances see [`Balance::MaybeTimeoutClaimableHTLC`] and
+		/// The amount claimable, in satoshis.
+		///
+		/// For outbound payments, this excludes the balance from the possible HTLC timeout.
+		///
+		/// For forwarded payments, this includes the balance from the possible HTLC timeout as
+		/// (to be conservative) that balance does not include routing fees we'd earn if we'd claim
+		/// the balance from a preimage in a successful forward.
+		///
+		/// For more information on these balances see [`Balance::MaybeTimeoutClaimableHTLC`] and
 		/// [`Balance::MaybePreimageClaimableHTLC`].
 		///
 		/// On-chain fees required to claim the balance are not included in this amount.
@@ -525,6 +538,79 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// The transaction fee we pay for the closing commitment transaction. This amount is not
+			/// included in the [`Balance::ClaimableOnChannelClose::amount_satoshis`] value.
+			///
+			/// Note that if this channel is inbound (and thus our counterparty pays the commitment
+			/// transaction fee) this value will be zero. For [`ChannelMonitor`]s created prior to LDK
+			/// 0.0.124, the channel is always treated as outbound (and thus this value is never zero).
+			public func getTransactionFeeSatoshis() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.transaction_fee_satoshis
+
+				return returnValue
+			}
+
+			/// The amount of millisatoshis which has been burned to fees from HTLCs which are outbound
+			/// from us and are related to a payment which was sent by us. This is the sum of the
+			/// millisatoshis part of all HTLCs which are otherwise represented by
+			/// [`Balance::MaybeTimeoutClaimableHTLC`] with their
+			/// [`Balance::MaybeTimeoutClaimableHTLC::outbound_payment`] flag set, as well as any dust
+			/// HTLCs which would otherwise be represented the same.
+			///
+			/// This amount (rounded up to a whole satoshi value) will not be included in `amount_satoshis`.
+			public func getOutboundPaymentHtlcRoundedMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.outbound_payment_htlc_rounded_msat
+
+				return returnValue
+			}
+
+			/// The amount of millisatoshis which has been burned to fees from HTLCs which are outbound
+			/// from us and are related to a forwarded HTLC. This is the sum of the millisatoshis part
+			/// of all HTLCs which are otherwise represented by [`Balance::MaybeTimeoutClaimableHTLC`]
+			/// with their [`Balance::MaybeTimeoutClaimableHTLC::outbound_payment`] flag *not* set, as
+			/// well as any dust HTLCs which would otherwise be represented the same.
+			///
+			/// This amount (rounded up to a whole satoshi value) will not be included in `amount_satoshis`.
+			public func getOutboundForwardedHtlcRoundedMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.outbound_forwarded_htlc_rounded_msat
+
+				return returnValue
+			}
+
+			/// The amount of millisatoshis which has been burned to fees from HTLCs which are inbound
+			/// to us and for which we know the preimage. This is the sum of the millisatoshis part of
+			/// all HTLCs which would be represented by [`Balance::ContentiousClaimable`] on channel
+			/// close, but whose current value is included in
+			/// [`Balance::ClaimableOnChannelClose::amount_satoshis`], as well as any dust HTLCs which
+			/// would otherwise be represented the same.
+			///
+			/// This amount (rounded up to a whole satoshi value) will not be included in the counterparty's
+			/// `amount_satoshis`.
+			public func getInboundClaimingHtlcRoundedMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.inbound_claiming_htlc_rounded_msat
+
+				return returnValue
+			}
+
+			/// The amount of millisatoshis which has been burned to fees from HTLCs which are inbound
+			/// to us and for which we do not know the preimage. This is the sum of the millisatoshis
+			/// part of all HTLCs which would be represented by [`Balance::MaybePreimageClaimableHTLC`]
+			/// on channel close, as well as any dust HTLCs which would otherwise be represented the
+			/// same.
+			///
+			/// This amount (rounded up to a whole satoshi value) will not be included in the counterparty's
+			/// `amount_satoshis`.
+			public func getInboundHtlcRoundedMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.inbound_htlc_rounded_msat
+
+				return returnValue
+			}
+
 
 		}
 
@@ -600,6 +686,14 @@ extension Bindings {
 			public func getConfirmationHeight() -> UInt32 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.confirmation_height
+
+				return returnValue
+			}
+
+			/// Whether this balance is a result of cooperative close, a force-close, or an HTLC.
+			public func getSource() -> BalanceSource {
+				// return value (do some wrapping)
+				let returnValue = BalanceSource(value: self.cType!.source)
 
 				return returnValue
 			}
@@ -793,6 +887,16 @@ extension Bindings {
 					anchor: self
 				)
 				.getValue()
+
+				return returnValue
+			}
+
+			/// Whether this HTLC represents a payment which was sent outbound from us. Otherwise it
+			/// represents an HTLC which was forwarded (and should, thus, have a corresponding inbound
+			/// edge on another channel).
+			public func getOutboundPayment() -> Bool {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.outbound_payment
 
 				return returnValue
 			}

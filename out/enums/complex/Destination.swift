@@ -152,7 +152,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new BlindedPath-variant Destination
-		public class func initWithBlindedPath(a: Bindings.BlindedPath) -> Destination {
+		public class func initWithBlindedPath(a: Bindings.BlindedMessagePath) -> Destination {
 			// native call variable prep
 
 
@@ -260,12 +260,12 @@ extension Bindings {
 			.getValue()
 		}
 
-		public func getValueAsBlindedPath() -> Bindings.BlindedPath? {
+		public func getValueAsBlindedPath() -> Bindings.BlindedMessagePath? {
 			if self.cType?.tag != LDKDestination_BlindedPath {
 				return nil
 			}
 
-			return BlindedPath(
+			return BlindedMessagePath(
 				cType: self.cType!.blinded_path, instantiationContext: "Destination.swift::\(#function):\(#line)",
 				anchor: self)
 		}

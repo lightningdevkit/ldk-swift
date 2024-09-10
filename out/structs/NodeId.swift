@@ -98,6 +98,34 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Checks if two NodeIds contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: NodeId, b: NodeId) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKNodeId>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKNodeId>) in
+						NodeId_eq(aPointer, bPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Create a new NodeId from a public key
 		public class func initWithPubkey(pubkey: [UInt8]) -> NodeId {
 			// native call variable prep
@@ -219,6 +247,31 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a NodeId object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKNodeId>) in
+					NodeId_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

@@ -103,8 +103,9 @@ extension Bindings {
 			}
 
 			func createBlindedPathsLambda(
-				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, peers: LDKCVec_PublicKeyZ
-			) -> LDKCResult_CVec_BlindedPathZNoneZ {
+				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, context: LDKMessageContext,
+				peers: LDKCVec_PublicKeyZ
+			) -> LDKCResult_CVec_BlindedMessagePathZNoneZ {
 				let instance: MessageRouter = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "MessageRouter::createBlindedPathsLambda")
 
@@ -117,7 +118,41 @@ extension Bindings {
 						cType: recipient, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
 					)
 					.getValue(),
+					context: MessageContext(
+						cType: context, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"),
 					peers: Vec_PublicKeyZ(
+						cType: peers, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
+			func createCompactBlindedPathsLambda(
+				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, context: LDKMessageContext,
+				peers: LDKCVec_MessageForwardNodeZ
+			) -> LDKCResult_CVec_BlindedMessagePathZNoneZ {
+				let instance: MessageRouter = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "MessageRouter::createCompactBlindedPathsLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.createCompactBlindedPaths(
+					recipient: PublicKey(
+						cType: recipient, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					context: MessageContext(
+						cType: context, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"),
+					peers: Vec_MessageForwardNodeZ(
 						cType: peers, instantiationContext: "MessageRouter.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
@@ -155,6 +190,7 @@ extension Bindings {
 				this_arg: thisArg,
 				find_path: findPathLambda,
 				create_blinded_paths: createBlindedPathsLambda,
+				create_compact_blinded_paths: createCompactBlindedPathsLambda,
 				free: freeLambda
 			)
 		}
@@ -170,12 +206,37 @@ extension Bindings {
 			abort()
 		}
 
-		/// Creates [`BlindedPath`]s to the `recipient` node. The nodes in `peers` are assumed to be
-		/// direct peers with the `recipient`.
-		open func createBlindedPaths(recipient: [UInt8], peers: [[UInt8]]) -> Result_CVec_BlindedPathZNoneZ {
+		/// Creates [`BlindedMessagePath`]s to the `recipient` node. The nodes in `peers` are assumed to
+		/// be direct peers with the `recipient`.
+		open func createBlindedPaths(recipient: [UInt8], context: MessageContext, peers: [[UInt8]])
+			-> Result_CVec_BlindedMessagePathZNoneZ
+		{
 
 			Bindings.print(
 				"Error: MessageRouter::createBlindedPaths MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Creates compact [`BlindedMessagePath`]s to the `recipient` node. The nodes in `peers` are
+		/// assumed to be direct peers with the `recipient`.
+		///
+		/// Compact blinded paths use short channel ids instead of pubkeys for a smaller serialization,
+		/// which is beneficial when a QR code is used to transport the data. The SCID is passed using
+		/// a [`MessageForwardNode`] but may be `None` for graceful degradation.
+		///
+		/// Implementations using additional intermediate nodes are responsible for using a
+		/// [`MessageForwardNode`] with `Some` short channel id, if possible. Similarly, implementations
+		/// should call [`BlindedMessagePath::use_compact_introduction_node`].
+		///
+		/// The provided implementation simply delegates to [`MessageRouter::create_blinded_paths`],
+		/// ignoring the short channel ids.
+		open func createCompactBlindedPaths(recipient: [UInt8], context: MessageContext, peers: [MessageForwardNode])
+			-> Result_CVec_BlindedMessagePathZNoneZ
+		{
+
+			Bindings.print(
+				"Error: MessageRouter::createCompactBlindedPaths MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -251,9 +312,11 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates [`BlindedPath`]s to the `recipient` node. The nodes in `peers` are assumed to be
-		/// direct peers with the `recipient`.
-		public override func createBlindedPaths(recipient: [UInt8], peers: [[UInt8]]) -> Result_CVec_BlindedPathZNoneZ {
+		/// Creates [`BlindedMessagePath`]s to the `recipient` node. The nodes in `peers` are assumed to
+		/// be direct peers with the `recipient`.
+		public override func createBlindedPaths(recipient: [UInt8], context: MessageContext, peers: [[UInt8]])
+			-> Result_CVec_BlindedMessagePathZNoneZ
+		{
 			// native call variable prep
 
 			let recipientPrimitiveWrapper = PublicKey(
@@ -267,7 +330,9 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = self.cType!
-				.create_blinded_paths(self.cType!.this_arg, recipientPrimitiveWrapper.cType!, peersVector.cType!)
+				.create_blinded_paths(
+					self.cType!.this_arg, recipientPrimitiveWrapper.cType!, context.danglingClone().cType!,
+					peersVector.cType!)
 
 			// cleanup
 
@@ -278,7 +343,55 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_BlindedPathZNoneZ(
+			let returnValue = Result_CVec_BlindedMessagePathZNoneZ(
+				cType: nativeCallResult, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Creates compact [`BlindedMessagePath`]s to the `recipient` node. The nodes in `peers` are
+		/// assumed to be direct peers with the `recipient`.
+		///
+		/// Compact blinded paths use short channel ids instead of pubkeys for a smaller serialization,
+		/// which is beneficial when a QR code is used to transport the data. The SCID is passed using
+		/// a [`MessageForwardNode`] but may be `None` for graceful degradation.
+		///
+		/// Implementations using additional intermediate nodes are responsible for using a
+		/// [`MessageForwardNode`] with `Some` short channel id, if possible. Similarly, implementations
+		/// should call [`BlindedMessagePath::use_compact_introduction_node`].
+		///
+		/// The provided implementation simply delegates to [`MessageRouter::create_blinded_paths`],
+		/// ignoring the short channel ids.
+		public override func createCompactBlindedPaths(
+			recipient: [UInt8], context: MessageContext, peers: [MessageForwardNode]
+		) -> Result_CVec_BlindedMessagePathZNoneZ {
+			// native call variable prep
+
+			let recipientPrimitiveWrapper = PublicKey(
+				value: recipient, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
+
+			let peersVector = Vec_MessageForwardNodeZ(
+				array: peers, instantiationContext: "MessageRouter.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.create_compact_blinded_paths(
+					self.cType!.this_arg, recipientPrimitiveWrapper.cType!, context.danglingClone().cType!,
+					peersVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			recipientPrimitiveWrapper.noOpRetain()
+
+			// peersVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_CVec_BlindedMessagePathZNoneZ(
 				cType: nativeCallResult, instantiationContext: "MessageRouter.swift::\(#function):\(#line)")
 
 			return returnValue

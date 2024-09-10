@@ -76,9 +76,10 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func handleMessageLambda(this_arg: UnsafeRawPointer?, message: LDKOffersMessage)
-				-> LDKCOption_OffersMessageZ
-			{
+			func handleMessageLambda(
+				this_arg: UnsafeRawPointer?, message: LDKOffersMessage, context: LDKCOption_OffersContextZ,
+				responder: LDKResponder
+			) -> LDKCOption_C2Tuple_OffersMessageResponseInstructionZZ {
 				let instance: OffersMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OffersMessageHandler::handleMessageLambda")
 
@@ -89,13 +90,21 @@ extension Bindings {
 				let swiftCallbackResult = instance.handleMessage(
 					message: OffersMessage(
 						cType: message,
+						instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"),
+					context: Option_OffersContextZ(
+						cType: context,
+						instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					responder: Responder(
+						cType: responder,
 						instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"))
 
 				// cleanup
 
 
 				// return value (do some wrapping)
-				let returnValue = Option_OffersMessageZ(
+				let returnValue = Option_C2Tuple_OffersMessageResponseInstructionZZ(
 					some: swiftCallbackResult,
 					instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -105,7 +114,7 @@ extension Bindings {
 			}
 
 			func releasePendingMessagesLambda(this_arg: UnsafeRawPointer?)
-				-> LDKCVec_C3Tuple_OffersMessageDestinationBlindedPathZZ
+				-> LDKCVec_C2Tuple_OffersMessageMessageSendInstructionsZZ
 			{
 				let instance: OffersMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OffersMessageHandler::releasePendingMessagesLambda")
@@ -120,7 +129,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_C3Tuple_OffersMessageDestinationBlindedPathZZ(
+				let returnValue = Vec_C2Tuple_OffersMessageMessageSendInstructionsZZ(
 					array: swiftCallbackResult,
 					instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -164,7 +173,11 @@ extension Bindings {
 		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
 		///
 		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
-		open func handleMessage(message: OffersMessage) -> OffersMessage? {
+		///
+		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
+		open func handleMessage(message: OffersMessage, context: OffersContext?, responder: Responder) -> (
+			OffersMessage, ResponseInstruction
+		)? {
 
 			Bindings.print(
 				"Error: OffersMessageHandler::handleMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -176,7 +189,7 @@ extension Bindings {
 		///
 		/// Typically, this is used for messages initiating a payment flow rather than in response to
 		/// another message. The latter should use the return value of [`Self::handle_message`].
-		open func releasePendingMessages() -> [(OffersMessage, Destination, BlindedPath)] {
+		open func releasePendingMessages() -> [(OffersMessage, MessageSendInstructions)] {
 
 			Bindings.print(
 				"Error: OffersMessageHandler::releasePendingMessages MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -225,18 +238,30 @@ extension Bindings {
 		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
 		///
 		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
-		public override func handleMessage(message: OffersMessage) -> OffersMessage? {
+		///
+		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public override func handleMessage(message: OffersMessage, context: OffersContext?, responder: Responder) -> (
+			OffersMessage, ResponseInstruction
+		)? {
 			// native call variable prep
+
+			let contextOption = Option_OffersContextZ(
+				some: context, instantiationContext: "OffersMessageHandler.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = self.cType!.handle_message(self.cType!.this_arg, message.danglingClone().cType!)
+			let nativeCallResult = self.cType!
+				.handle_message(
+					self.cType!.this_arg, message.danglingClone().cType!, contextOption.cType!,
+					responder.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_OffersMessageZ(
+			let returnValue = Option_C2Tuple_OffersMessageResponseInstructionZZ(
 				cType: nativeCallResult, instantiationContext: "OffersMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
@@ -248,7 +273,7 @@ extension Bindings {
 		///
 		/// Typically, this is used for messages initiating a payment flow rather than in response to
 		/// another message. The latter should use the return value of [`Self::handle_message`].
-		public override func releasePendingMessages() -> [(OffersMessage, Destination, BlindedPath)] {
+		public override func releasePendingMessages() -> [(OffersMessage, MessageSendInstructions)] {
 			// native call variable prep
 
 
@@ -259,7 +284,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C3Tuple_OffersMessageDestinationBlindedPathZZ(
+			let returnValue = Vec_C2Tuple_OffersMessageMessageSendInstructionsZZ(
 				cType: nativeCallResult, instantiationContext: "OffersMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()

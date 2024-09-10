@@ -373,6 +373,42 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Sets the maximum number of hops that can be included in a payment path, based on the provided
+		/// [`RecipientOnionFields`] and blinded paths.
+		public func setMaxPathLength(recipientOnion: RecipientOnionFields, isKeysend: Bool, bestBlockHeight: UInt32)
+			-> Result_NoneNoneZ
+		{
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisArgPointer: UnsafeMutablePointer<LDKRouteParameters>) in
+
+					withUnsafePointer(to: recipientOnion.cType!) {
+						(recipientOnionPointer: UnsafePointer<LDKRecipientOnionFields>) in
+						RouteParameters_set_max_path_length(
+							thisArgPointer, recipientOnionPointer, isKeysend, bestBlockHeight)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
+				cType: nativeCallResult, instantiationContext: "RouteParameters.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Serialize the RouteParameters object into a byte array which can be read by RouteParameters_read
 		public func write() -> [UInt8] {
 			// native call variable prep

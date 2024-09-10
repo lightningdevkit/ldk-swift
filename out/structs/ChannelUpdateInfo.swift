@@ -77,143 +77,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// When the last update to the channel direction was issued.
-		/// Value is opaque, as set in the announcement.
-		public func getLastUpdate() -> UInt32 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_get_last_update(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// When the last update to the channel direction was issued.
-		/// Value is opaque, as set in the announcement.
-		public func setLastUpdate(val: UInt32) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_set_last_update(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Whether the channel can be currently used for payments (in this one direction).
-		public func getEnabled() -> Bool {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_get_enabled(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Whether the channel can be currently used for payments (in this one direction).
-		public func setEnabled(val: Bool) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_set_enabled(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The difference in CLTV values that you must have when routing through this channel.
-		public func getCltvExpiryDelta() -> UInt16 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_get_cltv_expiry_delta(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The difference in CLTV values that you must have when routing through this channel.
-		public func setCltvExpiryDelta(val: UInt16) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
-					ChannelUpdateInfo_set_cltv_expiry_delta(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// The minimum value, which must be relayed to the next hop via the channel
 		public func getHtlcMinimumMsat() -> UInt64 {
 			// native call variable prep
@@ -353,6 +216,143 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// When the last update to the channel direction was issued.
+		/// Value is opaque, as set in the announcement.
+		public func getLastUpdate() -> UInt32 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_get_last_update(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// When the last update to the channel direction was issued.
+		/// Value is opaque, as set in the announcement.
+		public func setLastUpdate(val: UInt32) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_set_last_update(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The difference in CLTV values that you must have when routing through this channel.
+		public func getCltvExpiryDelta() -> UInt16 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_get_cltv_expiry_delta(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The difference in CLTV values that you must have when routing through this channel.
+		public func setCltvExpiryDelta(val: UInt16) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_set_cltv_expiry_delta(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Whether the channel can be currently used for payments (in this one direction).
+		public func getEnabled() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_get_enabled(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Whether the channel can be currently used for payments (in this one direction).
+		public func setEnabled(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_set_enabled(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Most recent update for the channel received from the network
 		/// Mostly redundant with the data we store in fields explicitly.
 		/// Everything else is useful only for sending out for initial routing sync.
@@ -429,16 +429,16 @@ extension Bindings {
 		///
 		/// Note that last_update_message_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
-			lastUpdateArg: UInt32, enabledArg: Bool, cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64,
-			htlcMaximumMsatArg: UInt64, feesArg: RoutingFees, lastUpdateMessageArg: ChannelUpdate
+			htlcMinimumMsatArg: UInt64, htlcMaximumMsatArg: UInt64, feesArg: RoutingFees, lastUpdateArg: UInt32,
+			cltvExpiryDeltaArg: UInt16, enabledArg: Bool, lastUpdateMessageArg: ChannelUpdate
 		) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult = ChannelUpdateInfo_new(
-				lastUpdateArg, enabledArg, cltvExpiryDeltaArg, htlcMinimumMsatArg, htlcMaximumMsatArg,
-				feesArg.dynamicallyDangledClone().cType!, lastUpdateMessageArg.dynamicallyDangledClone().cType!)
+				htlcMinimumMsatArg, htlcMaximumMsatArg, feesArg.dynamicallyDangledClone().cType!, lastUpdateArg,
+				cltvExpiryDeltaArg, enabledArg, lastUpdateMessageArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -509,6 +509,32 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a ChannelUpdateInfo object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKChannelUpdateInfo>) in
+					ChannelUpdateInfo_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

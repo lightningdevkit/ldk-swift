@@ -59,6 +59,56 @@ extension Bindings {
 		}
 
 
+		/// Serialize the RoutingFees object into a byte array which can be read by RoutingFees_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
+					RoutingFees_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "RoutingFees.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a RoutingFees from a byte array, created by RoutingFees_write
+		public class func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "RoutingFees.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = RoutingFees_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RoutingFeesDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "RoutingFees.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Frees any resources used by the RoutingFees, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
@@ -264,56 +314,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Serialize the RoutingFees object into a byte array which can be read by RoutingFees_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
-					RoutingFees_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "RoutingFees.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a RoutingFees from a byte array, created by RoutingFees_write
-		public class func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "RoutingFees.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = RoutingFees_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_RoutingFeesDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "RoutingFees.swift::\(#function):\(#line)")
 
 
 			return returnValue

@@ -235,14 +235,14 @@ extension Bindings {
 		}
 
 		/// Optional signature for the shared input -- the previous funding outpoint -- signed by both peers
-		public func getFundingOutpointSig() -> [UInt8]? {
+		public func getSharedInputSignature() -> [UInt8]? {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKTxSignatures>) in
-					TxSignatures_get_funding_outpoint_sig(thisPtrPointer)
+					TxSignatures_get_shared_input_signature(thisPtrPointer)
 				}
 
 
@@ -260,7 +260,7 @@ extension Bindings {
 		}
 
 		/// Optional signature for the shared input -- the previous funding outpoint -- signed by both peers
-		public func setFundingOutpointSig(val: [UInt8]?) {
+		public func setSharedInputSignature(val: [UInt8]?) {
 			// native call variable prep
 
 			let valOption = Option_ECDSASignatureZ(
@@ -272,7 +272,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKTxSignatures>) in
-					TxSignatures_set_funding_outpoint_sig(thisPtrPointer, valOption.cType!)
+					TxSignatures_set_shared_input_signature(thisPtrPointer, valOption.cType!)
 				}
 
 
@@ -288,7 +288,7 @@ extension Bindings {
 
 		/// Constructs a new TxSignatures given each field
 		public init(
-			channelIdArg: ChannelId, txHashArg: [UInt8], witnessesArg: [[UInt8]], fundingOutpointSigArg: [UInt8]?
+			channelIdArg: ChannelId, txHashArg: [UInt8], witnessesArg: [[UInt8]], sharedInputSignatureArg: [UInt8]?
 		) {
 			// native call variable prep
 
@@ -300,8 +300,8 @@ extension Bindings {
 			)
 			.dangle()
 
-			let fundingOutpointSigArgOption = Option_ECDSASignatureZ(
-				some: fundingOutpointSigArg, instantiationContext: "TxSignatures.swift::\(#function):\(#line)"
+			let sharedInputSignatureArgOption = Option_ECDSASignatureZ(
+				some: sharedInputSignatureArg, instantiationContext: "TxSignatures.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
 
@@ -309,7 +309,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = TxSignatures_new(
 				channelIdArg.dynamicallyDangledClone().cType!, txHashArgPrimitiveWrapper.cType!,
-				witnessesArgVector.cType!, fundingOutpointSigArgOption.cType!)
+				witnessesArgVector.cType!, sharedInputSignatureArgOption.cType!)
 
 			// cleanup
 

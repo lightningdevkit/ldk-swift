@@ -281,6 +281,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the string representation of a InvoiceError object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKInvoiceError>) in
+					InvoiceError_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "InvoiceError.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Serialize the InvoiceError object into a byte array which can be read by InvoiceError_read
 		public func write() -> [UInt8] {
 			// native call variable prep

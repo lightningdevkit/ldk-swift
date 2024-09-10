@@ -84,7 +84,7 @@ extension Bindings {
 		/// This may be allowed to change at runtime in a later update, however doing so must result in
 		/// update messages sent to notify all nodes of our updated relay fee.
 		///
-		/// Default value: 0.
+		/// Default value: `0`
 		public func getForwardingFeeProportionalMillionths() -> UInt32 {
 			// native call variable prep
 
@@ -111,7 +111,7 @@ extension Bindings {
 		/// This may be allowed to change at runtime in a later update, however doing so must result in
 		/// update messages sent to notify all nodes of our updated relay fee.
 		///
-		/// Default value: 0.
+		/// Default value: `0`
 		public func setForwardingFeeProportionalMillionths(val: UInt32) {
 			// native call variable prep
 
@@ -142,7 +142,7 @@ extension Bindings {
 		/// as of July 2021. Adjusting it upwards or downwards may change whether nodes route through
 		/// this node.
 		///
-		/// Default value: 1000.
+		/// Default value: `1000`
 		///
 		/// [`forwarding_fee_proportional_millionths`]: ChannelConfig::forwarding_fee_proportional_millionths
 		public func getForwardingFeeBaseMsat() -> UInt32 {
@@ -175,7 +175,7 @@ extension Bindings {
 		/// as of July 2021. Adjusting it upwards or downwards may change whether nodes route through
 		/// this node.
 		///
-		/// Default value: 1000.
+		/// Default value: `1000`
 		///
 		/// [`forwarding_fee_proportional_millionths`]: ChannelConfig::forwarding_fee_proportional_millionths
 		public func setForwardingFeeBaseMsat(val: UInt32) {
@@ -213,9 +213,10 @@ extension Bindings {
 		/// enough time to broadcast and confirm a transaction, possibly with time in between to RBF
 		/// the spending transaction).
 		///
-		/// Default value: 72 (12 hours at an average of 6 blocks/hour).
-		/// Minimum value: [`MIN_CLTV_EXPIRY_DELTA`], any values less than this will be treated as
-		/// [`MIN_CLTV_EXPIRY_DELTA`] instead.
+		/// Default value: `72` (12 hours at an average of 6 blocks/hour)
+		///
+		/// Minimum value: [`MIN_CLTV_EXPIRY_DELTA`] (Any values less than this will be treated as
+		/// [`MIN_CLTV_EXPIRY_DELTA`] instead.)
 		///
 		/// [`MIN_CLTV_EXPIRY_DELTA`]: crate::ln::channelmanager::MIN_CLTV_EXPIRY_DELTA
 		public func getCltvExpiryDelta() -> UInt16 {
@@ -253,9 +254,10 @@ extension Bindings {
 		/// enough time to broadcast and confirm a transaction, possibly with time in between to RBF
 		/// the spending transaction).
 		///
-		/// Default value: 72 (12 hours at an average of 6 blocks/hour).
-		/// Minimum value: [`MIN_CLTV_EXPIRY_DELTA`], any values less than this will be treated as
-		/// [`MIN_CLTV_EXPIRY_DELTA`] instead.
+		/// Default value: `72` (12 hours at an average of 6 blocks/hour)
+		///
+		/// Minimum value: [`MIN_CLTV_EXPIRY_DELTA`] (Any values less than this will be treated as
+		/// [`MIN_CLTV_EXPIRY_DELTA`] instead.)
 		///
 		/// [`MIN_CLTV_EXPIRY_DELTA`]: crate::ln::channelmanager::MIN_CLTV_EXPIRY_DELTA
 		public func setCltvExpiryDelta(val: UInt16) {
@@ -327,12 +329,12 @@ extension Bindings {
 		/// Note that when using [`MaxDustHTLCExposure::FeeRateMultiplier`] this maximum disagreement
 		/// will scale linearly with increases (or decreases) in the our feerate estimates. Further,
 		/// for anchor channels we expect our counterparty to use a relatively low feerate estimate
-		/// while we use [`ConfirmationTarget::OnChainSweep`] (which should be relatively high) and
-		/// feerate disagreement force-closures should only occur when theirs is higher than ours.
+		/// while we use [`ConfirmationTarget::MaximumFeeEstimate`] (which should be relatively high)
+		/// and feerate disagreement force-closures should only occur when theirs is higher than ours.
 		///
-		/// Default value: [`MaxDustHTLCExposure::FeeRateMultiplier`] with a multiplier of 10_000.
+		/// Default value: [`MaxDustHTLCExposure::FeeRateMultiplier`] with a multiplier of `10_000`
 		///
-		/// [`ConfirmationTarget::OnChainSweep`]: crate::chain::chaininterface::ConfirmationTarget::OnChainSweep
+		/// [`ConfirmationTarget::MaximumFeeEstimate`]: crate::chain::chaininterface::ConfirmationTarget::MaximumFeeEstimate
 		public func getMaxDustHtlcExposure() -> MaxDustHTLCExposure {
 			// native call variable prep
 
@@ -404,12 +406,12 @@ extension Bindings {
 		/// Note that when using [`MaxDustHTLCExposure::FeeRateMultiplier`] this maximum disagreement
 		/// will scale linearly with increases (or decreases) in the our feerate estimates. Further,
 		/// for anchor channels we expect our counterparty to use a relatively low feerate estimate
-		/// while we use [`ConfirmationTarget::OnChainSweep`] (which should be relatively high) and
-		/// feerate disagreement force-closures should only occur when theirs is higher than ours.
+		/// while we use [`ConfirmationTarget::MaximumFeeEstimate`] (which should be relatively high)
+		/// and feerate disagreement force-closures should only occur when theirs is higher than ours.
 		///
-		/// Default value: [`MaxDustHTLCExposure::FeeRateMultiplier`] with a multiplier of 10_000.
+		/// Default value: [`MaxDustHTLCExposure::FeeRateMultiplier`] with a multiplier of `10_000`
 		///
-		/// [`ConfirmationTarget::OnChainSweep`]: crate::chain::chaininterface::ConfirmationTarget::OnChainSweep
+		/// [`ConfirmationTarget::MaximumFeeEstimate`]: crate::chain::chaininterface::ConfirmationTarget::MaximumFeeEstimate
 		public func setMaxDustHtlcExposure(val: MaxDustHTLCExposure) {
 			// native call variable prep
 
@@ -449,7 +451,7 @@ extension Bindings {
 		/// [`ChannelCloseMinimum`] fee estimate, but allow our counterparty to pay as much fee as they like.
 		/// Thus, this value is ignored when we are not the funder.
 		///
-		/// Default value: 1000 satoshis.
+		/// Default value: `1000`
 		///
 		/// [`NonAnchorChannelFee`]: crate::chain::chaininterface::ConfirmationTarget::NonAnchorChannelFee
 		/// [`ChannelCloseMinimum`]: crate::chain::chaininterface::ConfirmationTarget::ChannelCloseMinimum
@@ -492,7 +494,7 @@ extension Bindings {
 		/// [`ChannelCloseMinimum`] fee estimate, but allow our counterparty to pay as much fee as they like.
 		/// Thus, this value is ignored when we are not the funder.
 		///
-		/// Default value: 1000 satoshis.
+		/// Default value: `1000`
 		///
 		/// [`NonAnchorChannelFee`]: crate::chain::chaininterface::ConfirmationTarget::NonAnchorChannelFee
 		/// [`ChannelCloseMinimum`]: crate::chain::chaininterface::ConfirmationTarget::ChannelCloseMinimum
@@ -540,7 +542,7 @@ extension Bindings {
 		/// Switching this config flag on may break compatibility with versions of LDK prior to 0.0.116.
 		/// Unsetting this flag between restarts may lead to payment receive failures.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [intercept scids]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
 		/// [`forward_intercepted_htlc`]: crate::ln::channelmanager::ChannelManager::forward_intercepted_htlc
@@ -592,7 +594,7 @@ extension Bindings {
 		/// Switching this config flag on may break compatibility with versions of LDK prior to 0.0.116.
 		/// Unsetting this flag between restarts may lead to payment receive failures.
 		///
-		/// Default value: false.
+		/// Default value: `false`
 		///
 		/// [intercept scids]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
 		/// [`forward_intercepted_htlc`]: crate::ln::channelmanager::ChannelManager::forward_intercepted_htlc

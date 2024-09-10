@@ -78,6 +78,98 @@ extension Bindings {
 			return returnValue
 		}
 
+		///
+		public func getA() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBolt11InvoiceSignature>) in
+					Bolt11InvoiceSignature_get_a(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = RecoverableSignature(
+				cType: nativeCallResult, instantiationContext: "Bolt11InvoiceSignature.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		///
+		public func setA(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = RecoverableSignature(
+				value: val, instantiationContext: "Bolt11InvoiceSignature.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKBolt11InvoiceSignature>) in
+					Bolt11InvoiceSignature_set_a(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new Bolt11InvoiceSignature given each field
+		public init(aArg: [UInt8]) {
+			// native call variable prep
+
+			let aArgPrimitiveWrapper = RecoverableSignature(
+				value: aArg, instantiationContext: "Bolt11InvoiceSignature.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Bolt11InvoiceSignature_new(aArgPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			aArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = Bolt11InvoiceSignature(cType: nativeCallResult, instantiationContext: "Bolt11InvoiceSignature.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "Bolt11InvoiceSignature.swift::\(#function):\(#line)")
+
+
+		}
+
 		/// Creates a copy of the Bolt11InvoiceSignature
 		internal func clone() -> Bolt11InvoiceSignature {
 			// native call variable prep

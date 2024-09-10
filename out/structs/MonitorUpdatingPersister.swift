@@ -260,7 +260,7 @@ extension Bindings {
 		/// [`MonitorUpdatingPersister::cleanup_stale_updates`].
 		public init(
 			kvStore: KVStore, logger: Logger, maximumPendingUpdates: UInt64, entropySource: EntropySource,
-			signerProvider: SignerProvider
+			signerProvider: SignerProvider, broadcaster: BroadcasterInterface, feeEstimator: FeeEstimator
 		) {
 			// native call variable prep
 
@@ -268,7 +268,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = MonitorUpdatingPersister_new(
 				kvStore.activate().cType!, logger.activate().cType!, maximumPendingUpdates,
-				entropySource.activate().cType!, signerProvider.activate().cType!)
+				entropySource.activate().cType!, signerProvider.activate().cType!, broadcaster.activate().cType!,
+				feeEstimator.activate().cType!)
 
 			// cleanup
 
@@ -298,27 +299,14 @@ extension Bindings {
 		/// It is extremely important that your [`KVStore::read`] implementation uses the
 		/// [`io::ErrorKind::NotFound`] variant correctly. For more information, please see the
 		/// documentation for [`MonitorUpdatingPersister`].
-		public func readAllChannelMonitorsWithUpdates(broadcaster: BroadcasterInterface, feeEstimator: FeeEstimator)
-			-> Result_CVec_C2Tuple_ThirtyTwoBytesChannelMonitorZZIOErrorZ
-		{
+		public func readAllChannelMonitorsWithUpdates() -> Result_CVec_C2Tuple_ThirtyTwoBytesChannelMonitorZZIOErrorZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKMonitorUpdatingPersister>) in
-
-					withUnsafePointer(to: broadcaster.activate().cType!) {
-						(broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
-
-						withUnsafePointer(to: feeEstimator.activate().cType!) {
-							(feeEstimatorPointer: UnsafePointer<LDKFeeEstimator>) in
-							MonitorUpdatingPersister_read_all_channel_monitors_with_updates(
-								thisArgPointer, broadcasterPointer, feeEstimatorPointer)
-						}
-
-					}
-
+					MonitorUpdatingPersister_read_all_channel_monitors_with_updates(thisArgPointer)
 				}
 
 
@@ -353,9 +341,9 @@ extension Bindings {
 		///
 		/// Loading a large number of monitors will be faster if done in parallel. You can use this
 		/// function to accomplish this. Take care to limit the number of parallel readers.
-		public func readChannelMonitorWithUpdates(
-			broadcaster: BroadcasterInterface, feeEstimator: FeeEstimator, monitorKey: String
-		) -> Result_C2Tuple_ThirtyTwoBytesChannelMonitorZIOErrorZ {
+		public func readChannelMonitorWithUpdates(monitorKey: String)
+			-> Result_C2Tuple_ThirtyTwoBytesChannelMonitorZIOErrorZ
+		{
 			// native call variable prep
 
 			let monitorKeyPrimitiveWrapper = Str(
@@ -367,19 +355,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKMonitorUpdatingPersister>) in
-
-					withUnsafePointer(to: broadcaster.activate().cType!) {
-						(broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
-
-						withUnsafePointer(to: feeEstimator.activate().cType!) {
-							(feeEstimatorPointer: UnsafePointer<LDKFeeEstimator>) in
-							MonitorUpdatingPersister_read_channel_monitor_with_updates(
-								thisArgPointer, broadcasterPointer, feeEstimatorPointer,
-								monitorKeyPrimitiveWrapper.cType!)
-						}
-
-					}
-
+					MonitorUpdatingPersister_read_channel_monitor_with_updates(
+						thisArgPointer, monitorKeyPrimitiveWrapper.cType!)
 				}
 
 

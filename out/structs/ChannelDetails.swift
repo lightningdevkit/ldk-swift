@@ -3,12 +3,30 @@
 #endif
 
 /// Details of a channel, as returned by [`ChannelManager::list_channels`] and [`ChannelManager::list_usable_channels`]
+///
+/// Balances of a channel are available through [`ChainMonitor::get_claimable_balances`] and
+/// [`ChannelMonitor::get_claimable_balances`], calculated with respect to the corresponding on-chain
+/// transactions.
+///
+/// [`ChannelManager::list_channels`]: crate::ln::channelmanager::ChannelManager::list_channels
+/// [`ChannelManager::list_usable_channels`]: crate::ln::channelmanager::ChannelManager::list_usable_channels
+/// [`ChainMonitor::get_claimable_balances`]: crate::chain::chainmonitor::ChainMonitor::get_claimable_balances
+/// [`ChannelMonitor::get_claimable_balances`]: crate::chain::channelmonitor::ChannelMonitor::get_claimable_balances
 public typealias ChannelDetails = Bindings.ChannelDetails
 
 extension Bindings {
 
 
 	/// Details of a channel, as returned by [`ChannelManager::list_channels`] and [`ChannelManager::list_usable_channels`]
+	///
+	/// Balances of a channel are available through [`ChainMonitor::get_claimable_balances`] and
+	/// [`ChannelMonitor::get_claimable_balances`], calculated with respect to the corresponding on-chain
+	/// transactions.
+	///
+	/// [`ChannelManager::list_channels`]: crate::ln::channelmanager::ChannelManager::list_channels
+	/// [`ChannelManager::list_usable_channels`]: crate::ln::channelmanager::ChannelManager::list_usable_channels
+	/// [`ChainMonitor::get_claimable_balances`]: crate::chain::chainmonitor::ChainMonitor::get_claimable_balances
+	/// [`ChannelMonitor::get_claimable_balances`]: crate::chain::channelmonitor::ChannelMonitor::get_claimable_balances
 	public class ChannelDetails: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -1474,14 +1492,14 @@ extension Bindings {
 		}
 
 		/// True if this channel is (or will be) publicly-announced.
-		public func getIsPublic() -> Bool {
+		public func getIsAnnounced() -> Bool {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
-					ChannelDetails_get_is_public(thisPtrPointer)
+					ChannelDetails_get_is_announced(thisPtrPointer)
 				}
 
 
@@ -1496,7 +1514,7 @@ extension Bindings {
 		}
 
 		/// True if this channel is (or will be) publicly-announced.
-		public func setIsPublic(val: Bool) {
+		public func setIsAnnounced(val: Bool) {
 			// native call variable prep
 
 
@@ -1504,7 +1522,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
-					ChannelDetails_set_is_public(thisPtrPointer, val)
+					ChannelDetails_set_is_announced(thisPtrPointer, val)
 				}
 
 
@@ -1694,6 +1712,260 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Pending inbound HTLCs.
+		///
+		/// This field is empty for objects serialized with LDK versions prior to 0.0.122.
+		public func getPendingInboundHtlcs() -> [InboundHTLCDetails] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
+					ChannelDetails_get_pending_inbound_htlcs(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_InboundHTLCDetailsZ(
+				cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Pending inbound HTLCs.
+		///
+		/// This field is empty for objects serialized with LDK versions prior to 0.0.122.
+		public func setPendingInboundHtlcs(val: [InboundHTLCDetails]) {
+			// native call variable prep
+
+			let valVector = Vec_InboundHTLCDetailsZ(
+				array: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
+					ChannelDetails_set_pending_inbound_htlcs(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Pending outbound HTLCs.
+		///
+		/// This field is empty for objects serialized with LDK versions prior to 0.0.122.
+		public func getPendingOutboundHtlcs() -> [OutboundHTLCDetails] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
+					ChannelDetails_get_pending_outbound_htlcs(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_OutboundHTLCDetailsZ(
+				cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Pending outbound HTLCs.
+		///
+		/// This field is empty for objects serialized with LDK versions prior to 0.0.122.
+		public func setPendingOutboundHtlcs(val: [OutboundHTLCDetails]) {
+			// native call variable prep
+
+			let valVector = Vec_OutboundHTLCDetailsZ(
+				array: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
+					ChannelDetails_set_pending_outbound_htlcs(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new ChannelDetails given each field
+		///
+		/// Note that funding_txo_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that config_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(
+			channelIdArg: ChannelId, counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint,
+			channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?,
+			inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?,
+			userChannelIdArg: [UInt8], feerateSatPer1000WeightArg: UInt32?, balanceMsatArg: UInt64,
+			outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64,
+			nextOutboundHtlcMinimumMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?,
+			confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool,
+			channelShutdownStateArg: ChannelShutdownState?, isUsableArg: Bool, isAnnouncedArg: Bool,
+			inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig,
+			pendingInboundHtlcsArg: [InboundHTLCDetails], pendingOutboundHtlcsArg: [OutboundHTLCDetails]
+		) {
+			// native call variable prep
+
+			let shortChannelIdArgOption = Option_u64Z(
+				some: shortChannelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let outboundScidAliasArgOption = Option_u64Z(
+				some: outboundScidAliasArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let inboundScidAliasArgOption = Option_u64Z(
+				some: inboundScidAliasArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let unspendablePunishmentReserveArgOption = Option_u64Z(
+				some: unspendablePunishmentReserveArg,
+				instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let userChannelIdArgPrimitiveWrapper = U128(
+				value: userChannelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
+
+			let feerateSatPer1000WeightArgOption = Option_u32Z(
+				some: feerateSatPer1000WeightArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let confirmationsRequiredArgOption = Option_u32Z(
+				some: confirmationsRequiredArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let confirmationsArgOption = Option_u32Z(
+				some: confirmationsArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let forceCloseSpendDelayArgOption = Option_u16Z(
+				some: forceCloseSpendDelayArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let channelShutdownStateArgOption = Option_ChannelShutdownStateZ(
+				some: channelShutdownStateArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let inboundHtlcMinimumMsatArgOption = Option_u64Z(
+				some: inboundHtlcMinimumMsatArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let inboundHtlcMaximumMsatArgOption = Option_u64Z(
+				some: inboundHtlcMaximumMsatArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let pendingInboundHtlcsArgVector = Vec_InboundHTLCDetailsZ(
+				array: pendingInboundHtlcsArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let pendingOutboundHtlcsArgVector = Vec_OutboundHTLCDetailsZ(
+				array: pendingOutboundHtlcsArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = ChannelDetails_new(
+				channelIdArg.dynamicallyDangledClone().cType!, counterpartyArg.dynamicallyDangledClone().cType!,
+				fundingTxoArg.dynamicallyDangledClone().cType!, channelTypeArg.dynamicallyDangledClone().cType!,
+				shortChannelIdArgOption.cType!, outboundScidAliasArgOption.cType!, inboundScidAliasArgOption.cType!,
+				channelValueSatoshisArg, unspendablePunishmentReserveArgOption.cType!,
+				userChannelIdArgPrimitiveWrapper.cType!, feerateSatPer1000WeightArgOption.cType!, balanceMsatArg,
+				outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, nextOutboundHtlcMinimumMsatArg,
+				inboundCapacityMsatArg, confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!,
+				forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg,
+				channelShutdownStateArgOption.cType!, isUsableArg, isAnnouncedArg,
+				inboundHtlcMinimumMsatArgOption.cType!, inboundHtlcMaximumMsatArgOption.cType!,
+				configArg.dynamicallyDangledClone().cType!, pendingInboundHtlcsArgVector.cType!,
+				pendingOutboundHtlcsArgVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			userChannelIdArgPrimitiveWrapper.noOpRetain()
+
+			// pendingInboundHtlcsArgVector.noOpRetain()
+
+			// pendingOutboundHtlcsArgVector.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = ChannelDetails(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+				)
+
+
+		}
+
 		/// Creates a copy of the ChannelDetails
 		internal func clone() -> ChannelDetails {
 			// native call variable prep
@@ -1754,6 +2026,8 @@ extension Bindings {
 		///
 		/// This is either the [`ChannelDetails::short_channel_id`], if set, or the
 		/// [`ChannelDetails::outbound_scid_alias`]. See those for more information.
+		///
+		/// [`Route`]: crate::routing::router::Route
 		public func getOutboundPaymentScid() -> UInt64? {
 			// native call variable prep
 

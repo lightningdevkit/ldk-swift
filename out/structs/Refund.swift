@@ -252,7 +252,7 @@ extension Bindings {
 
 		/// Paths to the sender originating from publicly reachable nodes. Blinded paths provide sender
 		/// privacy by obfuscating its node id.
-		public func paths() -> [BlindedPath] {
+		public func paths() -> [BlindedMessagePath] {
 			// native call variable prep
 
 
@@ -267,7 +267,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_BlindedPathZ(
+			let returnValue = Vec_BlindedMessagePathZ(
 				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
@@ -493,6 +493,30 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Read a Refund from a byte array, created by Refund_write
+		public class func read(ser: [UInt8]) -> Result_RefundDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Refund.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Refund_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RefundDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Serialize the Refund object into a byte array which can be read by Refund_read
 		public func write() -> [UInt8] {
 			// native call variable prep
@@ -537,6 +561,31 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_RefundBolt12ParseErrorZ(
 				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a Refund object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKRefund>) in
+					Refund_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

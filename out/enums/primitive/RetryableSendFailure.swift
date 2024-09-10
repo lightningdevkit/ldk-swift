@@ -41,6 +41,13 @@ extension Bindings {
 		/// [`Event::PaymentFailed`]: crate::events::Event::PaymentFailed
 		case DuplicatePayment
 
+		/// The [`RecipientOnionFields::payment_metadata`], [`RecipientOnionFields::custom_tlvs`], or
+		/// [`BlindedPaymentPath`]s provided are too large and caused us to exceed the maximum onion
+		/// packet size of 1300 bytes.
+		///
+		/// [`BlindedPaymentPath`]: crate::blinded_path::payment::BlindedPaymentPath
+		case OnionPacketSizeExceeded
+
 
 		internal init(value: LDKRetryableSendFailure) {
 			switch value {
@@ -53,6 +60,9 @@ extension Bindings {
 
 				case LDKRetryableSendFailure_DuplicatePayment:
 					self = .DuplicatePayment
+
+				case LDKRetryableSendFailure_OnionPacketSizeExceeded:
+					self = .OnionPacketSizeExceeded
 
 				default:
 					Bindings.print("Error: Invalid value type for RetryableSendFailure! Aborting.", severity: .ERROR)
@@ -72,6 +82,9 @@ extension Bindings {
 
 				case .DuplicatePayment:
 					return LDKRetryableSendFailure_DuplicatePayment
+
+				case .OnionPacketSizeExceeded:
+					return LDKRetryableSendFailure_OnionPacketSizeExceeded
 
 			}
 		}

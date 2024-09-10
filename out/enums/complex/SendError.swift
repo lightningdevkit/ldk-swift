@@ -70,14 +70,18 @@ extension Bindings {
 			/// exceeds 32834 bytes, we refuse to send messages where the packet exceeds this size.
 			case TooBigPacket
 
-			/// The provided [`Destination`] was an invalid [`BlindedPath`] due to not having any blinded
-			/// hops.
+			/// The provided [`Destination`] was an invalid [`BlindedMessagePath`] due to not having any
+			/// blinded hops.
 			case TooFewBlindedHops
 
 			/// The first hop is not a peer and doesn't have a known [`SocketAddress`].
 			case InvalidFirstHop
 
-			/// A path from the sender to the destination could not be found by the [`MessageRouter`].
+			/// Indicates that a path could not be found by the [`MessageRouter`].
+			///
+			/// This occurs when either:
+			/// - No path from the sender to the destination was found to send the onion message
+			/// - No reply path to the sender could be created when responding to an onion message
 			case PathNotFound
 
 			/// Onion message contents must have a TLV type >= 64.

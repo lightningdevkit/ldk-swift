@@ -373,7 +373,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates an unsigned [`PartiallySignedTransaction`] which spends the given descriptors to
+		/// Creates an unsigned [`Psbt`] which spends the given descriptors to
 		/// the given outputs, plus an output to the given change destination (if sufficient
 		/// change value remains). The PSBT will have a feerate, at least, of the given value.
 		///

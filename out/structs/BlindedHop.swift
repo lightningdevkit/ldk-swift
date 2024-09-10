@@ -81,7 +81,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The blinded node id of this hop in a [`BlindedPath`].
+		/// The blinded node id of this hop in a blinded path.
 		public func getBlindedNodeId() -> [UInt8] {
 			// native call variable prep
 
@@ -106,7 +106,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The blinded node id of this hop in a [`BlindedPath`].
+		/// The blinded node id of this hop in a blinded path.
 		public func setBlindedNodeId(val: [UInt8]) {
 			// native call variable prep
 
@@ -134,7 +134,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The encrypted payload intended for this hop in a [`BlindedPath`].
+		/// The encrypted payload intended for this hop in a blinded path.
 		///
 		/// Returns a copy of the field.
 		public func getEncryptedPayload() -> [UInt8] {
@@ -161,7 +161,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The encrypted payload intended for this hop in a [`BlindedPath`].
+		/// The encrypted payload intended for this hop in a blinded path.
 		public func setEncryptedPayload(val: [UInt8]) {
 			// native call variable prep
 

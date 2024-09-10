@@ -15,6 +15,12 @@ extension Bindings {
 
 
 		/// The intended recipient rejected our payment.
+		///
+		/// Also used for [`UnknownRequiredFeatures`] and [`InvoiceRequestRejected`] when downgrading to
+		/// version prior to 0.0.124.
+		///
+		/// [`UnknownRequiredFeatures`]: Self::UnknownRequiredFeatures
+		/// [`InvoiceRequestRejected`]: Self::InvoiceRequestRejected
 		case RecipientRejected
 
 		/// The user chose to abandon this payment by calling [`ChannelManager::abandon_payment`].
@@ -33,7 +39,10 @@ extension Bindings {
 		/// The payment expired while retrying, based on the provided
 		/// [`PaymentParameters::expiry_time`].
 		///
+		/// Also used for [`InvoiceRequestExpired`] when downgrading to version prior to 0.0.124.
+		///
 		/// [`PaymentParameters::expiry_time`]: crate::routing::router::PaymentParameters::expiry_time
+		/// [`InvoiceRequestExpired`]: Self::InvoiceRequestExpired
 		case PaymentExpired
 
 		/// We failed to find a route while retrying the payment.
@@ -46,6 +55,17 @@ extension Bindings {
 		/// This error should generally never happen. This likely means that there is a problem with
 		/// your router.
 		case UnexpectedError
+
+		/// An invoice was received that required unknown features.
+		case UnknownRequiredFeatures
+
+		/// A [`Bolt12Invoice`] was not received in a reasonable amount of time.
+		case InvoiceRequestExpired
+
+		/// An [`InvoiceRequest`] for the payment was rejected by the recipient.
+		///
+		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+		case InvoiceRequestRejected
 
 
 		internal init(value: LDKPaymentFailureReason) {
@@ -68,6 +88,15 @@ extension Bindings {
 
 				case LDKPaymentFailureReason_UnexpectedError:
 					self = .UnexpectedError
+
+				case LDKPaymentFailureReason_UnknownRequiredFeatures:
+					self = .UnknownRequiredFeatures
+
+				case LDKPaymentFailureReason_InvoiceRequestExpired:
+					self = .InvoiceRequestExpired
+
+				case LDKPaymentFailureReason_InvoiceRequestRejected:
+					self = .InvoiceRequestRejected
 
 				default:
 					Bindings.print("Error: Invalid value type for PaymentFailureReason! Aborting.", severity: .ERROR)
@@ -96,6 +125,15 @@ extension Bindings {
 
 				case .UnexpectedError:
 					return LDKPaymentFailureReason_UnexpectedError
+
+				case .UnknownRequiredFeatures:
+					return LDKPaymentFailureReason_UnknownRequiredFeatures
+
+				case .InvoiceRequestExpired:
+					return LDKPaymentFailureReason_InvoiceRequestExpired
+
+				case .InvoiceRequestRejected:
+					return LDKPaymentFailureReason_InvoiceRequestRejected
 
 			}
 		}

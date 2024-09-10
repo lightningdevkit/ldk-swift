@@ -78,8 +78,6 @@ extension Bindings {
 		}
 
 		/// Handles any network updates originating from [`Event`]s.
-		/// Note that this will skip applying any [`NetworkUpdate::ChannelUpdateMessage`] to avoid
-		/// leaking possibly identifying information of the sender to the public network.
 		///
 		/// [`Event`]: crate::events::Event
 		public func handleNetworkUpdate(networkUpdate: NetworkUpdate) {
@@ -178,6 +176,31 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_NetworkGraphDecodeErrorZ(
 				cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a NetworkGraph object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKNetworkGraph>) in
+					NetworkGraph_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

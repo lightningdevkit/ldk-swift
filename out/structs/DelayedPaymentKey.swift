@@ -9,7 +9,7 @@
 /// punish and claim all the channel funds if the state broadcasted was previously revoked.
 ///
 /// [See the BOLT specs]
-/// (https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation)
+/// <https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation>
 /// for more information on key derivation details.
 public typealias DelayedPaymentKey = Bindings.DelayedPaymentKey
 
@@ -23,7 +23,7 @@ extension Bindings {
 	/// punish and claim all the channel funds if the state broadcasted was previously revoked.
 	///
 	/// [See the BOLT specs]
-	/// (https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation)
+	/// <https://github.com/lightning/bolts/blob/master/03-transactions.md#localpubkey-local_htlcpubkey-remote_htlcpubkey-local_delayedpubkey-and-remote_delayedpubkey-derivation>
 	/// for more information on key derivation details.
 	public class DelayedPaymentKey: NativeTypeWrapper {
 

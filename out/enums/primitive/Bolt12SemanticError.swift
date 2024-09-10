@@ -95,6 +95,9 @@ extension Bindings {
 		/// An invoice payment hash was expected but was missing.
 		case MissingPaymentHash
 
+		/// An invoice payment hash was provided but was not expected.
+		case UnexpectedPaymentHash
+
 		/// A signature was expected but was missing.
 		case MissingSignature
 
@@ -182,6 +185,9 @@ extension Bindings {
 
 				case LDKBolt12SemanticError_MissingPaymentHash:
 					self = .MissingPaymentHash
+
+				case LDKBolt12SemanticError_UnexpectedPaymentHash:
+					self = .UnexpectedPaymentHash
 
 				case LDKBolt12SemanticError_MissingSignature:
 					self = .MissingSignature
@@ -276,6 +282,9 @@ extension Bindings {
 
 				case .MissingPaymentHash:
 					return LDKBolt12SemanticError_MissingPaymentHash
+
+				case .UnexpectedPaymentHash:
+					return LDKBolt12SemanticError_UnexpectedPaymentHash
 
 				case .MissingSignature:
 					return LDKBolt12SemanticError_MissingSignature

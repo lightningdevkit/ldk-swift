@@ -275,10 +275,9 @@ extension Bindings {
 
 		/// The fee taken on this hop (for paying for the use of the *next* channel in the path).
 		/// If this is the last hop in [`Path::hops`]:
-		/// * if we're sending to a [`BlindedPath`], this is the fee paid for use of the entire blinded path
+		/// * if we're sending to a [`BlindedPaymentPath`], this is the fee paid for use of the entire
+		/// blinded path
 		/// * otherwise, this is the full value of this [`Path`]'s part of the payment
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 		public func getFeeMsat() -> UInt64 {
 			// native call variable prep
 
@@ -302,10 +301,9 @@ extension Bindings {
 
 		/// The fee taken on this hop (for paying for the use of the *next* channel in the path).
 		/// If this is the last hop in [`Path::hops`]:
-		/// * if we're sending to a [`BlindedPath`], this is the fee paid for use of the entire blinded path
+		/// * if we're sending to a [`BlindedPaymentPath`], this is the fee paid for use of the entire
+		/// blinded path
 		/// * otherwise, this is the full value of this [`Path`]'s part of the payment
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 		public func setFeeMsat(val: UInt64) {
 			// native call variable prep
 
@@ -329,10 +327,9 @@ extension Bindings {
 
 		/// The CLTV delta added for this hop.
 		/// If this is the last hop in [`Path::hops`]:
-		/// * if we're sending to a [`BlindedPath`], this is the CLTV delta for the entire blinded path
+		/// * if we're sending to a [`BlindedPaymentPath`], this is the CLTV delta for the entire blinded
+		/// path
 		/// * otherwise, this is the CLTV delta expected at the destination
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 		public func getCltvExpiryDelta() -> UInt32 {
 			// native call variable prep
 
@@ -356,10 +353,9 @@ extension Bindings {
 
 		/// The CLTV delta added for this hop.
 		/// If this is the last hop in [`Path::hops`]:
-		/// * if we're sending to a [`BlindedPath`], this is the CLTV delta for the entire blinded path
+		/// * if we're sending to a [`BlindedPaymentPath`], this is the CLTV delta for the entire blinded
+		/// path
 		/// * otherwise, this is the CLTV delta expected at the destination
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 		public func setCltvExpiryDelta(val: UInt32) {
 			// native call variable prep
 

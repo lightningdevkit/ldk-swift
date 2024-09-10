@@ -4,7 +4,7 @@
 
 /// Configuration we set when applicable.
 ///
-/// Default::default() provides sane defaults.
+/// `Default::default()` provides sane defaults.
 public typealias ChannelHandshakeConfig = Bindings.ChannelHandshakeConfig
 
 extension Bindings {
@@ -12,7 +12,7 @@ extension Bindings {
 
 	/// Configuration we set when applicable.
 	///
-	/// Default::default() provides sane defaults.
+	/// `Default::default()` provides sane defaults.
 	public class ChannelHandshakeConfig: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -83,15 +83,15 @@ extension Bindings {
 		}
 
 		/// Confirmations we will wait for before considering the channel locked in.
-		/// Applied only for inbound channels (see ChannelHandshakeLimits::max_minimum_depth for the
+		/// Applied only for inbound channels (see [`ChannelHandshakeLimits::max_minimum_depth`] for the
 		/// equivalent limit applied to outbound channels).
 		///
-		/// A lower-bound of 1 is applied, requiring all channels to have a confirmed commitment
+		/// A lower-bound of `1` is applied, requiring all channels to have a confirmed commitment
 		/// transaction before operation. If you wish to accept channels with zero confirmations, see
 		/// [`UserConfig::manually_accept_inbound_channels`] and
 		/// [`ChannelManager::accept_inbound_channel_from_trusted_peer_0conf`].
 		///
-		/// Default value: 6.
+		/// Default value: `6`
 		///
 		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
 		/// [`ChannelManager::accept_inbound_channel_from_trusted_peer_0conf`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel_from_trusted_peer_0conf
@@ -117,15 +117,15 @@ extension Bindings {
 		}
 
 		/// Confirmations we will wait for before considering the channel locked in.
-		/// Applied only for inbound channels (see ChannelHandshakeLimits::max_minimum_depth for the
+		/// Applied only for inbound channels (see [`ChannelHandshakeLimits::max_minimum_depth`] for the
 		/// equivalent limit applied to outbound channels).
 		///
-		/// A lower-bound of 1 is applied, requiring all channels to have a confirmed commitment
+		/// A lower-bound of `1` is applied, requiring all channels to have a confirmed commitment
 		/// transaction before operation. If you wish to accept channels with zero confirmations, see
 		/// [`UserConfig::manually_accept_inbound_channels`] and
 		/// [`ChannelManager::accept_inbound_channel_from_trusted_peer_0conf`].
 		///
-		/// Default value: 6.
+		/// Default value: `6`
 		///
 		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
 		/// [`ChannelManager::accept_inbound_channel_from_trusted_peer_0conf`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel_from_trusted_peer_0conf
@@ -164,8 +164,8 @@ extension Bindings {
 		/// case of an honest unilateral channel close, which implicitly decrease the economic value of
 		/// our channel.
 		///
-		/// Default value: [`BREAKDOWN_TIMEOUT`], we enforce it as a minimum at channel opening so you
-		/// can tweak config to ask for more security, not less.
+		/// Default value: [`BREAKDOWN_TIMEOUT`] (We enforce it as a minimum at channel opening so you
+		/// can tweak config to ask for more security, not less.)
 		public func getOurToSelfDelay() -> UInt16 {
 			// native call variable prep
 
@@ -200,8 +200,8 @@ extension Bindings {
 		/// case of an honest unilateral channel close, which implicitly decrease the economic value of
 		/// our channel.
 		///
-		/// Default value: [`BREAKDOWN_TIMEOUT`], we enforce it as a minimum at channel opening so you
-		/// can tweak config to ask for more security, not less.
+		/// Default value: [`BREAKDOWN_TIMEOUT`] (We enforce it as a minimum at channel opening so you
+		/// can tweak config to ask for more security, not less.)
 		public func setOurToSelfDelay(val: UInt16) {
 			// native call variable prep
 
@@ -229,8 +229,8 @@ extension Bindings {
 		/// This value is sent to our counterparty on channel-open and we close the channel any time
 		/// our counterparty misbehaves by sending us an HTLC with a value smaller than this.
 		///
-		/// Default value: 1. If the value is less than 1, it is ignored and set to 1, as is required
-		/// by the protocol.
+		/// Default value: `1` (If the value is less than `1`, it is ignored and set to `1`, as is
+		/// required by the protocol.
 		public func getOurHtlcMinimumMsat() -> UInt64 {
 			// native call variable prep
 
@@ -257,8 +257,8 @@ extension Bindings {
 		/// This value is sent to our counterparty on channel-open and we close the channel any time
 		/// our counterparty misbehaves by sending us an HTLC with a value smaller than this.
 		///
-		/// Default value: 1. If the value is less than 1, it is ignored and set to 1, as is required
-		/// by the protocol.
+		/// Default value: `1` (If the value is less than `1`, it is ignored and set to `1`, as is
+		/// required by the protocol.
 		public func setOurHtlcMinimumMsat(val: UInt64) {
 			// native call variable prep
 
@@ -288,7 +288,7 @@ extension Bindings {
 		/// channel value in whole percentages.
 		///
 		/// Note that:
-		/// * If configured to another value than the default value 10, any new channels created with
+		/// * If configured to another value than the default value `10`, any new channels created with
 		/// the non default value will cause versions of LDK prior to 0.0.104 to refuse to read the
 		/// `ChannelManager`.
 		///
@@ -301,9 +301,11 @@ extension Bindings {
 		/// See [`ChannelHandshakeConfig::our_to_self_delay`] and [`ChannelConfig::cltv_expiry_delta`]
 		/// for more information.
 		///
-		/// Default value: 10.
-		/// Minimum value: 1, any values less than 1 will be treated as 1 instead.
-		/// Maximum value: 100, any values larger than 100 will be treated as 100 instead.
+		/// Default value: `10`
+		///
+		/// Minimum value: `1` (Any values less will be treated as `1` instead.)
+		///
+		/// Maximum value: `100` (Any values larger will be treated as `100` instead.)
 		public func getMaxInboundHtlcValueInFlightPercentOfChannel() -> UInt8 {
 			// native call variable prep
 
@@ -332,7 +334,7 @@ extension Bindings {
 		/// channel value in whole percentages.
 		///
 		/// Note that:
-		/// * If configured to another value than the default value 10, any new channels created with
+		/// * If configured to another value than the default value `10`, any new channels created with
 		/// the non default value will cause versions of LDK prior to 0.0.104 to refuse to read the
 		/// `ChannelManager`.
 		///
@@ -345,9 +347,11 @@ extension Bindings {
 		/// See [`ChannelHandshakeConfig::our_to_self_delay`] and [`ChannelConfig::cltv_expiry_delta`]
 		/// for more information.
 		///
-		/// Default value: 10.
-		/// Minimum value: 1, any values less than 1 will be treated as 1 instead.
-		/// Maximum value: 100, any values larger than 100 will be treated as 100 instead.
+		/// Default value: `10`
+		///
+		/// Minimum value: `1` (Any values less will be treated as `1` instead.)
+		///
+		/// Maximum value: `100` (Any values larger will be treated as `100` instead.)
 		public func setMaxInboundHtlcValueInFlightPercentOfChannel(val: UInt8) {
 			// native call variable prep
 
@@ -384,10 +388,10 @@ extension Bindings {
 		/// private channel without that option.
 		///
 		/// Ignored if the channel is negotiated to be announced, see
-		/// [`ChannelHandshakeConfig::announced_channel`] and
+		/// [`ChannelHandshakeConfig::announce_for_forwarding`] and
 		/// [`ChannelHandshakeLimits::force_announced_channel_preference`] for more.
 		///
-		/// Default value: false. This value is likely to change to true in the future.
+		/// Default value: `false` (This value is likely to change to `true` in the future.)
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`DecodeError::InvalidValue`]: crate::ln::msgs::DecodeError::InvalidValue
@@ -426,10 +430,10 @@ extension Bindings {
 		/// private channel without that option.
 		///
 		/// Ignored if the channel is negotiated to be announced, see
-		/// [`ChannelHandshakeConfig::announced_channel`] and
+		/// [`ChannelHandshakeConfig::announce_for_forwarding`] and
 		/// [`ChannelHandshakeLimits::force_announced_channel_preference`] for more.
 		///
-		/// Default value: false. This value is likely to change to true in the future.
+		/// Default value: `false` (This value is likely to change to `true` in the future.)
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`DecodeError::InvalidValue`]: crate::ln::msgs::DecodeError::InvalidValue
@@ -463,15 +467,15 @@ extension Bindings {
 		/// As the node which funds a channel picks this value this will only apply for new outbound
 		/// channels unless [`ChannelHandshakeLimits::force_announced_channel_preference`] is set.
 		///
-		/// Default value: false.
-		public func getAnnouncedChannel() -> Bool {
+		/// Default value: `false`
+		public func getAnnounceForForwarding() -> Bool {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-					ChannelHandshakeConfig_get_announced_channel(thisPtrPointer)
+					ChannelHandshakeConfig_get_announce_for_forwarding(thisPtrPointer)
 				}
 
 
@@ -493,8 +497,8 @@ extension Bindings {
 		/// As the node which funds a channel picks this value this will only apply for new outbound
 		/// channels unless [`ChannelHandshakeLimits::force_announced_channel_preference`] is set.
 		///
-		/// Default value: false.
-		public func setAnnouncedChannel(val: Bool) {
+		/// Default value: `false`
+		public func setAnnounceForForwarding(val: Bool) {
 			// native call variable prep
 
 
@@ -502,7 +506,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
-					ChannelHandshakeConfig_set_announced_channel(thisPtrPointer, val)
+					ChannelHandshakeConfig_set_announce_for_forwarding(thisPtrPointer, val)
 				}
 
 
@@ -526,7 +530,7 @@ extension Bindings {
 		///
 		/// The upfront key committed is provided from [`SignerProvider::get_shutdown_scriptpubkey`].
 		///
-		/// Default value: true.
+		/// Default value: `true`
 		///
 		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::sign::SignerProvider::get_shutdown_scriptpubkey
 		public func getCommitUpfrontShutdownPubkey() -> Bool {
@@ -560,7 +564,7 @@ extension Bindings {
 		///
 		/// The upfront key committed is provided from [`SignerProvider::get_shutdown_scriptpubkey`].
 		///
-		/// Default value: true.
+		/// Default value: `true`
 		///
 		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::sign::SignerProvider::get_shutdown_scriptpubkey
 		public func setCommitUpfrontShutdownPubkey(val: Bool) {
@@ -602,11 +606,15 @@ extension Bindings {
 		/// Note: Versions of LDK earlier than v0.0.104 will fail to read channels with any channel reserve
 		/// other than the default value.
 		///
-		/// Default value: 1% of channel value, i.e., configured as 10,000 millionths.
-		/// Minimum value: If the calculated proportional value is less than 1000 sats, it will be treated
-		/// as 1000 sats instead, which is a safe implementation-specific lower bound.
-		/// Maximum value: 1,000,000, any values larger than 1 Million will be treated as 1 Million (or 100%)
-		/// instead, although channel negotiations will fail in that case.
+		/// Default value: `10_000` millionths (i.e., 1% of channel value)
+		///
+		/// Minimum value: If the calculated proportional value is less than `1000` sats, it will be
+		/// treated as `1000` sats instead, which is a safe implementation-specific lower
+		/// bound.
+		///
+		/// Maximum value: `1_000_000` (i.e., 100% of channel value. Any values larger than one million
+		/// will be treated as one million instead, although channel negotiations will
+		/// fail in that case.)
 		public func getTheirChannelReserveProportionalMillionths() -> UInt32 {
 			// native call variable prep
 
@@ -645,11 +653,15 @@ extension Bindings {
 		/// Note: Versions of LDK earlier than v0.0.104 will fail to read channels with any channel reserve
 		/// other than the default value.
 		///
-		/// Default value: 1% of channel value, i.e., configured as 10,000 millionths.
-		/// Minimum value: If the calculated proportional value is less than 1000 sats, it will be treated
-		/// as 1000 sats instead, which is a safe implementation-specific lower bound.
-		/// Maximum value: 1,000,000, any values larger than 1 Million will be treated as 1 Million (or 100%)
-		/// instead, although channel negotiations will fail in that case.
+		/// Default value: `10_000` millionths (i.e., 1% of channel value)
+		///
+		/// Minimum value: If the calculated proportional value is less than `1000` sats, it will be
+		/// treated as `1000` sats instead, which is a safe implementation-specific lower
+		/// bound.
+		///
+		/// Maximum value: `1_000_000` (i.e., 100% of channel value. Any values larger than one million
+		/// will be treated as one million instead, although channel negotiations will
+		/// fail in that case.)
 		public func setTheirChannelReserveProportionalMillionths(val: UInt32) {
 			// native call variable prep
 
@@ -694,7 +706,7 @@ extension Bindings {
 		/// vulnerability after its deployment. For more context, see the [`SIGHASH_SINGLE + update_fee
 		/// Considered Harmful`] mailing list post.
 		///
-		/// Default value: false. This value is likely to change to true in the future.
+		/// Default value: `false` (This value is likely to change to `true` in the future.)
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
@@ -743,7 +755,7 @@ extension Bindings {
 		/// vulnerability after its deployment. For more context, see the [`SIGHASH_SINGLE + update_fee
 		/// Considered Harmful`] mailing list post.
 		///
-		/// Default value: false. This value is likely to change to true in the future.
+		/// Default value: `false` (This value is likely to change to `true` in the future.)
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
@@ -779,9 +791,10 @@ extension Bindings {
 		/// Note: Versions of LDK earlier than v0.0.115 will fail to read channels with a configuration
 		/// other than the default value.
 		///
-		/// Default value: 50
-		/// Maximum value: 483, any values larger will be treated as 483.
-		/// This is the BOLT #2 spec limit on `max_accepted_htlcs`.
+		/// Default value: `50`
+		///
+		/// Maximum value: `483` (Any values larger will be treated as `483`. This is the BOLT #2 spec
+		/// limit on `max_accepted_htlcs`.)
 		public func getOurMaxAcceptedHtlcs() -> UInt16 {
 			// native call variable prep
 
@@ -811,9 +824,10 @@ extension Bindings {
 		/// Note: Versions of LDK earlier than v0.0.115 will fail to read channels with a configuration
 		/// other than the default value.
 		///
-		/// Default value: 50
-		/// Maximum value: 483, any values larger will be treated as 483.
-		/// This is the BOLT #2 spec limit on `max_accepted_htlcs`.
+		/// Default value: `50`
+		///
+		/// Maximum value: `483` (Any values larger will be treated as `483`. This is the BOLT #2 spec
+		/// limit on `max_accepted_htlcs`.)
 		public func setOurMaxAcceptedHtlcs(val: UInt16) {
 			// native call variable prep
 
@@ -840,7 +854,7 @@ extension Bindings {
 		public init(
 			minimumDepthArg: UInt32, ourToSelfDelayArg: UInt16, ourHtlcMinimumMsatArg: UInt64,
 			maxInboundHtlcValueInFlightPercentOfChannelArg: UInt8, negotiateScidPrivacyArg: Bool,
-			announcedChannelArg: Bool, commitUpfrontShutdownPubkeyArg: Bool,
+			announceForForwardingArg: Bool, commitUpfrontShutdownPubkeyArg: Bool,
 			theirChannelReserveProportionalMillionthsArg: UInt32, negotiateAnchorsZeroFeeHtlcTxArg: Bool,
 			ourMaxAcceptedHtlcsArg: UInt16
 		) {
@@ -850,7 +864,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = ChannelHandshakeConfig_new(
 				minimumDepthArg, ourToSelfDelayArg, ourHtlcMinimumMsatArg,
-				maxInboundHtlcValueInFlightPercentOfChannelArg, negotiateScidPrivacyArg, announcedChannelArg,
+				maxInboundHtlcValueInFlightPercentOfChannelArg, negotiateScidPrivacyArg, announceForForwardingArg,
 				commitUpfrontShutdownPubkeyArg, theirChannelReserveProportionalMillionthsArg,
 				negotiateAnchorsZeroFeeHtlcTxArg, ourMaxAcceptedHtlcsArg)
 

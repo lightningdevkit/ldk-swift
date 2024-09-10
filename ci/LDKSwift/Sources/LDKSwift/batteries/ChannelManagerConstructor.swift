@@ -45,7 +45,7 @@ public struct ChannelManagerConstructionParameters {
     public var scoreParams: ProbabilisticScoringFeeParameters?
     public var payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))
     public var logger: Logger
-    
+
     public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, scoreParams: ProbabilisticScoringFeeParameters? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))) {
         self.config = config
         self.entropySource = entropySource
@@ -55,7 +55,7 @@ public struct ChannelManagerConstructionParameters {
         self.chainMonitor = chainMonitor
         self.txBroadcaster = txBroadcaster
         self.logger = logger
-        
+
         self.enableP2PGossip = enableP2PGossip
         self.scorer = scorer
         if scorer != nil && scoreParams == nil {
@@ -65,7 +65,7 @@ public struct ChannelManagerConstructionParameters {
         }
         self.payerRetries = payerRetries
     }
-    
+
     private class CMCRouter: Router {
         override func findRoute(payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?, inflightHtlcs: Bindings.InFlightHtlcs) -> Bindings.Result_RouteLightningErrorZ {
             let errorString = "Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
@@ -78,7 +78,7 @@ public struct ChannelManagerConstructionParameters {
             return .initWithErr(e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
         }
     }
-    
+
     fileprivate func router(networkGraph: NetworkGraph?) -> Router {
         if let netGraph = networkGraph, let scorer = self.scorer, let scoreParams = self.scoreParams {
             return DefaultRouter(networkGraph: netGraph, logger: self.logger, entropySource: self.entropySource, scorer: scorer.asLockableScore(), scoreParams: scoreParams).asRouter()
@@ -101,17 +101,17 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public let channel_manager_latest_block_hash: [UInt8]?
 
     private let constructionParameters: ChannelManagerConstructionParameters
-    
+
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: EventHandler?
     public private(set) var netGraph: NetworkGraph?
     fileprivate var graphMessageHandler: GossipSync?
-    
-    
-    
-    
+
+
+
+
     // public private(set) var payer: InvoicePayer?
-    
+
     public let peerManager: PeerManager
     private var tcpPeerHandler: TCPPeerHandler?
 
@@ -127,7 +127,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters, logger: Logger) throws {
 
         self.constructionParameters = params
-        
+
         var monitors: [ChannelMonitor] = []
         self.channel_monitors = []
 
@@ -155,7 +155,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         print("Collected channel monitors, reading channel manager")
-        
+
         switch networkGraph {
         case .instance(let graph):
             self.netGraph = graph
@@ -166,11 +166,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
             self.netGraph = netGraphResult.getValue()
         }
-        
+
         // TODO: figure out better way to obtain a router
         let router = params.router(networkGraph: self.netGraph)
         let channelManagerReadArgs = ChannelManagerReadArgs(entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, feeEstimator: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, defaultConfig: params.config, channelMonitors: monitors)
-        
+
         guard let (latestBlockHash, channelManager) = Bindings.readThirtyTwoBytesChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs).getValue() else {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
@@ -222,17 +222,17 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public init(network: Network, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, netGraph: NetworkGraph?, params: ChannelManagerConstructionParameters) {
 
         self.constructionParameters = params
-        
+
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
         let block = BestBlock(blockHashArg: currentBlockchainTipHash, heightArg: currentBlockchainTipHeight)
         let chainParameters = ChainParameters(networkArg: network, bestBlockArg: block)
-        
+
         self.netGraph = netGraph
         let router = params.router(networkGraph: self.netGraph)
         let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
         self.channelManager = ChannelManager(feeEst: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, config: params.config, params: chainParameters, currentTimestamp: timestampSeconds)
-        
+
         let channelMessageHandler = channelManager.asChannelMessageHandler()
         let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
         let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
@@ -246,7 +246,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         } else {
             messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages, onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
         }
-        
+
         let random_data = params.entropySource.getSecureRandomBytes();
 
         self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, nodeSigner: params.nodeSigner)
@@ -290,10 +290,12 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
 
+        let ignoringMessageHandler = IgnoringMessageHandler()
+        let onionMessenger = OnionMessenger.initWith(entropySource: self.constructionParameters.entropySource, nodeSigner: self.constructionParameters.nodeSigner, logger: self.constructionParameters.logger, nodeIdLookup: NodeIdLookUp(), messageRouter: MessageRouter(), offersHandler: self.channelManager.asOffersMessageHandler(), asyncPaymentsHandler: ignoringMessageHandler.asAsyncPaymentsMessageHandler(), customHandler: ignoringMessageHandler.asCustomOnionMessageHandler())
+
         // if there is a graph msg handler, set its is_owned to false
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
-
-        self.backgroundProcessor = BackgroundProcessor.start(persister: self.customPersister!, eventHandler: self.customEventHandler!, chainMonitor: self.constructionParameters.chainMonitor, channelManager: self.channelManager, gossipSync: self.graphMessageHandler ?? GossipSync.none(), peerManager: self.peerManager, logger: self.constructionParameters.logger, scorer: self.constructionParameters.scorer?.asWriteableScore())
+        self.backgroundProcessor = BackgroundProcessor.start(persister: self.customPersister!, eventHandler: self.customEventHandler!, chainMonitor: self.constructionParameters.chainMonitor, channelManager: self.channelManager, onionMessenger: onionMessenger, gossipSync: self.graphMessageHandler ?? GossipSync.none(), peerManager: self.peerManager, logger: self.constructionParameters.logger, scorer: self.constructionParameters.scorer?.asWriteableScore())
 
         // restore it back to true
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
@@ -360,15 +362,15 @@ fileprivate class CustomChannelManagerPersister: Persister {
         self.handler = handler
         super.init()
     }
-    
+
     override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistManager(channelManager: channelManager)
     }
-    
+
     override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistGraph(networkGraph: networkGraph)
     }
-    
+
     override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistScorer(scorer: scorer)
     }
@@ -383,7 +385,7 @@ fileprivate class CustomEventHandler: EventHandler {
         super.init()
     }
 
-    override func handleEvent(event: Bindings.Event) {
+    override func handleEvent(event: Bindings.Event) -> Bindings.Result_NoneReplayEventZ {
         // self.handler.handle_event(event: event.clone())
         self.handler.handleEvent(event: event)
     }
@@ -391,7 +393,7 @@ fileprivate class CustomEventHandler: EventHandler {
 }
 
 public protocol ExtendedChannelManagerPersister: Persister {
-    func handleEvent(event: Event) -> Void;
+    func handleEvent(event: Event) -> Result_NoneReplayEventZ;
 }
 
 public class TCPPeerHandler {

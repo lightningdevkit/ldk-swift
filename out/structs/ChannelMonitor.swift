@@ -370,9 +370,11 @@ extension Bindings {
 		/// An [`EventHandler`] may safely call back to the provider, though this shouldn't be needed in
 		/// order to handle these events.
 		///
+		/// Will return a [`ReplayEvent`] error if event handling failed and should eventually be retried.
+		///
 		/// [`SpendableOutputs`]: crate::events::Event::SpendableOutputs
 		/// [`BumpTransaction`]: crate::events::Event::BumpTransaction
-		public func processPendingEvents(handler: EventHandler) {
+		public func processPendingEvents(handler: EventHandler) -> Result_NoneReplayEventZ {
 			// native call variable prep
 
 
@@ -392,7 +394,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Result_NoneReplayEventZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue
@@ -952,6 +958,28 @@ extension Bindings {
 						)
 					}
 
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Returns true if the monitor has pending claim requests that are not fully confirmed yet.
+		public func hasPendingClaims() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+					ChannelMonitor_has_pending_claims(thisArgPointer)
 				}
 
 

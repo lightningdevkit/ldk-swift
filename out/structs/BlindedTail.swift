@@ -83,9 +83,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The hops of the [`BlindedPath`] provided by the recipient.
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
+		/// The hops of the [`BlindedPaymentPath`] provided by the recipient.
 		public func getHops() -> [BlindedHop] {
 			// native call variable prep
 
@@ -110,9 +108,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The hops of the [`BlindedPath`] provided by the recipient.
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
+		/// The hops of the [`BlindedPaymentPath`] provided by the recipient.
 		public func setHops(val: [BlindedHop]) {
 			// native call variable prep
 
@@ -141,9 +137,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The blinding point of the [`BlindedPath`] provided by the recipient.
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
+		/// The blinding point of the [`BlindedPaymentPath`] provided by the recipient.
 		public func getBlindingPoint() -> [UInt8] {
 			// native call variable prep
 
@@ -168,9 +162,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The blinding point of the [`BlindedPath`] provided by the recipient.
-		///
-		/// [`BlindedPath`]: crate::blinded_path::BlindedPath
+		/// The blinding point of the [`BlindedPaymentPath`] provided by the recipient.
 		public func setBlindingPoint(val: [UInt8]) {
 			// native call variable prep
 

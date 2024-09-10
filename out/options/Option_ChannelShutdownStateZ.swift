@@ -7,7 +7,7 @@ internal typealias Option_ChannelShutdownStateZ = Bindings.Option_ChannelShutdow
 
 extension Bindings {
 
-	/// An enum which can either contain a crate::lightning::ln::channelmanager::ChannelShutdownState or not
+	/// An enum which can either contain a crate::lightning::ln::channel_state::ChannelShutdownState or not
 	internal class Option_ChannelShutdownStateZ: NativeTypeWrapper {
 
 
@@ -73,7 +73,7 @@ extension Bindings {
 		}
 
 
-		/// Frees any resources associated with the crate::lightning::ln::channelmanager::ChannelShutdownState, if we are in the Some state
+		/// Frees any resources associated with the crate::lightning::ln::channel_state::ChannelShutdownState, if we are in the Some state
 		internal func free() {
 			// native call variable prep
 

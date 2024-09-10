@@ -324,11 +324,11 @@ public class PolarIntegrationSample {
 
         class PolarChannelMonitorPersister: Persist {
             
-            override func persistNewChannel(channelFundingOutpoint channelId: Bindings.OutPoint, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
+            override func persistNewChannel(channelFundingOutpoint: Bindings.OutPoint, monitor: Bindings.ChannelMonitor) -> Bindings.ChannelMonitorUpdateStatus {
                 return .Completed
             }
             
-            override func updatePersistedChannel(channelFundingOutpoint channelId: Bindings.OutPoint, update: Bindings.ChannelMonitorUpdate, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
+            override func updatePersistedChannel(channelFundingOutpoint: Bindings.OutPoint, monitorUpdate: Bindings.ChannelMonitorUpdate, monitor: Bindings.ChannelMonitor) -> Bindings.ChannelMonitorUpdateStatus {
                 return .Completed
             }
             
@@ -347,11 +347,12 @@ public class PolarIntegrationSample {
                     await self.eventTracker.awaitAddition()
                 }
             }
-
-            func handleEvent(event: Event) {
+            
+            func handleEvent(event: Event) -> Result_NoneReplayEventZ {
                 Task {
                     await self.eventTracker.addEvent(event: event)
                 }
+                return .initWithOk()
             }
             
             override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {

@@ -307,18 +307,75 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The ID of the previous funding transaction, when it is being added as an input during splicing
+		public func getSharedInputTxid() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKTxAddInput>) in
+					TxAddInput_get_shared_input_txid(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ThirtyTwoBytesZ(
+				cType: nativeCallResult, instantiationContext: "TxAddInput.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The ID of the previous funding transaction, when it is being added as an input during splicing
+		public func setSharedInputTxid(val: [UInt8]?) {
+			// native call variable prep
+
+			let valOption = Option_ThirtyTwoBytesZ(
+				some: val, instantiationContext: "TxAddInput.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKTxAddInput>) in
+					TxAddInput_set_shared_input_txid(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new TxAddInput given each field
 		public init(
 			channelIdArg: ChannelId, serialIdArg: UInt64, prevtxArg: TransactionU16LenLimited, prevtxOutArg: UInt32,
-			sequenceArg: UInt32
+			sequenceArg: UInt32, sharedInputTxidArg: [UInt8]?
 		) {
 			// native call variable prep
+
+			let sharedInputTxidArgOption = Option_ThirtyTwoBytesZ(
+				some: sharedInputTxidArg, instantiationContext: "TxAddInput.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult = TxAddInput_new(
 				channelIdArg.dynamicallyDangledClone().cType!, serialIdArg, prevtxArg.dynamicallyDangledClone().cType!,
-				prevtxOutArg, sequenceArg)
+				prevtxOutArg, sequenceArg, sharedInputTxidArgOption.cType!)
 
 			// cleanup
 

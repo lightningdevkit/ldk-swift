@@ -463,13 +463,71 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The payment hash.
+		///
+		/// Note that this is only filled in for logs pertaining to a specific payment, and will be
+		/// `None` for logs which are not directly related to a payment.
+		public func getPaymentHash() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKRecord>) in
+					Record_get_payment_hash(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ThirtyTwoBytesZ(
+				cType: nativeCallResult, instantiationContext: "Record.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The payment hash.
+		///
+		/// Note that this is only filled in for logs pertaining to a specific payment, and will be
+		/// `None` for logs which are not directly related to a payment.
+		public func setPaymentHash(val: [UInt8]?) {
+			// native call variable prep
+
+			let valOption = Option_ThirtyTwoBytesZ(
+				some: val, instantiationContext: "Record.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKRecord>) in
+					Record_set_payment_hash(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new Record given each field
 		///
 		/// Note that peer_id_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		/// Note that channel_id_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			levelArg: Level, peerIdArg: [UInt8], channelIdArg: ChannelId, argsArg: String, modulePathArg: String,
-			fileArg: String, lineArg: UInt32
+			fileArg: String, lineArg: UInt32, paymentHashArg: [UInt8]?
 		) {
 			// native call variable prep
 
@@ -491,12 +549,17 @@ extension Bindings {
 			)
 			.dangle()
 
+			let paymentHashArgOption = Option_ThirtyTwoBytesZ(
+				some: paymentHashArg, instantiationContext: "Record.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Record_new(
 				levelArg.getCValue(), peerIdArgPrimitiveWrapper.cType!, channelIdArg.dynamicallyDangledClone().cType!,
 				argsArgPrimitiveWrapper.cType!, modulePathArgPrimitiveWrapper.cType!, fileArgPrimitiveWrapper.cType!,
-				lineArg)
+				lineArg, paymentHashArgOption.cType!)
 
 			// cleanup
 

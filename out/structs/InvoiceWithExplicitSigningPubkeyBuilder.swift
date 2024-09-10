@@ -121,7 +121,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Sets the [`Bolt12Invoice::relative_expiry`] as seconds since [`Bolt12Invoice::created_at`].
+		/// Sets the [`Bolt12Invoice::relative_expiry`]
+		/// as seconds since [`Bolt12Invoice::created_at`].
 		/// Any expiry that has already passed is valid and can be checked for using
 		/// [`Bolt12Invoice::is_expired`].
 		///
@@ -245,8 +246,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Sets [`Bolt12Invoice::invoice_features`] to indicate MPP may be used. Otherwise, MPP is
-		/// disallowed.
+		/// Sets [`Bolt12Invoice::invoice_features`]
+		/// to indicate MPP may be used. Otherwise, MPP is disallowed.
 		@available(
 			*, deprecated,
 			message: "This method passes the following non-cloneable, but freeable objects by value: self."

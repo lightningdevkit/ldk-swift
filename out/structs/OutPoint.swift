@@ -4,7 +4,7 @@
 
 /// A reference to a transaction output.
 ///
-/// Differs from bitcoin::blockdata::transaction::OutPoint as the index is a u16 instead of u32
+/// Differs from bitcoin::transaction::OutPoint as the index is a u16 instead of u32
 /// due to LN's restrictions on index values. Should reduce (possibly) unsafe conversions this way.
 public typealias OutPoint = Bindings.OutPoint
 
@@ -13,7 +13,7 @@ extension Bindings {
 
 	/// A reference to a transaction output.
 	///
-	/// Differs from bitcoin::blockdata::transaction::OutPoint as the index is a u16 instead of u32
+	/// Differs from bitcoin::transaction::OutPoint as the index is a u16 instead of u32
 	/// due to LN's restrictions on index values. Should reduce (possibly) unsafe conversions this way.
 	public class OutPoint: NativeTypeWrapper {
 
@@ -282,6 +282,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a OutPoint object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKOutPoint>) in
+					OutPoint_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "OutPoint.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

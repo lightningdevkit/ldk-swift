@@ -73,9 +73,9 @@ extension Bindings {
 			/// exposure and the new minimum value for HTLCs to be economically viable to claim.
 			case FixedLimitMsat
 
-			/// This sets a multiplier on the [`ConfirmationTarget::OnChainSweep`] feerate (in sats/KW) to
-			/// determine the maximum allowed dust exposure. If this variant is used then the maximum dust
-			/// exposure in millisatoshis is calculated as:
+			/// This sets a multiplier on the [`ConfirmationTarget::MaximumFeeEstimate`] feerate (in
+			/// sats/KW) to determine the maximum allowed dust exposure. If this variant is used then the
+			/// maximum dust exposure in millisatoshis is calculated as:
 			/// `feerate_per_kw * value`. For example, with our default value
 			/// `FeeRateMultiplier(10_000)`:
 			///
@@ -98,7 +98,7 @@ extension Bindings {
 			/// by default this will be set to a [`Self::FixedLimitMsat`] of 5,000,000 msat.
 			///
 			/// [`FeeEstimator`]: crate::chain::chaininterface::FeeEstimator
-			/// [`ConfirmationTarget::OnChainSweep`]: crate::chain::chaininterface::ConfirmationTarget::OnChainSweep
+			/// [`ConfirmationTarget::MaximumFeeEstimate`]: crate::chain::chaininterface::ConfirmationTarget::MaximumFeeEstimate
 			case FeeRateMultiplier
 
 		}

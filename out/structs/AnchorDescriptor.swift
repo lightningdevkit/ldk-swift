@@ -372,7 +372,7 @@ extension Bindings {
 		}
 
 		/// Derives the channel signer required to sign the anchor input.
-		public func deriveChannelSigner(signerProvider: SignerProvider) -> WriteableEcdsaChannelSigner {
+		public func deriveChannelSigner(signerProvider: SignerProvider) -> EcdsaChannelSigner {
 			// native call variable prep
 
 
@@ -392,7 +392,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(
+			let returnValue = NativelyImplementedEcdsaChannelSigner(
 				cType: nativeCallResult, instantiationContext: "AnchorDescriptor.swift::\(#function):\(#line)",
 				anchor: self)
 

@@ -91,6 +91,29 @@ extension Bindings {
 				return returnValue
 			}
 
+			func msgTypeLambda(this_arg: UnsafeRawPointer?) -> LDKStr {
+				let instance: OnionMessageContents = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageContents::msgTypeLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.msgType()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Str(
+					value: swiftCallbackResult,
+					instantiationContext: "OnionMessageContents.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
+
+				return returnValue
+			}
+
 			func writeLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_u8Z {
 				let instance: OnionMessageContents = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OnionMessageContents::writeLambda")
@@ -160,6 +183,7 @@ extension Bindings {
 			self.cType = LDKOnionMessageContents(
 				this_arg: thisArg,
 				tlv_type: tlvTypeLambda,
+				msg_type: msgTypeLambda,
 				write: writeLambda,
 				debug_str: debugStrLambda,
 				cloned: nil,
@@ -173,6 +197,15 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: OnionMessageContents::tlvType MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Returns the message type
+		open func msgType() -> String {
+
+			Bindings.print(
+				"Error: OnionMessageContents::msgType MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -267,6 +300,26 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Returns the message type
+		public override func msgType() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.msg_type(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)"
+			)
+			.getValue()
 
 			return returnValue
 		}

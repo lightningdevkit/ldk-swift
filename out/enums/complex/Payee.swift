@@ -126,12 +126,12 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new Blinded-variant Payee
-		public class func initWithBlinded(
-			routeHints: [(BlindedPayInfo, BlindedPath)], features: Bindings.Bolt12InvoiceFeatures
-		) -> Payee {
+		public class func initWithBlinded(routeHints: [BlindedPaymentPath], features: Bindings.Bolt12InvoiceFeatures)
+			-> Payee
+		{
 			// native call variable prep
 
-			let routeHintsVector = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+			let routeHintsVector = Vec_BlindedPaymentPathZ(
 				array: routeHints, instantiationContext: "Payee.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -337,9 +337,9 @@ extension Bindings {
 
 			/// Aggregated routing info and blinded paths, for routing to the payee without knowing their
 			/// node id.
-			public func getRouteHints() -> [(BlindedPayInfo, BlindedPath)] {
+			public func getRouteHints() -> [BlindedPaymentPath] {
 				// return value (do some wrapping)
-				let returnValue = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+				let returnValue = Vec_BlindedPaymentPathZ(
 					cType: self.cType!.route_hints, instantiationContext: "Payee.swift::\(#function):\(#line)",
 					anchor: self
 				)

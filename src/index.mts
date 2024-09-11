@@ -18,7 +18,7 @@ import Generator from './generation/index.mjs';
 
 	await generator.generateTypes();
 	await generator.generateFunctions();
-	await generator.runFormatter();
+	await generator.runFormatter(true);
 })();
 
 interface NullTest {

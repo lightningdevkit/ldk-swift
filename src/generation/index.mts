@@ -154,7 +154,7 @@ export default class Generator {
 		}
 	}
 
-	async runFormatter() {
+	async runFormatter(formatBatteryFiles = false) {
 		const configFilePath = url.fileURLToPath(new URL('.', import.meta.url)) + '../../.swift-format';
 		const outputDirectory = this.parser.config.getOutputBaseDirectoryPath();
 		const swiftFormatterBinary = this.parser.config.getSwiftFormatterBinaryPath();
@@ -162,16 +162,24 @@ export default class Generator {
 			return;
 		}
 
+		const paths = [outputDirectory];
+		if (formatBatteryFiles) {
+			paths.push(...this.parser.config.getBatteryDirectoryPaths());
+		}
+
 		try {
 			const command = `${swiftFormatterBinary} --configuration ${configFilePath} --recursive --in-place ./ `;
 			console.log(command);
-			child_process.execSync(command, {
-				cwd: outputDirectory
-			}).toString('utf-8');
+			for (const currentDirectory of paths) {
+				console.log(currentDirectory);
+				child_process.execSync(command, {
+					cwd: currentDirectory
+				}).toString('utf-8');
+			}
 		} catch (e) {
 			const errorOutput = e.stderr.toString('utf-8').trim();
 			console.error('Failed to format Swift output:', errorOutput);
-			throw new Error(errorOutput)
+			throw new Error(errorOutput);
 		}
 
 		// after all is generated and formatted, we generate the version file

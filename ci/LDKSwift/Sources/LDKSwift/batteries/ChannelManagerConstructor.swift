@@ -5,324 +5,393 @@
 //  Created by Arik Sosman on 5/19/21.
 //
 
-#if SWIFT_PACKAGE
-import LDKHeaders
-#endif
-
 import Foundation
 
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
+
+
 enum InvalidSerializedDataError: Error {
-    case invalidSerializedChannelMonitor
-    case invalidSerializedChannelManager
-    case invalidSerializedNetworkGraph
-    case duplicateSerializedChannelMonitor
-    case badNodeSecret
+	case invalidSerializedChannelMonitor
+	case invalidSerializedChannelManager
+	case invalidSerializedNetworkGraph
+	case duplicateSerializedChannelMonitor
+	case badNodeSecret
 }
 
 enum RouterUnavailableError: Error {
-    case channelManagerInitializationMissingScorerOrNetworkGraph
+	case channelManagerInitializationMissingScorerOrNetworkGraph
 }
 
 /// Argument used when deserializing ChannelManager instances. If the user has previously already taken it upon themselves to deserialize the NetworkGraph, the `instance`
 /// case may be used. Otherwise, `serialized` may be passed to have the deserializer handle the NetworkGraph, too.
 public enum NetworkGraphArgument {
-    /// Use if you have a serialized NetworkGraph that should be deserialized.
-    case serialized([UInt8])
-    /// Use if you have already deserialized a NetworkGraph and wish to pass that instance here.
-    case instance(NetworkGraph)
+	/// Use if you have a serialized NetworkGraph that should be deserialized.
+	case serialized([UInt8])
+	/// Use if you have already deserialized a NetworkGraph and wish to pass that instance here.
+	case instance(NetworkGraph)
 }
 
 public struct ChannelManagerConstructionParameters {
-    public var config: UserConfig
-    public var entropySource: EntropySource
-    public var nodeSigner: NodeSigner
-    public var signerProvider: SignerProvider
-    public var feeEstimator: FeeEstimator
-    public var chainMonitor: ChainMonitor
-    public var txBroadcaster: BroadcasterInterface
-    public var enableP2PGossip: Bool = false
-    public var scorer: MultiThreadedLockableScore?
-    public var scoreParams: ProbabilisticScoringFeeParameters?
-    public var payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))
-    public var logger: Logger
+	public var config: UserConfig
+	public var entropySource: EntropySource
+	public var nodeSigner: NodeSigner
+	public var signerProvider: SignerProvider
+	public var feeEstimator: FeeEstimator
+	public var chainMonitor: ChainMonitor
+	public var txBroadcaster: BroadcasterInterface
+	public var enableP2PGossip: Bool = false
+	public var scorer: MultiThreadedLockableScore?
+	public var scoreParams: ProbabilisticScoringFeeParameters?
+	public var payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))
+	public var logger: Logger
 
-    public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, scoreParams: ProbabilisticScoringFeeParameters? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))) {
-        self.config = config
-        self.entropySource = entropySource
-        self.nodeSigner = nodeSigner
-        self.signerProvider = signerProvider
-        self.feeEstimator = feeEstimator
-        self.chainMonitor = chainMonitor
-        self.txBroadcaster = txBroadcaster
-        self.logger = logger
+	public init(
+		config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider,
+		feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger,
+		enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil,
+		scoreParams: ProbabilisticScoringFeeParameters? = nil,
+		payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))
+	) {
+		self.config = config
+		self.entropySource = entropySource
+		self.nodeSigner = nodeSigner
+		self.signerProvider = signerProvider
+		self.feeEstimator = feeEstimator
+		self.chainMonitor = chainMonitor
+		self.txBroadcaster = txBroadcaster
+		self.logger = logger
 
-        self.enableP2PGossip = enableP2PGossip
-        self.scorer = scorer
-        if scorer != nil && scoreParams == nil {
-            self.scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
-        } else {
-            self.scoreParams = scoreParams
-        }
-        self.payerRetries = payerRetries
-    }
+		self.enableP2PGossip = enableP2PGossip
+		self.scorer = scorer
+		if scorer != nil && scoreParams == nil {
+			self.scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
+		} else {
+			self.scoreParams = scoreParams
+		}
+		self.payerRetries = payerRetries
+	}
 
-    private class CMCRouter: Router {
-        override func findRoute(payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?, inflightHtlcs: Bindings.InFlightHtlcs) -> Bindings.Result_RouteLightningErrorZ {
-            let errorString = "Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
-            Bindings.print(errorString, severity: .ERROR)
-            return .initWithErr(e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
-        }
-        override func findRouteWithId(payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?, inflightHtlcs: Bindings.InFlightHtlcs, paymentHash PaymentHash: [UInt8], paymentId PaymentId: [UInt8]) -> Bindings.Result_RouteLightningErrorZ {
-            let errorString = "Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
-            Bindings.print(errorString, severity: .ERROR)
-            return .initWithErr(e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
-        }
-    }
+	private class CMCRouter: Router {
+		override func findRoute(
+			payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?,
+			inflightHtlcs: Bindings.InFlightHtlcs
+		) -> Bindings.Result_RouteLightningErrorZ {
+			let errorString =
+				"Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
+			Bindings.print(errorString, severity: .ERROR)
+			return .initWithErr(
+				e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
+		}
+		override func findRouteWithId(
+			payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?,
+			inflightHtlcs: Bindings.InFlightHtlcs, paymentHash PaymentHash: [UInt8], paymentId PaymentId: [UInt8]
+		) -> Bindings.Result_RouteLightningErrorZ {
+			let errorString =
+				"Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
+			Bindings.print(errorString, severity: .ERROR)
+			return .initWithErr(
+				e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
+		}
+	}
 
-    fileprivate func router(networkGraph: NetworkGraph?) -> Router {
-        if let netGraph = networkGraph, let scorer = self.scorer, let scoreParams = self.scoreParams {
-            return DefaultRouter(networkGraph: netGraph, logger: self.logger, entropySource: self.entropySource, scorer: scorer.asLockableScore(), scoreParams: scoreParams).asRouter()
-        }
-        return CMCRouter(messageRouter: MessageRouter())
-    }
+	fileprivate func router(networkGraph: NetworkGraph?) -> Router {
+		if let netGraph = networkGraph, let scorer = self.scorer, let scoreParams = self.scoreParams {
+			return DefaultRouter(
+				networkGraph: netGraph, logger: self.logger, entropySource: self.entropySource,
+				scorer: scorer.asLockableScore(), scoreParams: scoreParams
+			)
+			.asRouter()
+		}
+		return CMCRouter(messageRouter: MessageRouter())
+	}
 }
 
 public class ChannelManagerConstructor: NativeTypeWrapper {
 
 
-    public let channelManager: ChannelManager
+	public let channelManager: ChannelManager
 
-    /**
+	/**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
      */
 
 
-    public let channel_manager_latest_block_hash: [UInt8]?
+	public let channel_manager_latest_block_hash: [UInt8]?
 
-    private let constructionParameters: ChannelManagerConstructionParameters
+	private let constructionParameters: ChannelManagerConstructionParameters
 
-    fileprivate var customPersister: CustomChannelManagerPersister?
-    fileprivate var customEventHandler: EventHandler?
-    public private(set) var netGraph: NetworkGraph?
-    fileprivate var graphMessageHandler: GossipSync?
-
-
+	fileprivate var customPersister: CustomChannelManagerPersister?
+	fileprivate var customEventHandler: EventHandler?
+	public private(set) var netGraph: NetworkGraph?
+	fileprivate var graphMessageHandler: GossipSync?
 
 
-    // public private(set) var payer: InvoicePayer?
+	// public private(set) var payer: InvoicePayer?
 
-    public let peerManager: PeerManager
-    private var tcpPeerHandler: TCPPeerHandler?
+	public let peerManager: PeerManager
+	private var tcpPeerHandler: TCPPeerHandler?
 
-    /**
+	/**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
      * After doing so (and syncing the blockchain on the channel manager as well), you should call chainSyncCompleted()
      * and then continue to normal application operation.
      */
-    public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
+	public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters, logger: Logger) throws {
+	public init(
+		channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument,
+		filter: Filter?, params: ChannelManagerConstructionParameters, logger: Logger
+	) throws {
 
-        self.constructionParameters = params
+		self.constructionParameters = params
 
-        var monitors: [ChannelMonitor] = []
-        self.channel_monitors = []
+		var monitors: [ChannelMonitor] = []
+		self.channel_monitors = []
 
-        var monitorFundingSet = Set<String>()
+		var monitorFundingSet = Set<String>()
 
-        for currentSerializedChannelMonitor in channelMonitorsSerialized {
-            let channelMonitorResult = Bindings.readThirtyTwoBytesChannelMonitor(ser: currentSerializedChannelMonitor, argA: params.entropySource, argB: params.signerProvider)
+		for currentSerializedChannelMonitor in channelMonitorsSerialized {
+			let channelMonitorResult = Bindings.readThirtyTwoBytesChannelMonitor(
+				ser: currentSerializedChannelMonitor, argA: params.entropySource, argB: params.signerProvider)
 
-            guard let (blockHash, channelMonitor) = channelMonitorResult.getValue() else {
-                throw InvalidSerializedDataError.invalidSerializedChannelMonitor
-            }
+			guard let (blockHash, channelMonitor) = channelMonitorResult.getValue() else {
+				throw InvalidSerializedDataError.invalidSerializedChannelMonitor
+			}
 
-            let (channelFundingOutpoint, _) = channelMonitor.getFundingTxo()
+			let (channelFundingOutpoint, _) = channelMonitor.getFundingTxo()
 
-            // TODO: figure out what to do with txid nullability
-            let fundingOutpointHash = "\(channelFundingOutpoint.getTxid()):\(channelFundingOutpoint.getIndex())"
-            if monitorFundingSet.contains(fundingOutpointHash) {
-                Bindings.print("Duplicate channel monitor funding txo: \(fundingOutpointHash)", severity: .ERROR)
-                throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
-            }
-            monitorFundingSet.insert(fundingOutpointHash)
+			// TODO: figure out what to do with txid nullability
+			let fundingOutpointHash = "\(channelFundingOutpoint.getTxid()):\(channelFundingOutpoint.getIndex())"
+			if monitorFundingSet.contains(fundingOutpointHash) {
+				Bindings.print("Duplicate channel monitor funding txo: \(fundingOutpointHash)", severity: .ERROR)
+				throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
+			}
+			monitorFundingSet.insert(fundingOutpointHash)
 
-            monitors.append(channelMonitor)
-            self.channel_monitors.append((channelMonitor, blockHash))
-        }
+			monitors.append(channelMonitor)
+			self.channel_monitors.append((channelMonitor, blockHash))
+		}
 
-        print("Collected channel monitors, reading channel manager")
+		print("Collected channel monitors, reading channel manager")
 
-        switch networkGraph {
-        case .instance(let graph):
-            self.netGraph = graph
-        case .serialized(let serializedNetworkGraph):
-            let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: params.logger)
-            if !netGraphResult.isOk(){
-                throw InvalidSerializedDataError.invalidSerializedNetworkGraph
-            }
-            self.netGraph = netGraphResult.getValue()
-        }
+		switch networkGraph {
+			case .instance(let graph):
+				self.netGraph = graph
+			case .serialized(let serializedNetworkGraph):
+				let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: params.logger)
+				if !netGraphResult.isOk() {
+					throw InvalidSerializedDataError.invalidSerializedNetworkGraph
+				}
+				self.netGraph = netGraphResult.getValue()
+		}
 
-        // TODO: figure out better way to obtain a router
-        let router = params.router(networkGraph: self.netGraph)
-        let channelManagerReadArgs = ChannelManagerReadArgs(entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, feeEstimator: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, defaultConfig: params.config, channelMonitors: monitors)
+		// TODO: figure out better way to obtain a router
+		let router = params.router(networkGraph: self.netGraph)
+		let channelManagerReadArgs = ChannelManagerReadArgs(
+			entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider,
+			feeEstimator: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(),
+			txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, defaultConfig: params.config,
+			channelMonitors: monitors)
 
-        guard let (latestBlockHash, channelManager) = Bindings.readThirtyTwoBytesChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs).getValue() else {
-            throw InvalidSerializedDataError.invalidSerializedChannelManager
-        }
+		guard
+			let (latestBlockHash, channelManager) =
+				Bindings.readThirtyTwoBytesChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs)
+				.getValue()
+		else {
+			throw InvalidSerializedDataError.invalidSerializedChannelManager
+		}
 
-        /* for clonedChannelMonitor in self.channel_monitors {
+		/* for clonedChannelMonitor in self.channel_monitors {
             clonedChannelMonitor.0.cType!.is_owned = true
         } */
 
 
-        self.channelManager = channelManager
-        self.channel_manager_latest_block_hash = latestBlockHash
+		self.channelManager = channelManager
+		self.channel_manager_latest_block_hash = latestBlockHash
 
-        let random_data = params.entropySource.getSecureRandomBytes();
-
-
-        let channelMessageHandler = channelManager.asChannelMessageHandler()
-        let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
-        let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
-        let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
-
-        var messageHandler: MessageHandler!
-        if let netGraph = self.netGraph, params.enableP2PGossip {
-            let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
-            self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
-            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
-        } else {
-            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages, onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
-        }
-        let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
-        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, nodeSigner: params.nodeSigner)
-
-        if let filter = filter {
-            for (currentMonitor, _) in self.channel_monitors {
-                currentMonitor.loadOutputsToWatch(filter: filter, logger: logger)
-            }
-        }
-
-        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
-        // try! self.peerManager.addAnchor(anchor: self)
-        // try! self.channelManager.addAnchor(anchor: self)
-
-    }
+		let random_data = params.entropySource.getSecureRandomBytes()
 
 
+		let channelMessageHandler = channelManager.asChannelMessageHandler()
+		let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
+		let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
+		let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
 
-    /**
+		var messageHandler: MessageHandler!
+		if let netGraph = self.netGraph, params.enableP2PGossip {
+			let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
+			self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
+			messageHandler = MessageHandler(
+				chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(),
+				onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
+		} else {
+			messageHandler = MessageHandler(
+				chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages,
+				onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
+		}
+		let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
+		self.peerManager = PeerManager(
+			messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data,
+			logger: params.logger, nodeSigner: params.nodeSigner)
+
+		if let filter = filter {
+			for (currentMonitor, _) in self.channel_monitors {
+				currentMonitor.loadOutputsToWatch(filter: filter, logger: logger)
+			}
+		}
+
+		super
+			.init(
+				conflictAvoidingVariableName: 0,
+				instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
+		// try! self.peerManager.addAnchor(anchor: self)
+		// try! self.channelManager.addAnchor(anchor: self)
+
+	}
+
+
+	/**
      * Constructs a channel manager from the given interface implementations
      */
-    public init(network: Network, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, netGraph: NetworkGraph?, params: ChannelManagerConstructionParameters) {
+	public init(
+		network: Network, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32,
+		netGraph: NetworkGraph?, params: ChannelManagerConstructionParameters
+	) {
 
-        self.constructionParameters = params
+		self.constructionParameters = params
 
-        self.channel_monitors = []
-        self.channel_manager_latest_block_hash = nil
-        let block = BestBlock(blockHashArg: currentBlockchainTipHash, heightArg: currentBlockchainTipHeight)
-        let chainParameters = ChainParameters(networkArg: network, bestBlockArg: block)
+		self.channel_monitors = []
+		self.channel_manager_latest_block_hash = nil
+		let block = BestBlock(blockHashArg: currentBlockchainTipHash, heightArg: currentBlockchainTipHeight)
+		let chainParameters = ChainParameters(networkArg: network, bestBlockArg: block)
 
-        self.netGraph = netGraph
-        let router = params.router(networkGraph: self.netGraph)
-        let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
-        self.channelManager = ChannelManager(feeEst: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, config: params.config, params: chainParameters, currentTimestamp: timestampSeconds)
+		self.netGraph = netGraph
+		let router = params.router(networkGraph: self.netGraph)
+		let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
+		self.channelManager = ChannelManager(
+			feeEst: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(),
+			txBroadcaster: params.txBroadcaster, router: router, logger: params.logger,
+			entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider,
+			config: params.config, params: chainParameters, currentTimestamp: timestampSeconds)
 
-        let channelMessageHandler = channelManager.asChannelMessageHandler()
-        let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
-        let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
-        let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
+		let channelMessageHandler = channelManager.asChannelMessageHandler()
+		let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
+		let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
+		let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
 
-        var messageHandler: MessageHandler!
-        if let netGraph = netGraph, params.enableP2PGossip {
-            let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
-            self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
-            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
-        } else {
-            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages, onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
-        }
+		var messageHandler: MessageHandler!
+		if let netGraph = netGraph, params.enableP2PGossip {
+			let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
+			self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
+			messageHandler = MessageHandler(
+				chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(),
+				onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
+		} else {
+			messageHandler = MessageHandler(
+				chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages,
+				onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
+		}
 
-        let random_data = params.entropySource.getSecureRandomBytes();
+		let random_data = params.entropySource.getSecureRandomBytes()
 
-        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, nodeSigner: params.nodeSigner)
+		self.peerManager = PeerManager(
+			messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data,
+			logger: params.logger, nodeSigner: params.nodeSigner)
 
-        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
-        // try! self.peerManager.addAnchor(anchor: self)
-        // try! self.channelManager.addAnchor(anchor: self)
-    }
+		super
+			.init(
+				conflictAvoidingVariableName: 0,
+				instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
+		// try! self.peerManager.addAnchor(anchor: self)
+		// try! self.channelManager.addAnchor(anchor: self)
+	}
 
 
-    var persisterWorkItem: DispatchWorkItem?
-    var backgroundProcessor: BackgroundProcessor?
-    var shutdown = false
+	var persisterWorkItem: DispatchWorkItem?
+	var backgroundProcessor: BackgroundProcessor?
+	var shutdown = false
 
-    /**
+	/**
      * Utility which adds all of the deserialized ChannelMonitors to the chain watch so that further updates from the
      * ChannelManager are processed as normal.
      *
      * This also spawns a background thread which will call the appropriate methods on the provided
      * ChannelManagerPersister as required.
      */
-    public func chainSyncCompleted(persister: ExtendedChannelManagerPersister) {
+	public func chainSyncCompleted(persister: ExtendedChannelManagerPersister) {
 
-        if self.backgroundProcessor != nil {
-            return
-        }
+		if self.backgroundProcessor != nil {
+			return
+		}
 
-        for (currentChannelMonitor, _) in self.channel_monitors {
-            let chainMonitorWatch = self.constructionParameters.chainMonitor.asWatch()
-            // let monitorClone = currentChannelMonitor.dynamicallyDangledClone()
-            // monitorClone.cType?.is_owned = false
-            let (outPoint, _) = currentChannelMonitor.getFundingTxo()
-            print("watching channel")
-            let monitorWatchResult = chainMonitorWatch.watchChannel(fundingTxo: outPoint, monitor: currentChannelMonitor)
-            if !monitorWatchResult.isOk() || monitorWatchResult.getValue() != .Completed {
-                Bindings.print("Some issue occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)", severity: .WARNING)
-            }
-            // monitorClone.cType?.is_owned = true
-        }
+		for (currentChannelMonitor, _) in self.channel_monitors {
+			let chainMonitorWatch = self.constructionParameters.chainMonitor.asWatch()
+			// let monitorClone = currentChannelMonitor.dynamicallyDangledClone()
+			// monitorClone.cType?.is_owned = false
+			let (outPoint, _) = currentChannelMonitor.getFundingTxo()
+			print("watching channel")
+			let monitorWatchResult = chainMonitorWatch.watchChannel(
+				fundingTxo: outPoint, monitor: currentChannelMonitor)
+			if !monitorWatchResult.isOk() || monitorWatchResult.getValue() != .Completed {
+				Bindings.print(
+					"Some issue occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)",
+					severity: .WARNING)
+			}
+			// monitorClone.cType?.is_owned = true
+		}
 
-        self.customPersister = CustomChannelManagerPersister(handler: persister)
-        self.customEventHandler = CustomEventHandler(handler: persister)
+		self.customPersister = CustomChannelManagerPersister(handler: persister)
+		self.customEventHandler = CustomEventHandler(handler: persister)
 
-        let ignoringMessageHandler = IgnoringMessageHandler()
-        let onionMessenger = OnionMessenger.initWith(entropySource: self.constructionParameters.entropySource, nodeSigner: self.constructionParameters.nodeSigner, logger: self.constructionParameters.logger, nodeIdLookup: NodeIdLookUp(), messageRouter: MessageRouter(), offersHandler: self.channelManager.asOffersMessageHandler(), asyncPaymentsHandler: ignoringMessageHandler.asAsyncPaymentsMessageHandler(), customHandler: ignoringMessageHandler.asCustomOnionMessageHandler())
+		let ignoringMessageHandler = IgnoringMessageHandler()
+		let onionMessenger = OnionMessenger.initWith(
+			entropySource: self.constructionParameters.entropySource,
+			nodeSigner: self.constructionParameters.nodeSigner, logger: self.constructionParameters.logger,
+			nodeIdLookup: NodeIdLookUp(), messageRouter: MessageRouter(),
+			offersHandler: self.channelManager.asOffersMessageHandler(),
+			asyncPaymentsHandler: ignoringMessageHandler.asAsyncPaymentsMessageHandler(),
+			customHandler: ignoringMessageHandler.asCustomOnionMessageHandler())
 
-        // if there is a graph msg handler, set its is_owned to false
-        // self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
-        self.backgroundProcessor = BackgroundProcessor.start(persister: self.customPersister!, eventHandler: self.customEventHandler!, chainMonitor: self.constructionParameters.chainMonitor, channelManager: self.channelManager, onionMessenger: onionMessenger, gossipSync: self.graphMessageHandler ?? GossipSync.none(), peerManager: self.peerManager, logger: self.constructionParameters.logger, scorer: self.constructionParameters.scorer?.asWriteableScore())
+		// if there is a graph msg handler, set its is_owned to false
+		// self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
+		self.backgroundProcessor = BackgroundProcessor.start(
+			persister: self.customPersister!, eventHandler: self.customEventHandler!,
+			chainMonitor: self.constructionParameters.chainMonitor, channelManager: self.channelManager,
+			onionMessenger: onionMessenger, gossipSync: self.graphMessageHandler ?? GossipSync.none(),
+			peerManager: self.peerManager, logger: self.constructionParameters.logger,
+			scorer: self.constructionParameters.scorer?.asWriteableScore())
 
-        // restore it back to true
-        // self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
+		// restore it back to true
+		// self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
 
-        try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
-        try? self.backgroundProcessor!.addAnchor(anchor: persister)
-        try? self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
-        try? self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
+		try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
+		try? self.backgroundProcessor!.addAnchor(anchor: persister)
+		try? self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
+		try? self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
 
-    }
+	}
 
-    public func interrupt() {
-        if self.shutdown {
-            Bindings.print("ChannelManagerConstructor previously interrupted, nothing to do.")
-            return
-        }
+	public func interrupt() {
+		if self.shutdown {
+			Bindings.print("ChannelManagerConstructor previously interrupted, nothing to do.")
+			return
+		}
 
-        self.shutdown = true
-        if let tcpHandler = self.tcpPeerHandler {
-            print("stopping TCP peer handler")
-            tcpHandler.interrupt()
-            print("stopped TCP peer handler")
-        }
-        print("stopping background processor")
-        self.backgroundProcessor?.stop()
-        print("stopped background processor")
-        /*
+		self.shutdown = true
+		if let tcpHandler = self.tcpPeerHandler {
+			print("stopping TCP peer handler")
+			tcpHandler.interrupt()
+			print("stopped TCP peer handler")
+		}
+		print("stopping background processor")
+		self.backgroundProcessor?.stop()
+		print("stopped background processor")
+		/*
         if let processor = self.backgroundProcessor {
             for currentAnchor in processor.anchors {
                 if currentAnchor is NativeTraitWrapper {
@@ -333,80 +402,80 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             print("removed background processor anchors")
         }
         */
-        self.backgroundProcessor = nil
-        print("unset background processor")
-    }
+		self.backgroundProcessor = nil
+		print("unset background processor")
+	}
 
-    public func getTCPPeerHandler() -> TCPPeerHandler {
-        if let handler = self.tcpPeerHandler {
-            return handler
-        }
-        let handler = TCPPeerHandler(peerManager: self.peerManager)
-        self.tcpPeerHandler = handler
-        return handler
-    }
+	public func getTCPPeerHandler() -> TCPPeerHandler {
+		if let handler = self.tcpPeerHandler {
+			return handler
+		}
+		let handler = TCPPeerHandler(peerManager: self.peerManager)
+		self.tcpPeerHandler = handler
+		return handler
+	}
 
-    deinit {
-        Bindings.print("Freeing and interrupting ChannelManagerConstructor")
-        self.interrupt()
-    }
+	deinit {
+		Bindings.print("Freeing and interrupting ChannelManagerConstructor")
+		self.interrupt()
+	}
 
 
 }
 
-fileprivate class CustomChannelManagerPersister: Persister {
+private class CustomChannelManagerPersister: Persister {
 
-    let handler: ExtendedChannelManagerPersister
+	let handler: ExtendedChannelManagerPersister
 
-    init(handler: ExtendedChannelManagerPersister) {
-        self.handler = handler
-        super.init()
-    }
+	init(handler: ExtendedChannelManagerPersister) {
+		self.handler = handler
+		super.init()
+	}
 
-    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
-        return self.handler.persistManager(channelManager: channelManager)
-    }
+	override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
+		return self.handler.persistManager(channelManager: channelManager)
+	}
 
-    override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
-        return self.handler.persistGraph(networkGraph: networkGraph)
-    }
+	override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
+		return self.handler.persistGraph(networkGraph: networkGraph)
+	}
 
-    override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
-        return self.handler.persistScorer(scorer: scorer)
-    }
+	override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
+		return self.handler.persistScorer(scorer: scorer)
+	}
 }
 
-fileprivate class CustomEventHandler: EventHandler {
+private class CustomEventHandler: EventHandler {
 
-    let handler: ExtendedChannelManagerPersister
+	let handler: ExtendedChannelManagerPersister
 
-    init(handler: ExtendedChannelManagerPersister) {
-        self.handler = handler
-        super.init()
-    }
+	init(handler: ExtendedChannelManagerPersister) {
+		self.handler = handler
+		super.init()
+	}
 
-    override func handleEvent(event: Bindings.Event) -> Bindings.Result_NoneReplayEventZ {
-        // self.handler.handle_event(event: event.clone())
-        self.handler.handleEvent(event: event)
-    }
+	override func handleEvent(event: Bindings.Event) -> Bindings.Result_NoneReplayEventZ {
+		// self.handler.handle_event(event: event.clone())
+		self.handler.handleEvent(event: event)
+	}
 
 }
 
 public protocol ExtendedChannelManagerPersister: Persister {
-    func handleEvent(event: Event) -> Result_NoneReplayEventZ;
+	func handleEvent(event: Event) -> Result_NoneReplayEventZ
 }
 
 public class TCPPeerHandler {
 
-    private let peerManager: PeerManager
-    private let socketHandler: UnsafeMutableRawPointer?
-    private var isBound = false
-    private var isInterrupted = false
+	private let peerManager: PeerManager
+	private let socketHandler: UnsafeMutableRawPointer?
+	private var isBound = false
+	private var isInterrupted = false
 
-    fileprivate init(peerManager: PeerManager) {
-        self.peerManager = peerManager
+	fileprivate init(peerManager: PeerManager) {
+		self.peerManager = peerManager
 
-        /*
+		/*
         let socketHandler = withUnsafePointer(to: self.peerManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerManager>) -> UnsafeMutableRawPointer? in
             let socketHandler = init_socket_handling(pointer)
             return socketHandler
@@ -415,96 +484,104 @@ public class TCPPeerHandler {
 		*/
 
 
-        // self.socketHandler = UnsafeMutableRawPointer(bitPattern: 0)
+		// self.socketHandler = UnsafeMutableRawPointer(bitPattern: 0)
 
 
+		let peerManagerPointer: UnsafeRawPointer = UnsafeRawPointer(&self.peerManager.cType!)
+		Bindings.print("TCPPeerHandler peer manager pointer address: \(peerManagerPointer)")
+		let memoryReboundPeerManagerPointer: UnsafePointer<LDKPeerManager> = peerManagerPointer.assumingMemoryBound(
+			to: LDKPeerManager.self)
+		Bindings.print("TCPPeerHandler peer manager rebound memory address: \(memoryReboundPeerManagerPointer)")
+		self.socketHandler = init_socket_handling(memoryReboundPeerManagerPointer)
+		print("TCPPeerHandler self address: \(Unmanaged<TCPPeerHandler>.passUnretained(self).toOpaque())")
+	}
 
-        let peerManagerPointer: UnsafeRawPointer = UnsafeRawPointer(&self.peerManager.cType!)
-        Bindings.print("TCPPeerHandler peer manager pointer address: \(peerManagerPointer)")
-        let memoryReboundPeerManagerPointer: UnsafePointer<LDKPeerManager> = peerManagerPointer.assumingMemoryBound(to: LDKPeerManager.self)
-        Bindings.print("TCPPeerHandler peer manager rebound memory address: \(memoryReboundPeerManagerPointer)")
-        self.socketHandler = init_socket_handling(memoryReboundPeerManagerPointer)
-        print("TCPPeerHandler self address: \(Unmanaged<TCPPeerHandler>.passUnretained(self).toOpaque())")
-    }
+	public func bind(address: String, port: UInt16) -> Bool {
+		if self.isBound {
+			// already bound
+			return false
+		}
+		self.isBound = true
+		var addressObject = sockaddr_in()
+		addressObject.sin_family = sa_family_t(AF_INET)
+		addressObject.sin_port = port.bigEndian
 
-    public func bind(address: String, port: UInt16) -> Bool {
-        if(self.isBound){
-            // already bound
-            return false
-        }
-        self.isBound = true
-        var addressObject = sockaddr_in()
-        addressObject.sin_family = sa_family_t(AF_INET)
-        addressObject.sin_port = port.bigEndian
+		addressObject.sin_addr.s_addr = inet_addr(address)
 
-        addressObject.sin_addr.s_addr = inet_addr(address)
+		let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
 
-        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+		let result = withUnsafePointer(
+			to: &addressObject,
+			{ addressPointer in
 
-        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+				addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+					let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+					let result = socket_bind(self.socketHandler, addressMutablePointer, socklen_t(sin_length))
+					return result
+				}
+			})
+		if result != 0 {
+			// something failed
+			print("TCP socket_bind error code: \(result)")
+			let errorDetails = strerror(result)
+			if let errorDetails = errorDetails {
+				let errorString = String(cString: errorDetails)
+				print("TCP socket_bind error: \(errorString)")
+			}
+			self.isBound = false
+			return false
+		}
+		return true
 
-            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
-                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
-                let result = socket_bind(self.socketHandler, addressMutablePointer, socklen_t(sin_length))
-                return result
-            }
-        })
-        if result != 0 {
-            // something failed
-            print("TCP socket_bind error code: \(result)")
-            let errorDetails = strerror(result)
-            if let errorDetails = errorDetails {
-                let errorString = String(cString: errorDetails)
-                print("TCP socket_bind error: \(errorString)")
-            }
-            self.isBound = false
-            return false
-        }
-        return true
+	}
 
-    }
+	public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) -> Bool {
 
-    public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) -> Bool {
+		var addressObject = sockaddr_in()
+		addressObject.sin_family = sa_family_t(AF_INET)
+		addressObject.sin_port = port.bigEndian
 
-        var addressObject = sockaddr_in()
-        addressObject.sin_family = sa_family_t(AF_INET)
-        addressObject.sin_port = port.bigEndian
+		addressObject.sin_addr.s_addr = inet_addr(address)
 
-        addressObject.sin_addr.s_addr = inet_addr(address)
+		let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+		let publicKey = PublicKey(
+			value: theirNodeId, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)"
+		)
+		.cType!
 
-        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
-        let publicKey = PublicKey(value: theirNodeId, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)").cType!
+		let result = withUnsafePointer(
+			to: &addressObject,
+			{ addressPointer in
 
-        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+				addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+					let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+					let result = socket_connect(
+						self.socketHandler, publicKey, addressMutablePointer, Int(socklen_t(sin_length)))
+					return result
+				}
+			})
 
-            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
-                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
-                let result = socket_connect(self.socketHandler, publicKey, addressMutablePointer, Int(socklen_t(sin_length)))
-                return result
-            }
-        })
+		if result != 0 {
+			// something failed
+			return false
+		}
+		return true
 
-        if result != 0 {
-            // something failed
-            return false
-        }
-        return true
+	}
 
-    }
+	fileprivate func interrupt() {
+		if self.isInterrupted {
+			Bindings.print("TCPPeerHandler previously interrupted, nothing to do.")
+			return
+		}
+		self.isInterrupted = true
+		interrupt_socket_handling(self.socketHandler)
+		Bindings.print("TCPPeerHandler successfully interrupted.")
+	}
 
-    fileprivate func interrupt() {
-        if self.isInterrupted {
-            Bindings.print("TCPPeerHandler previously interrupted, nothing to do.")
-            return
-        }
-        self.isInterrupted = true
-        interrupt_socket_handling(self.socketHandler)
-        Bindings.print("TCPPeerHandler successfully interrupted.")
-    }
-
-    deinit {
-        Bindings.print("Freeing and interrupting TCPPeerHandler.")
-        self.interrupt()
-    }
+	deinit {
+		Bindings.print("Freeing and interrupting TCPPeerHandler.")
+		self.interrupt()
+	}
 
 }

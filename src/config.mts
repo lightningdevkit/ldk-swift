@@ -30,6 +30,18 @@ export default class Config {
 		return outputDirectoryPath;
 	}
 
+	getBatteryDirectoryPaths(): string[] {
+		const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+		const ciProjectPath = `${__dirname}/../ci/LDKSwift`;
+		const xcodeProjectPath = `${__dirname}/../xcode/LDKFramework`;
+		return [
+			`${ciProjectPath}/Sources/LDKSwift/batteries/`,
+			`${ciProjectPath}/Tests/LDKSwiftTests/`,
+			`${xcodeProjectPath}/DirectlyLinkedBindingsApp/`,
+			`${xcodeProjectPath}/DirectlyLinkedBindingsAppTests/`,
+		];
+	}
+
 	getSwiftFormatterBinaryPath(): string | null {
 		let swiftformatPath = process.env['SWIFT_FORMAT_PATH'];
 		if (!swiftformatPath) {

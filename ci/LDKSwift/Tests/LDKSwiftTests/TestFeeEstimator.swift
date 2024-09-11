@@ -6,14 +6,14 @@
 //
 
 #if SWIFT_PACKAGE
-import LDKSwift
-import LDKHeaders
+	import LDKSwift
+	import LDKHeaders
 #endif
 
 class TestFeeEstimator: FeeEstimator {
 
-    override func getEstSatPer1000Weight(confirmationTarget: Bindings.ConfirmationTarget) -> UInt32 {
-        return 253
-    }
+	override func getEstSatPer1000Weight(confirmationTarget: Bindings.ConfirmationTarget) -> UInt32 {
+		return 253
+	}
 
 }

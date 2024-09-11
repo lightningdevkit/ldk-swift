@@ -6,14 +6,14 @@
 //
 
 #if SWIFT_PACKAGE
-import LDKSwift
-import LDKHeaders
+	import LDKSwift
+	import LDKHeaders
 #endif
 
 class TestBroadcasterInterface: BroadcasterInterface {
-    
-    override func broadcastTransactions(txs: [[UInt8]]) {
-        // insert code to broadcast transaction
-    }
-    
+
+	override func broadcastTransactions(txs: [[UInt8]]) {
+		// insert code to broadcast transaction
+	}
+
 }

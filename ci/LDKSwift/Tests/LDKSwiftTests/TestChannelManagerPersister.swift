@@ -6,11 +6,11 @@
 //
 
 #if SWIFT_PACKAGE
-import LDKSwift
-import LDKHeaders
+	import LDKSwift
+	import LDKHeaders
 #endif
 
-class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
+class TestChannelManagerPersister: Persister, ExtendedChannelManagerPersister {
 
 	private let channelManager: ChannelManager?
 
@@ -18,25 +18,25 @@ class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
 		self.channelManager = channelManager
 		super.init()
 	}
-    
-    func handleEvent(event: Event) -> Result_NoneReplayEventZ {
-        .initWithOk()
-    }
-    
-    override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
-        .initWithOk()
-    }
-    
-    override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
-        .initWithOk()
-    }
-    
-    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
-        .initWithOk()
-    }
+
+	func handleEvent(event: Event) -> Result_NoneReplayEventZ {
+		.initWithOk()
+	}
+
+	override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
+		.initWithOk()
+	}
+
+	override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
+		.initWithOk()
+	}
+
+	override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
+		.initWithOk()
+	}
 }
 
-class FloatingChannelManagerPersister : Persister{
+class FloatingChannelManagerPersister: Persister {
 
 	private let channelManager: ChannelManager?
 

@@ -5,8 +5,8 @@
 //  Created by Arik Sosman on 4/10/22.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 @available(iOS 15.0, *)
 class BlockchainObserver {
@@ -50,19 +50,19 @@ class BlockchainObserver {
 
 		func toString() -> String {
 			switch self {
-			case .http:
-				return "http"
-			case .https:
-				return "https"
+				case .http:
+					return "http"
+				case .https:
+					return "https"
 			}
 		}
 
 		func defaultPort() -> UInt {
 			switch self {
-			case .http:
-				return 80
-			case .https:
-				return 443
+				case .http:
+					return 80
+				case .https:
+					return 443
 			}
 		}
 	}
@@ -122,7 +122,9 @@ class BlockchainObserver {
 
 	private var chainListeners = [BlockchainListener]()
 
-	public init(rpcProtocol: RpcProtocol, rpcDomain: String, rpcPort: UInt?, rpcUsername: String, rpcPassword: String) throws {
+	public init(rpcProtocol: RpcProtocol, rpcDomain: String, rpcPort: UInt?, rpcUsername: String, rpcPassword: String)
+		throws
+	{
 		self.rpcProtocol = rpcProtocol
 		self.rpcDomain = rpcDomain
 		self.rpcPort = rpcPort ?? rpcProtocol.defaultPort()
@@ -146,12 +148,12 @@ class BlockchainObserver {
 		var lastTrustedBlockHeight: Int64
 		let chaintipHeight = try await self.getChaintipHeight()
 		switch anchorHeight {
-		case .genesis:
-			lastTrustedBlockHeight = 0
-		case .block(let height):
-			lastTrustedBlockHeight = height
-		case .chaintip:
-			lastTrustedBlockHeight = chaintipHeight
+			case .genesis:
+				lastTrustedBlockHeight = 0
+			case .block(let height):
+				lastTrustedBlockHeight = height
+			case .chaintip:
+				lastTrustedBlockHeight = chaintipHeight
 		}
 
 		let anchorBlockHash = try await self.getBlockHashHex(height: lastTrustedBlockHeight)
@@ -275,7 +277,8 @@ class BlockchainObserver {
 	}
 
 	private func getRpcEndpoint() -> URL? {
-		let urlString = "\(self.rpcProtocol)://\(self.rpcUsername):\(self.rpcPassword)@\(self.rpcDomain):\(self.rpcPort)"
+		let urlString =
+			"\(self.rpcProtocol)://\(self.rpcUsername):\(self.rpcPassword)@\(self.rpcDomain):\(self.rpcPort)"
 		return URL(string: urlString)
 	}
 
@@ -283,7 +286,7 @@ class BlockchainObserver {
 		let url = self.getRpcEndpoint()!
 		let body: [String: Any] = [
 			"method": method,
-			"params": params
+			"params": params,
 		]
 		let jsonBody = try! JSONSerialization.data(withJSONObject: body)
 		var request = URLRequest(url: url)
@@ -294,7 +297,8 @@ class BlockchainObserver {
 		// print("JSON-RPC response: \(response)")
 		let responseDictionary = response as! [String: Any]
 		if let responseError = responseDictionary["error"] as? [String: Any] {
-			let errorDetails = RPCErrorDetails(message: responseError["message"] as! String, code: responseError["code"] as! Int64)
+			let errorDetails = RPCErrorDetails(
+				message: responseError["message"] as! String, code: responseError["code"] as! Int64)
 			print("error details: \(errorDetails)")
 			throw RpcError.errorResponse(errorDetails)
 		}
@@ -341,7 +345,8 @@ class BlockchainObserver {
 	public func getBlock(hash: String) async throws -> RPCBlockDetails {
 		let response = try await self.callRpcMethod(method: "getblock", params: [hash])
 		let result = response["result"] as! [String: Any]
-		let blockDetails = try JSONDecoder().decode(RPCBlockDetails.self, from: JSONSerialization.data(withJSONObject: result))
+		let blockDetails = try JSONDecoder()
+			.decode(RPCBlockDetails.self, from: JSONSerialization.data(withJSONObject: result))
 		return blockDetails
 	}
 
@@ -478,26 +483,26 @@ class BlockchainObserver {
 		return result
 	}
 
-    public func isMonitoring() async throws -> Bool {
-        await monitoringTracker.isTracking
-    }
-    
-    public var blockchainMonitorPublisher: AnyPublisher<Void, Error> {
-        Timer.publish(every: 5.0, on: RunLoop.main, in: .default)
-            .autoconnect()
-            .asyncMap { [unowned self] _ in
-                try await self.reconcileChaintips()
-            }
-            .eraseToAnyPublisher()
-    }
+	public func isMonitoring() async throws -> Bool {
+		await monitoringTracker.isTracking
+	}
+
+	public var blockchainMonitorPublisher: AnyPublisher<Void, Error> {
+		Timer.publish(every: 5.0, on: RunLoop.main, in: .default)
+			.autoconnect()
+			.asyncMap { [unowned self] _ in
+				try await self.reconcileChaintips()
+			}
+			.eraseToAnyPublisher()
+	}
 }
 
 public protocol BlockchainListener {
-	func blockConnected(block: [UInt8], height: UInt32);
-	func blockDisconnected(header: [UInt8]?, height: UInt32);
+	func blockConnected(block: [UInt8], height: UInt32)
+	func blockDisconnected(header: [UInt8]?, height: UInt32)
 }
 
-fileprivate func hexStringToBytes(hexString: String) -> [UInt8]? {
+private func hexStringToBytes(hexString: String) -> [UInt8]? {
 	let hexStr = hexString.dropFirst(hexString.hasPrefix("0x") ? 2 : 0)
 
 	guard hexStr.count % 2 == 0 else {
@@ -520,10 +525,11 @@ fileprivate func hexStringToBytes(hexString: String) -> [UInt8]? {
 	return newData
 }
 
-fileprivate func bytesToHexString(bytes: [UInt8]) -> String {
-	let format = "%02hhx" // "%02hhX" (uppercase)
-	return bytes.map {
-		String(format: format, $0)
-	}
-	.joined()
+private func bytesToHexString(bytes: [UInt8]) -> String {
+	let format = "%02hhx"  // "%02hhX" (uppercase)
+	return
+		bytes.map {
+			String(format: format, $0)
+		}
+		.joined()
 }

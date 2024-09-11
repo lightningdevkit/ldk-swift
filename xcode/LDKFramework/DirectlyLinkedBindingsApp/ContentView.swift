@@ -9,55 +9,59 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var isRunningTestFlow = false
-    
-    @State private var multiPeerSimulation: PolarIntegrationSample.MultiPeerSimulator? = nil
+	@State private var isRunningTestFlow = false
 
-    var body: some View {
+	@State private var multiPeerSimulation: PolarIntegrationSample.MultiPeerSimulator? = nil
 
-        Button(action: {
-            self.isRunningTestFlow = true
-            if #available(iOS 15.0, *) {
-                let sample = PolarIntegrationSample()
-                Task {
-                    try? await sample.testPolarFlow()
-                    self.isRunningTestFlow = false
-                }
-            } else {
-                // Fallback on earlier versions
-            }
-            
-        }, label: {
-            Text("Test Polar Invoice Invoice Payment Flow")
-        }).disabled(self.isRunningTestFlow)
+	var body: some View {
 
-        if let simulation = self.multiPeerSimulation {
-            Button {
-                // self.multiPeerSimulation = nil
-                Task {
-                    await self.multiPeerSimulation?.interrupt()
-                    
-                    // freeing the simulation
-                    // try! await Task.sleep(nanoseconds: 5_000_000_000)
-                    // self.multiPeerSimulation = nil
-                }
-            } label: {
-                Text("Stop multi-peer simulation")
-            }
-        } else {
-            Button {
-                self.multiPeerSimulation = PolarIntegrationSample.MultiPeerSimulator()
-                Task {
-                    try? await self.multiPeerSimulation!.simulateMultiplePeers()
-                }
-            } label: {
-                Text("Simulate multiple peers")
-            }
-        }
-        
-    }
+		Button(
+			action: {
+				self.isRunningTestFlow = true
+				if #available(iOS 15.0, *) {
+					let sample = PolarIntegrationSample()
+					Task {
+						try? await sample.testPolarFlow()
+						self.isRunningTestFlow = false
+					}
+				} else {
+					// Fallback on earlier versions
+				}
 
-    /*@StateObject private var experiment = PolarConnectionExperiment()
+			},
+			label: {
+				Text("Test Polar Invoice Invoice Payment Flow")
+			}
+		)
+		.disabled(self.isRunningTestFlow)
+
+		if let simulation = self.multiPeerSimulation {
+			Button {
+				// self.multiPeerSimulation = nil
+				Task {
+					await self.multiPeerSimulation?.interrupt()
+
+					// freeing the simulation
+					// try! await Task.sleep(nanoseconds: 5_000_000_000)
+					// self.multiPeerSimulation = nil
+				}
+			} label: {
+				Text("Stop multi-peer simulation")
+			}
+		} else {
+			Button {
+				self.multiPeerSimulation = PolarIntegrationSample.MultiPeerSimulator()
+				Task {
+					try? await self.multiPeerSimulation!.simulateMultiplePeers()
+				}
+			} label: {
+				Text("Simulate multiple peers")
+			}
+		}
+
+	}
+
+	/*@StateObject private var experiment = PolarConnectionExperiment()
     var body: some View {
         if !self.experiment.isMonitoring {
             Button("Monitor Chain") {
@@ -73,16 +77,16 @@ struct ContentView: View {
                         self.experiment.completeChainSync()
                     }.padding()
                 } else {
-                    
+
                     Text("Sync Complete").padding()
-                    
+
                     if !self.experiment.isConnectedToAlice {
                         Button("Connect to Alice") {
                             self.experiment.connectToAlice()
                         }.padding()
                     } else {
                         Text("Connected to Alice").padding()
-                        
+
                         if !self.experiment.isChannelWithAliceOpen {
                             Button("Open Channel w/ Alice") {
                                 self.experiment.openChannelWithAlice()
@@ -98,7 +102,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+	static var previews: some View {
+		ContentView()
+	}
 }

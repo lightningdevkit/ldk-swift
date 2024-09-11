@@ -5,7 +5,6 @@
 import Foundation
 import LightningDevKit
 
-
 @available(iOS 15.0, *)
 public class PolarIntegrationSample {
 
@@ -24,25 +23,29 @@ public class PolarIntegrationSample {
 
 	// EDIT ME
 	static let POLAR_LND_PEER_PUBKEY_HEX = "02e62868ab834e7c062a929ca2f22ee8707827a5821e3a8eec343f106cbee24e7c"
-	static let POLAR_LND_PEER_INVOICE = "lnbcrt420690n1p3xrgslpp50n0wgusa2lzv56u6cqqlcdllmgwtpyvtz9czpc88ggvwwp76gk8sdqqcqzpgxqyz5vqsp5j6futhfxhn38rkmuepz8hsjj4zh66z4xqspemyg20l4r7kwnhh8s9qyyssqad3n9lzkp4pl358en022q5qm3ru57crmy4c70kq2s60apupdmm4xfn85m85dv2eu54m4dv2v7ldugwankz03ezk7k5l76rz6m70f05gqre4g8p"
+	static let POLAR_LND_PEER_INVOICE =
+		"lnbcrt420690n1p3xrgslpp50n0wgusa2lzv56u6cqqlcdllmgwtpyvtz9czpc88ggvwwp76gk8sdqqcqzpgxqyz5vqsp5j6futhfxhn38rkmuepz8hsjj4zh66z4xqspemyg20l4r7kwnhh8s9qyyssqad3n9lzkp4pl358en022q5qm3ru57crmy4c70kq2s60apupdmm4xfn85m85dv2eu54m4dv2v7ldugwankz03ezk7k5l76rz6m70f05gqre4g8p"
 
 	func testPolarFlow() async throws {
-		let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 18443, rpcUsername: "polaruser", rpcPassword: "polarpass")
+		let rpcInterface = try RegtestBlockchainManager(
+			rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 18443, rpcUsername: "polaruser",
+			rpcPassword: "polarpass")
 		// let help = try await rpcInterface.getHelp()
 		// print(help)
 
 		try await self.ascertainSpareMoney(rpcInterface: rpcInterface)
 		try await rpcInterface.preloadMonitor(anchorHeight: .chaintip)
-        
+
 		// let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
 		var seed = [UInt8](repeating: 0, count: 32)
 		let status = SecRandomCopyBytes(kSecRandomDefault, seed.count, &seed)
 
 		let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
 		let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
-		let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+		let keysManager = KeysManager(
+			seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
 		let keysInterface = keysManager.as_KeysInterface()
-        let logger = LDKTraitImplementations.PolarLogger()
+		let logger = LDKTraitImplementations.PolarLogger()
 
 		let config = UserConfig()
 		let lightningNetwork = LDKNetwork_Regtest
@@ -54,7 +57,8 @@ public class PolarIntegrationSample {
 		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 
 		let scoringParams = ProbabilisticScoringParameters()
-		let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+		let probabalisticScorer = ProbabilisticScorer(
+			params: scoringParams, network_graph: networkGraph, logger: logger)
 		let score = probabalisticScorer.as_Score()
 		let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -67,18 +71,25 @@ public class PolarIntegrationSample {
 
 		let feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
 		let broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
-		
-		let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
-		let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
-		let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-		let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, current_blockchain_tip_hash: reversedChaintipHash, current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
+		let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
+		let channelManagerAndNetworkGraphPersisterAndEventHandler =
+			LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
+		let chainMonitor = ChainMonitor(
+			chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator,
+			persister: channelMonitorPersister)
+
+		let channelManagerConstructor = ChannelManagerConstructor(
+			network: lightningNetwork, userConfig: config, current_blockchain_tip_hash: reversedChaintipHash,
+			current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface,
+			fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph,
+			tx_broadcaster: broadcaster, logger: logger)
 		let channelManager = channelManagerConstructor.channelManager
 		let peerManager = channelManagerConstructor.peerManager
-        let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
-        if let netGraph = channelManagerConstructor.net_graph {
-            print("net graph available!")
-        }
+		let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
+		if let netGraph = channelManagerConstructor.net_graph {
+			print("net graph available!")
+		}
 
 		struct Listener: BlockchainListener {
 			private let channelManager: ChannelManager
@@ -102,11 +113,15 @@ public class PolarIntegrationSample {
 
 
 		let listener = Listener(channelManager: channelManager, chainMonitor: chainMonitor)
-		rpcInterface.registerListener(listener);
+		rpcInterface.registerListener(listener)
 		async let monitor = try rpcInterface.monitorBlockchain()
-		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+		channelManagerConstructor.chain_sync_completed(
+			persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
 
-		guard let lndPubkey = PolarIntegrationSample.hexStringToBytes(hexString: PolarIntegrationSample.POLAR_LND_PEER_PUBKEY_HEX) else {
+		guard
+			let lndPubkey = PolarIntegrationSample.hexStringToBytes(
+				hexString: PolarIntegrationSample.POLAR_LND_PEER_PUBKEY_HEX)
+		else {
 			throw TestFlowExceptions.hexParsingError
 		}
 		let connectionSuccess = tcpPeerHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: lndPubkey)
@@ -115,10 +130,12 @@ public class PolarIntegrationSample {
 		try await Task.sleep(nanoseconds: 1_000_000_000)
 		let connectedPeers = peerManager.get_peer_node_ids()
 
-		let channelValue: UInt64 = 1_300_000 // 1.3 million satoshis, or 0.013 BTC
+		let channelValue: UInt64 = 1_300_000  // 1.3 million satoshis, or 0.013 BTC
 		let channelValueBtcString = "0.013"
-		let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
-		let channelOpenResult = channelManager.create_channel(their_network_key: lndPubkey, channel_value_satoshis: channelValue, push_msat: reserveAmount, user_channel_id: 42, override_config: config)
+		let reserveAmount: UInt64 = 1000  // a thousand satoshis rserve
+		let channelOpenResult = channelManager.create_channel(
+			their_network_key: lndPubkey, channel_value_satoshis: channelValue, push_msat: reserveAmount,
+			user_channel_id: 42, override_config: config)
 
 		if let channelOpenError = channelOpenResult.getError() {
 			print("error type: \(channelOpenError.getValueType())")
@@ -136,7 +153,8 @@ public class PolarIntegrationSample {
 			return
 		}
 
-		let managerEvents = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(expectedCount: 1)
+		let managerEvents = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(
+			expectedCount: 1)
 
 
 		let managerEvent = managerEvents[0]
@@ -156,8 +174,8 @@ public class PolarIntegrationSample {
 		guard let fundingReadyEvent = managerEvent.getValueAsFundingGenerationReady() else {
 			throw TestFlowExceptions.unexpectedChannelManagerEventType
 		}
-		let fundingOutputScript = fundingReadyEvent.getOutput_script();
-		let temporaryChannelId = fundingReadyEvent.getTemporary_channel_id();
+		let fundingOutputScript = fundingReadyEvent.getOutput_script()
+		let temporaryChannelId = fundingReadyEvent.getTemporary_channel_id()
 
 		let outputScriptDetails = try await rpcInterface.decodeScript(script: fundingOutputScript)
 		guard let outputScriptAddresses = outputScriptDetails["addresses"] as? [String] else {
@@ -166,16 +184,19 @@ public class PolarIntegrationSample {
 		guard let outputAddress = outputScriptAddresses.first else {
 			throw TestFlowExceptions.outputScriptMissingAddresses
 		}
-		let fundingTxid = try await rpcInterface.sendMoney(destinationAddress: outputAddress, amount: channelValueBtcString)
+		let fundingTxid = try await rpcInterface.sendMoney(
+			destinationAddress: outputAddress, amount: channelValueBtcString)
 		let fundingTransaction = try await rpcInterface.getTransaction(hash: fundingTxid)
-        channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, counterparty_node_id: lndPubkey, funding_transaction: fundingTransaction)
+		channelManager.funding_transaction_generated(
+			temporary_channel_id: temporaryChannelId, counterparty_node_id: lndPubkey,
+			funding_transaction: fundingTransaction)
 
 		// let's add a couple confirmations
 		let fakeAddress = try await self.getBogusAddress(rpcInterface: rpcInterface)
 		try await rpcInterface.mineBlocks(number: 6, coinbaseDestinationAddress: fakeAddress)
 
 		var usableChannels = [ChannelDetails]()
-		while (usableChannels.isEmpty) {
+		while usableChannels.isEmpty {
 			usableChannels = channelManager.list_usable_channels()
 			// sleep for 100ms
 			try await Task.sleep(nanoseconds: 0_100_000_000)
@@ -191,10 +212,10 @@ public class PolarIntegrationSample {
 			throw TestFlowExceptions.invoiceParsingError(invoiceResult.getError()!)
 		}
 
-        // let's not pay any invoices
-        // channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
-        // return
-        
+		// let's not pay any invoices
+		// channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
+		// return
+
 		let invoicePaymentResult = invoicePayer.pay_invoice(invoice: invoice)
 
 		do {
@@ -208,23 +229,26 @@ public class PolarIntegrationSample {
 			guard let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful() else {
 				throw TestFlowExceptions.paymentPathUnsuccessful
 			}
-			print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
+			print(
+				"sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })"
+			)
 		}
-        
-        for i in 0...600 {
-            // sleep for 100ms
-            try await Task.sleep(nanoseconds: 0_100_000_000)
-        }
-        
-        print(channelManagerConstructor.peerManager.get_peer_node_ids())
+
+		for i in 0...600 {
+			// sleep for 100ms
+			try await Task.sleep(nanoseconds: 0_100_000_000)
+		}
+
+		print(channelManagerConstructor.peerManager.get_peer_node_ids())
 
 	}
 
 	private func ascertainSpareMoney(rpcInterface: RegtestBlockchainManager) async throws {
 		let availableWallets = try await rpcInterface.listAvailableWallets()
-		let walletNames = (availableWallets["wallets"] as! [[String: Any]]).map { dictionary -> String in
-			dictionary["name"] as! String
-		}
+		let walletNames = (availableWallets["wallets"] as! [[String: Any]])
+			.map { dictionary -> String in
+				dictionary["name"] as! String
+			}
 
 		if !walletNames.contains(PolarIntegrationSample.WALLET_NAME) {
 			// if a wallet is already loaded, this will load it also
@@ -290,34 +314,40 @@ public class PolarIntegrationSample {
 				}
 			}
 		}
-        
-        class MuteBroadcaster: BroadcasterInterface {
-            override func broadcast_transaction(tx: [UInt8]) {
-                // do nothing
-            }
-        }
+
+		class MuteBroadcaster: BroadcasterInterface {
+			override func broadcast_transaction(tx: [UInt8]) {
+				// do nothing
+			}
+		}
 
 		class PolarLogger: Logger {
 			override func log(record: Record) {
-				print("\nRLPolarLog (\(record.get_level())): \(record.get_file()):\(record.get_line()):\n> \(record.get_args())\n")
+				print(
+					"\nRLPolarLog (\(record.get_level())): \(record.get_file()):\(record.get_line()):\n> \(record.get_args())\n"
+				)
 			}
 		}
-        
-        class MuteLogger: Logger {
-            override func log(record: Record) {
-                // do nothing
-            }
-        }
+
+		class MuteLogger: Logger {
+			override func log(record: Record) {
+				// do nothing
+			}
+		}
 
 		class PolarChannelMonitorPersister: Persist {
 
-			override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+			override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId)
+				-> Result_NoneChannelMonitorUpdateErrZ
+			{
 				let idBytes: [UInt8] = channel_id.write()
 				let monitorBytes: [UInt8] = data.write()
 				return Result_NoneChannelMonitorUpdateErrZ.ok()
 			}
 
-			override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+			override func update_persisted_channel(
+				channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId
+			) -> Result_NoneChannelMonitorUpdateErrZ {
 				let idBytes: [UInt8] = channel_id.write()
 				let monitorBytes: [UInt8] = data.write()
 				return Result_NoneChannelMonitorUpdateErrZ.ok()
@@ -399,148 +429,179 @@ public class PolarIntegrationSample {
 		}
 
 	}
-    
-    public class MultiPeerSimulator {
-        
-        private var rpcInterface: BlockchainObserver!
-        
-        private var keysManager: KeysManager!
-        private var keysInterface: KeysInterface!
-        private var config: UserConfig!
-        private var networkGraph: NetworkGraph!
-        private var multiThreadedScorer: MultiThreadedLockableScore!
-        
-        private var feeEstimator: FeeEstimator!
-        private var broadcaster: BroadcasterInterface!
-        private var logger: Logger!
-        
-        public var channelManagerConstructor: ChannelManagerConstructor!
-        
-        public func simulateMultiplePeers() async throws {
-            print("bindings version: \(Bindings.get_ldk_swift_bindings_version())")
-            
-            /*
+
+	public class MultiPeerSimulator {
+
+		private var rpcInterface: BlockchainObserver!
+
+		private var keysManager: KeysManager!
+		private var keysInterface: KeysInterface!
+		private var config: UserConfig!
+		private var networkGraph: NetworkGraph!
+		private var multiThreadedScorer: MultiThreadedLockableScore!
+
+		private var feeEstimator: FeeEstimator!
+		private var broadcaster: BroadcasterInterface!
+		private var logger: Logger!
+
+		public var channelManagerConstructor: ChannelManagerConstructor!
+
+		public func simulateMultiplePeers() async throws {
+			print("bindings version: \(Bindings.get_ldk_swift_bindings_version())")
+
+			/*
             let username = ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_USERNAME"] ?? "polaruser" // "alice"
             let password = ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_PASSWORD"] ?? "polarpass" // "DONT_USE_THIS_YOU_WILL_GET_ROBBED"
             rpcInterface = try BlockchainObserver(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 8332, rpcUsername: username, rpcPassword: password)
             try await rpcInterface.preloadMonitor(anchorHeight: .chaintip)
             */
-            
-            var seed = [UInt8](repeating: 0, count: 32)
-            let status = SecRandomCopyBytes(kSecRandomDefault, seed.count, &seed)
 
-            let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
-            let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
-            keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
-            keysInterface = keysManager.as_KeysInterface()
-            logger = LDKTraitImplementations.MuteLogger()
+			var seed = [UInt8](repeating: 0, count: 32)
+			let status = SecRandomCopyBytes(kSecRandomDefault, seed.count, &seed)
 
-            config = UserConfig()
-            let lightningNetwork = LDKNetwork_Bitcoin
-            /*
+			let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
+			let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
+			keysManager = KeysManager(
+				seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+			keysInterface = keysManager.as_KeysInterface()
+			logger = LDKTraitImplementations.MuteLogger()
+
+			config = UserConfig()
+			let lightningNetwork = LDKNetwork_Bitcoin
+			/*
             let genesisHash = try await rpcInterface.getBlockHash(height: 0)
             let reversedGenesisHash = [UInt8](genesisHash.reversed())
             let chaintipHash = try await rpcInterface.getChaintipHash()
             let reversedChaintipHash = [UInt8](chaintipHash.reversed())
             let chaintipHeight = try await rpcInterface.getChaintipHeight()
             */
-            let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
-            let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
-            let chaintipHeight = 0
-            let reversedChaintipHash = reversedGenesisHash
-            networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
-            
-            print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
+			let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+			let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
+			let chaintipHeight = 0
+			let reversedChaintipHash = reversedGenesisHash
+			networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 
-            let scoringParams = ProbabilisticScoringParameters()
-            let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
-            let score = probabalisticScorer.as_Score()
-            multiThreadedScorer = MultiThreadedLockableScore(score: score)
-            
-            feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
-            // broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
-            broadcaster = LDKTraitImplementations.MuteBroadcaster()
-            // logger = LDKTraitImplementations.PolarLogger()
-            
-            let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
-            let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
-            let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
+			print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 
-            channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, current_blockchain_tip_hash: reversedChaintipHash, current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
-            let channelManager = channelManagerConstructor.channelManager
-            let peerManager = channelManagerConstructor.peerManager
-            let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
-            
-            channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
-            
-            let interPeerConnectionInterval = 0
-            let pauseForNextPeer = { () async in
-                for _ in 0..<(interPeerConnectionInterval * 10) {
-                    // sleep for 100ms
-                    try! await Task.sleep(nanoseconds: 0_100_000_000)
-                }
-            }
-            
-            print("increasing log threshold")
-            Bindings.setLogThreshold(severity: .WARNING)
-            
-            do {
-                // bitrefill
-                print("connecting bitrefill")
-                let connectionResult = tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
-                print("bitrefill connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // River
-                print("connecting river")
-                let connectionResult = tcpPeerHandler.connect(address: "104.196.249.140", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "03037dc08e9ac63b82581f79b662a4d0ceca8a8ca162b1af3551595b8f2d97b70a")!)
-                print("river connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // Acinq
-                print("connecting acinq")
-                let connectionResult = tcpPeerHandler.connect(address: "3.33.236.230", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!)
-                print("acinq connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // Kraken
-                print("connecting kraken")
-                let connectionResult = tcpPeerHandler.connect(address: "52.13.118.208", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "02f1a8c87607f415c8f22c00593002775941dea48869ce23096af27b0cfdcc0b69")!)
-                print("kraken connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // Matt
-                print("connecting matt")
-                let connectionResult = tcpPeerHandler.connect(address: "69.59.18.80", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "03db10aa09ff04d3568b0621750794063df401e6853c79a21a83e1a3f3b5bfb0c8")!)
-                print("matt connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // Fold
-                print("connecting fold")
-                let connectionResult = tcpPeerHandler.connect(address: "35.238.153.25", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774")!)
-                print("fold connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            do {
-                // wallet of satoshi
-                print("connecting wallet of satoshi")
-                let connectionResult = tcpPeerHandler.connect(address: "170.75.163.209", port: 9735, theirNodeId: PolarIntegrationSample.hexStringToBytes(hexString: "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226")!)
-                print("wallet of satoshi connection success: \(connectionResult)")
-                await pauseForNextPeer()
-            }
-            
-            /*
+			let scoringParams = ProbabilisticScoringParameters()
+			let probabalisticScorer = ProbabilisticScorer(
+				params: scoringParams, network_graph: networkGraph, logger: logger)
+			let score = probabalisticScorer.as_Score()
+			multiThreadedScorer = MultiThreadedLockableScore(score: score)
+
+			feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
+			// broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
+			broadcaster = LDKTraitImplementations.MuteBroadcaster()
+			// logger = LDKTraitImplementations.PolarLogger()
+
+			let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
+			let channelManagerAndNetworkGraphPersisterAndEventHandler =
+				LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
+			let chainMonitor = ChainMonitor(
+				chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger,
+				feeest: feeEstimator, persister: channelMonitorPersister)
+
+			channelManagerConstructor = ChannelManagerConstructor(
+				network: lightningNetwork, userConfig: config, current_blockchain_tip_hash: reversedChaintipHash,
+				current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface,
+				fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph,
+				tx_broadcaster: broadcaster, logger: logger)
+			let channelManager = channelManagerConstructor.channelManager
+			let peerManager = channelManagerConstructor.peerManager
+			let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
+
+			channelManagerConstructor.chain_sync_completed(
+				persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+
+			let interPeerConnectionInterval = 0
+			let pauseForNextPeer = { () async in
+				for _ in 0..<(interPeerConnectionInterval * 10) {
+					// sleep for 100ms
+					try! await Task.sleep(nanoseconds: 0_100_000_000)
+				}
+			}
+
+			print("increasing log threshold")
+			Bindings.setLogThreshold(severity: .WARNING)
+
+			do {
+				// bitrefill
+				print("connecting bitrefill")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "52.50.244.44", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
+				print("bitrefill connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// River
+				print("connecting river")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "104.196.249.140", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "03037dc08e9ac63b82581f79b662a4d0ceca8a8ca162b1af3551595b8f2d97b70a")!)
+				print("river connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// Acinq
+				print("connecting acinq")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "3.33.236.230", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!)
+				print("acinq connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// Kraken
+				print("connecting kraken")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "52.13.118.208", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "02f1a8c87607f415c8f22c00593002775941dea48869ce23096af27b0cfdcc0b69")!)
+				print("kraken connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// Matt
+				print("connecting matt")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "69.59.18.80", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "03db10aa09ff04d3568b0621750794063df401e6853c79a21a83e1a3f3b5bfb0c8")!)
+				print("matt connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// Fold
+				print("connecting fold")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "35.238.153.25", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774")!)
+				print("fold connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			do {
+				// wallet of satoshi
+				print("connecting wallet of satoshi")
+				let connectionResult = tcpPeerHandler.connect(
+					address: "170.75.163.209", port: 9735,
+					theirNodeId: PolarIntegrationSample.hexStringToBytes(
+						hexString: "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226")!)
+				print("wallet of satoshi connection success: \(connectionResult)")
+				await pauseForNextPeer()
+			}
+
+			/*
             struct Listener: BlockchainListener {
                 private let channelManager: ChannelManager
                 private let chainMonitor: ChainMonitor
@@ -566,92 +627,94 @@ public class PolarIntegrationSample {
             rpcInterface.registerListener(listener);
             async let monitor = try rpcInterface.monitorBlockchain()
             */
-            
-            // channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
-        }
-        
-    }
-    
-    public class RapidGossipSyncTester {
-        
-        public func testRapidGossipSync() async throws {
-            // first, download the gossip data
-            print("Sending rapid gossip sync request…");
-            var request = URLRequest(url: URL(string: "https://rapidsync.lightningdevkit.org/snapshot/0")!)
-            request.httpMethod = "GET"
-            
-            let startA = DispatchTime.now()
-            
-            // DOWNLOAD DATA
-            let (data, _) = try await URLSession.shared.data(for: request)
-            
-            let finishA = DispatchTime.now()
-            let elapsedA = Double(finishA.uptimeNanoseconds-startA.uptimeNanoseconds)/1_000_000_000
-            print("Received rapid gossip sync response: \(data.count) bytes! Time: \(elapsedA)s");
-            
-            let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
-            let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
-            
-            let logger = LDKTraitImplementations.PolarLogger()
-            let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
-            let rapidSync = RapidGossipSync(network_graph: networkGraph)
-            
-            let gossipDataRaw = [UInt8](data)
-            print("Applying rapid sync data…")
-            let startB = DispatchTime.now()
-            
-            // APPLY DATA
-            let timestamp = rapidSync.update_network_graph(update_data: gossipDataRaw)
-            
-            if let error = timestamp.getError() {
-                print("error! type: \(error.getValueType())")
-                let specificError = error.getValueAsLightningError()
-                print("details: \(specificError?.get_err())")
-            }
-            let finishB = DispatchTime.now()
-            let elapsedB = Double(finishB.uptimeNanoseconds-startB.uptimeNanoseconds)/1_000_000_000
-            print("Applied rapid sync data: \(timestamp.getValue())! Time: \(elapsedB)s")
-            
-            print("Measuring graph size…")
-            let startC = DispatchTime.now()
-            let graphBytes = networkGraph.write()
-            let finishC = DispatchTime.now()
-            let elapsedC = Double(finishC.uptimeNanoseconds-startC.uptimeNanoseconds)/1_000_000_000
-            print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
-            
-            
-            // networkGraph.read_only().get_addresses(pubkey: <#T##[UInt8]#>)
-            
-            
-            
-            
-            let scoringParams = ProbabilisticScoringParameters()
-            let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
-            let score = scorer.as_Score()
-            // let multiThreadedScorer = MultiThreadedLockableScore(score: score)
-            
-            
-            let payerPubkey = hexStringToBytes(hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
-            let recipientPubkey = hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
-            
-            let paymentParameters = PaymentParameters(payee_pubkey: recipientPubkey)
-            let routeParameters = RouteParameters(payment_params_arg: paymentParameters, final_value_msat_arg: 500, final_cltv_expiry_delta_arg: 3)
-            
-            print("STEP A")
-            
-//            let firstHops: [ChannelDetails]? = nil
-//            print("STEP B")
-//            let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, scorer: score)
-//            print("found route: \(foundRoute)")
-        }
-    }
+
+			// channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+		}
+
+	}
+
+	public class RapidGossipSyncTester {
+
+		public func testRapidGossipSync() async throws {
+			// first, download the gossip data
+			print("Sending rapid gossip sync request…")
+			var request = URLRequest(url: URL(string: "https://rapidsync.lightningdevkit.org/snapshot/0")!)
+			request.httpMethod = "GET"
+
+			let startA = DispatchTime.now()
+
+			// DOWNLOAD DATA
+			let (data, _) = try await URLSession.shared.data(for: request)
+
+			let finishA = DispatchTime.now()
+			let elapsedA = Double(finishA.uptimeNanoseconds - startA.uptimeNanoseconds) / 1_000_000_000
+			print("Received rapid gossip sync response: \(data.count) bytes! Time: \(elapsedA)s")
+
+			let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+			let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
+
+			let logger = LDKTraitImplementations.PolarLogger()
+			let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
+			let rapidSync = RapidGossipSync(network_graph: networkGraph)
+
+			let gossipDataRaw = [UInt8](data)
+			print("Applying rapid sync data…")
+			let startB = DispatchTime.now()
+
+			// APPLY DATA
+			let timestamp = rapidSync.update_network_graph(update_data: gossipDataRaw)
+
+			if let error = timestamp.getError() {
+				print("error! type: \(error.getValueType())")
+				let specificError = error.getValueAsLightningError()
+				print("details: \(specificError?.get_err())")
+			}
+			let finishB = DispatchTime.now()
+			let elapsedB = Double(finishB.uptimeNanoseconds - startB.uptimeNanoseconds) / 1_000_000_000
+			print("Applied rapid sync data: \(timestamp.getValue())! Time: \(elapsedB)s")
+
+			print("Measuring graph size…")
+			let startC = DispatchTime.now()
+			let graphBytes = networkGraph.write()
+			let finishC = DispatchTime.now()
+			let elapsedC = Double(finishC.uptimeNanoseconds - startC.uptimeNanoseconds) / 1_000_000_000
+			print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
+
+
+			// networkGraph.read_only().get_addresses(pubkey: <#T##[UInt8]#>)
+
+
+			let scoringParams = ProbabilisticScoringParameters()
+			let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+			let score = scorer.as_Score()
+			// let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+
+
+			let payerPubkey = hexStringToBytes(
+				hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
+			let recipientPubkey = hexStringToBytes(
+				hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
+
+			let paymentParameters = PaymentParameters(payee_pubkey: recipientPubkey)
+			let routeParameters = RouteParameters(
+				payment_params_arg: paymentParameters, final_value_msat_arg: 500, final_cltv_expiry_delta_arg: 3)
+
+			print("STEP A")
+
+			//            let firstHops: [ChannelDetails]? = nil
+			//            print("STEP B")
+			//            let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, scorer: score)
+			//            print("found route: \(foundRoute)")
+		}
+	}
 
 	private class func bytesToHexString(bytes: [UInt8]) -> String {
-		let format = "%02hhx" // "%02hhX" (uppercase)
-		return bytes.map {
-			String(format: format, $0)
-		}
-		.joined()
+		let format = "%02hhx"  // "%02hhX" (uppercase)
+		return
+			bytes.map {
+				String(format: format, $0)
+			}
+			.joined()
 	}
 
 	private class func hexStringToBytes(hexString: String) -> [UInt8]? {
@@ -676,8 +739,6 @@ public class PolarIntegrationSample {
 		}
 		return newData
 	}
-    
-    
+
 
 }
-

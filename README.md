@@ -58,7 +58,7 @@ In order to generate these bindings from scratch, you will need to clone two dep
 **[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
 
 ```shell
-git clone --branch 0.0.125-bindings https://github.com/lightningdevkit/rust-lightning /path/to/rust-lightning
+git clone --branch 0.1-bindings https://github.com/lightningdevkit/rust-lightning /path/to/rust-lightning
 ```
 
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:

@@ -108,11 +108,6 @@ class WrappedSignerProviderTests: XCTestCase {
 			return nodeId
 		}
 
-		override func getInboundPaymentKeyMaterial() -> [UInt8] {
-			print("entering wrapper: getInboundPaymentKeyMaterial()")
-			return myKeysManager!.keysManager.asNodeSigner().getInboundPaymentKeyMaterial()
-		}
-
 		override func signGossipMessage(msg: Bindings.UnsignedGossipMessage) -> Bindings.Result_ECDSASignatureNoneZ {
 			print("entering wrapper: signGossipMessage()")
 			return myKeysManager!.keysManager.asNodeSigner().signGossipMessage(msg: msg)

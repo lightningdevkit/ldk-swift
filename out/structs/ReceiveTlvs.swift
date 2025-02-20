@@ -4,6 +4,8 @@
 
 /// Data to construct a [`BlindedHop`] for receiving a payment. This payload is custom to LDK and
 /// may not be valid if received by another lightning implementation.
+///
+/// Can only be constructed by calling [`UnauthenticatedReceiveTlvs::authenticate`].
 public typealias ReceiveTlvs = Bindings.ReceiveTlvs
 
 extension Bindings {
@@ -11,6 +13,8 @@ extension Bindings {
 
 	/// Data to construct a [`BlindedHop`] for receiving a payment. This payload is custom to LDK and
 	/// may not be valid if received by another lightning implementation.
+	///
+	/// Can only be constructed by calling [`UnauthenticatedReceiveTlvs::authenticate`].
 	public class ReceiveTlvs: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -79,191 +83,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Used to authenticate the sender of a payment to the receiver and tie MPP HTLCs together.
-		public func getPaymentSecret() -> [UInt8]? {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_get_payment_secret(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-			guard let nativeCallResult = nativeCallResult else {
-				return nil
-			}
-
-
-			// return value (do some wrapping)
-			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
-
-
-			return returnValue
-		}
-
-		/// Used to authenticate the sender of a payment to the receiver and tie MPP HTLCs together.
-		public func setPaymentSecret(val: [UInt8]) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_set_payment_secret(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Constraints for the receiver of this payment.
-		public func getPaymentConstraints() -> PaymentConstraints {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_get_payment_constraints(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = PaymentConstraints(
-				cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Constraints for the receiver of this payment.
-		public func setPaymentConstraints(val: PaymentConstraints) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_set_payment_constraints(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Context for the receiver of this payment.
-		public func getPaymentContext() -> PaymentContext {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_get_payment_context(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = PaymentContext(
-				cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)", anchor: self)
-
-
-			return returnValue
-		}
-
-		/// Context for the receiver of this payment.
-		public func setPaymentContext(val: PaymentContext) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKReceiveTlvs>) in
-					ReceiveTlvs_set_payment_context(thisPtrPointer, val.danglingClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Constructs a new ReceiveTlvs given each field
-		public init(
-			paymentSecretArg: [UInt8], paymentConstraintsArg: PaymentConstraints, paymentContextArg: PaymentContext
-		) {
-			// native call variable prep
-
-			let paymentSecretArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentSecretArg, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = ReceiveTlvs_new(
-				paymentSecretArgPrimitiveWrapper.cType!, paymentConstraintsArg.dynamicallyDangledClone().cType!,
-				paymentContextArg.danglingClone().cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			paymentSecretArgPrimitiveWrapper.noOpRetain()
-
-			self.initialCFreeability = nativeCallResult.is_owned
-
-
-			/*
-						// return value (do some wrapping)
-						let returnValue = ReceiveTlvs(cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-						*/
-
-
-			self.cType = nativeCallResult
-
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super
-				.init(conflictAvoidingVariableName: 0, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-
-
-		}
-
 		/// Creates a copy of the ReceiveTlvs
 		internal func clone() -> ReceiveTlvs {
 			// native call variable prep
@@ -282,6 +101,31 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = ReceiveTlvs(
 				cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns the underlying TLVs.
+		public func tlvs() -> UnauthenticatedReceiveTlvs {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKReceiveTlvs>) in
+					ReceiveTlvs_tlvs(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = UnauthenticatedReceiveTlvs(
+				cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue

@@ -2,15 +2,19 @@
 	import LDKHeaders
 #endif
 
-/// A tx_complete message signalling the conclusion of a peer's transaction contributions during
+/// [`A tx_complete`] message signalling the conclusion of a peer's transaction contributions during
 /// interactive transaction construction.
+///
+/// [`tx_complete`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_complete-message
 public typealias TxComplete = Bindings.TxComplete
 
 extension Bindings {
 
 
-	/// A tx_complete message signalling the conclusion of a peer's transaction contributions during
+	/// [`A tx_complete`] message signalling the conclusion of a peer's transaction contributions during
 	/// interactive transaction construction.
+	///
+	/// [`tx_complete`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_complete-message
 	public class TxComplete: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

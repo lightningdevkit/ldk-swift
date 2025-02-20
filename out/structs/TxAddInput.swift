@@ -2,13 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A tx_add_input message for adding an input during interactive transaction construction
+/// A [`tx_add_input`] message for adding an input during interactive transaction construction
+///
+/// [`tx_add_input`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_add_input-message
 public typealias TxAddInput = Bindings.TxAddInput
 
 extension Bindings {
 
 
-	/// A tx_add_input message for adding an input during interactive transaction construction
+	/// A [`tx_add_input`] message for adding an input during interactive transaction construction
+	///
+	/// [`tx_add_input`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_add_input-message
 	public class TxAddInput: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

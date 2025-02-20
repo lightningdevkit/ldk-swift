@@ -98,11 +98,9 @@ extension Bindings {
 		/// [`ChannelMonitorUpdateStatus::InProgress`] have been applied to all copies of a given
 		/// ChannelMonitor when ChannelManager::channel_monitor_updated is called.
 		///
-		/// The only instances we allow where update_id values are not strictly increasing have a
-		/// special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. This update ID is used for updates that
-		/// will force close the channel by broadcasting the latest commitment transaction or
-		/// special post-force-close updates, like providing preimages necessary to claim outputs on the
-		/// broadcast commitment transaction. See its docs for more details.
+		/// Note that for [`ChannelMonitorUpdate`]s generated on LDK versions prior to 0.1 after the
+		/// channel was closed, this value may be [`u64::MAX`]. In that case, multiple updates may
+		/// appear with the same ID, and all should be replayed.
 		///
 		/// [`ChannelMonitorUpdateStatus::InProgress`]: super::ChannelMonitorUpdateStatus::InProgress
 		public func getUpdateId() -> UInt64 {
@@ -134,11 +132,9 @@ extension Bindings {
 		/// [`ChannelMonitorUpdateStatus::InProgress`] have been applied to all copies of a given
 		/// ChannelMonitor when ChannelManager::channel_monitor_updated is called.
 		///
-		/// The only instances we allow where update_id values are not strictly increasing have a
-		/// special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. This update ID is used for updates that
-		/// will force close the channel by broadcasting the latest commitment transaction or
-		/// special post-force-close updates, like providing preimages necessary to claim outputs on the
-		/// broadcast commitment transaction. See its docs for more details.
+		/// Note that for [`ChannelMonitorUpdate`]s generated on LDK versions prior to 0.1 after the
+		/// channel was closed, this value may be [`u64::MAX`]. In that case, multiple updates may
+		/// appear with the same ID, and all should be replayed.
 		///
 		/// [`ChannelMonitorUpdateStatus::InProgress`]: super::ChannelMonitorUpdateStatus::InProgress
 		public func setUpdateId(val: UInt64) {

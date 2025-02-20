@@ -58,7 +58,7 @@ extension Bindings {
 		}
 
 
-		public init(messageRouter: MessageRouter) {
+		public init() {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: "Router.swift::\(#function):\(#line)")
@@ -210,7 +210,6 @@ extension Bindings {
 				find_route: findRouteLambda,
 				find_route_with_id: findRouteWithIdLambda,
 				create_blinded_payment_paths: createBlindedPaymentPathsLambda,
-				MessageRouter: messageRouter.activate().cType!,
 				free: freeLambda
 			)
 		}
@@ -276,17 +275,6 @@ extension Bindings {
 				"Error: Router::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
-		}
-
-
-		/// Implementation of MessageRouter for this object.
-		public func getMessageRouter() -> MessageRouter {
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedMessageRouter(
-				cType: self.cType!.MessageRouter, instantiationContext: "Router.swift::\(#function):\(#line)",
-				anchor: self)
-
-			return returnValue
 		}
 
 

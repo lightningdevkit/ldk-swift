@@ -186,6 +186,25 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates an empty `Description`.
+		public class func initWithEmpty() -> Description {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = Description_empty()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Description(
+				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Returns the underlying description [`UntrustedString`]
 		public func intoInner() -> UntrustedString {
 			// native call variable prep

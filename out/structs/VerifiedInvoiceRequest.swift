@@ -424,17 +424,27 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The public key used by the recipient to sign invoices.
+		/// The public key corresponding to the key used by the recipient to sign invoices.
+		/// - If [`Offer::paths`] is empty, MUST be `Some` and contain the recipient's node id for
+		/// sending an [`InvoiceRequest`].
+		/// - If [`Offer::paths`] is not empty, MAY be `Some` and contain a transient id.
+		/// - If `None`, the signing pubkey will be the final blinded node id from the
+		/// [`BlindedMessagePath`] in [`Offer::paths`] used to send the [`InvoiceRequest`].
+		///
+		/// See also [`Bolt12Invoice::signing_pubkey`].
+		///
+		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+		/// [`Bolt12Invoice::signing_pubkey`]: crate::offers::invoice::Bolt12Invoice::signing_pubkey
 		///
 		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func signingPubkey() -> [UInt8]? {
+		public func issuerSigningPubkey() -> [UInt8]? {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKVerifiedInvoiceRequest>) in
-					VerifiedInvoiceRequest_signing_pubkey(thisArgPointer)
+					VerifiedInvoiceRequest_issuer_signing_pubkey(thisArgPointer)
 				}
 
 
@@ -462,9 +472,9 @@ extension Bindings {
 		}
 
 		/// An unpredictable series of bytes, typically containing information about the derivation of
-		/// [`payer_id`].
+		/// [`payer_signing_pubkey`].
 		///
-		/// [`payer_id`]: Self::payer_id
+		/// [`payer_signing_pubkey`]: Self::payer_signing_pubkey
 		public func payerMetadata() -> [UInt8] {
 			// native call variable prep
 
@@ -545,6 +555,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns whether an amount was set in the request; otherwise, if [`amount_msats`] is `Some`
+		/// then it was inferred from the [`Offer::amount`] and [`quantity`].
+		///
+		/// [`amount_msats`]: Self::amount_msats
+		/// [`quantity`]: Self::quantity
+		public func hasAmountMsats() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKVerifiedInvoiceRequest>) in
+					VerifiedInvoiceRequest_has_amount_msats(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Features pertaining to requesting an invoice.
 		public func invoiceRequestFeatures() -> InvoiceRequestFeatures {
 			// native call variable prep
@@ -598,14 +634,14 @@ extension Bindings {
 		}
 
 		/// A possibly transient pubkey used to sign the invoice request.
-		public func payerId() -> [UInt8] {
+		public func payerSigningPubkey() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKVerifiedInvoiceRequest>) in
-					VerifiedInvoiceRequest_payer_id(thisArgPointer)
+					VerifiedInvoiceRequest_payer_signing_pubkey(thisArgPointer)
 				}
 
 
@@ -656,6 +692,48 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = PrintableString(
+				cType: nativeCallResult, instantiationContext: "VerifiedInvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// If the [`Offer`] was sourced from a BIP 353 Human Readable Name, this should be set by the
+		/// builder to indicate the original [`HumanReadableName`] which was resolved.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func offerFromHrn() -> HumanReadableName? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKVerifiedInvoiceRequest>) in
+					VerifiedInvoiceRequest_offer_from_hrn(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKHumanReadableName
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = HumanReadableName(
 				cType: nativeCallResult, instantiationContext: "VerifiedInvoiceRequest.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -716,8 +794,8 @@ extension Bindings {
 		/// Creates an [`InvoiceBuilder`] for the request with the given required fields.
 		///
 		/// Unless [`InvoiceBuilder::relative_expiry`] is set, the invoice will expire two hours after
-		/// `created_at`, which is used to set [`Bolt12Invoice::created_at`]. Useful for `no-std` builds
-		/// where [`std::time::SystemTime`] is not available.
+		/// `created_at`, which is used to set [`Bolt12Invoice::created_at`].
+		/// Useful for non-`std` builds where [`std::time::SystemTime`] is not available.
 		///
 		/// The caller is expected to remember the preimage of `payment_hash` in order to claim a payment
 		/// for the invoice.
@@ -725,7 +803,7 @@ extension Bindings {
 		/// The `payment_paths` parameter is useful for maintaining the payment recipient's privacy. It
 		/// must contain one or more elements ordered from most-preferred to least-preferred, if there's
 		/// a preference. Note, however, that any privacy is lost if a public node id was used for
-		/// [`Offer::signing_pubkey`].
+		/// [`Offer::issuer_signing_pubkey`].
 		///
 		/// Errors if the request contains unknown required features.
 		///

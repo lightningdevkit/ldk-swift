@@ -100,6 +100,26 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Converts this [`ResponseInstruction`] into a [`MessageSendInstructions`] so that it can be
+		/// used to send the response via a normal message sending method.
+		public func intoInstructions() -> MessageSendInstructions {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ResponseInstruction_into_instructions(self.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendInstructions(
+				cType: nativeCallResult, instantiationContext: "ResponseInstruction.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

@@ -72,14 +72,16 @@
 /// # let custom_message_handler = IgnoringMessageHandler {};
 /// # let offers_message_handler = IgnoringMessageHandler {};
 /// # let async_payments_message_handler = IgnoringMessageHandler {};
+/// # let dns_resolution_message_handler = IgnoringMessageHandler {};
 /// // Create the onion messenger. This must use the same `keys_manager` as is passed to your
 /// // ChannelManager.
 /// let onion_messenger = OnionMessenger::new(
 /// &keys_manager, &keys_manager, logger, &node_id_lookup, message_router,
-/// &offers_message_handler, &async_payments_message_handler, &custom_message_handler
+/// &offers_message_handler, &async_payments_message_handler, &dns_resolution_message_handler,
+/// &custom_message_handler,
 /// );
 ///
-/// # #[derive(Debug, Clone)]
+/// # #[derive(Clone, Debug)]
 /// # struct YourCustomMessage {}
 /// impl Writeable for YourCustomMessage {
 /// \tfn write<W: Writer>(&self, w: &mut W) -> Result<(), io::Error> {
@@ -193,14 +195,16 @@ extension Bindings {
 	/// # let custom_message_handler = IgnoringMessageHandler {};
 	/// # let offers_message_handler = IgnoringMessageHandler {};
 	/// # let async_payments_message_handler = IgnoringMessageHandler {};
+	/// # let dns_resolution_message_handler = IgnoringMessageHandler {};
 	/// // Create the onion messenger. This must use the same `keys_manager` as is passed to your
 	/// // ChannelManager.
 	/// let onion_messenger = OnionMessenger::new(
 	/// &keys_manager, &keys_manager, logger, &node_id_lookup, message_router,
-	/// &offers_message_handler, &async_payments_message_handler, &custom_message_handler
+	/// &offers_message_handler, &async_payments_message_handler, &dns_resolution_message_handler,
+	/// &custom_message_handler,
 	/// );
 	///
-	/// # #[derive(Debug, Clone)]
+	/// # #[derive(Clone, Debug)]
 	/// # struct YourCustomMessage {}
 	/// impl Writeable for YourCustomMessage {
 	/// \tfn write<W: Writer>(&self, w: &mut W) -> Result<(), io::Error> {
@@ -312,7 +316,8 @@ extension Bindings {
 		public class func initWith(
 			entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, nodeIdLookup: NodeIdLookUp,
 			messageRouter: MessageRouter, offersHandler: OffersMessageHandler,
-			asyncPaymentsHandler: AsyncPaymentsMessageHandler, customHandler: CustomOnionMessageHandler
+			asyncPaymentsHandler: AsyncPaymentsMessageHandler, dnsResolver: DNSResolverMessageHandler,
+			customHandler: CustomOnionMessageHandler
 		) -> OnionMessenger {
 			// native call variable prep
 
@@ -321,7 +326,7 @@ extension Bindings {
 			let nativeCallResult = OnionMessenger_new(
 				entropySource.activate().cType!, nodeSigner.activate().cType!, logger.activate().cType!,
 				nodeIdLookup.activate().cType!, messageRouter.activate().cType!, offersHandler.activate().cType!,
-				asyncPaymentsHandler.activate().cType!, customHandler.activate().cType!)
+				asyncPaymentsHandler.activate().cType!, dnsResolver.activate().cType!, customHandler.activate().cType!)
 
 			// cleanup
 
@@ -358,7 +363,8 @@ extension Bindings {
 		public class func initWithWithOfflinePeerInterception(
 			entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, nodeIdLookup: NodeIdLookUp,
 			messageRouter: MessageRouter, offersHandler: OffersMessageHandler,
-			asyncPaymentsHandler: AsyncPaymentsMessageHandler, customHandler: CustomOnionMessageHandler
+			asyncPaymentsHandler: AsyncPaymentsMessageHandler, dnsResolver: DNSResolverMessageHandler,
+			customHandler: CustomOnionMessageHandler
 		) -> OnionMessenger {
 			// native call variable prep
 
@@ -367,7 +373,7 @@ extension Bindings {
 			let nativeCallResult = OnionMessenger_new_with_offline_peer_interception(
 				entropySource.activate().cType!, nodeSigner.activate().cType!, logger.activate().cType!,
 				nodeIdLookup.activate().cType!, messageRouter.activate().cType!, offersHandler.activate().cType!,
-				asyncPaymentsHandler.activate().cType!, customHandler.activate().cType!)
+				asyncPaymentsHandler.activate().cType!, dnsResolver.activate().cType!, customHandler.activate().cType!)
 
 			// cleanup
 

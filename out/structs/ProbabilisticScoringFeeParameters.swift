@@ -94,7 +94,13 @@ extension Bindings {
 
 		/// A fixed penalty in msats to apply to each channel.
 		///
-		/// Default value: 500 msat
+		/// In testing, a value of roughly 1/10th of [`historical_liquidity_penalty_multiplier_msat`]
+		/// (implying scaling all estimated probabilities down by a factor of ~79%) resulted in the
+		/// most accurate total success probabilities.
+		///
+		/// Default value: 1,024 msat (i.e. we're willing to pay 1 sat to avoid each additional hop).
+		///
+		/// [`historical_liquidity_penalty_multiplier_msat`]: Self::historical_liquidity_penalty_multiplier_msat
 		public func getBasePenaltyMsat() -> UInt64 {
 			// native call variable prep
 
@@ -119,7 +125,13 @@ extension Bindings {
 
 		/// A fixed penalty in msats to apply to each channel.
 		///
-		/// Default value: 500 msat
+		/// In testing, a value of roughly 1/10th of [`historical_liquidity_penalty_multiplier_msat`]
+		/// (implying scaling all estimated probabilities down by a factor of ~79%) resulted in the
+		/// most accurate total success probabilities.
+		///
+		/// Default value: 1,024 msat (i.e. we're willing to pay 1 sat to avoid each additional hop).
+		///
+		/// [`historical_liquidity_penalty_multiplier_msat`]: Self::historical_liquidity_penalty_multiplier_msat
 		public func setBasePenaltyMsat(val: UInt64) {
 			// native call variable prep
 
@@ -142,19 +154,25 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used with the total amount flowing over a channel to calculate a fixed penalty
-		/// applied to each channel, in excess of the [`base_penalty_msat`].
+		/// A multiplier used with the payment amount to calculate a fixed penalty applied to each
+		/// channel, in excess of the [`base_penalty_msat`].
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^30`ths of the total amount flowing over a channel (i.e. the payment
-		/// amount plus the amount of any other HTLCs flowing we sent over the same channel).
+		/// multiplier and `2^30`ths of the payment amount.
 		///
 		/// ie `base_penalty_amount_multiplier_msat * amount_msat / 2^30`
 		///
-		/// Default value: 8,192 msat
+		/// In testing, a value of roughly ~100x (1/10th * 2^10) of
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`] (implying scaling all estimated
+		/// probabilities down by a factor of ~79%) resulted in the most accurate total success
+		/// probabilities.
+		///
+		/// Default value: 131,072 msat (i.e. we're willing to pay 0.125bps to avoid each additional
+		/// hop).
 		///
 		/// [`base_penalty_msat`]: Self::base_penalty_msat
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`]: Self::historical_liquidity_penalty_amount_multiplier_msat
 		public func getBasePenaltyAmountMultiplierMsat() -> UInt64 {
 			// native call variable prep
 
@@ -177,19 +195,25 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used with the total amount flowing over a channel to calculate a fixed penalty
-		/// applied to each channel, in excess of the [`base_penalty_msat`].
+		/// A multiplier used with the payment amount to calculate a fixed penalty applied to each
+		/// channel, in excess of the [`base_penalty_msat`].
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^30`ths of the total amount flowing over a channel (i.e. the payment
-		/// amount plus the amount of any other HTLCs flowing we sent over the same channel).
+		/// multiplier and `2^30`ths of the payment amount.
 		///
 		/// ie `base_penalty_amount_multiplier_msat * amount_msat / 2^30`
 		///
-		/// Default value: 8,192 msat
+		/// In testing, a value of roughly ~100x (1/10th * 2^10) of
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`] (implying scaling all estimated
+		/// probabilities down by a factor of ~79%) resulted in the most accurate total success
+		/// probabilities.
+		///
+		/// Default value: 131,072 msat (i.e. we're willing to pay 0.125bps to avoid each additional
+		/// hop).
 		///
 		/// [`base_penalty_msat`]: Self::base_penalty_msat
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`]: Self::historical_liquidity_penalty_amount_multiplier_msat
 		public func setBasePenaltyAmountMultiplierMsat(val: UInt64) {
 			// native call variable prep
 
@@ -225,9 +249,14 @@ extension Bindings {
 		///
 		/// `-log10(success_probability) * liquidity_penalty_multiplier_msat`
 		///
-		/// Default value: 30,000 msat
+		/// In testing, this scoring model performs much worse than the historical scoring model
+		/// configured with the [`historical_liquidity_penalty_multiplier_msat`] and thus is disabled
+		/// by default.
+		///
+		/// Default value: 0 msat
 		///
 		/// [`liquidity_offset_half_life`]: ProbabilisticScoringDecayParameters::liquidity_offset_half_life
+		/// [`historical_liquidity_penalty_multiplier_msat`]: Self::historical_liquidity_penalty_multiplier_msat
 		public func getLiquidityPenaltyMultiplierMsat() -> UInt64 {
 			// native call variable prep
 
@@ -263,9 +292,14 @@ extension Bindings {
 		///
 		/// `-log10(success_probability) * liquidity_penalty_multiplier_msat`
 		///
-		/// Default value: 30,000 msat
+		/// In testing, this scoring model performs much worse than the historical scoring model
+		/// configured with the [`historical_liquidity_penalty_multiplier_msat`] and thus is disabled
+		/// by default.
+		///
+		/// Default value: 0 msat
 		///
 		/// [`liquidity_offset_half_life`]: ProbabilisticScoringDecayParameters::liquidity_offset_half_life
+		/// [`historical_liquidity_penalty_multiplier_msat`]: Self::historical_liquidity_penalty_multiplier_msat
 		public func setLiquidityPenaltyMultiplierMsat(val: UInt64) {
 			// native call variable prep
 
@@ -288,14 +322,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the total amount flowing over a channel and the
-		/// negative `log10` of the channel's success probability for the payment, as determined by our
-		/// latest estimates of the channel's liquidity, to determine the amount penalty.
+		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
+		/// channel's success probability for the total amount flowing over a channel, as determined by
+		/// our latest estimates of the channel's liquidity, to determine the amount penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^20`ths of the amount flowing over this channel, weighted by the negative
-		/// `log10` of the success probability.
+		/// multiplier and `2^20`ths of the payment amount, weighted by the negative `log10` of the
+		/// success probability.
 		///
 		/// `-log10(success_probability) * liquidity_penalty_amount_multiplier_msat * amount_msat / 2^20`
 		///
@@ -305,7 +339,13 @@ extension Bindings {
 		/// probabilities, the multiplier will have a decreasing effect as the negative `log10` will
 		/// fall below `1`.
 		///
-		/// Default value: 192 msat
+		/// In testing, this scoring model performs much worse than the historical scoring model
+		/// configured with the [`historical_liquidity_penalty_amount_multiplier_msat`] and thus is
+		/// disabled by default.
+		///
+		/// Default value: 0 msat
+		///
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`]: Self::historical_liquidity_penalty_amount_multiplier_msat
 		public func getLiquidityPenaltyAmountMultiplierMsat() -> UInt64 {
 			// native call variable prep
 
@@ -328,14 +368,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the total amount flowing over a channel and the
-		/// negative `log10` of the channel's success probability for the payment, as determined by our
-		/// latest estimates of the channel's liquidity, to determine the amount penalty.
+		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
+		/// channel's success probability for the total amount flowing over a channel, as determined by
+		/// our latest estimates of the channel's liquidity, to determine the amount penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^20`ths of the amount flowing over this channel, weighted by the negative
-		/// `log10` of the success probability.
+		/// multiplier and `2^20`ths of the payment amount, weighted by the negative `log10` of the
+		/// success probability.
 		///
 		/// `-log10(success_probability) * liquidity_penalty_amount_multiplier_msat * amount_msat / 2^20`
 		///
@@ -345,7 +385,13 @@ extension Bindings {
 		/// probabilities, the multiplier will have a decreasing effect as the negative `log10` will
 		/// fall below `1`.
 		///
-		/// Default value: 192 msat
+		/// In testing, this scoring model performs much worse than the historical scoring model
+		/// configured with the [`historical_liquidity_penalty_amount_multiplier_msat`] and thus is
+		/// disabled by default.
+		///
+		/// Default value: 0 msat
+		///
+		/// [`historical_liquidity_penalty_amount_multiplier_msat`]: Self::historical_liquidity_penalty_amount_multiplier_msat
 		public func setLiquidityPenaltyAmountMultiplierMsat(val: UInt64) {
 			// native call variable prep
 
@@ -379,7 +425,8 @@ extension Bindings {
 		/// track which of several buckets those bounds fall into, exponentially decaying the
 		/// probability of each bucket as new samples are added.
 		///
-		/// Default value: 10,000 msat
+		/// Default value: 10,000 msat (i.e. willing to pay 1 sat to avoid an 80% probability channel,
+		/// or 6 sats to avoid a 25% probability channel).
 		///
 		/// [`liquidity_penalty_multiplier_msat`]: Self::liquidity_penalty_multiplier_msat
 		public func getHistoricalLiquidityPenaltyMultiplierMsat() -> UInt64 {
@@ -415,7 +462,8 @@ extension Bindings {
 		/// track which of several buckets those bounds fall into, exponentially decaying the
 		/// probability of each bucket as new samples are added.
 		///
-		/// Default value: 10,000 msat
+		/// Default value: 10,000 msat (i.e. willing to pay 1 sat to avoid an 80% probability channel,
+		/// or 6 sats to avoid a 25% probability channel).
 		///
 		/// [`liquidity_penalty_multiplier_msat`]: Self::liquidity_penalty_multiplier_msat
 		public func setHistoricalLiquidityPenaltyMultiplierMsat(val: UInt64) {
@@ -441,15 +489,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the total amount flowing over a channel and the
-		/// negative `log10` of the channel's success probability for the payment, as determined based
-		/// on the history of our estimates of the channel's available liquidity, to determine a
+		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
+		/// channel's success probability for the total amount flowing over a channel, as determined
+		/// based on the history of our estimates of the channel's available liquidity, to determine a
 		/// penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost for
 		/// large payments. The penalty is computed as the product of this multiplier and `2^20`ths
-		/// of the amount flowing over this channel, weighted by the negative `log10` of the success
-		/// probability.
+		/// of the payment amount, weighted by the negative `log10` of the success probability.
 		///
 		/// This penalty is similar to [`liquidity_penalty_amount_multiplier_msat`], however, instead
 		/// of using only our latest estimate for the current liquidity available in the channel, it
@@ -458,7 +505,9 @@ extension Bindings {
 		/// channel, we track which of several buckets those bounds fall into, exponentially decaying
 		/// the probability of each bucket as new samples are added.
 		///
-		/// Default value: 64 msat
+		/// Default value: 1,250 msat (i.e. willing to pay about 0.125 bps per hop to avoid 78%
+		/// probability channels, or 0.5bps to avoid a 38% probability
+		/// channel).
 		///
 		/// [`liquidity_penalty_amount_multiplier_msat`]: Self::liquidity_penalty_amount_multiplier_msat
 		public func getHistoricalLiquidityPenaltyAmountMultiplierMsat() -> UInt64 {
@@ -484,15 +533,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the total amount flowing over a channel and the
-		/// negative `log10` of the channel's success probability for the payment, as determined based
-		/// on the history of our estimates of the channel's available liquidity, to determine a
+		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
+		/// channel's success probability for the total amount flowing over a channel, as determined
+		/// based on the history of our estimates of the channel's available liquidity, to determine a
 		/// penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost for
 		/// large payments. The penalty is computed as the product of this multiplier and `2^20`ths
-		/// of the amount flowing over this channel, weighted by the negative `log10` of the success
-		/// probability.
+		/// of the payment amount, weighted by the negative `log10` of the success probability.
 		///
 		/// This penalty is similar to [`liquidity_penalty_amount_multiplier_msat`], however, instead
 		/// of using only our latest estimate for the current liquidity available in the channel, it
@@ -501,7 +549,9 @@ extension Bindings {
 		/// channel, we track which of several buckets those bounds fall into, exponentially decaying
 		/// the probability of each bucket as new samples are added.
 		///
-		/// Default value: 64 msat
+		/// Default value: 1,250 msat (i.e. willing to pay about 0.125 bps per hop to avoid 78%
+		/// probability channels, or 0.5bps to avoid a 38% probability
+		/// channel).
 		///
 		/// [`liquidity_penalty_amount_multiplier_msat`]: Self::liquidity_penalty_amount_multiplier_msat
 		public func setHistoricalLiquidityPenaltyAmountMultiplierMsat(val: UInt64) {

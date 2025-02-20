@@ -293,11 +293,18 @@ extension Bindings {
 		/// with `scid` towards the given `target` node, based on the historical estimated liquidity
 		/// bounds.
 		///
+		/// Returns `None` if:
+		/// - the given channel is not in the network graph, the provided `target` is not a party to
+		/// the channel, or we don't have forwarding parameters for either direction in the channel.
+		/// - `allow_fallback_estimation` is *not* set and there is no (or insufficient) historical
+		/// data for the given channel.
+		///
 		/// These are the same bounds as returned by
 		/// [`Self::historical_estimated_channel_liquidity_probabilities`] (but not those returned by
 		/// [`Self::estimated_channel_liquidity_range`]).
 		public func historicalEstimatedPaymentSuccessProbability(
-			scid: UInt64, target: NodeId, amountMsat: UInt64, params: ProbabilisticScoringFeeParameters
+			scid: UInt64, target: NodeId, amountMsat: UInt64, params: ProbabilisticScoringFeeParameters,
+			allowFallbackEstimation: Bool
 		) -> Double? {
 			// native call variable prep
 
@@ -311,6 +318,48 @@ extension Bindings {
 						withUnsafePointer(to: params.cType!) {
 							(paramsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
 							ProbabilisticScorer_historical_estimated_payment_success_probability(
+								thisArgPointer, scid, targetPointer, amountMsat, paramsPointer, allowFallbackEstimation)
+						}
+
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_f64Z(
+				cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// Query the probability of payment success sending the given `amount_msat` over the channel
+		/// with `scid` towards the given `target` node, based on the live estimated liquidity bounds.
+		///
+		/// This will return `Some` for any channel which is present in the [`NetworkGraph`], including
+		/// if we have no bound information beside the channel's capacity.
+		public func liveEstimatedPaymentSuccessProbability(
+			scid: UInt64, target: NodeId, amountMsat: UInt64, params: ProbabilisticScoringFeeParameters
+		) -> Double? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKProbabilisticScorer>) in
+
+					withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
+
+						withUnsafePointer(to: params.cType!) {
+							(paramsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
+							ProbabilisticScorer_live_estimated_payment_success_probability(
 								thisArgPointer, scid, targetPointer, amountMsat, paramsPointer)
 						}
 

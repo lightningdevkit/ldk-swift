@@ -277,9 +277,9 @@ extension Bindings {
 		}
 
 		/// An unpredictable series of bytes, typically containing information about the derivation of
-		/// [`payer_id`].
+		/// [`payer_signing_pubkey`].
 		///
-		/// [`payer_id`]: Self::payer_id
+		/// [`payer_signing_pubkey`]: Self::payer_signing_pubkey
 		public func payerMetadata() -> [UInt8] {
 			// native call variable prep
 
@@ -407,14 +407,14 @@ extension Bindings {
 		/// transient pubkey.
 		///
 		/// [`paths`]: Self::paths
-		public func payerId() -> [UInt8] {
+		public func payerSigningPubkey() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRefund>) in
-					Refund_payer_id(thisArgPointer)
+					Refund_payer_signing_pubkey(thisArgPointer)
 				}
 
 

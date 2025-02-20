@@ -476,68 +476,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// If this is set to `false`, when receiving a keysend payment we'll fail it if it has multiple
-		/// parts. If this is set to `true`, we'll accept the payment.
-		///
-		/// Setting this to `true` will break backwards compatibility upon downgrading to an LDK
-		/// version prior to 0.0.116 while receiving an MPP keysend. If we have already received an MPP
-		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
-		///
-		/// Default value: `false`
-		///
-		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-		public func getAcceptMppKeysend() -> Bool {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUserConfig>) in
-					UserConfig_get_accept_mpp_keysend(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// If this is set to `false`, when receiving a keysend payment we'll fail it if it has multiple
-		/// parts. If this is set to `true`, we'll accept the payment.
-		///
-		/// Setting this to `true` will break backwards compatibility upon downgrading to an LDK
-		/// version prior to 0.0.116 while receiving an MPP keysend. If we have already received an MPP
-		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
-		///
-		/// Default value: `false`
-		///
-		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-		public func setAcceptMppKeysend(val: Bool) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUserConfig>) in
-					UserConfig_set_accept_mpp_keysend(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// If this is set to `true`, the user needs to manually pay [`Bolt12Invoice`]s when received.
 		///
 		/// When set to `true`, [`Event::InvoiceReceived`] will be generated for each received
@@ -610,8 +548,7 @@ extension Bindings {
 		public init(
 			channelHandshakeConfigArg: ChannelHandshakeConfig, channelHandshakeLimitsArg: ChannelHandshakeLimits,
 			channelConfigArg: ChannelConfig, acceptForwardsToPrivChannelsArg: Bool, acceptInboundChannelsArg: Bool,
-			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool, acceptMppKeysendArg: Bool,
-			manuallyHandleBolt12InvoicesArg: Bool
+			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool, manuallyHandleBolt12InvoicesArg: Bool
 		) {
 			// native call variable prep
 
@@ -622,7 +559,7 @@ extension Bindings {
 				channelHandshakeLimitsArg.dynamicallyDangledClone().cType!,
 				channelConfigArg.dynamicallyDangledClone().cType!, acceptForwardsToPrivChannelsArg,
 				acceptInboundChannelsArg, manuallyAcceptInboundChannelsArg, acceptInterceptHtlcsArg,
-				acceptMppKeysendArg, manuallyHandleBolt12InvoicesArg)
+				manuallyHandleBolt12InvoicesArg)
 
 			// cleanup
 

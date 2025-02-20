@@ -2,17 +2,19 @@
 	import LDKHeaders
 #endif
 
-/// Contains fields that are both common to [`open_channel`] and `open_channel2` messages.
+/// Contains fields that are both common to [`open_channel`] and [`open_channel2`] messages.
 ///
 /// [`open_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel-message
+/// [`open_channel2`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel2-message
 public typealias CommonOpenChannelFields = Bindings.CommonOpenChannelFields
 
 extension Bindings {
 
 
-	/// Contains fields that are both common to [`open_channel`] and `open_channel2` messages.
+	/// Contains fields that are both common to [`open_channel`] and [`open_channel2`] messages.
 	///
 	/// [`open_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel-message
+	/// [`open_channel2`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel2-message
 	public class CommonOpenChannelFields: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

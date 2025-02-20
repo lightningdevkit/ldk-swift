@@ -64,9 +64,6 @@ extension Bindings {
 
 		public enum PaymentContextType {
 
-			/// The payment context was unknown.
-			case Unknown
-
 			/// The payment was made for an invoice requested from a BOLT 12 [`Offer`].
 			///
 			/// [`Offer`]: crate::offers::offer::Offer
@@ -81,9 +78,6 @@ extension Bindings {
 
 		public func getValueType() -> PaymentContextType {
 			switch self.cType!.tag {
-				case LDKPaymentContext_Unknown:
-					return .Unknown
-
 				case LDKPaymentContext_Bolt12Offer:
 					return .Bolt12Offer
 
@@ -127,25 +121,6 @@ extension Bindings {
 					PaymentContext_clone(origPointer)
 				}
 
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = PaymentContext(
-				cType: nativeCallResult, instantiationContext: "PaymentContext.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Utility method to constructs a new Unknown-variant PaymentContext
-		public class func initWithUnknown(a: Bindings.UnknownPaymentContext) -> PaymentContext {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = PaymentContext_unknown(a.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -274,16 +249,6 @@ extension Bindings {
 			return returnValue
 		}
 
-
-		public func getValueAsUnknown() -> Bindings.UnknownPaymentContext? {
-			if self.cType?.tag != LDKPaymentContext_Unknown {
-				return nil
-			}
-
-			return UnknownPaymentContext(
-				cType: self.cType!.unknown, instantiationContext: "PaymentContext.swift::\(#function):\(#line)",
-				anchor: self)
-		}
 
 		public func getValueAsBolt12Offer() -> Bindings.Bolt12OfferContext? {
 			if self.cType?.tag != LDKPaymentContext_Bolt12Offer {

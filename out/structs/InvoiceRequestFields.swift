@@ -83,14 +83,14 @@ extension Bindings {
 		}
 
 		/// A possibly transient pubkey used to sign the invoice request.
-		public func getPayerId() -> [UInt8] {
+		public func getPayerSigningPubkey() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKInvoiceRequestFields>) in
-					InvoiceRequestFields_get_payer_id(thisPtrPointer)
+					InvoiceRequestFields_get_payer_signing_pubkey(thisPtrPointer)
 				}
 
 
@@ -109,7 +109,7 @@ extension Bindings {
 		}
 
 		/// A possibly transient pubkey used to sign the invoice request.
-		public func setPayerId(val: [UInt8]) {
+		public func setPayerSigningPubkey(val: [UInt8]) {
 			// native call variable prep
 
 			let valPrimitiveWrapper = PublicKey(
@@ -120,7 +120,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKInvoiceRequestFields>) in
-					InvoiceRequestFields_set_payer_id(thisPtrPointer, valPrimitiveWrapper.cType!)
+					InvoiceRequestFields_set_payer_signing_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
 				}
 
 
@@ -259,14 +259,84 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The Human Readable Name which the sender indicated they were paying to.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getHumanReadableName() -> HumanReadableName? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKInvoiceRequestFields>) in
+					InvoiceRequestFields_get_human_readable_name(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKHumanReadableName
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = HumanReadableName(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequestFields.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// The Human Readable Name which the sender indicated they were paying to.
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setHumanReadableName(val: HumanReadableName) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKInvoiceRequestFields>) in
+					InvoiceRequestFields_set_human_readable_name(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new InvoiceRequestFields given each field
 		///
 		/// Note that payer_note_truncated_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public init(payerIdArg: [UInt8], quantityArg: UInt64?, payerNoteTruncatedArg: UntrustedString) {
+		/// Note that human_readable_name_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(
+			payerSigningPubkeyArg: [UInt8], quantityArg: UInt64?, payerNoteTruncatedArg: UntrustedString,
+			humanReadableNameArg: HumanReadableName
+		) {
 			// native call variable prep
 
-			let payerIdArgPrimitiveWrapper = PublicKey(
-				value: payerIdArg, instantiationContext: "InvoiceRequestFields.swift::\(#function):\(#line)")
+			let payerSigningPubkeyArgPrimitiveWrapper = PublicKey(
+				value: payerSigningPubkeyArg, instantiationContext: "InvoiceRequestFields.swift::\(#function):\(#line)")
 
 			let quantityArgOption = Option_u64Z(
 				some: quantityArg, instantiationContext: "InvoiceRequestFields.swift::\(#function):\(#line)"
@@ -276,13 +346,14 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = InvoiceRequestFields_new(
-				payerIdArgPrimitiveWrapper.cType!, quantityArgOption.cType!,
-				payerNoteTruncatedArg.dynamicallyDangledClone().cType!)
+				payerSigningPubkeyArgPrimitiveWrapper.cType!, quantityArgOption.cType!,
+				payerNoteTruncatedArg.dynamicallyDangledClone().cType!,
+				humanReadableNameArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 			// for elided types, we need this
-			payerIdArgPrimitiveWrapper.noOpRetain()
+			payerSigningPubkeyArgPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 

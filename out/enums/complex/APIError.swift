@@ -96,7 +96,7 @@ extension Bindings {
 			/// a channel or cooperatively close one with this peer (and will have to force-close instead).
 			///
 			/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::sign::SignerProvider::get_shutdown_scriptpubkey
-			/// [`InitFeatures`]: crate::ln::features::InitFeatures
+			/// [`InitFeatures`]: crate::types::features::InitFeatures
 			case IncompatibleShutdownScript
 
 		}

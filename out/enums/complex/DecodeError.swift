@@ -82,7 +82,7 @@ extension Bindings {
 			/// A length descriptor in the packet didn't describe the later data correctly.
 			case BadLengthDescriptor
 
-			/// Error from [`std::io`].
+			/// Error from [`crate::io`].
 			case Io
 
 			/// The message included zlib-compressed values, which we don't support.

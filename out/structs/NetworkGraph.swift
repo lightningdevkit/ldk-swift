@@ -611,7 +611,7 @@ extension Bindings {
 		/// in the map for a while so that these can be resynced from gossip in the future.
 		///
 		/// This method is only available with the `std` feature. See
-		/// [`NetworkGraph::remove_stale_channels_and_tracking_with_time`] for `no-std` use.
+		/// [`NetworkGraph::remove_stale_channels_and_tracking_with_time`] for non-`std` use.
 		public func removeStaleChannelsAndTracking() {
 			// native call variable prep
 
@@ -674,7 +674,7 @@ extension Bindings {
 		/// [`RoutingMessageHandler`] implementation to call it indirectly. This may be useful to accept
 		/// routing messages from a source using a protocol other than the lightning P2P protocol.
 		///
-		/// If built with `no-std`, any updates with a timestamp more than two weeks in the past or
+		/// If not built with `std`, any updates with a timestamp more than two weeks in the past or
 		/// materially in the future will be rejected.
 		public func updateChannel(msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
 			// native call variable prep
@@ -708,7 +708,7 @@ extension Bindings {
 		/// of the channel without verifying the associated signatures. Because we aren't given the
 		/// associated signatures here we cannot relay the channel update to any of our peers.
 		///
-		/// If built with `no-std`, any updates with a timestamp more than two weeks in the past or
+		/// If not built with `std`, any updates with a timestamp more than two weeks in the past or
 		/// materially in the future will be rejected.
 		public func updateChannelUnsigned(msg: UnsignedChannelUpdate) -> Result_NoneLightningErrorZ {
 			// native call variable prep
@@ -742,7 +742,7 @@ extension Bindings {
 		///
 		/// This checks whether the update currently is applicable by [`Self::update_channel`].
 		///
-		/// If built with `no-std`, any updates with a timestamp more than two weeks in the past or
+		/// If not built with `std`, any updates with a timestamp more than two weeks in the past or
 		/// materially in the future will be rejected.
 		public func verifyChannelUpdate(msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
 			// native call variable prep

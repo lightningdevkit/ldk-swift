@@ -363,16 +363,17 @@ extension Bindings {
 
 			/// Indicates a request to open a new channel by a peer.
 			///
-			/// To accept the request, call [`ChannelManager::accept_inbound_channel`]. To reject the request,
-			/// call [`ChannelManager::force_close_without_broadcasting_txn`]. Note that a ['ChannelClosed`]
-			/// event will _not_ be triggered if the channel is rejected.
+			/// To accept the request (and in the case of a dual-funded channel, not contribute funds),
+			/// call [`ChannelManager::accept_inbound_channel`].
+			/// To reject the request, call [`ChannelManager::force_close_without_broadcasting_txn`].
+			/// Note that a ['ChannelClosed`] event will _not_ be triggered if the channel is rejected.
 			///
 			/// The event is only triggered when a new open channel request is received and the
 			/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true.
 			///
 			/// # Failure Behavior and Persistence
 			/// This event will eventually be replayed after failures-to-handle (i.e., the event handler
-			/// returning `Err(ReplayEvent ())`) and will be persisted across restarts.
+			/// returning `Err(ReplayEvent ())`) and won't be persisted across restarts.
 			///
 			/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
 			/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
@@ -645,7 +646,7 @@ extension Bindings {
 		public class func initWithPaymentClaimable(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], onionFields: Bindings.RecipientOnionFields,
 			amountMsat: UInt64, counterpartySkimmedFeeMsat: UInt64, purpose: PaymentPurpose,
-			viaChannelId: Bindings.ChannelId, viaUserChannelId: [UInt8]?, claimDeadline: UInt32?
+			viaChannelId: Bindings.ChannelId, viaUserChannelId: [UInt8]?, claimDeadline: UInt32?, paymentId: [UInt8]?
 		) -> Event {
 			// native call variable prep
 
@@ -665,13 +666,18 @@ extension Bindings {
 			)
 			.danglingClone()
 
+			let paymentIdOption = Option_ThirtyTwoBytesZ(
+				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Event_payment_claimable(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!,
 				onionFields.dynamicallyDangledClone().cType!, amountMsat, counterpartySkimmedFeeMsat,
 				purpose.danglingClone().cType!, viaChannelId.dynamicallyDangledClone().cType!,
-				viaUserChannelIdOption.cType!, claimDeadlineOption.cType!)
+				viaUserChannelIdOption.cType!, claimDeadlineOption.cType!, paymentIdOption.cType!)
 
 			// cleanup
 
@@ -692,7 +698,8 @@ extension Bindings {
 		/// Utility method to constructs a new PaymentClaimed-variant Event
 		public class func initWithPaymentClaimed(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose,
-			htlcs: [ClaimedHTLC], senderIntendedTotalMsat: UInt64?, onionFields: Bindings.RecipientOnionFields
+			htlcs: [ClaimedHTLC], senderIntendedTotalMsat: UInt64?, onionFields: Bindings.RecipientOnionFields,
+			paymentId: [UInt8]?
 		) -> Event {
 			// native call variable prep
 
@@ -710,12 +717,17 @@ extension Bindings {
 			)
 			.danglingClone()
 
+			let paymentIdOption = Option_ThirtyTwoBytesZ(
+				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Event_payment_claimed(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, amountMsat,
 				purpose.danglingClone().cType!, htlcsVector.cType!, senderIntendedTotalMsatOption.cType!,
-				onionFields.dynamicallyDangledClone().cType!)
+				onionFields.dynamicallyDangledClone().cType!, paymentIdOption.cType!)
 
 			// cleanup
 
@@ -1108,8 +1120,8 @@ extension Bindings {
 		/// Utility method to constructs a new PaymentForwarded-variant Event
 		public class func initWithPaymentForwarded(
 			prevChannelId: Bindings.ChannelId, nextChannelId: Bindings.ChannelId, prevUserChannelId: [UInt8]?,
-			nextUserChannelId: [UInt8]?, totalFeeEarnedMsat: UInt64?, skimmedFeeMsat: UInt64?, claimFromOnchainTx: Bool,
-			outboundAmountForwardedMsat: UInt64?
+			nextUserChannelId: [UInt8]?, prevNodeId: [UInt8], nextNodeId: [UInt8], totalFeeEarnedMsat: UInt64?,
+			skimmedFeeMsat: UInt64?, claimFromOnchainTx: Bool, outboundAmountForwardedMsat: UInt64?
 		) -> Event {
 			// native call variable prep
 
@@ -1122,6 +1134,12 @@ extension Bindings {
 				some: nextUserChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
+
+			let prevNodeIdPrimitiveWrapper = PublicKey(
+				value: prevNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+			let nextNodeIdPrimitiveWrapper = PublicKey(
+				value: nextNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
 			let totalFeeEarnedMsatOption = Option_u64Z(
 				some: totalFeeEarnedMsat, instantiationContext: "Event.swift::\(#function):\(#line)"
@@ -1142,10 +1160,17 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_payment_forwarded(
 				prevChannelId.dynamicallyDangledClone().cType!, nextChannelId.dynamicallyDangledClone().cType!,
-				prevUserChannelIdOption.cType!, nextUserChannelIdOption.cType!, totalFeeEarnedMsatOption.cType!,
-				skimmedFeeMsatOption.cType!, claimFromOnchainTx, outboundAmountForwardedMsatOption.cType!)
+				prevUserChannelIdOption.cType!, nextUserChannelIdOption.cType!, prevNodeIdPrimitiveWrapper.cType!,
+				nextNodeIdPrimitiveWrapper.cType!, totalFeeEarnedMsatOption.cType!, skimmedFeeMsatOption.cType!,
+				claimFromOnchainTx, outboundAmountForwardedMsatOption.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			prevNodeIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			nextNodeIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1229,7 +1254,7 @@ extension Bindings {
 		/// Utility method to constructs a new ChannelClosed-variant Event
 		public class func initWithChannelClosed(
 			channelId: Bindings.ChannelId, userChannelId: [UInt8], reason: ClosureReason, counterpartyNodeId: [UInt8],
-			channelCapacitySats: UInt64?, channelFundingTxo: Bindings.OutPoint
+			channelCapacitySats: UInt64?, channelFundingTxo: Bindings.OutPoint, lastLocalBalanceMsat: UInt64?
 		) -> Event {
 			// native call variable prep
 
@@ -1244,12 +1269,18 @@ extension Bindings {
 			)
 			.danglingClone()
 
+			let lastLocalBalanceMsatOption = Option_u64Z(
+				some: lastLocalBalanceMsat, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Event_channel_closed(
 				channelId.dynamicallyDangledClone().cType!, userChannelIdPrimitiveWrapper.cType!,
 				reason.danglingClone().cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
-				channelCapacitySatsOption.cType!, channelFundingTxo.dynamicallyDangledClone().cType!)
+				channelCapacitySatsOption.cType!, channelFundingTxo.dynamicallyDangledClone().cType!,
+				lastLocalBalanceMsatOption.cType!)
 
 			// cleanup
 
@@ -1289,7 +1320,7 @@ extension Bindings {
 		/// Utility method to constructs a new OpenChannelRequest-variant Event
 		public class func initWithOpenChannelRequest(
 			temporaryChannelId: Bindings.ChannelId, counterpartyNodeId: [UInt8], fundingSatoshis: UInt64,
-			pushMsat: UInt64, channelType: Bindings.ChannelTypeFeatures, isAnnounced: Bool,
+			channelNegotiationType: InboundChannelFunds, channelType: Bindings.ChannelTypeFeatures, isAnnounced: Bool,
 			params: Bindings.ChannelParameters
 		) -> Event {
 			// native call variable prep
@@ -1301,8 +1332,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_open_channel_request(
 				temporaryChannelId.dynamicallyDangledClone().cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
-				fundingSatoshis, pushMsat, channelType.dynamicallyDangledClone().cType!, isAnnounced,
-				params.dynamicallyDangledClone().cType!)
+				fundingSatoshis, channelNegotiationType.danglingClone().cType!,
+				channelType.dynamicallyDangledClone().cType!, isAnnounced, params.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -2189,6 +2220,24 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// A unique ID describing this payment (derived from the list of HTLCs in the payment).
+			///
+			/// Payers may pay for the same [`PaymentHash`] multiple times (though this is unsafe and
+			/// an intermediary node may steal the funds). Thus, in order to accurately track when
+			/// payments are received and claimed, you should use this identifier.
+			///
+			/// Only filled in for payments received on LDK versions 0.1 and higher.
+			public func getPaymentId() -> [UInt8]? {
+				// return value (do some wrapping)
+				let returnValue = Option_ThirtyTwoBytesZ(
+					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
 
 		}
 
@@ -2337,6 +2386,24 @@ extension Bindings {
 				let returnValue = Bindings.RecipientOnionFields(
 					cType: self.cType!.onion_fields, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self)
+
+				return returnValue
+			}
+
+			/// A unique ID describing this payment (derived from the list of HTLCs in the payment).
+			///
+			/// Payers may pay for the same [`PaymentHash`] multiple times (though this is unsafe and
+			/// an intermediary node may steal the funds). Thus, in order to accurately track when
+			/// payments are received and claimed, you should use this identifier.
+			///
+			/// Only filled in for payments received on LDK versions 0.1 and higher.
+			public func getPaymentId() -> [UInt8]? {
+				// return value (do some wrapping)
+				let returnValue = Option_ThirtyTwoBytesZ(
+					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}
@@ -3604,6 +3671,40 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// The node id of the previous node.
+			///
+			/// This is only `None` for HTLCs received prior to 0.1 or for events serialized by
+			/// versions prior to 0.1
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getPrevNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.prev_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The node id of the next node.
+			///
+			/// This is only `None` for HTLCs received prior to 0.1 or for events serialized by
+			/// versions prior to 0.1
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getNextNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.next_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
 			/// The total fee, in milli-satoshis, which was earned as a result of the payment.
 			///
 			/// Note that if we force-closed the channel over which we forwarded an HTLC while the HTLC
@@ -4069,6 +4170,27 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// An upper bound on the our last local balance in msats before the channel was closed.
+			///
+			/// Will overstate our balance as it ignores pending outbound HTLCs and transaction fees.
+			///
+			/// For more accurate balances including fee information see
+			/// [`ChainMonitor::get_claimable_balances`].
+			///
+			/// This field will be `None` only for objects serialized prior to LDK 0.1.
+			///
+			/// [`ChainMonitor::get_claimable_balances`]: crate::chain::chainmonitor::ChainMonitor::get_claimable_balances
+			public func getLastLocalBalanceMsat() -> UInt64? {
+				// return value (do some wrapping)
+				let returnValue = Option_u64Z(
+					cType: self.cType!.last_local_balance_msat,
+					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
 
 		}
 
@@ -4254,10 +4376,14 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// Our starting balance in the channel if the request is accepted, in milli-satoshi.
-			public func getPushMsat() -> UInt64 {
+			/// If `channel_negotiation_type` is `InboundChannelFunds::DualFunded`, this indicates that the peer wishes to
+			/// open a dual-funded channel. Otherwise, this field will be `InboundChannelFunds::PushMsats`,
+			/// indicating the `push_msats` value our peer is pushing to us for a non-dual-funded channel.
+			public func getChannelNegotiationType() -> InboundChannelFunds {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.push_msat
+				let returnValue = InboundChannelFunds(
+					cType: self.cType!.channel_negotiation_type,
+					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 				return returnValue
 			}

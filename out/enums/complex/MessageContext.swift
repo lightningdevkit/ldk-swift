@@ -70,6 +70,17 @@ extension Bindings {
 			/// [`OffersMessage`]: crate::onion_message::offers::OffersMessage
 			case Offers
 
+			/// Context specific to an [`AsyncPaymentsMessage`].
+			///
+			/// [`AsyncPaymentsMessage`]: crate::onion_message::async_payments::AsyncPaymentsMessage
+			case AsyncPayments
+
+			/// Represents a context for a blinded path used in a reply path when requesting a DNSSEC proof
+			/// in a [`DNSResolverMessage`].
+			///
+			/// [`DNSResolverMessage`]: crate::onion_message::dns_resolution::DNSResolverMessage
+			case DNSResolver
+
 			/// Context specific to a [`CustomOnionMessageHandler::CustomMessage`].
 			///
 			/// [`CustomOnionMessageHandler::CustomMessage`]: crate::onion_message::messenger::CustomOnionMessageHandler::CustomMessage
@@ -81,6 +92,12 @@ extension Bindings {
 			switch self.cType!.tag {
 				case LDKMessageContext_Offers:
 					return .Offers
+
+				case LDKMessageContext_AsyncPayments:
+					return .AsyncPayments
+
+				case LDKMessageContext_DNSResolver:
+					return .DNSResolver
 
 				case LDKMessageContext_Custom:
 					return .Custom
@@ -141,6 +158,44 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = MessageContext_offers(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageContext(
+				cType: nativeCallResult, instantiationContext: "MessageContext.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new AsyncPayments-variant MessageContext
+		public class func initWithAsyncPayments(a: AsyncPaymentsContext) -> MessageContext {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = MessageContext_async_payments(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageContext(
+				cType: nativeCallResult, instantiationContext: "MessageContext.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new DNSResolver-variant MessageContext
+		public class func initWithDnsresolver(a: Bindings.DNSResolverContext) -> MessageContext {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = MessageContext_dnsresolver(a.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -236,6 +291,26 @@ extension Bindings {
 
 			return OffersContext(
 				cType: self.cType!.offers, instantiationContext: "MessageContext.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsAsyncPayments() -> AsyncPaymentsContext? {
+			if self.cType?.tag != LDKMessageContext_AsyncPayments {
+				return nil
+			}
+
+			return AsyncPaymentsContext(
+				cType: self.cType!.async_payments, instantiationContext: "MessageContext.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsDnsResolver() -> Bindings.DNSResolverContext? {
+			if self.cType?.tag != LDKMessageContext_DNSResolver {
+				return nil
+			}
+
+			return DNSResolverContext(
+				cType: self.cType!.dns_resolver, instantiationContext: "MessageContext.swift::\(#function):\(#line)",
 				anchor: self)
 		}
 

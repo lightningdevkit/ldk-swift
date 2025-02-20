@@ -67,6 +67,9 @@ extension Bindings {
 			/// A message related to BOLT 12 Offers.
 			case Offers
 
+			/// A message requesting or providing a DNSSEC proof
+			case DNSResolver
+
 			/// A custom onion message specified by the user.
 			case Custom
 
@@ -76,6 +79,9 @@ extension Bindings {
 			switch self.cType!.tag {
 				case LDKParsedOnionMessageContents_Offers:
 					return .Offers
+
+				case LDKParsedOnionMessageContents_DNSResolver:
+					return .DNSResolver
 
 				case LDKParsedOnionMessageContents_Custom:
 					return .Custom
@@ -138,6 +144,26 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = ParsedOnionMessageContents_offers(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ParsedOnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "ParsedOnionMessageContents.swift::\(#function):\(#line)"
+			)
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new DNSResolver-variant ParsedOnionMessageContents
+		public class func initWithDnsresolver(a: DNSResolverMessage) -> ParsedOnionMessageContents {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ParsedOnionMessageContents_dnsresolver(a.danglingClone().cType!)
 
 			// cleanup
 
@@ -230,6 +256,16 @@ extension Bindings {
 
 			return OffersMessage(
 				cType: self.cType!.offers,
+				instantiationContext: "ParsedOnionMessageContents.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsDnsResolver() -> DNSResolverMessage? {
+			if self.cType?.tag != LDKParsedOnionMessageContents_DNSResolver {
+				return nil
+			}
+
+			return DNSResolverMessage(
+				cType: self.cType!.dns_resolver,
 				instantiationContext: "ParsedOnionMessageContents.swift::\(#function):\(#line)", anchor: self)
 		}
 

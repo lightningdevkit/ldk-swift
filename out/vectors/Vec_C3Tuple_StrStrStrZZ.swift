@@ -2,15 +2,15 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::lightning::util::errors::APIErrors of arbitrary size.
+/// A dynamically-allocated array of crate::c_types::derived::C3Tuple_StrStrStrZs of arbitrary size.
 /// This corresponds to std::vector in C++
-internal typealias Vec_APIErrorZ = Bindings.Vec_APIErrorZ
+internal typealias Vec_C3Tuple_StrStrStrZZ = Bindings.Vec_C3Tuple_StrStrStrZZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::lightning::util::errors::APIErrors of arbitrary size.
+	/// A dynamically-allocated array of crate::c_types::derived::C3Tuple_StrStrStrZs of arbitrary size.
 	/// This corresponds to std::vector in C++
-	internal class Vec_APIErrorZ: NativeTypeWrapper {
+	internal class Vec_C3Tuple_StrStrStrZZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -25,9 +25,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCVec_APIErrorZ?
+		internal var cType: LDKCVec_C3Tuple_StrStrStrZZ?
 
-		internal init(cType: LDKCVec_APIErrorZ, instantiationContext: String) {
+		internal init(cType: LDKCVec_C3Tuple_StrStrStrZZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -35,7 +35,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKCVec_APIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKCVec_C3Tuple_StrStrStrZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -46,7 +46,8 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCVec_APIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
+			cType: LDKCVec_C3Tuple_StrStrStrZZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -58,28 +59,34 @@ extension Bindings {
 		}
 
 
-		internal init(array: [APIError], instantiationContext: String) {
+		internal init(array: [(String, String, String)], instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 
-			let rustArray = array.map { (currentValueDepth1: APIError) -> LDKAPIError in
+			let rustArray = array.map { (currentValueDepth1: (String, String, String)) -> LDKC3Tuple_StrStrStrZ in
 
-				return currentValueDepth1.danglingClone().cType!
+				let currentValueDepth1Tuple = Tuple_StrStrStrZ(
+					tuple: currentValueDepth1,
+					instantiationContext: "Vec_C3Tuple_StrStrStrZZ.swift::\(#function):\(#line)"
+				)
+				.danglingClone()
+
+				return currentValueDepth1Tuple.cType!
 			}
 
 
-			let dataContainer = UnsafeMutablePointer<LDKAPIError>.allocate(capacity: array.count)
+			let dataContainer = UnsafeMutablePointer<LDKC3Tuple_StrStrStrZ>.allocate(capacity: array.count)
 			dataContainer.initialize(from: rustArray, count: array.count)
 
-			let vector = LDKCVec_APIErrorZ(data: dataContainer, datalen: UInt(array.count))
+			let vector = LDKCVec_C3Tuple_StrStrStrZZ(data: dataContainer, datalen: UInt(array.count))
 			self.cType = vector
 		}
 
-		public func getValue() -> [APIError] {
+		public func getValue() -> [(String, String, String)] {
 
-			var array = [LDKAPIError]()
+			var array = [LDKC3Tuple_StrStrStrZ]()
 
 
 			for index1 in 0..<Int(self.cType!.datalen) {
@@ -88,12 +95,11 @@ extension Bindings {
 			}
 
 
-			let swiftArray = array.map { (currentCType: LDKAPIError) -> APIError in
-				APIError(
-					cType: currentCType, instantiationContext: "Vec_APIErrorZ.swift::\(#function):\(#line)",
-					anchor: self
+			let swiftArray = array.map { (currentCType: LDKC3Tuple_StrStrStrZ) -> (String, String, String) in
+				Tuple_StrStrStrZ(
+					cType: currentCType, instantiationContext: "Vec_C3Tuple_StrStrStrZZ.swift::\(#function):\(#line)"
 				)
-				.dangle()
+				.dangle().getValue()
 			}
 			return swiftArray
 		}
@@ -105,7 +111,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CVec_APIErrorZ_free(self.cType!)
+			let nativeCallResult = CVec_C3Tuple_StrStrStrZZ_free(self.cType!)
 
 			// cleanup
 
@@ -126,13 +132,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Vec_APIErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+						"Freeing Vec_C3Tuple_StrStrStrZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Vec_APIErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Vec_C3Tuple_StrStrStrZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

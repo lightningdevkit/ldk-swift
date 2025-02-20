@@ -67,8 +67,25 @@ extension Bindings {
 			/// We were unable to find a route to the destination.
 			case RouteNotFound
 
-			/// We failed to send the payment probes.
-			case SendingFailed
+			/// A parameter which was passed to [`ChannelManager::send_probe`] was invalid, preventing us from
+			/// attempting to send the probe at all.
+			///
+			/// You can freely resend the probe (with the parameter error fixed).
+			///
+			/// Because the probe failed outright, no payment tracking is done and no
+			/// [`Event::ProbeFailed`] events will be generated.
+			///
+			/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
+			/// [`Event::ProbeFailed`]: crate::events::Event::ProbeFailed
+			case ParameterError
+
+			/// Indicates that a payment for the provided [`PaymentId`] is already in-flight and has not
+			/// yet completed (i.e. generated an [`Event::ProbeSuccessful`] or [`Event::ProbeFailed`]).
+			///
+			/// [`PaymentId`]: crate::ln::channelmanager::PaymentId
+			/// [`Event::ProbeSuccessful`]: crate::events::Event::ProbeSuccessful
+			/// [`Event::ProbeFailed`]: crate::events::Event::ProbeFailed
+			case DuplicateProbe
 
 		}
 
@@ -77,8 +94,11 @@ extension Bindings {
 				case LDKProbeSendFailure_RouteNotFound:
 					return .RouteNotFound
 
-				case LDKProbeSendFailure_SendingFailed:
-					return .SendingFailed
+				case LDKProbeSendFailure_ParameterError:
+					return .ParameterError
+
+				case LDKProbeSendFailure_DuplicateProbe:
+					return .DuplicateProbe
 
 				default:
 					Bindings.print("Error: Invalid value type for ProbeSendFailure! Aborting.", severity: .ERROR)
@@ -148,13 +168,32 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Utility method to constructs a new SendingFailed-variant ProbeSendFailure
-		public class func initWithSendingFailed(a: PaymentSendFailure) -> ProbeSendFailure {
+		/// Utility method to constructs a new ParameterError-variant ProbeSendFailure
+		public class func initWithParameterError(a: APIError) -> ProbeSendFailure {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = ProbeSendFailure_sending_failed(a.danglingClone().cType!)
+			let nativeCallResult = ProbeSendFailure_parameter_error(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ProbeSendFailure(
+				cType: nativeCallResult, instantiationContext: "ProbeSendFailure.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new DuplicateProbe-variant ProbeSendFailure
+		public class func initWithDuplicateProbe() -> ProbeSendFailure {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ProbeSendFailure_duplicate_probe()
 
 			// cleanup
 
@@ -195,13 +234,13 @@ extension Bindings {
 		}
 
 
-		public func getValueAsSendingFailed() -> PaymentSendFailure? {
-			if self.cType?.tag != LDKProbeSendFailure_SendingFailed {
+		public func getValueAsParameterError() -> APIError? {
+			if self.cType?.tag != LDKProbeSendFailure_ParameterError {
 				return nil
 			}
 
-			return PaymentSendFailure(
-				cType: self.cType!.sending_failed,
+			return APIError(
+				cType: self.cType!.parameter_error,
 				instantiationContext: "ProbeSendFailure.swift::\(#function):\(#line)", anchor: self)
 		}
 

@@ -207,20 +207,29 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new InboundPayment-variant OffersContext
-		public class func initWithInboundPayment(paymentHash: [UInt8]) -> OffersContext {
+		public class func initWithInboundPayment(paymentHash: [UInt8], nonce: Bindings.Nonce, hmac: [UInt8])
+			-> OffersContext
+		{
 			// native call variable prep
 
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentHash, instantiationContext: "OffersContext.swift::\(#function):\(#line)")
 
+			let hmacPrimitiveWrapper = ThirtyTwoBytes(
+				value: hmac, instantiationContext: "OffersContext.swift::\(#function):\(#line)")
+
 
 			// native method call
-			let nativeCallResult = OffersContext_inbound_payment(paymentHashPrimitiveWrapper.cType!)
+			let nativeCallResult = OffersContext_inbound_payment(
+				paymentHashPrimitiveWrapper.cType!, nonce.dynamicallyDangledClone().cType!, hmacPrimitiveWrapper.cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			paymentHashPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			hmacPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -611,6 +620,35 @@ extension Bindings {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(
 					cType: self.cType!.payment_hash, instantiationContext: "OffersContext.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// A nonce used for authenticating that a received [`InvoiceError`] is for a valid
+			/// sent [`Bolt12Invoice`].
+			///
+			/// [`InvoiceError`]: crate::offers::invoice_error::InvoiceError
+			/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+			public func getNonce() -> Bindings.Nonce {
+				// return value (do some wrapping)
+				let returnValue = Bindings.Nonce(
+					cType: self.cType!.nonce, instantiationContext: "OffersContext.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+			/// Authentication code for the [`PaymentHash`], which should be checked when the context is
+			/// used to log the received [`InvoiceError`].
+			///
+			/// [`InvoiceError`]: crate::offers::invoice_error::InvoiceError
+			public func getHmac() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.hmac, instantiationContext: "OffersContext.swift::\(#function):\(#line)",
 					anchor: self
 				)
 				.getValue()

@@ -2,13 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A tx_add_output message for adding an output during interactive transaction construction.
+/// A [`tx_add_output`] message for adding an output during interactive transaction construction.
+///
+/// [`tx_add_output`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_add_output-message
 public typealias TxAddOutput = Bindings.TxAddOutput
 
 extension Bindings {
 
 
-	/// A tx_add_output message for adding an output during interactive transaction construction.
+	/// A [`tx_add_output`] message for adding an output during interactive transaction construction.
+	///
+	/// [`tx_add_output`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_add_output-message
 	public class TxAddOutput: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

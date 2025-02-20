@@ -92,7 +92,8 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CResult_SignedRawBolt11InvoiceBolt11ParseErrorZ_err(e.danglingClone().cType!)
+			let nativeCallResult = CResult_SignedRawBolt11InvoiceBolt11ParseErrorZ_err(
+				e.dynamicallyDangledClone().cType!)
 
 			// cleanup
 

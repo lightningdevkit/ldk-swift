@@ -2,15 +2,19 @@
 	import LDKHeaders
 #endif
 
-/// A tx_signatures message containing the sender's signatures for a transaction constructed with
+/// A [`tx_signatures`] message containing the sender's signatures for a transaction constructed with
 /// interactive transaction construction.
+///
+/// [`tx_signatures`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_signatures-message
 public typealias TxSignatures = Bindings.TxSignatures
 
 extension Bindings {
 
 
-	/// A tx_signatures message containing the sender's signatures for a transaction constructed with
+	/// A [`tx_signatures`] message containing the sender's signatures for a transaction constructed with
 	/// interactive transaction construction.
+	///
+	/// [`tx_signatures`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_signatures-message
 	public class TxSignatures: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

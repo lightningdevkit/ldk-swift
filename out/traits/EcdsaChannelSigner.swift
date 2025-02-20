@@ -13,6 +13,15 @@ import Foundation
 /// policies in order to be secure. Please refer to the [VLS Policy
 /// Controls](https://gitlab.com/lightning-signer/validating-lightning-signer/-/blob/main/docs/policy-controls.md)
 /// for an example of such policies.
+///
+/// Like [`ChannelSigner`], many of the methods allow errors to be returned to support async
+/// signing. In such cases, the signing operation can be replayed by calling
+/// [`ChannelManager::signer_unblocked`] or [`ChainMonitor::signer_unblocked`] (see individual
+/// method documentation for which method should be called) once the result is ready, at which
+/// point the channel operation will resume.
+///
+/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
+/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 public typealias EcdsaChannelSigner = Bindings.EcdsaChannelSigner
 
 extension Bindings {
@@ -24,6 +33,15 @@ extension Bindings {
 	/// policies in order to be secure. Please refer to the [VLS Policy
 	/// Controls](https://gitlab.com/lightning-signer/validating-lightning-signer/-/blob/main/docs/policy-controls.md)
 	/// for an example of such policies.
+	///
+	/// Like [`ChannelSigner`], many of the methods allow errors to be returned to support async
+	/// signing. In such cases, the signing operation can be replayed by calling
+	/// [`ChannelManager::signer_unblocked`] or [`ChainMonitor::signer_unblocked`] (see individual
+	/// method documentation for which method should be called) once the result is ready, at which
+	/// point the channel operation will resume.
+	///
+	/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
+	/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 	open class EcdsaChannelSigner: NativeTraitWrapper {
 
 
@@ -360,6 +378,31 @@ extension Bindings {
 				return returnValue
 			}
 
+			func signSplicingFundingInputLambda(
+				this_arg: UnsafeRawPointer?, tx: LDKTransaction, input_index: UInt, input_value: UInt64
+			) -> LDKCResult_ECDSASignatureNoneZ {
+				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signSplicingFundingInputLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.signSplicingFundingInput(
+					tx: Transaction(
+						cType: tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(), inputIndex: input_index, inputValue: input_value)
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::freeLambda")
@@ -391,6 +434,7 @@ extension Bindings {
 				sign_closing_transaction: signClosingTransactionLambda,
 				sign_holder_anchor_input: signHolderAnchorInputLambda,
 				sign_channel_announcement_with_funding_key: signChannelAnnouncementWithFundingKeyLambda,
+				sign_splicing_funding_input: signSplicingFundingInputLambda,
 				ChannelSigner: channelSigner.activate().cType!,
 				cloned: nil,
 				free: freeLambda
@@ -399,8 +443,6 @@ extension Bindings {
 
 
 		/// Create a signature for a counterparty's commitment transaction and associated HTLC transactions.
-		///
-		/// Note that if signing fails or is rejected, the channel will be force-closed.
 		///
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
@@ -412,6 +454,12 @@ extension Bindings {
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		open func signCounterpartyCommitment(
 			commitmentTx: CommitmentTransaction, inboundHtlcPreimages: [[UInt8]], outboundHtlcPreimages: [[UInt8]]
 		) -> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
@@ -435,9 +483,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signHolderCommitment(commitmentTx: HolderCommitmentTransaction) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
@@ -464,9 +513,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signJusticeRevokedOutput(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?)
 			-> Result_ECDSASignatureNoneZ
 		{
@@ -499,9 +549,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signJusticeRevokedHtlc(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment
 		) -> Result_ECDSASignatureNoneZ {
@@ -523,11 +574,12 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::sighash::EcdsaSighashType::All
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
 		{
@@ -559,9 +611,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signCounterpartyHtlcTransaction(
 			htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment
 		) -> Result_ECDSASignatureNoneZ {
@@ -576,6 +629,12 @@ extension Bindings {
 		///
 		/// Note that, due to rounding, there may be one \"missing\" satoshi, and either party may have
 		/// chosen to forgo their output as dust.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		open func signClosingTransaction(closingTx: ClosingTransaction) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
@@ -590,9 +649,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		open func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
@@ -607,9 +667,9 @@ extension Bindings {
 		/// Channel announcements also require a signature from each node's network key. Our node
 		/// signature is computed through [`NodeSigner::sign_gossip_message`].
 		///
-		/// Note that if this fails or is rejected, the channel will not be publicly announced and
-		/// our counterparty may (though likely will not) close the channel on us for violating the
-		/// protocol.
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will not be
+		/// publicly announced and our counterparty may (though likely will not) close the channel on
+		/// us for violating the protocol.
 		///
 		/// [`NodeSigner::sign_gossip_message`]: crate::sign::NodeSigner::sign_gossip_message
 		open func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_ECDSASignatureNoneZ
@@ -617,6 +677,28 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signChannelAnnouncementWithFundingKey MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Signs the input of a splicing funding transaction with our funding key.
+		///
+		/// In splicing, the previous funding transaction output is spent as the input of
+		/// the new funding transaction, and is a 2-of-2 multisig.
+		///
+		/// `input_index`: The index of the input within the new funding transaction `tx`,
+		/// spending the previous funding transaction's output
+		///
+		/// `input_value`: The value of the previous funding transaction output.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed.
+		open func signSplicingFundingInput(tx: [UInt8], inputIndex: UInt, inputValue: UInt64)
+			-> Result_ECDSASignatureNoneZ
+		{
+
+			Bindings.print(
+				"Error: EcdsaChannelSigner::signSplicingFundingInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -693,8 +775,6 @@ extension Bindings {
 
 		/// Create a signature for a counterparty's commitment transaction and associated HTLC transactions.
 		///
-		/// Note that if signing fails or is rejected, the channel will be force-closed.
-		///
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
 		///
@@ -705,6 +785,12 @@ extension Bindings {
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		public override func signCounterpartyCommitment(
 			commitmentTx: CommitmentTransaction, inboundHtlcPreimages: [[UInt8]], outboundHtlcPreimages: [[UInt8]]
 		) -> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
@@ -759,9 +845,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signHolderCommitment(commitmentTx: HolderCommitmentTransaction)
 			-> Result_ECDSASignatureNoneZ
 		{
@@ -804,9 +891,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signJusticeRevokedOutput(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?
 		) -> Result_ECDSASignatureNoneZ {
@@ -868,9 +956,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signJusticeRevokedHtlc(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment
 		) -> Result_ECDSASignatureNoneZ {
@@ -925,11 +1014,12 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::sighash::EcdsaSighashType::All
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
 		{
@@ -985,9 +1075,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signCounterpartyHtlcTransaction(
 			htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment
 		) -> Result_ECDSASignatureNoneZ {
@@ -1032,6 +1123,12 @@ extension Bindings {
 		///
 		/// Note that, due to rounding, there may be one \"missing\" satoshi, and either party may have
 		/// chosen to forgo their output as dust.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		public override func signClosingTransaction(closingTx: ClosingTransaction) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
@@ -1059,9 +1156,10 @@ extension Bindings {
 		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
 		/// signature and should be retried later. Once the signer is ready to provide a signature after
 		/// previously returning an `Err`, [`ChannelMonitor::signer_unblocked`] must be called on its
-		/// monitor.
+		/// monitor or [`ChainMonitor::signer_unblocked`] called to attempt unblocking all monitors.
 		///
 		/// [`ChannelMonitor::signer_unblocked`]: crate::chain::channelmonitor::ChannelMonitor::signer_unblocked
+		/// [`ChainMonitor::signer_unblocked`]: crate::chain::chainmonitor::ChainMonitor::signer_unblocked
 		public override func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
@@ -1094,9 +1192,9 @@ extension Bindings {
 		/// Channel announcements also require a signature from each node's network key. Our node
 		/// signature is computed through [`NodeSigner::sign_gossip_message`].
 		///
-		/// Note that if this fails or is rejected, the channel will not be publicly announced and
-		/// our counterparty may (though likely will not) close the channel on us for violating the
-		/// protocol.
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will not be
+		/// publicly announced and our counterparty may (though likely will not) close the channel on
+		/// us for violating the protocol.
 		///
 		/// [`NodeSigner::sign_gossip_message`]: crate::sign::NodeSigner::sign_gossip_message
 		public override func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement)
@@ -1113,6 +1211,46 @@ extension Bindings {
 
 
 			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_ECDSASignatureNoneZ(
+				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Signs the input of a splicing funding transaction with our funding key.
+		///
+		/// In splicing, the previous funding transaction output is spent as the input of
+		/// the new funding transaction, and is a 2-of-2 multisig.
+		///
+		/// `input_index`: The index of the input within the new funding transaction `tx`,
+		/// spending the previous funding transaction's output
+		///
+		/// `input_value`: The value of the previous funding transaction output.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed.
+		public override func signSplicingFundingInput(tx: [UInt8], inputIndex: UInt, inputValue: UInt64)
+			-> Result_ECDSASignatureNoneZ
+		{
+			// native call variable prep
+
+			let txPrimitiveWrapper = Transaction(
+				value: tx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.sign_splicing_funding_input(self.cType!.this_arg, txPrimitiveWrapper.cType!, inputIndex, inputValue)
+
+			// cleanup
+
+			// for elided types, we need this
+			txPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)

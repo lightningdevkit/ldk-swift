@@ -167,6 +167,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Constructs a new MigratableKVStore which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned MigratableKVStore must be freed before this_arg is
+		public func asMigratableKVStore() -> MigratableKVStore {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKFilesystemStore>) in
+					FilesystemStore_as_MigratableKVStore(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedMigratableKVStore(
+				cType: nativeCallResult, instantiationContext: "FilesystemStore.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

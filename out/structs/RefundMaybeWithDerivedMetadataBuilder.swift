@@ -113,8 +113,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new builder for a refund using the [`Refund::payer_id`] for the public node id to
-		/// send to if no [`Refund::paths`] are set. Otherwise, it may be a transient pubkey.
+		/// Creates a new builder for a refund using the `signing_pubkey` for the public node id to send
+		/// to if no [`Refund::paths`] are set. Otherwise, `signing_pubkey` may be a transient pubkey.
 		///
 		/// Additionally, sets the required (empty) [`Refund::description`], [`Refund::payer_metadata`],
 		/// and [`Refund::amount_msats`].
@@ -126,7 +126,7 @@ extension Bindings {
 		///
 		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		/// [`ChannelManager::create_refund_builder`]: crate::ln::channelmanager::ChannelManager::create_refund_builder
-		public class func new(metadata: [UInt8], payerId: [UInt8], amountMsats: UInt64)
+		public class func new(metadata: [UInt8], signingPubkey: [UInt8], amountMsats: UInt64)
 			-> Result_RefundMaybeWithDerivedMetadataBuilderBolt12SemanticErrorZ
 		{
 			// native call variable prep
@@ -137,21 +137,21 @@ extension Bindings {
 			)
 			.dangle()
 
-			let payerIdPrimitiveWrapper = PublicKey(
-				value: payerId,
+			let signingPubkeyPrimitiveWrapper = PublicKey(
+				value: signingPubkey,
 				instantiationContext: "RefundMaybeWithDerivedMetadataBuilder.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult = RefundMaybeWithDerivedMetadataBuilder_new(
-				metadataVector.cType!, payerIdPrimitiveWrapper.cType!, amountMsats)
+				metadataVector.cType!, signingPubkeyPrimitiveWrapper.cType!, amountMsats)
 
 			// cleanup
 
 			// metadataVector.noOpRetain()
 
 			// for elided types, we need this
-			payerIdPrimitiveWrapper.noOpRetain()
+			signingPubkeyPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -180,7 +180,7 @@ extension Bindings {
 		/// [`Bolt12Invoice::verify_using_metadata`]: crate::offers::invoice::Bolt12Invoice::verify_using_metadata
 		/// [`Bolt12Invoice::verify_using_payer_data`]: crate::offers::invoice::Bolt12Invoice::verify_using_payer_data
 		/// [`ExpandedKey`]: crate::ln::inbound_payment::ExpandedKey
-		public class func derivingPayerId(
+		public class func derivingSigningPubkey(
 			nodeId: [UInt8], expandedKey: ExpandedKey, nonce: Nonce, amountMsats: UInt64, paymentId: [UInt8]
 		) -> Result_RefundMaybeWithDerivedMetadataBuilderBolt12SemanticErrorZ {
 			// native call variable prep
@@ -197,7 +197,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: expandedKey.cType!) { (expandedKeyPointer: UnsafePointer<LDKExpandedKey>) in
-					RefundMaybeWithDerivedMetadataBuilder_deriving_payer_id(
+					RefundMaybeWithDerivedMetadataBuilder_deriving_signing_pubkey(
 						nodeIdPrimitiveWrapper.cType!, expandedKeyPointer, nonce.dynamicallyDangledClone().cType!,
 						amountMsats, paymentIdPrimitiveWrapper.cType!)
 				}
@@ -252,8 +252,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Sets the [`Refund::absolute_expiry`] as seconds since the Unix epoch. Any expiry that has
-		/// already passed is valid and can be checked for using [`Refund::is_expired`].
+		/// Sets the [`Refund::absolute_expiry`] as seconds since the Unix epoch.
+		/// Any expiry that has already passed is valid and can be checked for using [`Refund::is_expired`].
 		///
 		/// Successive calls to this method will override the previous setting.
 		public func absoluteExpiry(absoluteExpiry: UInt64) {
@@ -305,7 +305,7 @@ extension Bindings {
 		}
 
 		/// Adds a blinded path to [`Refund::paths`]. Must include at least one path if only connected
-		/// by private channels or if [`Refund::payer_id`] is not a public node id.
+		/// by private channels or if [`Refund::payer_signing_pubkey`] is not a public node id.
 		///
 		/// Successive calls to this method will add another blinded path. Caller is responsible for not
 		/// adding duplicate paths.

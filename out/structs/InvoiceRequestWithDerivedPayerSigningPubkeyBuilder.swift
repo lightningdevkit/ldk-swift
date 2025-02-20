@@ -7,7 +7,8 @@
 /// See [module-level documentation] for usage.
 ///
 /// [module-level documentation]: self
-public typealias InvoiceRequestWithDerivedPayerIdBuilder = Bindings.InvoiceRequestWithDerivedPayerIdBuilder
+public typealias InvoiceRequestWithDerivedPayerSigningPubkeyBuilder = Bindings
+	.InvoiceRequestWithDerivedPayerSigningPubkeyBuilder
 
 extension Bindings {
 
@@ -17,7 +18,7 @@ extension Bindings {
 	/// See [module-level documentation] for usage.
 	///
 	/// [module-level documentation]: self
-	public class InvoiceRequestWithDerivedPayerIdBuilder: NativeTypeWrapper {
+	public class InvoiceRequestWithDerivedPayerSigningPubkeyBuilder: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
 
@@ -34,9 +35,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKInvoiceRequestWithDerivedPayerIdBuilder?
+		internal var cType: LDKInvoiceRequestWithDerivedPayerSigningPubkeyBuilder?
 
-		internal init(cType: LDKInvoiceRequestWithDerivedPayerIdBuilder, instantiationContext: String) {
+		internal init(cType: LDKInvoiceRequestWithDerivedPayerSigningPubkeyBuilder, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -45,7 +46,8 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKInvoiceRequestWithDerivedPayerIdBuilder, instantiationContext: String, anchor: NativeTypeWrapper
+			cType: LDKInvoiceRequestWithDerivedPayerSigningPubkeyBuilder, instantiationContext: String,
+			anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -57,8 +59,8 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKInvoiceRequestWithDerivedPayerIdBuilder, instantiationContext: String, anchor: NativeTypeWrapper,
-			dangle: Bool = false
+			cType: LDKInvoiceRequestWithDerivedPayerSigningPubkeyBuilder, instantiationContext: String,
+			anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -70,13 +72,13 @@ extension Bindings {
 		}
 
 
-		/// Frees any resources used by the InvoiceRequestWithDerivedPayerIdBuilder, if is_owned is set and inner is non-NULL.
+		/// Frees any resources used by the InvoiceRequestWithDerivedPayerSigningPubkeyBuilder, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_free(self.cType!)
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_free(self.cType!)
 
 			// cleanup
 
@@ -98,7 +100,8 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_build_and_sign(self.dangle().cType!)
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_build_and_sign(
+				self.dangle().cType!)
 
 			// cleanup
 
@@ -106,7 +109,7 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_InvoiceRequestBolt12SemanticErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "InvoiceRequestWithDerivedPayerIdBuilder.swift::\(#function):\(#line)")
+				instantiationContext: "InvoiceRequestWithDerivedPayerSigningPubkeyBuilder.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -126,7 +129,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_chain(
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_chain(
 				self.dangle().cType!, network.getCValue())
 
 			// cleanup
@@ -135,7 +138,7 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_NoneBolt12SemanticErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "InvoiceRequestWithDerivedPayerIdBuilder.swift::\(#function):\(#line)")
+				instantiationContext: "InvoiceRequestWithDerivedPayerSigningPubkeyBuilder.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -156,7 +159,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_amount_msats(
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_amount_msats(
 				self.dangle().cType!, amountMsats)
 
 			// cleanup
@@ -165,7 +168,7 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_NoneBolt12SemanticErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "InvoiceRequestWithDerivedPayerIdBuilder.swift::\(#function):\(#line)")
+				instantiationContext: "InvoiceRequestWithDerivedPayerSigningPubkeyBuilder.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -184,7 +187,8 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_quantity(self.dangle().cType!, quantity)
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_quantity(
+				self.dangle().cType!, quantity)
 
 			// cleanup
 
@@ -192,7 +196,7 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = Result_NoneBolt12SemanticErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "InvoiceRequestWithDerivedPayerIdBuilder.swift::\(#function):\(#line)")
+				instantiationContext: "InvoiceRequestWithDerivedPayerSigningPubkeyBuilder.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -210,19 +214,44 @@ extension Bindings {
 
 			let payerNotePrimitiveWrapper = Str(
 				value: payerNote,
-				instantiationContext: "InvoiceRequestWithDerivedPayerIdBuilder.swift::\(#function):\(#line)"
+				instantiationContext: "InvoiceRequestWithDerivedPayerSigningPubkeyBuilder.swift::\(#function):\(#line)"
 			)
 			.dangle()
 
 
 			// native method call
-			let nativeCallResult = InvoiceRequestWithDerivedPayerIdBuilder_payer_note(
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_payer_note(
 				self.dangle().cType!, payerNotePrimitiveWrapper.cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			payerNotePrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Sets the [`InvoiceRequest::offer_from_hrn`].
+		///
+		/// Successive calls to this method will override the previous setting.
+		@available(
+			*, deprecated,
+			message: "This method passes the following non-cloneable, but freeable objects by value: self."
+		)
+		public func sourcedFromHumanReadableName(hrn: HumanReadableName) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = InvoiceRequestWithDerivedPayerSigningPubkeyBuilder_sourced_from_human_readable_name(
+				self.dangle().cType!, hrn.dynamicallyDangledClone().cType!)
+
+			// cleanup
 
 
 			// return value (do some wrapping)
@@ -244,12 +273,12 @@ extension Bindings {
 		}
 
 
-		internal func setCFreeability(freeable: Bool) -> InvoiceRequestWithDerivedPayerIdBuilder {
+		internal func setCFreeability(freeable: Bool) -> InvoiceRequestWithDerivedPayerSigningPubkeyBuilder {
 			self.cType!.is_owned = freeable
 			return self
 		}
 
-		internal func dynamicDangle() -> InvoiceRequestWithDerivedPayerIdBuilder {
+		internal func dynamicDangle() -> InvoiceRequestWithDerivedPayerSigningPubkeyBuilder {
 			self.dangling = self.cType!.is_owned
 			return self
 		}
@@ -262,14 +291,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing InvoiceRequestWithDerivedPayerIdBuilder \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing InvoiceRequestWithDerivedPayerSigningPubkeyBuilder \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing InvoiceRequestWithDerivedPayerIdBuilder \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing InvoiceRequestWithDerivedPayerSigningPubkeyBuilder \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

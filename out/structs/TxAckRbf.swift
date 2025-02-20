@@ -2,15 +2,19 @@
 	import LDKHeaders
 #endif
 
-/// A tx_ack_rbf message which acknowledges replacement of the transaction after it's been
+/// A [`tx_ack_rbf`] message which acknowledges replacement of the transaction after it's been
 /// completed.
+///
+/// [`tx_ack_rbf`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_ack_rbf-message
 public typealias TxAckRbf = Bindings.TxAckRbf
 
 extension Bindings {
 
 
-	/// A tx_ack_rbf message which acknowledges replacement of the transaction after it's been
+	/// A [`tx_ack_rbf`] message which acknowledges replacement of the transaction after it's been
 	/// completed.
+	///
+	/// [`tx_ack_rbf`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_ack_rbf-message
 	public class TxAckRbf: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

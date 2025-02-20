@@ -2,19 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A set of keys that were HKDF-expanded from an initial call to
-/// [`NodeSigner::get_inbound_payment_key_material`].
+/// A set of keys that were HKDF-expanded. Returned by [`NodeSigner::get_inbound_payment_key`].
 ///
-/// [`NodeSigner::get_inbound_payment_key_material`]: crate::sign::NodeSigner::get_inbound_payment_key_material
+/// [`NodeSigner::get_inbound_payment_key`]: crate::sign::NodeSigner::get_inbound_payment_key
 public typealias ExpandedKey = Bindings.ExpandedKey
 
 extension Bindings {
 
 
-	/// A set of keys that were HKDF-expanded from an initial call to
-	/// [`NodeSigner::get_inbound_payment_key_material`].
+	/// A set of keys that were HKDF-expanded. Returned by [`NodeSigner::get_inbound_payment_key`].
 	///
-	/// [`NodeSigner::get_inbound_payment_key_material`]: crate::sign::NodeSigner::get_inbound_payment_key_material
+	/// [`NodeSigner::get_inbound_payment_key`]: crate::sign::NodeSigner::get_inbound_payment_key
 	public class ExpandedKey: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -83,23 +81,96 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the ExpandedKey.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKExpandedKey>) in
+					ExpandedKey_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Creates a copy of the ExpandedKey
+		internal func clone() -> ExpandedKey {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKExpandedKey>) in
+					ExpandedKey_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ExpandedKey(
+				cType: nativeCallResult, instantiationContext: "ExpandedKey.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Checks if two ExpandedKeys contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: ExpandedKey, b: ExpandedKey) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKExpandedKey>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKExpandedKey>) in
+						ExpandedKey_eq(aPointer, bPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Create a  new [`ExpandedKey`] for generating an inbound payment hash and secret.
 		///
 		/// It is recommended to cache this value and not regenerate it for each new inbound payment.
 		public init(keyMaterial: [UInt8]) {
 			// native call variable prep
 
-			let tupledKeyMaterial = Bindings.arrayToUInt8Tuple32(array: keyMaterial)
+			let keyMaterialPrimitiveWrapper = ThirtyTwoBytes(
+				value: keyMaterial, instantiationContext: "ExpandedKey.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: tupledKeyMaterial) { (tupledKeyMaterialPointer: UnsafePointer<UInt8Tuple32>) in
-					ExpandedKey_new(tupledKeyMaterialPointer)
-				}
-
+			let nativeCallResult = ExpandedKey_new(keyMaterialPrimitiveWrapper.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			keyMaterialPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 
@@ -131,6 +202,19 @@ extension Bindings {
 			return returnValue
 		}
 
+
+		internal func danglingClone() -> ExpandedKey {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> ExpandedKey {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
 
 		internal func setCFreeability(freeable: Bool) -> ExpandedKey {
 			self.cType!.is_owned = freeable

@@ -391,8 +391,8 @@ extension Bindings {
 			}
 
 
-			/// A user-provided identifier in [`ChannelManager::send_payment`] used to uniquely identify
-			/// a payment and ensure idempotency in LDK.
+			/// A user-provided identifier in [`ChannelManager::pay_for_offer`] used to uniquely identify a
+			/// payment and ensure idempotency in LDK.
 			public func getPaymentId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(
@@ -464,8 +464,11 @@ extension Bindings {
 			}
 
 
-			/// A user-provided identifier in [`ChannelManager::send_payment`] used to uniquely identify
-			/// a payment and ensure idempotency in LDK.
+			/// A user-provided identifier in [`send_payment`] or [`pay_for_offer`] used to uniquely
+			/// identify a payment and ensure idempotency in LDK.
+			///
+			/// [`send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+			/// [`pay_for_offer`]: crate::ln::channelmanager::ChannelManager::pay_for_offer
 			public func getPaymentId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(
@@ -560,8 +563,11 @@ extension Bindings {
 			}
 
 
-			/// A user-provided identifier in [`ChannelManager::send_payment`] used to uniquely identify
-			/// a payment and ensure idempotency in LDK.
+			/// A user-provided identifier in [`send_payment`] or [`pay_for_offer`] used to uniquely
+			/// identify a payment and ensure idempotency in LDK.
+			///
+			/// [`send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+			/// [`pay_for_offer`]: crate::ln::channelmanager::ChannelManager::pay_for_offer
 			public func getPaymentId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(
@@ -647,8 +653,11 @@ extension Bindings {
 			}
 
 
-			/// A user-provided identifier in [`ChannelManager::send_payment`] used to uniquely identify
-			/// a payment and ensure idempotency in LDK.
+			/// A user-provided identifier in [`send_payment`] or [`pay_for_offer`] used to uniquely
+			/// identify a payment and ensure idempotency in LDK.
+			///
+			/// [`send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+			/// [`pay_for_offer`]: crate::ln::channelmanager::ChannelManager::pay_for_offer
 			public func getPaymentId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = ThirtyTwoBytes(

@@ -2,15 +2,15 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::c_types::derived::CResult_NoneAPIErrorZs of arbitrary size.
+/// A dynamically-allocated array of crate::lightning::onion_message::messenger::Destinations of arbitrary size.
 /// This corresponds to std::vector in C++
-internal typealias Vec_CResult_NoneAPIErrorZZ = Bindings.Vec_CResult_NoneAPIErrorZZ
+internal typealias Vec_DestinationZ = Bindings.Vec_DestinationZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::c_types::derived::CResult_NoneAPIErrorZs of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning::onion_message::messenger::Destinations of arbitrary size.
 	/// This corresponds to std::vector in C++
-	internal class Vec_CResult_NoneAPIErrorZZ: NativeTypeWrapper {
+	internal class Vec_DestinationZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -25,9 +25,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCVec_CResult_NoneAPIErrorZZ?
+		internal var cType: LDKCVec_DestinationZ?
 
-		internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ, instantiationContext: String) {
+		internal init(cType: LDKCVec_DestinationZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -35,7 +35,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKCVec_DestinationZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -46,8 +46,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCVec_CResult_NoneAPIErrorZZ, instantiationContext: String, anchor: NativeTypeWrapper,
-			dangle: Bool = false
+			cType: LDKCVec_DestinationZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -59,28 +58,28 @@ extension Bindings {
 		}
 
 
-		internal init(array: [Result_NoneAPIErrorZ], instantiationContext: String) {
+		internal init(array: [Destination], instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 
-			let rustArray = array.map { (currentValueDepth1: Result_NoneAPIErrorZ) -> LDKCResult_NoneAPIErrorZ in
+			let rustArray = array.map { (currentValueDepth1: Destination) -> LDKDestination in
 
 				return currentValueDepth1.danglingClone().cType!
 			}
 
 
-			let dataContainer = UnsafeMutablePointer<LDKCResult_NoneAPIErrorZ>.allocate(capacity: array.count)
+			let dataContainer = UnsafeMutablePointer<LDKDestination>.allocate(capacity: array.count)
 			dataContainer.initialize(from: rustArray, count: array.count)
 
-			let vector = LDKCVec_CResult_NoneAPIErrorZZ(data: dataContainer, datalen: UInt(array.count))
+			let vector = LDKCVec_DestinationZ(data: dataContainer, datalen: UInt(array.count))
 			self.cType = vector
 		}
 
-		public func getValue() -> [Result_NoneAPIErrorZ] {
+		public func getValue() -> [Destination] {
 
-			var array = [LDKCResult_NoneAPIErrorZ]()
+			var array = [LDKDestination]()
 
 
 			for index1 in 0..<Int(self.cType!.datalen) {
@@ -89,10 +88,10 @@ extension Bindings {
 			}
 
 
-			let swiftArray = array.map { (currentCType: LDKCResult_NoneAPIErrorZ) -> Result_NoneAPIErrorZ in
-				Result_NoneAPIErrorZ(
-					cType: currentCType,
-					instantiationContext: "Vec_CResult_NoneAPIErrorZZ.swift::\(#function):\(#line)", anchor: self
+			let swiftArray = array.map { (currentCType: LDKDestination) -> Destination in
+				Destination(
+					cType: currentCType, instantiationContext: "Vec_DestinationZ.swift::\(#function):\(#line)",
+					anchor: self
 				)
 				.dangle()
 			}
@@ -106,7 +105,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CVec_CResult_NoneAPIErrorZZ_free(self.cType!)
+			let nativeCallResult = CVec_DestinationZ_free(self.cType!)
 
 			// cleanup
 
@@ -127,14 +126,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Vec_CResult_NoneAPIErrorZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
-					)
+						"Freeing Vec_DestinationZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Vec_CResult_NoneAPIErrorZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Vec_DestinationZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

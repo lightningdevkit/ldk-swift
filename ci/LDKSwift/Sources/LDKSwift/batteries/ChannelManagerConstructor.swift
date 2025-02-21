@@ -104,7 +104,18 @@ public struct ChannelManagerConstructionParameters {
 			)
 			.asRouter()
 		}
-		return CMCRouter(messageRouter: MessageRouter())
+		return CMCRouter()
+	}
+
+	private class CMCMessageRouter: MessageRouter {
+
+	}
+
+	fileprivate func messageRouter(networkGraph: NetworkGraph?) -> MessageRouter {
+		if let netGraph = networkGraph {
+			return DefaultMessageRouter(networkGraph: netGraph, entropySource: self.entropySource).asMessageRouter()
+		}
+		return CMCMessageRouter()
 	}
 }
 
@@ -192,10 +203,12 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
 		// TODO: figure out better way to obtain a router
 		let router = params.router(networkGraph: self.netGraph)
+		let messageRouter = params.messageRouter(networkGraph: self.netGraph)
 		let channelManagerReadArgs = ChannelManagerReadArgs(
 			entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider,
 			feeEstimator: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(),
-			txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, defaultConfig: params.config,
+			txBroadcaster: params.txBroadcaster, router: router, messageRouter: messageRouter, logger: params.logger,
+			defaultConfig: params.config,
 			channelMonitors: monitors)
 
 		guard
@@ -272,10 +285,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
 		self.netGraph = netGraph
 		let router = params.router(networkGraph: self.netGraph)
+		let messageRouter = params.messageRouter(networkGraph: self.netGraph)
 		let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
 		self.channelManager = ChannelManager(
 			feeEst: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(),
-			txBroadcaster: params.txBroadcaster, router: router, logger: params.logger,
+			txBroadcaster: params.txBroadcaster, router: router, messageRouter: messageRouter, logger: params.logger,
 			entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider,
 			config: params.config, params: chainParameters, currentTimestamp: timestampSeconds)
 
@@ -355,6 +369,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 			nodeIdLookup: NodeIdLookUp(), messageRouter: MessageRouter(),
 			offersHandler: self.channelManager.asOffersMessageHandler(),
 			asyncPaymentsHandler: ignoringMessageHandler.asAsyncPaymentsMessageHandler(),
+			dnsResolver: ignoringMessageHandler.asDNSResolverMessageHandler(),
 			customHandler: ignoringMessageHandler.asCustomOnionMessageHandler())
 
 		// if there is a graph msg handler, set its is_owned to false

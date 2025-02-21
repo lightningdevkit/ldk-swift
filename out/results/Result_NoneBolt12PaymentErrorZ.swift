@@ -2,17 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A CResult_NonePaymentSendFailureZ represents the result of a fallible operation,
-/// containing a () on success and a crate::lightning::ln::outbound_payment::PaymentSendFailure on failure.
+/// A CResult_NoneBolt12PaymentErrorZ represents the result of a fallible operation,
+/// containing a () on success and a crate::lightning::ln::outbound_payment::Bolt12PaymentError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-public typealias Result_NonePaymentSendFailureZ = Bindings.Result_NonePaymentSendFailureZ
+public typealias Result_NoneBolt12PaymentErrorZ = Bindings.Result_NoneBolt12PaymentErrorZ
 
 extension Bindings {
 
-	/// A CResult_NonePaymentSendFailureZ represents the result of a fallible operation,
-	/// containing a () on success and a crate::lightning::ln::outbound_payment::PaymentSendFailure on failure.
+	/// A CResult_NoneBolt12PaymentErrorZ represents the result of a fallible operation,
+	/// containing a () on success and a crate::lightning::ln::outbound_payment::Bolt12PaymentError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-	public class Result_NonePaymentSendFailureZ: NativeTypeWrapper {
+	public class Result_NoneBolt12PaymentErrorZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -27,9 +27,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCResult_NonePaymentSendFailureZ?
+		internal var cType: LDKCResult_NoneBolt12PaymentErrorZ?
 
-		internal init(cType: LDKCResult_NonePaymentSendFailureZ, instantiationContext: String) {
+		internal init(cType: LDKCResult_NoneBolt12PaymentErrorZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -38,7 +38,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_NonePaymentSendFailureZ, instantiationContext: String, anchor: NativeTypeWrapper
+			cType: LDKCResult_NoneBolt12PaymentErrorZ, instantiationContext: String, anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -50,7 +50,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_NonePaymentSendFailureZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKCResult_NoneBolt12PaymentErrorZ, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -63,53 +63,53 @@ extension Bindings {
 		}
 
 
-		/// Creates a new CResult_NonePaymentSendFailureZ in the success state.
-		public class func initWithOk() -> Result_NonePaymentSendFailureZ {
+		/// Creates a new CResult_NoneBolt12PaymentErrorZ in the success state.
+		public class func initWithOk() -> Result_NoneBolt12PaymentErrorZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_NonePaymentSendFailureZ_ok()
+			let nativeCallResult = CResult_NoneBolt12PaymentErrorZ_ok()
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NonePaymentSendFailureZ(
+			let returnValue = Result_NoneBolt12PaymentErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_NonePaymentSendFailureZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_NoneBolt12PaymentErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new CResult_NonePaymentSendFailureZ in the error state.
-		public class func initWithErr(e: PaymentSendFailure) -> Result_NonePaymentSendFailureZ {
+		/// Creates a new CResult_NoneBolt12PaymentErrorZ in the error state.
+		public class func initWithErr(e: Bolt12PaymentError) -> Result_NoneBolt12PaymentErrorZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_NonePaymentSendFailureZ_err(e.danglingClone().cType!)
+			let nativeCallResult = CResult_NoneBolt12PaymentErrorZ_err(e.danglingClone().cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NonePaymentSendFailureZ(
+			let returnValue = Result_NoneBolt12PaymentErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_NonePaymentSendFailureZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_NoneBolt12PaymentErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Frees any resources used by the CResult_NonePaymentSendFailureZ.
+		/// Frees any resources used by the CResult_NoneBolt12PaymentErrorZ.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_NonePaymentSendFailureZ_free(self.cType!)
+			let nativeCallResult = CResult_NoneBolt12PaymentErrorZ_free(self.cType!)
 
 			// cleanup
 
@@ -121,16 +121,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new CResult_NonePaymentSendFailureZ which has the same data as `orig`
+		/// Creates a new CResult_NoneBolt12PaymentErrorZ which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Result_NonePaymentSendFailureZ {
+		internal func clone() -> Result_NoneBolt12PaymentErrorZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_NonePaymentSendFailureZ>) in
-					CResult_NonePaymentSendFailureZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_NoneBolt12PaymentErrorZ>) in
+					CResult_NoneBolt12PaymentErrorZ_clone(origPointer)
 				}
 
 
@@ -138,9 +138,9 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NonePaymentSendFailureZ(
+			let returnValue = Result_NoneBolt12PaymentErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_NonePaymentSendFailureZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_NoneBolt12PaymentErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -152,11 +152,11 @@ extension Bindings {
 		}
 
 
-		public func getError() -> PaymentSendFailure? {
+		public func getError() -> Bolt12PaymentError? {
 			if self.cType?.result_ok == false {
-				return PaymentSendFailure(
+				return Bolt12PaymentError(
 					cType: self.cType!.contents.err.pointee,
-					instantiationContext: "Result_NonePaymentSendFailureZ.swift::\(#function):\(#line)", anchor: self)
+					instantiationContext: "Result_NoneBolt12PaymentErrorZ.swift::\(#function):\(#line)", anchor: self)
 			}
 			return nil
 		}
@@ -172,7 +172,7 @@ extension Bindings {
 					*/
 
 
-		internal func danglingClone() -> Result_NonePaymentSendFailureZ {
+		internal func danglingClone() -> Result_NoneBolt12PaymentErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -186,14 +186,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Result_NonePaymentSendFailureZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Result_NoneBolt12PaymentErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Result_NonePaymentSendFailureZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Result_NoneBolt12PaymentErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

@@ -29,8 +29,8 @@ extension Bindings {
 		case UserAbandoned
 
 		/// We exhausted all of our retry attempts while trying to send the payment, or we
-		/// exhausted the [`Retry::Timeout`] if the user set one. If at any point a retry
-		/// attempt failed while being forwarded along the path, an [`Event::PaymentPathFailed`] will
+		/// exhausted the [`Retry::Timeout`] if the user set one.
+		/// If at any point a retry attempt failed while being forwarded along the path, an [`Event::PaymentPathFailed`] will
 		/// have come before this.
 		///
 		/// [`Retry::Timeout`]: crate::ln::channelmanager::Retry::Timeout
@@ -45,11 +45,15 @@ extension Bindings {
 		/// [`InvoiceRequestExpired`]: Self::InvoiceRequestExpired
 		case PaymentExpired
 
-		/// We failed to find a route while retrying the payment.
+		/// We failed to find a route while sending or retrying the payment.
 		///
 		/// Note that this generally indicates that we've exhausted the available set of possible
 		/// routes - we tried the payment over a few routes but were not able to find any further
 		/// candidate routes beyond those.
+		///
+		/// Also used for [`BlindedPathCreationFailed`] when downgrading to versions prior to 0.0.124.
+		///
+		/// [`BlindedPathCreationFailed`]: Self::BlindedPathCreationFailed
 		case RouteNotFound
 
 		/// This error should generally never happen. This likely means that there is a problem with
@@ -66,6 +70,13 @@ extension Bindings {
 		///
 		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
 		case InvoiceRequestRejected
+
+		/// Failed to create a blinded path back to ourselves.
+		/// We attempted to initiate payment to a static invoice but failed to create a reply path for our
+		/// [`HeldHtlcAvailable`] message.
+		///
+		/// [`HeldHtlcAvailable`]: crate::onion_message::async_payments::HeldHtlcAvailable
+		case BlindedPathCreationFailed
 
 
 		internal init(value: LDKPaymentFailureReason) {
@@ -97,6 +108,9 @@ extension Bindings {
 
 				case LDKPaymentFailureReason_InvoiceRequestRejected:
 					self = .InvoiceRequestRejected
+
+				case LDKPaymentFailureReason_BlindedPathCreationFailed:
+					self = .BlindedPathCreationFailed
 
 				default:
 					Bindings.print("Error: Invalid value type for PaymentFailureReason! Aborting.", severity: .ERROR)
@@ -134,6 +148,9 @@ extension Bindings {
 
 				case .InvoiceRequestRejected:
 					return LDKPaymentFailureReason_InvoiceRequestRejected
+
+				case .BlindedPathCreationFailed:
+					return LDKPaymentFailureReason_BlindedPathCreationFailed
 
 			}
 		}

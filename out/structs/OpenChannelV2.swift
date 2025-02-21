@@ -2,17 +2,21 @@
 	import LDKHeaders
 #endif
 
-/// An open_channel2 message to be sent by or received from the channel initiator.
+/// An [`open_channel2`] message to be sent by or received from the channel initiator.
 ///
 /// Used in V2 channel establishment
+///
+/// [`open_channel2`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel2-message
 public typealias OpenChannelV2 = Bindings.OpenChannelV2
 
 extension Bindings {
 
 
-	/// An open_channel2 message to be sent by or received from the channel initiator.
+	/// An [`open_channel2`] message to be sent by or received from the channel initiator.
 	///
 	/// Used in V2 channel establishment
+	///
+	/// [`open_channel2`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel2-message
 	public class OpenChannelV2: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

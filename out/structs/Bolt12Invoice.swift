@@ -114,6 +114,37 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Paths to the recipient originating from publicly reachable nodes, including information
+		/// needed for routing payments across them.
+		///
+		/// Blinded paths provide recipient privacy by obfuscating its node id. Note, however, that this
+		/// privacy is lost if a public node id is used for
+		/// [`Bolt12Invoice::signing_pubkey`].
+		public func paymentPaths() -> [BlindedPaymentPath] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_payment_paths(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_BlindedPaymentPathZ(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Duration since the Unix epoch when the invoice was created.
 		public func createdAt() -> UInt64 {
 			// native call variable prep
@@ -235,7 +266,19 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The public key corresponding to the key used to sign the invoice.
+		/// A typically transient public key corresponding to the key used to sign the invoice.
+		///
+		/// If the invoices was created in response to an [`Offer`], then this will be:
+		/// - [`Offer::issuer_signing_pubkey`] if it's `Some`, otherwise
+		/// - the final blinded node id from a [`BlindedMessagePath`] in [`Offer::paths`] if `None`.
+		///
+		/// If the invoice was created in response to a [`Refund`], then it is a valid pubkey chosen by
+		/// the recipient.
+		///
+		/// [`Offer`]: crate::offers::offer::Offer
+		/// [`Offer::issuer_signing_pubkey`]: crate::offers::offer::Offer::issuer_signing_pubkey
+		/// [`Offer::paths`]: crate::offers::offer::Offer::paths
+		/// [`Refund`]: crate::offers::refund::Refund
 		public func signingPubkey() -> [UInt8] {
 			// native call variable prep
 
@@ -615,6 +658,48 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The public key used by the recipient to sign invoices.
+		///
+		/// From [`Offer::issuer_signing_pubkey`] and may be `None`; also `None` if the invoice was
+		/// created in response to a [`Refund`].
+		///
+		/// [`Offer::issuer_signing_pubkey`]: crate::offers::offer::Offer::issuer_signing_pubkey
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func issuerSigningPubkey() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
+					Bolt12Invoice_issuer_signing_pubkey(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustPrimitiveWrapper
+			// Type: LDKPublicKey
+
+			if nativeCallResult.compressed_form == Bindings.arrayToUInt8Tuple33(array: [UInt8](repeating: 0, count: 33))
+			{
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "Bolt12Invoice.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// An unpredictable series of bytes from the payer.
 		///
 		/// From [`InvoiceRequest::payer_metadata`] or [`Refund::payer_metadata`].
@@ -703,14 +788,14 @@ extension Bindings {
 		/// refund in case there are no [`message_paths`].
 		///
 		/// [`message_paths`]: Self::message_paths
-		public func payerId() -> [UInt8] {
+		public func payerSigningPubkey() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBolt12Invoice>) in
-					Bolt12Invoice_payer_id(thisArgPointer)
+					Bolt12Invoice_payer_signing_pubkey(thisArgPointer)
 				}
 
 

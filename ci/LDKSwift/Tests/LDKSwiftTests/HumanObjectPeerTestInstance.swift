@@ -688,8 +688,8 @@ public class HumanObjectPeerTestInstance {
 		XCTAssertEqual(usableChannelsA[0].getChannelId().write(), fundingChannelId.write())
 		XCTAssertEqual(usableChannelsB[0].getChannelId().write(), fundingChannelId.write())
 
-		let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
-		let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
+		let originalChannelBalanceAToB = channelAToB.getOutboundCapacityMsat()
+		let originalChannelBalanceBToA = channelBToA.getOutboundCapacityMsat()
 		print("original balance A->B mSats: \(originalChannelBalanceAToB)")
 		print("original balance B->A mSats: \(originalChannelBalanceBToA)")
 
@@ -739,11 +739,11 @@ public class HumanObjectPeerTestInstance {
 
 		// confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer2, peerB: peer3, fundingAmount: FUNDING_SATOSHI_AMOUNT, latestBlock: confirmedChannelBlock, otherPeers: [peer1])
 
-		let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
-		let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
+		let originalChannelBalanceAToB = channelAToB.getOutboundCapacityMsat()
+		let originalChannelBalanceBToA = channelBToA.getOutboundCapacityMsat()
 
-		let secondChannelBalanceAToB = channelAToB.getBalanceMsat()
-		let secondChannelBalanceBToA = channelBToA.getBalanceMsat()
+		let secondChannelBalanceAToB = channelAToB.getOutboundCapacityMsat()
+		let secondChannelBalanceBToA = channelBToA.getOutboundCapacityMsat()
 
 		let logger = TestLogger()
 
@@ -751,9 +751,8 @@ public class HumanObjectPeerTestInstance {
 			// create invoice for 10k satoshis to pay to peer2
 
 			let invoiceResult = Bindings.createInvoiceFromChannelmanager(
-				channelmanager: peer2.channelManager, nodeSigner: peer2.explicitKeysManager.asNodeSigner(),
-				logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description",
-				invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
+				channelmanager: peer2.channelManager, amtMsat: SEND_MSAT_AMOUNT_A_TO_B,
+				description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
 			if let invoiceError = invoiceResult.getError() {
 				let creationError = invoiceError.getValueAsCreationError()
 				print("creation error: \(creationError)")
@@ -899,8 +898,8 @@ public class HumanObjectPeerTestInstance {
 			while true {
 				let channelA = peer1.channelManager.listUsableChannels()[0]
 				let channelB = peer2.channelManager.listUsableChannels()[0]
-				currentChannelABalance = channelA.getBalanceMsat()
-				currentChannelBBalance = channelB.getBalanceMsat()
+				currentChannelABalance = channelA.getOutboundCapacityMsat()
+				currentChannelBBalance = channelB.getOutboundCapacityMsat()
 				if currentChannelABalance != secondChannelBalanceAToB
 					&& currentChannelBBalance != secondChannelBalanceBToA
 				{
@@ -920,14 +919,13 @@ public class HumanObjectPeerTestInstance {
 		do {
 			// send some money back
 			// create invoice for 10k satoshis to pay to peer2
-			let prePaymentBalanceAToB = peer1.channelManager.listUsableChannels()[0].getBalanceMsat()
-			let prePaymentBalanceBToA = peer2.channelManager.listUsableChannels()[0].getBalanceMsat()
+			let prePaymentBalanceAToB = peer1.channelManager.listUsableChannels()[0].getOutboundCapacityMsat()
+			let prePaymentBalanceBToA = peer2.channelManager.listUsableChannels()[0].getOutboundCapacityMsat()
 			print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
 			print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
 			let invoiceResult = Bindings.createInvoiceFromChannelmanager(
-				channelmanager: peer1.channelManager, nodeSigner: peer1.explicitKeysManager.asNodeSigner(),
-				logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description",
+				channelmanager: peer1.channelManager, amtMsat: nil, description: "Second invoice description",
 				invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
 			let invoice = invoiceResult.getValue()!
 			print("Implicit amount invoice: \(invoice.toStr())")
@@ -938,7 +936,9 @@ public class HumanObjectPeerTestInstance {
 
 
 			let (paymentHash, recipientOnion, routeParameters) =
-				Bindings.paymentParametersFromZeroAmountInvoice(invoice: invoice, amountMsat: SEND_MSAT_AMOUNT_B_TO_A)
+				Bindings.paymentParametersFromVariableAmountInvoice(
+					invoice: invoice, amountMsat: SEND_MSAT_AMOUNT_B_TO_A
+				)
 				.getValue()!
 			let paymentId = invoice.paymentHash()!
 			let invoicePaymentResult = peer2.channelManager.sendPayment(
@@ -1011,8 +1011,8 @@ public class HumanObjectPeerTestInstance {
 			while true {
 				let channelA = peer1.channelManager.listUsableChannels()[0]
 				let channelB = peer2.channelManager.listUsableChannels()[0]
-				currentChannelABalance = channelA.getBalanceMsat()
-				currentChannelBBalance = channelB.getBalanceMsat()
+				currentChannelABalance = channelA.getOutboundCapacityMsat()
+				currentChannelBBalance = channelB.getOutboundCapacityMsat()
 				if currentChannelABalance != prePaymentBalanceAToB && currentChannelBBalance != prePaymentBalanceBToA {
 					break
 				}

@@ -63,7 +63,7 @@ extension Bindings {
 			/// An amount of bitcoin.
 			case Bitcoin
 
-			/// An amount of currency specified using ISO 4712.
+			/// An amount of currency specified using ISO 4217.
 			case Currency
 
 		}

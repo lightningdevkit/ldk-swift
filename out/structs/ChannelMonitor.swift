@@ -200,6 +200,8 @@ extension Bindings {
 
 		/// Gets the update_id from the latest ChannelMonitorUpdate which was applied to this
 		/// ChannelMonitor.
+		///
+		/// Note that for channels closed prior to LDK 0.1, this may return [`u64::MAX`].
 		public func getLatestUpdateId() -> UInt64 {
 			// native call variable prep
 
@@ -374,7 +376,7 @@ extension Bindings {
 		///
 		/// [`SpendableOutputs`]: crate::events::Event::SpendableOutputs
 		/// [`BumpTransaction`]: crate::events::Event::BumpTransaction
-		public func processPendingEvents(handler: EventHandler) -> Result_NoneReplayEventZ {
+		public func processPendingEvents(handler: EventHandler, logger: Logger) -> Result_NoneReplayEventZ {
 			// native call variable prep
 
 
@@ -384,7 +386,11 @@ extension Bindings {
 
 					withUnsafePointer(to: handler.activate().cType!) {
 						(handlerPointer: UnsafePointer<LDKEventHandler>) in
-						ChannelMonitor_process_pending_events(thisArgPointer, handlerPointer)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_process_pending_events(thisArgPointer, handlerPointer, loggerPointer)
+						}
+
 					}
 
 				}
@@ -1074,11 +1080,19 @@ extension Bindings {
 		}
 
 		/// Checks if the monitor is fully resolved. Resolved monitor is one that has claimed all of
-		/// its outputs and balances (i.e. [`Self::get_claimable_balances`] returns an empty set).
+		/// its outputs and balances (i.e. [`Self::get_claimable_balances`] returns an empty set) and
+		/// which does not have any payment preimages for HTLCs which are still pending on other
+		/// channels.
 		///
-		/// This function returns true only if [`Self::get_claimable_balances`] has been empty for at least
+		/// Additionally may update state to track when the balances set became empty.
+		///
+		/// This function returns a tuple of two booleans, the first indicating whether the monitor is
+		/// fully resolved, and the second whether the monitor needs persistence to ensure it is
+		/// reliably marked as resolved within 4032 blocks.
+		///
+		/// The first boolean is true only if [`Self::get_claimable_balances`] has been empty for at least
 		/// 4032 blocks as an additional protection against any bugs resulting in spuriously empty balance sets.
-		public func isFullyResolved(logger: Logger) -> Bool {
+		public func checkAndUpdateFullResolutionStatus(logger: Logger) -> (Bool, Bool) {
 			// native call variable prep
 
 
@@ -1087,7 +1101,7 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
-						ChannelMonitor_is_fully_resolved(thisArgPointer, loggerPointer)
+						ChannelMonitor_check_and_update_full_resolution_status(thisArgPointer, loggerPointer)
 					}
 
 				}
@@ -1097,7 +1111,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Tuple_boolboolZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

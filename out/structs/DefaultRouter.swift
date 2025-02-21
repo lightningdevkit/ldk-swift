@@ -6,8 +6,10 @@
 ///
 /// # Privacy
 ///
-/// Implements [`MessageRouter`] by delegating to [`DefaultMessageRouter`]. See those docs for
-/// privacy implications.
+/// Creating [`BlindedPaymentPath`]s may affect privacy since, if a suitable path cannot be found,
+/// it will create a one-hop path using the recipient as the introduction node if it is a announced
+/// node. Otherwise, there is no way to find a path to the introduction node in order to send a
+/// payment, and thus an `Err` is returned.
 public typealias DefaultRouter = Bindings.DefaultRouter
 
 extension Bindings {
@@ -17,8 +19,10 @@ extension Bindings {
 	///
 	/// # Privacy
 	///
-	/// Implements [`MessageRouter`] by delegating to [`DefaultMessageRouter`]. See those docs for
-	/// privacy implications.
+	/// Creating [`BlindedPaymentPath`]s may affect privacy since, if a suitable path cannot be found,
+	/// it will create a one-hop path using the recipient as the introduction node if it is a announced
+	/// node. Otherwise, there is no way to find a path to the introduction node in order to send a
+	/// payment, and thus an `Err` is returned.
 	public class DefaultRouter: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -145,31 +149,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedRouter(
-				cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
-		/// Constructs a new MessageRouter which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned MessageRouter must be freed before this_arg is
-		public func asMessageRouter() -> MessageRouter {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKDefaultRouter>) in
-					DefaultRouter_as_MessageRouter(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedMessageRouter(
 				cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)",
 				anchor: self)
 

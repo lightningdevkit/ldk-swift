@@ -130,12 +130,12 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ParseError-variant ParseOrSemanticError
-		public class func initWithParseError(a: Bolt11ParseError) -> ParseOrSemanticError {
+		public class func initWithParseError(a: Bindings.Bolt11ParseError) -> ParseOrSemanticError {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = ParseOrSemanticError_parse_error(a.danglingClone().cType!)
+			let nativeCallResult = ParseOrSemanticError_parse_error(a.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -221,7 +221,7 @@ extension Bindings {
 		}
 
 
-		public func getValueAsParseError() -> Bolt11ParseError? {
+		public func getValueAsParseError() -> Bindings.Bolt11ParseError? {
 			if self.cType?.tag != LDKParseOrSemanticError_ParseError {
 				return nil
 			}

@@ -14,9 +14,12 @@
 /// 3) If you are not fetching full blocks, register all relevant [`ChannelMonitor`] outpoints the
 /// same way you would handle a [`chain::Filter`] call using
 /// [`ChannelMonitor::get_outputs_to_watch`] and [`ChannelMonitor::get_funding_txo`].
-/// 4) Reconnect blocks on your [`ChannelMonitor`]s.
-/// 5) Disconnect/connect blocks on the [`ChannelManager`].
-/// 6) Re-persist the [`ChannelMonitor`]s to ensure the latest state is on disk.
+/// 4) Disconnect/connect blocks on your [`ChannelMonitor`]s to get them in sync with the chain.
+/// 5) Disconnect/connect blocks on the [`ChannelManager`] to get it in sync with the chain.
+/// 6) Optionally re-persist the [`ChannelMonitor`]s to ensure the latest state is on disk.
+/// This is important if you have replayed a nontrivial number of blocks in step (4), allowing
+/// you to avoid having to replay the same blocks if you shut down quickly after startup. It is
+/// otherwise not required.
 /// Note that if you're using a [`ChainMonitor`] for your [`chain::Watch`] implementation, you
 /// will likely accomplish this as a side-effect of calling [`chain::Watch::watch_channel`] in
 /// the next step.
@@ -51,9 +54,12 @@ extension Bindings {
 	/// 3) If you are not fetching full blocks, register all relevant [`ChannelMonitor`] outpoints the
 	/// same way you would handle a [`chain::Filter`] call using
 	/// [`ChannelMonitor::get_outputs_to_watch`] and [`ChannelMonitor::get_funding_txo`].
-	/// 4) Reconnect blocks on your [`ChannelMonitor`]s.
-	/// 5) Disconnect/connect blocks on the [`ChannelManager`].
-	/// 6) Re-persist the [`ChannelMonitor`]s to ensure the latest state is on disk.
+	/// 4) Disconnect/connect blocks on your [`ChannelMonitor`]s to get them in sync with the chain.
+	/// 5) Disconnect/connect blocks on the [`ChannelManager`] to get it in sync with the chain.
+	/// 6) Optionally re-persist the [`ChannelMonitor`]s to ensure the latest state is on disk.
+	/// This is important if you have replayed a nontrivial number of blocks in step (4), allowing
+	/// you to avoid having to replay the same blocks if you shut down quickly after startup. It is
+	/// otherwise not required.
 	/// Note that if you're using a [`ChainMonitor`] for your [`chain::Watch`] implementation, you
 	/// will likely accomplish this as a side-effect of calling [`chain::Watch::watch_channel`] in
 	/// the next step.
@@ -523,6 +529,59 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The [`MessageRouter`] used for constructing [`BlindedMessagePath`]s for [`Offer`]s,
+		/// [`Refund`]s, and any reply paths.
+		public func getMessageRouter() -> MessageRouter? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+					ChannelManagerReadArgs_get_message_router(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedMessageRouter(
+				cType: nativeCallResult.pointee,
+				instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
+
+
+			return returnValue
+		}
+
+		/// The [`MessageRouter`] used for constructing [`BlindedMessagePath`]s for [`Offer`]s,
+		/// [`Refund`]s, and any reply paths.
+		public func setMessageRouter(val: MessageRouter) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelManagerReadArgs>) in
+					ChannelManagerReadArgs_set_message_router(thisPtrPointer, val.activate().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The Logger for use in the ChannelManager and which may be used to log information during
 		/// deserialization.
 		public func getLogger() -> Logger? {
@@ -633,7 +692,7 @@ extension Bindings {
 		public init(
 			entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider,
 			feeEstimator: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, router: Router,
-			logger: Logger, defaultConfig: UserConfig, channelMonitors: [ChannelMonitor]
+			messageRouter: MessageRouter, logger: Logger, defaultConfig: UserConfig, channelMonitors: [ChannelMonitor]
 		) {
 			// native call variable prep
 
@@ -647,8 +706,8 @@ extension Bindings {
 			let nativeCallResult = ChannelManagerReadArgs_new(
 				entropySource.activate().cType!, nodeSigner.activate().cType!, signerProvider.activate().cType!,
 				feeEstimator.activate().cType!, chainMonitor.activate().cType!, txBroadcaster.activate().cType!,
-				router.activate().cType!, logger.activate().cType!, defaultConfig.dynamicallyDangledClone().cType!,
-				channelMonitorsVector.cType!)
+				router.activate().cType!, messageRouter.activate().cType!, logger.activate().cType!,
+				defaultConfig.dynamicallyDangledClone().cType!, channelMonitorsVector.cType!)
 
 			// cleanup
 

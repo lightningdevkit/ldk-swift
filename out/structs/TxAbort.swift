@@ -2,13 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A tx_abort message which signals the cancellation of an in-progress transaction negotiation.
+/// A [`tx_abort`] message which signals the cancellation of an in-progress transaction negotiation.
+///
+/// [`tx_abort`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_abort-message
 public typealias TxAbort = Bindings.TxAbort
 
 extension Bindings {
 
 
-	/// A tx_abort message which signals the cancellation of an in-progress transaction negotiation.
+	/// A [`tx_abort`] message which signals the cancellation of an in-progress transaction negotiation.
+	///
+	/// [`tx_abort`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_abort-message
 	public class TxAbort: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

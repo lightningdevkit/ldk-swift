@@ -1129,6 +1129,25 @@ extension Bindings {
 				return returnValue
 			}
 
+			func messageReceivedLambda(this_arg: UnsafeRawPointer?) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::messageReceivedLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.messageReceived()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::freeLambda")
@@ -1186,6 +1205,7 @@ extension Bindings {
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
 				get_chain_hashes: getChainHashesLambda,
+				message_received: messageReceivedLambda,
 				MessageSendEventsProvider: messageSendEventsProvider.activate().cType!,
 				free: freeLambda
 			)
@@ -1516,6 +1536,20 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: ChannelMessageHandler::getChainHashes MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Indicates that a message was received from any peer for any handler.
+		/// Called before the message is passed to the appropriate handler.
+		/// Useful for indicating that a network connection is active.
+		///
+		/// Note: Since this function is called frequently, it should be as
+		/// efficient as possible for its intended purpose.
+		open func messageReceived() {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::messageReceived MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -2527,6 +2561,28 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
+
+			return returnValue
+		}
+
+		/// Indicates that a message was received from any peer for any handler.
+		/// Called before the message is passed to the appropriate handler.
+		/// Useful for indicating that a network connection is active.
+		///
+		/// Note: Since this function is called frequently, it should be as
+		/// efficient as possible for its intended purpose.
+		public override func messageReceived() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.message_received(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 			return returnValue
 		}

@@ -81,76 +81,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The secret that will be used by the recipient of this message to release the held HTLC.
-		public func getPaymentReleaseSecret() -> [UInt8]? {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKHeldHtlcAvailable>) in
-					HeldHtlcAvailable_get_payment_release_secret(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-			guard let nativeCallResult = nativeCallResult else {
-				return nil
-			}
-
-
-			// return value (do some wrapping)
-			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
-
-
-			return returnValue
-		}
-
-		/// The secret that will be used by the recipient of this message to release the held HTLC.
-		public func setPaymentReleaseSecret(val: [UInt8]) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "HeldHtlcAvailable.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKHeldHtlcAvailable>) in
-					HeldHtlcAvailable_set_payment_release_secret(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Constructs a new HeldHtlcAvailable given each field
-		public init(paymentReleaseSecretArg: [UInt8]) {
+		public init() {
 			// native call variable prep
-
-			let paymentReleaseSecretArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentReleaseSecretArg, instantiationContext: "HeldHtlcAvailable.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = HeldHtlcAvailable_new(paymentReleaseSecretArgPrimitiveWrapper.cType!)
+			let nativeCallResult = HeldHtlcAvailable_new()
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentReleaseSecretArgPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 

@@ -793,75 +793,10 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Our total balance.  This is the amount we would get if we close the channel.
-		/// This value is not exact. Due to various in-flight changes and feerate changes, exactly this
-		/// amount is not likely to be recoverable on close.
-		///
-		/// This does not include any pending HTLCs which are not yet fully resolved (and, thus, whose
-		/// balance is not available for inclusion in new outbound HTLCs). This further does not include
-		/// any pending outgoing HTLCs which are awaiting some other resolution to be sent.
-		/// This does not consider any on-chain fees.
-		///
-		/// See also [`ChannelDetails::outbound_capacity_msat`]
-		public func getBalanceMsat() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
-					ChannelDetails_get_balance_msat(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Our total balance.  This is the amount we would get if we close the channel.
-		/// This value is not exact. Due to various in-flight changes and feerate changes, exactly this
-		/// amount is not likely to be recoverable on close.
-		///
-		/// This does not include any pending HTLCs which are not yet fully resolved (and, thus, whose
-		/// balance is not available for inclusion in new outbound HTLCs). This further does not include
-		/// any pending outgoing HTLCs which are awaiting some other resolution to be sent.
-		/// This does not consider any on-chain fees.
-		///
-		/// See also [`ChannelDetails::outbound_capacity_msat`]
-		public func setBalanceMsat(val: UInt64) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
-					ChannelDetails_set_balance_msat(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// The available outbound capacity for sending HTLCs to the remote peer. This does not include
 		/// any pending HTLCs which are not yet fully resolved (and, thus, whose balance is not
 		/// available for inclusion in new outbound HTLCs). This further does not include any pending
 		/// outgoing HTLCs which are awaiting some other resolution to be sent.
-		///
-		/// See also [`ChannelDetails::balance_msat`]
 		///
 		/// This value is not exact. Due to various in-flight changes, feerate changes, and our
 		/// conflict-avoidance policy, exactly this amount is not likely to be spendable. However, we
@@ -891,8 +826,6 @@ extension Bindings {
 		/// any pending HTLCs which are not yet fully resolved (and, thus, whose balance is not
 		/// available for inclusion in new outbound HTLCs). This further does not include any pending
 		/// outgoing HTLCs which are awaiting some other resolution to be sent.
-		///
-		/// See also [`ChannelDetails::balance_msat`]
 		///
 		/// This value is not exact. Due to various in-flight changes, feerate changes, and our
 		/// conflict-avoidance policy, exactly this amount is not likely to be spendable. However, we
@@ -924,8 +857,8 @@ extension Bindings {
 		/// the current state and per-HTLC limit(s). This is intended for use when routing, allowing us
 		/// to use a limit as close as possible to the HTLC limit we can currently send.
 		///
-		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`],
-		/// [`ChannelDetails::balance_msat`], and [`ChannelDetails::outbound_capacity_msat`].
+		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`] and
+		/// [`ChannelDetails::outbound_capacity_msat`].
 		public func getNextOutboundHtlcLimitMsat() -> UInt64 {
 			// native call variable prep
 
@@ -952,8 +885,8 @@ extension Bindings {
 		/// the current state and per-HTLC limit(s). This is intended for use when routing, allowing us
 		/// to use a limit as close as possible to the HTLC limit we can currently send.
 		///
-		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`],
-		/// [`ChannelDetails::balance_msat`], and [`ChannelDetails::outbound_capacity_msat`].
+		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`] and
+		/// [`ChannelDetails::outbound_capacity_msat`].
 		public func setNextOutboundHtlcLimitMsat(val: UInt64) {
 			// native call variable prep
 
@@ -1841,10 +1774,10 @@ extension Bindings {
 			channelIdArg: ChannelId, counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint,
 			channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?,
 			inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?,
-			userChannelIdArg: [UInt8], feerateSatPer1000WeightArg: UInt32?, balanceMsatArg: UInt64,
-			outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64,
-			nextOutboundHtlcMinimumMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?,
-			confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool,
+			userChannelIdArg: [UInt8], feerateSatPer1000WeightArg: UInt32?, outboundCapacityMsatArg: UInt64,
+			nextOutboundHtlcLimitMsatArg: UInt64, nextOutboundHtlcMinimumMsatArg: UInt64,
+			inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?, confirmationsArg: UInt32?,
+			forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool,
 			channelShutdownStateArg: ChannelShutdownState?, isUsableArg: Bool, isAnnouncedArg: Bool,
 			inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig,
 			pendingInboundHtlcsArg: [InboundHTLCDetails], pendingOutboundHtlcsArg: [OutboundHTLCDetails]
@@ -1927,7 +1860,7 @@ extension Bindings {
 				fundingTxoArg.dynamicallyDangledClone().cType!, channelTypeArg.dynamicallyDangledClone().cType!,
 				shortChannelIdArgOption.cType!, outboundScidAliasArgOption.cType!, inboundScidAliasArgOption.cType!,
 				channelValueSatoshisArg, unspendablePunishmentReserveArgOption.cType!,
-				userChannelIdArgPrimitiveWrapper.cType!, feerateSatPer1000WeightArgOption.cType!, balanceMsatArg,
+				userChannelIdArgPrimitiveWrapper.cType!, feerateSatPer1000WeightArgOption.cType!,
 				outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, nextOutboundHtlcMinimumMsatArg,
 				inboundCapacityMsatArg, confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!,
 				forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg,

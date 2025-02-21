@@ -16,6 +16,7 @@
 /// - [`FeeEstimator`] to determine transaction fee rates needed to have a transaction mined in a
 /// timely manner
 /// - [`Router`] for finding payment paths when initiating and retrying payments
+/// - [`MessageRouter`] for finding message paths when initiating and retrying onion messages
 /// - [`Logger`] for logging operational information of varying degrees
 ///
 /// Additionally, it implements the following traits:
@@ -75,7 +76,8 @@
 /// #     fee_estimator: &dyn lightning::chain::chaininterface::FeeEstimator,
 /// #     chain_monitor: &dyn lightning::chain::Watch<lightning::sign::InMemorySigner>,
 /// #     tx_broadcaster: &dyn lightning::chain::chaininterface::BroadcasterInterface,
-/// #     router: &lightning::routing::router::DefaultRouter<&NetworkGraph<&'a L>, &'a L, &ES, &S, SP, SL>,
+/// #     router: &lightning::routing::router::DefaultRouter<&NetworkGraph<&'a L>, &'a L, &ES, &S>,
+/// #     message_router: &lightning::onion_message::messenger::DefaultMessageRouter<&NetworkGraph<&'a L>, &'a L, &ES>,
 /// #     logger: &L,
 /// #     entropy_source: &ES,
 /// #     node_signer: &dyn lightning::sign::NodeSigner,
@@ -91,18 +93,18 @@
 /// };
 /// let default_config = UserConfig::default();
 /// let channel_manager = ChannelManager::new(
-/// fee_estimator, chain_monitor, tx_broadcaster, router, logger, entropy_source, node_signer,
-/// signer_provider, default_config, params, current_timestamp
+/// fee_estimator, chain_monitor, tx_broadcaster, router, message_router, logger,
+/// entropy_source, node_signer, signer_provider, default_config, params, current_timestamp,
 /// );
 ///
 /// // Restart from deserialized data
 /// let mut channel_monitors = read_channel_monitors();
 /// let args = ChannelManagerReadArgs::new(
 /// entropy_source, node_signer, signer_provider, fee_estimator, chain_monitor, tx_broadcaster,
-/// router, logger, default_config, channel_monitors.iter_mut().collect()
+/// router, message_router, logger, default_config, channel_monitors.iter().collect(),
 /// );
 /// let (block_hash, channel_manager) =
-/// <(BlockHash, ChannelManager<_, _, _, _, _, _, _, _>)>::read(&mut reader, args)?;
+/// <(BlockHash, ChannelManager<_, _, _, _, _, _, _, _, _>)>::read(&mut reader, args)?;
 ///
 /// // Update the ChannelManager and ChannelMonitors with the latest chain data
 /// // ...
@@ -327,12 +329,12 @@
 ///
 /// ## BOLT 11 Invoices
 ///
-/// The [`lightning-invoice`] crate is useful for creating BOLT 11 invoices. Specifically, use the
-/// functions in its `utils` module for constructing invoices that are compatible with
-/// [`ChannelManager`]. These functions serve as a convenience for building invoices with the
+/// The [`lightning-invoice`] crate is useful for creating BOLT 11 invoices. However, in order to
+/// construct a [`Bolt11Invoice`] that is compatible with [`ChannelManager`], use
+/// [`create_bolt11_invoice`]. This method serves as a convenience for building invoices with the
 /// [`PaymentHash`] and [`PaymentSecret`] returned from [`create_inbound_payment`]. To provide your
-/// own [`PaymentHash`], use [`create_inbound_payment_for_hash`] or the corresponding functions in
-/// the [`lightning-invoice`] `utils` module.
+/// own [`PaymentHash`], override the appropriate [`Bolt11InvoiceParameters`], which is equivalent
+/// to using [`create_inbound_payment_for_hash`].
 ///
 /// [`ChannelManager`] generates an [`Event::PaymentClaimable`] once the full payment has been
 /// received. Call [`claim_funds`] to release the [`PaymentPreimage`], which in turn will result in
@@ -340,19 +342,21 @@
 ///
 /// ```
 /// # use lightning::events::{Event, EventsProvider, PaymentPurpose};
-/// # use lightning::ln::channelmanager::AChannelManager;
+/// # use lightning::ln::channelmanager::{AChannelManager, Bolt11InvoiceParameters};
 /// #
 /// # fn example<T: AChannelManager>(channel_manager: T) {
 /// # let channel_manager = channel_manager.get_cm();
-/// // Or use utils::create_invoice_from_channelmanager
-/// let known_payment_hash = match channel_manager.create_inbound_payment(
-/// Some(10_000_000), 3600, None
-/// ) {
-/// Ok((payment_hash, _payment_secret)) => {
-/// println!(\"Creating inbound payment {}\", payment_hash);
-/// payment_hash
+/// let params = Bolt11InvoiceParameters {
+/// amount_msats: Some(10_000_000),
+/// invoice_expiry_delta_secs: Some(3600),
+/// ..Default::default()
+/// };
+/// let invoice = match channel_manager.create_bolt11_invoice(params) {
+/// Ok(invoice) => {
+/// println!(\"Creating invoice with payment hash {}\", invoice.payment_hash());
+/// invoice
 /// },
-/// Err(()) => panic!(\"Error creating inbound payment\"),
+/// Err(e) => panic!(\"Error creating invoice: {}\", e),
 /// };
 ///
 /// // On the event processing thread
@@ -360,7 +364,7 @@
 /// match event {
 /// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 /// PaymentPurpose::Bolt11InvoicePayment { payment_preimage: Some(payment_preimage), .. } => {
-/// assert_eq!(payment_hash, known_payment_hash);
+/// assert_eq!(payment_hash.0, invoice.payment_hash().as_ref());
 /// println!(\"Claiming payment {}\", payment_hash);
 /// channel_manager.claim_funds(payment_preimage);
 /// },
@@ -368,7 +372,7 @@
 /// println!(\"Unknown payment hash: {}\", payment_hash);
 /// },
 /// PaymentPurpose::SpontaneousPayment(payment_preimage) => {
-/// assert_ne!(payment_hash, known_payment_hash);
+/// assert_ne!(payment_hash.0, invoice.payment_hash().as_ref());
 /// println!(\"Claiming spontaneous payment {}\", payment_hash);
 /// channel_manager.claim_funds(payment_preimage);
 /// },
@@ -376,7 +380,7 @@
 /// #           _ => {},
 /// },
 /// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
-/// assert_eq!(payment_hash, known_payment_hash);
+/// assert_eq!(payment_hash.0, invoice.payment_hash().as_ref());
 /// println!(\"Claimed {} msats\", amount_msat);
 /// },
 /// // ...
@@ -387,13 +391,14 @@
 /// # }
 /// ```
 ///
-/// For paying an invoice, [`lightning-invoice`] provides a `payment` module with convenience
-/// functions for use with [`send_payment`].
+/// For paying an invoice, see the [`bolt11_payment`] module with convenience functions for use with
+/// [`send_payment`].
 ///
 /// ```
 /// # use lightning::events::{Event, EventsProvider};
-/// # use lightning::ln::types::PaymentHash;
-/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, RecipientOnionFields, Retry};
+/// # use lightning::types::payment::PaymentHash;
+/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+/// # use lightning::ln::outbound_payment::{RecipientOnionFields, Retry};
 /// # use lightning::routing::router::RouteParameters;
 /// #
 /// # fn example<T: AChannelManager>(
@@ -496,7 +501,8 @@
 ///
 /// ```
 /// # use lightning::events::{Event, EventsProvider};
-/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, Retry};
+/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+/// # use lightning::ln::outbound_payment::Retry;
 /// # use lightning::offers::offer::Offer;
 /// #
 /// # fn example<T: AChannelManager>(
@@ -552,7 +558,8 @@
 /// ```
 /// # use core::time::Duration;
 /// # use lightning::events::{Event, EventsProvider};
-/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, Retry};
+/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+/// # use lightning::ln::outbound_payment::Retry;
 /// # use lightning::offers::parse::Bolt12SemanticError;
 /// #
 /// # fn example<T: AChannelManager>(
@@ -722,8 +729,10 @@
 /// [`list_recent_payments`]: Self::list_recent_payments
 /// [`abandon_payment`]: Self::abandon_payment
 /// [`lightning-invoice`]: https://docs.rs/lightning_invoice/latest/lightning_invoice
+/// [`create_bolt11_invoice`]: Self::create_bolt11_invoice
 /// [`create_inbound_payment`]: Self::create_inbound_payment
 /// [`create_inbound_payment_for_hash`]: Self::create_inbound_payment_for_hash
+/// [`bolt11_payment`]: crate::ln::bolt11_payment
 /// [`claim_funds`]: Self::claim_funds
 /// [`send_payment`]: Self::send_payment
 /// [`offers`]: crate::offers
@@ -758,6 +767,7 @@ extension Bindings {
 	/// - [`FeeEstimator`] to determine transaction fee rates needed to have a transaction mined in a
 	/// timely manner
 	/// - [`Router`] for finding payment paths when initiating and retrying payments
+	/// - [`MessageRouter`] for finding message paths when initiating and retrying onion messages
 	/// - [`Logger`] for logging operational information of varying degrees
 	///
 	/// Additionally, it implements the following traits:
@@ -817,7 +827,8 @@ extension Bindings {
 	/// #     fee_estimator: &dyn lightning::chain::chaininterface::FeeEstimator,
 	/// #     chain_monitor: &dyn lightning::chain::Watch<lightning::sign::InMemorySigner>,
 	/// #     tx_broadcaster: &dyn lightning::chain::chaininterface::BroadcasterInterface,
-	/// #     router: &lightning::routing::router::DefaultRouter<&NetworkGraph<&'a L>, &'a L, &ES, &S, SP, SL>,
+	/// #     router: &lightning::routing::router::DefaultRouter<&NetworkGraph<&'a L>, &'a L, &ES, &S>,
+	/// #     message_router: &lightning::onion_message::messenger::DefaultMessageRouter<&NetworkGraph<&'a L>, &'a L, &ES>,
 	/// #     logger: &L,
 	/// #     entropy_source: &ES,
 	/// #     node_signer: &dyn lightning::sign::NodeSigner,
@@ -833,18 +844,18 @@ extension Bindings {
 	/// };
 	/// let default_config = UserConfig::default();
 	/// let channel_manager = ChannelManager::new(
-	/// fee_estimator, chain_monitor, tx_broadcaster, router, logger, entropy_source, node_signer,
-	/// signer_provider, default_config, params, current_timestamp
+	/// fee_estimator, chain_monitor, tx_broadcaster, router, message_router, logger,
+	/// entropy_source, node_signer, signer_provider, default_config, params, current_timestamp,
 	/// );
 	///
 	/// // Restart from deserialized data
 	/// let mut channel_monitors = read_channel_monitors();
 	/// let args = ChannelManagerReadArgs::new(
 	/// entropy_source, node_signer, signer_provider, fee_estimator, chain_monitor, tx_broadcaster,
-	/// router, logger, default_config, channel_monitors.iter_mut().collect()
+	/// router, message_router, logger, default_config, channel_monitors.iter().collect(),
 	/// );
 	/// let (block_hash, channel_manager) =
-	/// <(BlockHash, ChannelManager<_, _, _, _, _, _, _, _>)>::read(&mut reader, args)?;
+	/// <(BlockHash, ChannelManager<_, _, _, _, _, _, _, _, _>)>::read(&mut reader, args)?;
 	///
 	/// // Update the ChannelManager and ChannelMonitors with the latest chain data
 	/// // ...
@@ -1069,12 +1080,12 @@ extension Bindings {
 	///
 	/// ## BOLT 11 Invoices
 	///
-	/// The [`lightning-invoice`] crate is useful for creating BOLT 11 invoices. Specifically, use the
-	/// functions in its `utils` module for constructing invoices that are compatible with
-	/// [`ChannelManager`]. These functions serve as a convenience for building invoices with the
+	/// The [`lightning-invoice`] crate is useful for creating BOLT 11 invoices. However, in order to
+	/// construct a [`Bolt11Invoice`] that is compatible with [`ChannelManager`], use
+	/// [`create_bolt11_invoice`]. This method serves as a convenience for building invoices with the
 	/// [`PaymentHash`] and [`PaymentSecret`] returned from [`create_inbound_payment`]. To provide your
-	/// own [`PaymentHash`], use [`create_inbound_payment_for_hash`] or the corresponding functions in
-	/// the [`lightning-invoice`] `utils` module.
+	/// own [`PaymentHash`], override the appropriate [`Bolt11InvoiceParameters`], which is equivalent
+	/// to using [`create_inbound_payment_for_hash`].
 	///
 	/// [`ChannelManager`] generates an [`Event::PaymentClaimable`] once the full payment has been
 	/// received. Call [`claim_funds`] to release the [`PaymentPreimage`], which in turn will result in
@@ -1082,19 +1093,21 @@ extension Bindings {
 	///
 	/// ```
 	/// # use lightning::events::{Event, EventsProvider, PaymentPurpose};
-	/// # use lightning::ln::channelmanager::AChannelManager;
+	/// # use lightning::ln::channelmanager::{AChannelManager, Bolt11InvoiceParameters};
 	/// #
 	/// # fn example<T: AChannelManager>(channel_manager: T) {
 	/// # let channel_manager = channel_manager.get_cm();
-	/// // Or use utils::create_invoice_from_channelmanager
-	/// let known_payment_hash = match channel_manager.create_inbound_payment(
-	/// Some(10_000_000), 3600, None
-	/// ) {
-	/// Ok((payment_hash, _payment_secret)) => {
-	/// println!(\"Creating inbound payment {}\", payment_hash);
-	/// payment_hash
+	/// let params = Bolt11InvoiceParameters {
+	/// amount_msats: Some(10_000_000),
+	/// invoice_expiry_delta_secs: Some(3600),
+	/// ..Default::default()
+	/// };
+	/// let invoice = match channel_manager.create_bolt11_invoice(params) {
+	/// Ok(invoice) => {
+	/// println!(\"Creating invoice with payment hash {}\", invoice.payment_hash());
+	/// invoice
 	/// },
-	/// Err(()) => panic!(\"Error creating inbound payment\"),
+	/// Err(e) => panic!(\"Error creating invoice: {}\", e),
 	/// };
 	///
 	/// // On the event processing thread
@@ -1102,7 +1115,7 @@ extension Bindings {
 	/// match event {
 	/// Event::PaymentClaimable { payment_hash, purpose, .. } => match purpose {
 	/// PaymentPurpose::Bolt11InvoicePayment { payment_preimage: Some(payment_preimage), .. } => {
-	/// assert_eq!(payment_hash, known_payment_hash);
+	/// assert_eq!(payment_hash.0, invoice.payment_hash().as_ref());
 	/// println!(\"Claiming payment {}\", payment_hash);
 	/// channel_manager.claim_funds(payment_preimage);
 	/// },
@@ -1110,7 +1123,7 @@ extension Bindings {
 	/// println!(\"Unknown payment hash: {}\", payment_hash);
 	/// },
 	/// PaymentPurpose::SpontaneousPayment(payment_preimage) => {
-	/// assert_ne!(payment_hash, known_payment_hash);
+	/// assert_ne!(payment_hash.0, invoice.payment_hash().as_ref());
 	/// println!(\"Claiming spontaneous payment {}\", payment_hash);
 	/// channel_manager.claim_funds(payment_preimage);
 	/// },
@@ -1118,7 +1131,7 @@ extension Bindings {
 	/// #           _ => {},
 	/// },
 	/// Event::PaymentClaimed { payment_hash, amount_msat, .. } => {
-	/// assert_eq!(payment_hash, known_payment_hash);
+	/// assert_eq!(payment_hash.0, invoice.payment_hash().as_ref());
 	/// println!(\"Claimed {} msats\", amount_msat);
 	/// },
 	/// // ...
@@ -1129,13 +1142,14 @@ extension Bindings {
 	/// # }
 	/// ```
 	///
-	/// For paying an invoice, [`lightning-invoice`] provides a `payment` module with convenience
-	/// functions for use with [`send_payment`].
+	/// For paying an invoice, see the [`bolt11_payment`] module with convenience functions for use with
+	/// [`send_payment`].
 	///
 	/// ```
 	/// # use lightning::events::{Event, EventsProvider};
-	/// # use lightning::ln::types::PaymentHash;
-	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, RecipientOnionFields, Retry};
+	/// # use lightning::types::payment::PaymentHash;
+	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+	/// # use lightning::ln::outbound_payment::{RecipientOnionFields, Retry};
 	/// # use lightning::routing::router::RouteParameters;
 	/// #
 	/// # fn example<T: AChannelManager>(
@@ -1238,7 +1252,8 @@ extension Bindings {
 	///
 	/// ```
 	/// # use lightning::events::{Event, EventsProvider};
-	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, Retry};
+	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+	/// # use lightning::ln::outbound_payment::Retry;
 	/// # use lightning::offers::offer::Offer;
 	/// #
 	/// # fn example<T: AChannelManager>(
@@ -1294,7 +1309,8 @@ extension Bindings {
 	/// ```
 	/// # use core::time::Duration;
 	/// # use lightning::events::{Event, EventsProvider};
-	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails, Retry};
+	/// # use lightning::ln::channelmanager::{AChannelManager, PaymentId, RecentPaymentDetails};
+	/// # use lightning::ln::outbound_payment::Retry;
 	/// # use lightning::offers::parse::Bolt12SemanticError;
 	/// #
 	/// # fn example<T: AChannelManager>(
@@ -1464,8 +1480,10 @@ extension Bindings {
 	/// [`list_recent_payments`]: Self::list_recent_payments
 	/// [`abandon_payment`]: Self::abandon_payment
 	/// [`lightning-invoice`]: https://docs.rs/lightning_invoice/latest/lightning_invoice
+	/// [`create_bolt11_invoice`]: Self::create_bolt11_invoice
 	/// [`create_inbound_payment`]: Self::create_inbound_payment
 	/// [`create_inbound_payment_for_hash`]: Self::create_inbound_payment_for_hash
+	/// [`bolt11_payment`]: crate::ln::bolt11_payment
 	/// [`claim_funds`]: Self::claim_funds
 	/// [`send_payment`]: Self::send_payment
 	/// [`offers`]: crate::offers
@@ -1568,8 +1586,8 @@ extension Bindings {
 		/// [`params.best_block.block_hash`]: chain::BestBlock::block_hash
 		public init(
 			feeEst: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, router: Router,
-			logger: Logger, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider,
-			config: UserConfig, params: ChainParameters, currentTimestamp: UInt32
+			messageRouter: MessageRouter, logger: Logger, entropySource: EntropySource, nodeSigner: NodeSigner,
+			signerProvider: SignerProvider, config: UserConfig, params: ChainParameters, currentTimestamp: UInt32
 		) {
 			// native call variable prep
 
@@ -1577,9 +1595,9 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = ChannelManager_new(
 				feeEst.activate().cType!, chainMonitor.activate().cType!, txBroadcaster.activate().cType!,
-				router.activate().cType!, logger.activate().cType!, entropySource.activate().cType!,
-				nodeSigner.activate().cType!, signerProvider.activate().cType!, config.dynamicallyDangledClone().cType!,
-				params.dynamicallyDangledClone().cType!, currentTimestamp)
+				router.activate().cType!, messageRouter.activate().cType!, logger.activate().cType!,
+				entropySource.activate().cType!, nodeSigner.activate().cType!, signerProvider.activate().cType!,
+				config.dynamicallyDangledClone().cType!, params.dynamicallyDangledClone().cType!, currentTimestamp)
 
 			// cleanup
 
@@ -2151,14 +2169,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Sends a payment along a given route.
-		///
-		/// This method is *DEPRECATED*, use [`Self::send_payment`] instead. If you wish to fix the
-		/// route for a payment, do so by matching the [`PaymentId`] passed to
-		/// [`Router::find_route_with_id`].
-		///
-		/// Value parameters are provided via the last hop in route, see documentation for [`RouteHop`]
-		/// fields for more info.
+		/// Sends a payment to the route found using the provided [`RouteParameters`], retrying failed
+		/// payment paths based on the provided `Retry`.
 		///
 		/// May generate [`UpdateHTLCs`] message(s) event on success, which should be relayed (e.g. via
 		/// [`PeerManager::process_events`]).
@@ -2166,9 +2178,9 @@ extension Bindings {
 		/// # Avoiding Duplicate Payments
 		///
 		/// If a pending payment is currently in-flight with the same [`PaymentId`] provided, this
-		/// method will error with an [`APIError::InvalidRoute`]. Note, however, that once a payment
-		/// is no longer pending (either via [`ChannelManager::abandon_payment`], or handling of an
-		/// [`Event::PaymentSent`] or [`Event::PaymentFailed`]) LDK will not stop you from sending a
+		/// method will error with [`RetryableSendFailure::DuplicatePayment`]. Note, however, that once a
+		/// payment is no longer pending (either via [`ChannelManager::abandon_payment`], or handling of
+		/// an [`Event::PaymentSent`] or [`Event::PaymentFailed`]) LDK will not stop you from sending a
 		/// second payment with the same [`PaymentId`].
 		///
 		/// Thus, in order to ensure duplicate payments are not sent, you should implement your own
@@ -2182,73 +2194,14 @@ extension Bindings {
 		/// using [`ChannelMonitorUpdateStatus::InProgress`]), the payment may be lost on restart. See
 		/// [`ChannelManager::list_recent_payments`] for more information.
 		///
-		/// # Possible Error States on [`PaymentSendFailure`]
+		/// Routes are automatically found using the [`Router] provided on startup. To fix a route for a
+		/// particular payment, match the [`PaymentId`] passed to [`Router::find_route_with_id`].
 		///
-		/// Each path may have a different return value, and [`PaymentSendFailure`] may return a `Vec` with
-		/// each entry matching the corresponding-index entry in the route paths, see
-		/// [`PaymentSendFailure`] for more info.
-		///
-		/// In general, a path may raise:
-		/// * [`APIError::InvalidRoute`] when an invalid route or forwarding parameter (cltv_delta, fee,
-		/// node public key) is specified.
-		/// * [`APIError::ChannelUnavailable`] if the next-hop channel is not available as it has been
-		/// closed, doesn't exist, or the peer is currently disconnected.
-		/// * [`APIError::MonitorUpdateInProgress`] if a new monitor update failure prevented sending the
-		/// relevant updates.
-		///
-		/// Note that depending on the type of the [`PaymentSendFailure`] the HTLC may have been
-		/// irrevocably committed to on our end. In such a case, do NOT retry the payment with a
-		/// different route unless you intend to pay twice!
-		///
-		/// [`RouteHop`]: crate::routing::router::RouteHop
 		/// [`Event::PaymentSent`]: events::Event::PaymentSent
 		/// [`Event::PaymentFailed`]: events::Event::PaymentFailed
 		/// [`UpdateHTLCs`]: events::MessageSendEvent::UpdateHTLCs
 		/// [`PeerManager::process_events`]: crate::ln::peer_handler::PeerManager::process_events
 		/// [`ChannelMonitorUpdateStatus::InProgress`]: crate::chain::ChannelMonitorUpdateStatus::InProgress
-		public func sendPaymentWithRoute(
-			route: Route, paymentHash: [UInt8], recipientOnion: RecipientOnionFields, paymentId: [UInt8]
-		) -> Result_NonePaymentSendFailureZ {
-			// native call variable prep
-
-			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
-
-			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_send_payment_with_route(
-						thisArgPointer, route.dynamicallyDangledClone().cType!, paymentHashPrimitiveWrapper.cType!,
-						recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			paymentHashPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			paymentIdPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_NonePaymentSendFailureZ(
-				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Similar to [`ChannelManager::send_payment_with_route`], but will automatically find a route based on
-		/// `route_params` and retry failed payment paths based on `retry_strategy`.
 		public func sendPayment(
 			paymentHash: [UInt8], recipientOnion: RecipientOnionFields, paymentId: [UInt8],
 			routeParams: RouteParameters, retryStrategy: Retry
@@ -2283,6 +2236,63 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_NoneRetryableSendFailureZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Pays the [`Bolt12Invoice`] associated with the `payment_id` encoded in its `payer_metadata`.
+		///
+		/// The invoice's `payer_metadata` is used to authenticate that the invoice was indeed requested
+		/// before attempting a payment. [`Bolt12PaymentError::UnexpectedInvoice`] is returned if this
+		/// fails or if the encoded `payment_id` is not recognized. The latter may happen once the
+		/// payment is no longer tracked because the payment was attempted after:
+		/// - an invoice for the `payment_id` was already paid,
+		/// - one full [timer tick] has elapsed since initially requesting the invoice when paying an
+		/// offer, or
+		/// - the refund corresponding to the invoice has already expired.
+		///
+		/// To retry the payment, request another invoice using a new `payment_id`.
+		///
+		/// Attempting to pay the same invoice twice while the first payment is still pending will
+		/// result in a [`Bolt12PaymentError::DuplicateInvoice`].
+		///
+		/// Otherwise, either [`Event::PaymentSent`] or [`Event::PaymentFailed`] are used to indicate
+		/// whether or not the payment was successful.
+		///
+		/// [timer tick]: Self::timer_tick_occurred
+		public func sendPaymentForBolt12Invoice(invoice: Bolt12Invoice, context: OffersContext?)
+			-> Result_NoneBolt12PaymentErrorZ
+		{
+			// native call variable prep
+
+			let contextOption = Option_OffersContextZ(
+				some: context, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+
+					withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt12Invoice>) in
+						ChannelManager_send_payment_for_bolt12_invoice(
+							thisArgPointer, invoicePointer, contextOption.cType!)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneBolt12PaymentErrorZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -2350,65 +2360,18 @@ extension Bindings {
 		/// would be able to guess -- otherwise, an intermediate node may claim the payment and it will
 		/// never reach the recipient.
 		///
-		/// See [`send_payment`] documentation for more details on the return value of this function
-		/// and idempotency guarantees provided by the [`PaymentId`] key.
-		///
 		/// Similar to regular payments, you MUST NOT reuse a `payment_preimage` value. See
 		/// [`send_payment`] for more information about the risks of duplicate preimage usage.
 		///
-		/// [`send_payment`]: Self::send_payment
-		public func sendSpontaneousPayment(
-			route: Route, paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8]
-		) -> Result_ThirtyTwoBytesPaymentSendFailureZ {
-			// native call variable prep
-
-			let paymentPreimageOption = Option_ThirtyTwoBytesZ(
-				some: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
-			)
-			.danglingClone()
-
-			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-
-					withUnsafePointer(to: route.cType!) { (routePointer: UnsafePointer<LDKRoute>) in
-						ChannelManager_send_spontaneous_payment(
-							thisArgPointer, routePointer, paymentPreimageOption.cType!,
-							recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
-					}
-
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			paymentIdPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_ThirtyTwoBytesPaymentSendFailureZ(
-				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Similar to [`ChannelManager::send_spontaneous_payment`], but will automatically find a route
-		/// based on `route_params` and retry failed payment paths based on `retry_strategy`.
+		/// See [`send_payment`] documentation for more details on the idempotency guarantees provided by
+		/// the [`PaymentId`] key.
 		///
 		/// See [`PaymentParameters::for_keysend`] for help in constructing `route_params` for spontaneous
 		/// payments.
 		///
+		/// [`send_payment`]: Self::send_payment
 		/// [`PaymentParameters::for_keysend`]: crate::routing::router::PaymentParameters::for_keysend
-		public func sendSpontaneousPaymentWithRetry(
+		public func sendSpontaneousPayment(
 			paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8],
 			routeParams: RouteParameters, retryStrategy: Retry
 		) -> Result_ThirtyTwoBytesRetryableSendFailureZ {
@@ -2426,7 +2389,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_send_spontaneous_payment_with_retry(
+					ChannelManager_send_spontaneous_payment(
 						thisArgPointer, paymentPreimageOption.cType!, recipientOnion.dynamicallyDangledClone().cType!,
 						paymentIdPrimitiveWrapper.cType!, routeParams.dynamicallyDangledClone().cType!,
 						retryStrategy.danglingClone().cType!)
@@ -2453,7 +2416,7 @@ extension Bindings {
 		/// Send a payment that is probing the given route for liquidity. We calculate the
 		/// [`PaymentHash`] of probes based on a static secret and a random [`PaymentId`], which allows
 		/// us to easily discern them from real payments.
-		public func sendProbe(path: Path) -> Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZPaymentSendFailureZ {
+		public func sendProbe(path: Path) -> Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZProbeSendFailureZ {
 			// native call variable prep
 
 
@@ -2468,7 +2431,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZPaymentSendFailureZ(
+			let returnValue = Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZProbeSendFailureZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -3041,7 +3004,7 @@ extension Bindings {
 		/// * Forgetting about stale outbound payments, either those that have already been fulfilled
 		/// or those awaiting an invoice that hasn't been delivered in the necessary amount of time.
 		/// The latter is determined using the system clock in `std` and the highest seen block time
-		/// minus two hours in `no-std`.
+		/// minus two hours in non-`std`.
 		///
 		/// Note that this may cause reentrancy through [`chain::Watch::update_channel`] calls or feerate
 		/// estimate fetches.
@@ -3271,6 +3234,10 @@ extension Bindings {
 		/// for zero confirmations. Instead, `accept_inbound_channel_from_trusted_peer_0conf` must be
 		/// used to accept such channels.
 		///
+		/// NOTE: LDK makes no attempt to prevent the counterparty from using non-standard inputs which
+		/// will prevent the funding transaction from being relayed on the bitcoin network and hence being
+		/// confirmed.
+		///
 		/// [`Event::OpenChannelRequest`]: events::Event::OpenChannelRequest
 		/// [`Event::ChannelClosed::user_channel_id`]: events::Event::ChannelClosed::user_channel_id
 		public func acceptInboundChannel(
@@ -3383,6 +3350,72 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// When a call to a [`ChannelSigner`] method returns an error, this indicates that the signer
+		/// is (temporarily) unavailable, and the operation should be retried later.
+		///
+		/// This method allows for that retry - either checking for any signer-pending messages to be
+		/// attempted in every channel, or in the specifically provided channel.
+		///
+		/// [`ChannelSigner`]: crate::sign::ChannelSigner
+		public func signerUnblocked(channelOpt: ([UInt8], ChannelId)?) {
+			// native call variable prep
+
+			let channelOptOption = Option_C2Tuple_PublicKeyChannelIdZZ(
+				some: channelOpt, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_signer_unblocked(thisArgPointer, channelOptOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Utility for creating a BOLT11 invoice that can be verified by [`ChannelManager`] without
+		/// storing any additional state. It achieves this by including a [`PaymentSecret`] in the
+		/// invoice which it uses to verify that the invoice has not expired and the payment amount is
+		/// sufficient, reproducing the [`PaymentPreimage`] if applicable.
+		@available(
+			*, deprecated,
+			message: "This method passes the following non-cloneable, but freeable objects by value: `params`."
+		)
+		public func createBolt11Invoice(params: Bolt11InvoiceParameters) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_create_bolt11_invoice(thisArgPointer, params.dangle().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Creates an [`OfferBuilder`] such that the [`Offer`] it builds is recognized by the
 		/// [`ChannelManager`] when handling [`InvoiceRequest`] messages for the offer. The offer's
 		/// expiration will be `absolute_expiry` if `Some`, otherwise it will not expire.
@@ -3448,7 +3481,7 @@ extension Bindings {
 		/// See [Avoiding Duplicate Payments] for other requirements once the payment has been sent.
 		///
 		/// The builder will have the provided expiration set. Any changes to the expiration on the
-		/// returned builder will not be honored by [`ChannelManager`]. For `no-std`, the highest seen
+		/// returned builder will not be honored by [`ChannelManager`]. For non-`std`, the highest seen
 		/// block time minus two hours is used for the current time when determining if the refund has
 		/// expired.
 		///
@@ -3559,7 +3592,7 @@ extension Bindings {
 		/// # Limitations
 		///
 		/// Requires a direct connection to an introduction node in [`Offer::paths`] or to
-		/// [`Offer::signing_pubkey`], if empty. A similar restriction applies to the responding
+		/// [`Offer::issuer_signing_pubkey`], if empty. A similar restriction applies to the responding
 		/// [`Bolt12Invoice::payment_paths`].
 		///
 		/// # Errors
@@ -3649,9 +3682,9 @@ extension Bindings {
 		/// # Limitations
 		///
 		/// Requires a direct connection to an introduction node in [`Refund::paths`] or to
-		/// [`Refund::payer_id`], if empty. This request is best effort; an invoice will be sent to each
-		/// node meeting the aforementioned criteria, but there's no guarantee that they will be
-		/// received and no retries will be made.
+		/// [`Refund::payer_signing_pubkey`], if empty. This request is best effort; an invoice will be
+		/// sent to each node meeting the aforementioned criteria, but there's no guarantee that they
+		/// will be received and no retries will be made.
 		///
 		/// # Errors
 		///
@@ -3681,6 +3714,95 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_Bolt12InvoiceBolt12SemanticErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Pays for an [`Offer`] looked up using [BIP 353] Human Readable Names resolved by the DNS
+		/// resolver(s) at `dns_resolvers` which resolve names according to bLIP 32.
+		///
+		/// If the wallet supports paying on-chain schemes, you should instead use
+		/// [`OMNameResolver::resolve_name`] and [`OMNameResolver::handle_dnssec_proof_for_uri`] (by
+		/// implementing [`DNSResolverMessageHandler`]) directly to look up a URI and then delegate to
+		/// your normal URI handling.
+		///
+		/// If `max_total_routing_fee_msat` is not specified, the default from
+		/// [`RouteParameters::from_payment_params_and_value`] is applied.
+		///
+		/// # Payment
+		///
+		/// The provided `payment_id` is used to ensure that only one invoice is paid for the request
+		/// when received. See [Avoiding Duplicate Payments] for other requirements once the payment has
+		/// been sent.
+		///
+		/// To revoke the request, use [`ChannelManager::abandon_payment`] prior to receiving the
+		/// invoice. If abandoned, or an invoice isn't received in a reasonable amount of time, the
+		/// payment will fail with an [`Event::InvoiceRequestFailed`].
+		///
+		/// # Privacy
+		///
+		/// For payer privacy, uses a derived payer id and uses [`MessageRouter::create_blinded_paths`]
+		/// to construct a [`BlindedPath`] for the reply path. For further privacy implications, see the
+		/// docs of the parameterized [`Router`], which implements [`MessageRouter`].
+		///
+		/// # Limitations
+		///
+		/// Requires a direct connection to the given [`Destination`] as well as an introduction node in
+		/// [`Offer::paths`] or to [`Offer::signing_pubkey`], if empty. A similar restriction applies to
+		/// the responding [`Bolt12Invoice::payment_paths`].
+		///
+		/// # Errors
+		///
+		/// Errors if:
+		/// - a duplicate `payment_id` is provided given the caveats in the aforementioned link,
+		///
+		/// [`Bolt12Invoice::payment_paths`]: crate::offers::invoice::Bolt12Invoice::payment_paths
+		/// [Avoiding Duplicate Payments]: #avoiding-duplicate-payments
+		public func payForOfferFromHumanReadableName(
+			name: HumanReadableName, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry,
+			maxTotalRoutingFeeMsat: UInt64?, dnsResolvers: [Destination]
+		) -> Result_NoneNoneZ {
+			// native call variable prep
+
+			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let maxTotalRoutingFeeMsatOption = Option_u64Z(
+				some: maxTotalRoutingFeeMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let dnsResolversVector = Vec_DestinationZ(
+				array: dnsResolvers, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_pay_for_offer_from_human_readable_name(
+						thisArgPointer, name.dynamicallyDangledClone().cType!, amountMsats,
+						paymentIdPrimitiveWrapper.cType!, retryStrategy.danglingClone().cType!,
+						maxTotalRoutingFeeMsatOption.cType!, dnsResolversVector.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentIdPrimitiveWrapper.noOpRetain()
+
+			// dnsResolversVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -4360,6 +4482,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedAsyncPaymentsMessageHandler(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new DNSResolverMessageHandler which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned DNSResolverMessageHandler must be freed before this_arg is
+		public func asDNSResolverMessageHandler() -> DNSResolverMessageHandler {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_as_DNSResolverMessageHandler(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedDNSResolverMessageHandler(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self)
 

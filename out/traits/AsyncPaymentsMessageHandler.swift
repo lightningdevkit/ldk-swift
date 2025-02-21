@@ -76,17 +76,17 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func heldHtlcAvailableLambda(
+			func handleHeldHtlcAvailableLambda(
 				this_arg: UnsafeRawPointer?, message: LDKHeldHtlcAvailable, responder: LDKResponder
 			) -> LDKCOption_C2Tuple_ReleaseHeldHtlcResponseInstructionZZ {
 				let instance: AsyncPaymentsMessageHandler = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "AsyncPaymentsMessageHandler::heldHtlcAvailableLambda")
+					pointer: this_arg!, sourceMarker: "AsyncPaymentsMessageHandler::handleHeldHtlcAvailableLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.heldHtlcAvailable(
+				let swiftCallbackResult = instance.handleHeldHtlcAvailable(
 					message: HeldHtlcAvailable(
 						cType: message,
 						instantiationContext: "AsyncPaymentsMessageHandler.swift::init()::\(#function):\(#line)"),
@@ -107,17 +107,22 @@ extension Bindings {
 				return returnValue
 			}
 
-			func releaseHeldHtlcLambda(this_arg: UnsafeRawPointer?, message: LDKReleaseHeldHtlc) {
+			func handleReleaseHeldHtlcLambda(
+				this_arg: UnsafeRawPointer?, message: LDKReleaseHeldHtlc, context: LDKAsyncPaymentsContext
+			) {
 				let instance: AsyncPaymentsMessageHandler = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "AsyncPaymentsMessageHandler::releaseHeldHtlcLambda")
+					pointer: this_arg!, sourceMarker: "AsyncPaymentsMessageHandler::handleReleaseHeldHtlcLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.releaseHeldHtlc(
+				let swiftCallbackResult = instance.handleReleaseHeldHtlc(
 					message: ReleaseHeldHtlc(
 						cType: message,
+						instantiationContext: "AsyncPaymentsMessageHandler.swift::init()::\(#function):\(#line)"),
+					context: AsyncPaymentsContext(
+						cType: context,
 						instantiationContext: "AsyncPaymentsMessageHandler.swift::init()::\(#function):\(#line)"))
 
 				// cleanup
@@ -176,8 +181,8 @@ extension Bindings {
 
 			self.cType = LDKAsyncPaymentsMessageHandler(
 				this_arg: thisArg,
-				held_htlc_available: heldHtlcAvailableLambda,
-				release_held_htlc: releaseHeldHtlcLambda,
+				handle_held_htlc_available: handleHeldHtlcAvailableLambda,
+				handle_release_held_htlc: handleReleaseHeldHtlcLambda,
 				release_pending_messages: releasePendingMessagesLambda,
 				free: freeLambda
 			)
@@ -188,22 +193,22 @@ extension Bindings {
 		/// the held funds.
 		///
 		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
-		open func heldHtlcAvailable(message: HeldHtlcAvailable, responder: Responder) -> (
+		open func handleHeldHtlcAvailable(message: HeldHtlcAvailable, responder: Responder) -> (
 			ReleaseHeldHtlc, ResponseInstruction
 		)? {
 
 			Bindings.print(
-				"Error: AsyncPaymentsMessageHandler::heldHtlcAvailable MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: AsyncPaymentsMessageHandler::handleHeldHtlcAvailable MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
 
 		/// Handle a [`ReleaseHeldHtlc`] message. If authentication of the message succeeds, an HTLC
 		/// should be released to the corresponding payee.
-		open func releaseHeldHtlc(message: ReleaseHeldHtlc) {
+		open func handleReleaseHeldHtlc(message: ReleaseHeldHtlc, context: AsyncPaymentsContext) {
 
 			Bindings.print(
-				"Error: AsyncPaymentsMessageHandler::releaseHeldHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: AsyncPaymentsMessageHandler::handleReleaseHeldHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -260,7 +265,7 @@ extension Bindings {
 		/// the held funds.
 		///
 		/// Note that responder (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public override func heldHtlcAvailable(message: HeldHtlcAvailable, responder: Responder) -> (
+		public override func handleHeldHtlcAvailable(message: HeldHtlcAvailable, responder: Responder) -> (
 			ReleaseHeldHtlc, ResponseInstruction
 		)? {
 			// native call variable prep
@@ -268,7 +273,7 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = self.cType!
-				.held_htlc_available(
+				.handle_held_htlc_available(
 					self.cType!.this_arg, message.dynamicallyDangledClone().cType!,
 					responder.dynamicallyDangledClone().cType!)
 
@@ -287,13 +292,14 @@ extension Bindings {
 
 		/// Handle a [`ReleaseHeldHtlc`] message. If authentication of the message succeeds, an HTLC
 		/// should be released to the corresponding payee.
-		public override func releaseHeldHtlc(message: ReleaseHeldHtlc) {
+		public override func handleReleaseHeldHtlc(message: ReleaseHeldHtlc, context: AsyncPaymentsContext) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult = self.cType!
-				.release_held_htlc(self.cType!.this_arg, message.dynamicallyDangledClone().cType!)
+				.handle_release_held_htlc(
+					self.cType!.this_arg, message.dynamicallyDangledClone().cType!, context.danglingClone().cType!)
 
 			// cleanup
 

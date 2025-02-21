@@ -236,6 +236,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Constructs a new DNSResolverMessageHandler which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned DNSResolverMessageHandler must be freed before this_arg is
+		public func asDNSResolverMessageHandler() -> DNSResolverMessageHandler {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+					IgnoringMessageHandler_as_DNSResolverMessageHandler(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedDNSResolverMessageHandler(
+				cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
 		/// Constructs a new CustomOnionMessageHandler which calls the relevant methods on this_arg.
 		/// This copies the `inner` pointer in this_arg and thus the returned CustomOnionMessageHandler must be freed before this_arg is
 		public func asCustomOnionMessageHandler() -> CustomOnionMessageHandler {

@@ -89,7 +89,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CResult_SiPrefixBolt11ParseErrorZ_err(e.danglingClone().cType!)
+			let nativeCallResult = CResult_SiPrefixBolt11ParseErrorZ_err(e.dynamicallyDangledClone().cType!)
 
 			// cleanup
 

@@ -96,8 +96,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Builds an unsigned [`Bolt12Invoice`] after checking for valid semantics. It can be signed by
-		/// [`UnsignedBolt12Invoice::sign`].
+		/// Builds an unsigned [`Bolt12Invoice`] after checking for valid semantics.
 		@available(
 			*, deprecated,
 			message: "This method passes the following non-cloneable, but freeable objects by value: self."

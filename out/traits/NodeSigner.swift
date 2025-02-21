@@ -68,24 +68,21 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func getInboundPaymentKeyMaterialLambda(this_arg: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
+			func getInboundPaymentKeyLambda(this_arg: UnsafeRawPointer?) -> LDKExpandedKey {
 				let instance: NodeSigner = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "NodeSigner::getInboundPaymentKeyMaterialLambda")
+					pointer: this_arg!, sourceMarker: "NodeSigner::getInboundPaymentKeyLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.getInboundPaymentKeyMaterial()
+				let swiftCallbackResult = instance.getInboundPaymentKey()
 
 				// cleanup
 
 
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
-					value: swiftCallbackResult, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
-				)
-				.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -155,32 +152,6 @@ extension Bindings {
 						cType: invoice.pointee, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(), recipient: Recipient(value: recipient))
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.danglingClone().cType!
-
-				return returnValue
-			}
-
-			func signBolt12InvoiceRequestLambda(
-				this_arg: UnsafeRawPointer?, invoice_request: UnsafePointer<LDKUnsignedInvoiceRequest>
-			) -> LDKCResult_SchnorrSignatureNoneZ {
-				let instance: NodeSigner = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "NodeSigner::signBolt12InvoiceRequestLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.signBolt12InvoiceRequest(
-					invoiceRequest: UnsignedInvoiceRequest(
-						cType: invoice_request.pointee,
-						instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone())
 
 				// cleanup
 
@@ -261,11 +232,10 @@ extension Bindings {
 
 			self.cType = LDKNodeSigner(
 				this_arg: thisArg,
-				get_inbound_payment_key_material: getInboundPaymentKeyMaterialLambda,
+				get_inbound_payment_key: getInboundPaymentKeyLambda,
 				get_node_id: getNodeIdLambda,
 				ecdh: ecdhLambda,
 				sign_invoice: signInvoiceLambda,
-				sign_bolt12_invoice_request: signBolt12InvoiceRequestLambda,
 				sign_bolt12_invoice: signBolt12InvoiceLambda,
 				sign_gossip_message: signGossipMessageLambda,
 				free: freeLambda
@@ -273,7 +243,7 @@ extension Bindings {
 		}
 
 
-		/// Get secret key material as bytes for use in encrypting and decrypting inbound payment data.
+		/// Get the [`ExpandedKey`] for use in encrypting and decrypting inbound payment data.
 		///
 		/// If the implementor of this trait supports [phantom node payments], then every node that is
 		/// intended to be included in the phantom invoice route hints must return the same value from
@@ -282,10 +252,10 @@ extension Bindings {
 		/// This method must return the same value each time it is called.
 		///
 		/// [phantom node payments]: PhantomKeysManager
-		open func getInboundPaymentKeyMaterial() -> [UInt8] {
+		open func getInboundPaymentKey() -> ExpandedKey {
 
 			Bindings.print(
-				"Error: NodeSigner::getInboundPaymentKeyMaterial MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: NodeSigner::getInboundPaymentKey MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -339,29 +309,7 @@ extension Bindings {
 			abort()
 		}
 
-		/// Signs the [`TaggedHash`] of a BOLT 12 invoice request.
-		///
-		/// May be called by a function passed to [`UnsignedInvoiceRequest::sign`] where
-		/// `invoice_request` is the callee.
-		///
-		/// Implementors may check that the `invoice_request` is expected rather than blindly signing
-		/// the tagged hash. An `Ok` result should sign `invoice_request.tagged_hash().as_digest()` with
-		/// the node's signing key or an ephemeral key to preserve privacy, whichever is associated with
-		/// [`UnsignedInvoiceRequest::payer_id`].
-		///
-		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
-		open func signBolt12InvoiceRequest(invoiceRequest: UnsignedInvoiceRequest) -> Result_SchnorrSignatureNoneZ {
-
-			Bindings.print(
-				"Error: NodeSigner::signBolt12InvoiceRequest MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
 		/// Signs the [`TaggedHash`] of a BOLT 12 invoice.
-		///
-		/// May be called by a function passed to [`UnsignedBolt12Invoice::sign`] where `invoice` is the
-		/// callee.
 		///
 		/// Implementors may check that the `invoice` is expected rather than blindly signing the tagged
 		/// hash. An `Ok` result should sign `invoice.tagged_hash().as_digest()` with the node's signing
@@ -425,7 +373,7 @@ extension Bindings {
 
 	internal class NativelyImplementedNodeSigner: NodeSigner {
 
-		/// Get secret key material as bytes for use in encrypting and decrypting inbound payment data.
+		/// Get the [`ExpandedKey`] for use in encrypting and decrypting inbound payment data.
 		///
 		/// If the implementor of this trait supports [phantom node payments], then every node that is
 		/// intended to be included in the phantom invoice route hints must return the same value from
@@ -434,21 +382,19 @@ extension Bindings {
 		/// This method must return the same value each time it is called.
 		///
 		/// [phantom node payments]: PhantomKeysManager
-		public override func getInboundPaymentKeyMaterial() -> [UInt8] {
+		public override func getInboundPaymentKey() -> ExpandedKey {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = self.cType!.get_inbound_payment_key_material(self.cType!.this_arg)
+			let nativeCallResult = self.cType!.get_inbound_payment_key(self.cType!.this_arg)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = ThirtyTwoBytes(
-				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)"
-			)
-			.getValue()
+			let returnValue = ExpandedKey(
+				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
@@ -549,45 +495,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Signs the [`TaggedHash`] of a BOLT 12 invoice request.
-		///
-		/// May be called by a function passed to [`UnsignedInvoiceRequest::sign`] where
-		/// `invoice_request` is the callee.
-		///
-		/// Implementors may check that the `invoice_request` is expected rather than blindly signing
-		/// the tagged hash. An `Ok` result should sign `invoice_request.tagged_hash().as_digest()` with
-		/// the node's signing key or an ephemeral key to preserve privacy, whichever is associated with
-		/// [`UnsignedInvoiceRequest::payer_id`].
-		///
-		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
-		public override func signBolt12InvoiceRequest(invoiceRequest: UnsignedInvoiceRequest)
-			-> Result_SchnorrSignatureNoneZ
-		{
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: invoiceRequest.cType!) {
-					(invoiceRequestPointer: UnsafePointer<LDKUnsignedInvoiceRequest>) in
-					self.cType!.sign_bolt12_invoice_request(self.cType!.this_arg, invoiceRequestPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_SchnorrSignatureNoneZ(
-				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
-
-			return returnValue
-		}
-
 		/// Signs the [`TaggedHash`] of a BOLT 12 invoice.
-		///
-		/// May be called by a function passed to [`UnsignedBolt12Invoice::sign`] where `invoice` is the
-		/// callee.
 		///
 		/// Implementors may check that the `invoice` is expected rather than blindly signing the tagged
 		/// hash. An `Ok` result should sign `invoice.tagged_hash().as_digest()` with the node's signing

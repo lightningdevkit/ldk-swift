@@ -9,9 +9,12 @@ import Foundation
 /// A trait to handle Lightning channel key material without concretizing the channel type or
 /// the signature mechanism.
 ///
-/// Several methods allow error types to be returned to support async signing. This feature
-/// is not yet complete, and panics may occur in certain situations when returning errors
-/// for these methods.
+/// Several methods allow errors to be returned to support async signing. In such cases, the
+/// signing operation can be replayed by calling [`ChannelManager::signer_unblocked`] once the
+/// result is ready, at which point the channel operation will resume. Methods which allow for
+/// async results are explicitly documented as such
+///
+/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 public typealias ChannelSigner = Bindings.ChannelSigner
 
 extension Bindings {
@@ -19,9 +22,12 @@ extension Bindings {
 	/// A trait to handle Lightning channel key material without concretizing the channel type or
 	/// the signature mechanism.
 	///
-	/// Several methods allow error types to be returned to support async signing. This feature
-	/// is not yet complete, and panics may occur in certain situations when returning errors
-	/// for these methods.
+	/// Several methods allow errors to be returned to support async signing. In such cases, the
+	/// signing operation can be replayed by calling [`ChannelManager::signer_unblocked`] once the
+	/// result is ready, at which point the channel operation will resume. Methods which allow for
+	/// async results are explicitly documented as such
+	///
+	/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 	open class ChannelSigner: NativeTraitWrapper {
 
 
@@ -264,9 +270,9 @@ extension Bindings {
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
 		///
-		/// If the signer returns `Err`, then the user is responsible for either force-closing the channel
-		/// or calling `ChannelManager::signer_unblocked` (this method is only available when the
-		/// `async_signing` cfg flag is enabled) once the signature is ready.
+		/// This method is *not* asynchronous. This method is expected to always return `Ok`
+		/// immediately after we reconnect to peers, and returning an `Err` may lead to an immediate
+		/// `panic`. This method will be made asynchronous in a future release.
 		open func getPerCommitmentPoint(idx: UInt64) -> Result_PublicKeyNoneZ {
 
 			Bindings.print(
@@ -283,6 +289,12 @@ extension Bindings {
 		/// May be called more than once for the same index.
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		open func releaseCommitmentSecret(idx: UInt64) -> Result__u832NoneZ {
 
 			Bindings.print(
@@ -304,6 +316,10 @@ extension Bindings {
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed. If you wish to make this operation asynchronous, you should instead return `Ok(())`
+		/// and pause future signing operations until this validation completes.
 		open func validateHolderCommitment(holderTx: HolderCommitmentTransaction, outboundHtlcPreimages: [[UInt8]])
 			-> Result_NoneNoneZ
 		{
@@ -318,6 +334,10 @@ extension Bindings {
 		///
 		/// This is required in order for the signer to make sure that the state has moved
 		/// forward and it is safe to sign the next counterparty commitment.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed. If you wish to make this operation asynchronous, you should instead return `Ok(())`
+		/// and pause future signing operations until this validation completes.
 		open func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
 
 			Bindings.print(
@@ -329,6 +349,8 @@ extension Bindings {
 		/// Returns an arbitrary identifier describing the set of keys which are provided back to you in
 		/// some [`SpendableOutputDescriptor`] types. This should be sufficient to identify this
 		/// [`EcdsaChannelSigner`] object uniquely and lookup or re-derive its keys.
+		///
+		/// This method is *not* asynchronous. Instead, the value must be cached locally.
 		open func channelKeysId() -> [UInt8] {
 
 			Bindings.print(
@@ -369,6 +391,8 @@ extension Bindings {
 
 
 		/// Returns the holder's channel public keys and basepoints.
+		///
+		/// This method is *not* asynchronous. Instead, the value must be cached locally.
 		public func getPubkeys() -> ChannelPublicKeys {
 			// return value (do some wrapping)
 			let returnValue = ChannelPublicKeys(
@@ -404,9 +428,9 @@ extension Bindings {
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
 		///
-		/// If the signer returns `Err`, then the user is responsible for either force-closing the channel
-		/// or calling `ChannelManager::signer_unblocked` (this method is only available when the
-		/// `async_signing` cfg flag is enabled) once the signature is ready.
+		/// This method is *not* asynchronous. This method is expected to always return `Ok`
+		/// immediately after we reconnect to peers, and returning an `Err` may lead to an immediate
+		/// `panic`. This method will be made asynchronous in a future release.
 		public override func getPerCommitmentPoint(idx: UInt64) -> Result_PublicKeyNoneZ {
 			// native call variable prep
 
@@ -432,6 +456,12 @@ extension Bindings {
 		/// May be called more than once for the same index.
 		///
 		/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
+		///
+		/// An `Err` can be returned to signal that the signer is unavailable/cannot produce a valid
+		/// signature and should be retried later. Once the signer is ready to provide a signature after
+		/// previously returning an `Err`, [`ChannelManager::signer_unblocked`] must be called.
+		///
+		/// [`ChannelManager::signer_unblocked`]: crate::ln::channelmanager::ChannelManager::signer_unblocked
 		public override func releaseCommitmentSecret(idx: UInt64) -> Result__u832NoneZ {
 			// native call variable prep
 
@@ -462,6 +492,10 @@ extension Bindings {
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed. If you wish to make this operation asynchronous, you should instead return `Ok(())`
+		/// and pause future signing operations until this validation completes.
 		public override func validateHolderCommitment(
 			holderTx: HolderCommitmentTransaction, outboundHtlcPreimages: [[UInt8]]
 		) -> Result_NoneNoneZ {
@@ -499,6 +533,10 @@ extension Bindings {
 		///
 		/// This is required in order for the signer to make sure that the state has moved
 		/// forward and it is safe to sign the next counterparty commitment.
+		///
+		/// This method is *not* asynchronous. If an `Err` is returned, the channel will be immediately
+		/// closed. If you wish to make this operation asynchronous, you should instead return `Ok(())`
+		/// and pause future signing operations until this validation completes.
 		public override func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
 			// native call variable prep
 
@@ -529,6 +567,8 @@ extension Bindings {
 		/// Returns an arbitrary identifier describing the set of keys which are provided back to you in
 		/// some [`SpendableOutputDescriptor`] types. This should be sufficient to identify this
 		/// [`EcdsaChannelSigner`] object uniquely and lookup or re-derive its keys.
+		///
+		/// This method is *not* asynchronous. Instead, the value must be cached locally.
 		public override func channelKeysId() -> [UInt8] {
 			// native call variable prep
 

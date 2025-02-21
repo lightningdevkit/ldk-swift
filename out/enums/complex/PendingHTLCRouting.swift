@@ -211,7 +211,8 @@ extension Bindings {
 		/// Utility method to constructs a new ReceiveKeysend-variant PendingHTLCRouting
 		public class func initWithReceiveKeysend(
 			paymentData: Bindings.FinalOnionHopData, paymentPreimage: [UInt8], paymentMetadata: [UInt8]?,
-			incomingCltvExpiry: UInt32, customTlvs: [(UInt64, [UInt8])], requiresBlindedError: Bool
+			incomingCltvExpiry: UInt32, customTlvs: [(UInt64, [UInt8])], requiresBlindedError: Bool,
+			hasRecipientCreatedPaymentSecret: Bool
 		) -> PendingHTLCRouting {
 			// native call variable prep
 
@@ -232,7 +233,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = PendingHTLCRouting_receive_keysend(
 				paymentData.dynamicallyDangledClone().cType!, paymentPreimagePrimitiveWrapper.cType!,
-				paymentMetadataOption.cType!, incomingCltvExpiry, customTlvsVector.cType!, requiresBlindedError)
+				paymentMetadataOption.cType!, incomingCltvExpiry, customTlvsVector.cType!, requiresBlindedError,
+				hasRecipientCreatedPaymentSecret)
 
 			// cleanup
 
@@ -737,6 +739,16 @@ extension Bindings {
 			public func getRequiresBlindedError() -> Bool {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.requires_blinded_error
+
+				return returnValue
+			}
+
+			/// Set if we are receiving a keysend to a blinded path, meaning we created the
+			/// [`PaymentSecret`] and should verify it using our
+			/// [`NodeSigner::get_inbound_payment_key`].
+			public func getHasRecipientCreatedPaymentSecret() -> Bool {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.has_recipient_created_payment_secret
 
 				return returnValue
 			}

@@ -113,8 +113,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new builder for an offer using the [`Offer::signing_pubkey`] for signing invoices.
-		/// The associated secret key must be remembered while the offer is valid.
+		/// Creates a new builder for an offer using the `signing_pubkey` for signing invoices. The
+		/// associated secret key must be remembered while the offer is valid.
 		///
 		/// Use a different pubkey per offer to avoid correlating offers.
 		///
@@ -237,8 +237,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Sets the [`Offer::absolute_expiry`] as seconds since the Unix epoch. Any expiry that has
-		/// already passed is valid and can be checked for using [`Offer::is_expired`].
+		/// Sets the [`Offer::absolute_expiry`] as seconds since the Unix epoch.
+		/// Any expiry that has already passed is valid and can be checked for using [`Offer::is_expired`].
 		///
 		/// Successive calls to this method will override the previous setting.
 		public func absoluteExpiry(absoluteExpiry: UInt64) {
@@ -319,7 +319,7 @@ extension Bindings {
 		}
 
 		/// Adds a blinded path to [`Offer::paths`]. Must include at least one path if only connected by
-		/// private channels or if [`Offer::signing_pubkey`] is not a public node id.
+		/// private channels or if [`Offer::issuer_signing_pubkey`] is not a public node id.
 		///
 		/// Successive calls to this method will add another blinded path. Caller is responsible for not
 		/// adding duplicate paths.

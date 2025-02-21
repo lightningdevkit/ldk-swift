@@ -2,13 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A tx_remove_input message for removing an input during interactive transaction construction.
+/// A [`tx_remove_input`] message for removing an input during interactive transaction construction.
+///
+/// [`tx_remove_input`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_remove_input-and-tx_remove_output-messages
 public typealias TxRemoveInput = Bindings.TxRemoveInput
 
 extension Bindings {
 
 
-	/// A tx_remove_input message for removing an input during interactive transaction construction.
+	/// A [`tx_remove_input`] message for removing an input during interactive transaction construction.
+	///
+	/// [`tx_remove_input`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-tx_remove_input-and-tx_remove_output-messages
 	public class TxRemoveInput: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

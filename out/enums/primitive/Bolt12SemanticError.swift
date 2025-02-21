@@ -14,7 +14,7 @@ extension Bindings {
 	public enum Bolt12SemanticError {
 
 
-		/// The current [`std::time::SystemTime`] is past the offer or invoice's expiration.
+		/// The current system time is past the offer or invoice's expiration.
 		case AlreadyExpired
 
 		/// The provided chain hash does not correspond to a supported chain.
@@ -26,7 +26,7 @@ extension Bindings {
 		/// An amount was expected but was missing.
 		case MissingAmount
 
-		/// The amount exceeded the total bitcoin supply.
+		/// The amount exceeded the total bitcoin supply or didn't match an expected amount.
 		case InvalidAmount
 
 		/// An amount was provided but was not sufficient in value.
@@ -47,14 +47,11 @@ extension Bindings {
 		/// A required description was not provided.
 		case MissingDescription
 
-		/// A signing pubkey was not provided.
-		case MissingSigningPubkey
+		/// An issuer's signing pubkey was not provided.
+		case MissingIssuerSigningPubkey
 
-		/// A signing pubkey was provided but a different one was expected.
-		case InvalidSigningPubkey
-
-		/// A signing pubkey was provided but was not expected.
-		case UnexpectedSigningPubkey
+		/// An issuer's signing pubkey was provided but was not expected.
+		case UnexpectedIssuerSigningPubkey
 
 		/// A quantity was expected but was missing.
 		case MissingQuantity
@@ -74,8 +71,8 @@ extension Bindings {
 		/// Payer metadata was expected but was missing.
 		case MissingPayerMetadata
 
-		/// A payer id was expected but was missing.
-		case MissingPayerId
+		/// A payer signing pubkey was expected but was missing.
+		case MissingPayerSigningPubkey
 
 		/// The payment id for a refund or request is already in use.
 		case DuplicatePaymentId
@@ -98,8 +95,20 @@ extension Bindings {
 		/// An invoice payment hash was provided but was not expected.
 		case UnexpectedPaymentHash
 
+		/// A signing pubkey was not provided.
+		case MissingSigningPubkey
+
+		/// A signing pubkey was provided but a different one was expected.
+		case InvalidSigningPubkey
+
 		/// A signature was expected but was missing.
 		case MissingSignature
+
+		/// A Human Readable Name was provided but was not expected (i.e. was included in a
+		/// [`Refund`]).
+		///
+		/// [`Refund`]: super::refund::Refund
+		case UnexpectedHumanReadableName
 
 
 		internal init(value: LDKBolt12SemanticError) {
@@ -138,14 +147,11 @@ extension Bindings {
 				case LDKBolt12SemanticError_MissingDescription:
 					self = .MissingDescription
 
-				case LDKBolt12SemanticError_MissingSigningPubkey:
-					self = .MissingSigningPubkey
+				case LDKBolt12SemanticError_MissingIssuerSigningPubkey:
+					self = .MissingIssuerSigningPubkey
 
-				case LDKBolt12SemanticError_InvalidSigningPubkey:
-					self = .InvalidSigningPubkey
-
-				case LDKBolt12SemanticError_UnexpectedSigningPubkey:
-					self = .UnexpectedSigningPubkey
+				case LDKBolt12SemanticError_UnexpectedIssuerSigningPubkey:
+					self = .UnexpectedIssuerSigningPubkey
 
 				case LDKBolt12SemanticError_MissingQuantity:
 					self = .MissingQuantity
@@ -165,8 +171,8 @@ extension Bindings {
 				case LDKBolt12SemanticError_MissingPayerMetadata:
 					self = .MissingPayerMetadata
 
-				case LDKBolt12SemanticError_MissingPayerId:
-					self = .MissingPayerId
+				case LDKBolt12SemanticError_MissingPayerSigningPubkey:
+					self = .MissingPayerSigningPubkey
 
 				case LDKBolt12SemanticError_DuplicatePaymentId:
 					self = .DuplicatePaymentId
@@ -189,8 +195,17 @@ extension Bindings {
 				case LDKBolt12SemanticError_UnexpectedPaymentHash:
 					self = .UnexpectedPaymentHash
 
+				case LDKBolt12SemanticError_MissingSigningPubkey:
+					self = .MissingSigningPubkey
+
+				case LDKBolt12SemanticError_InvalidSigningPubkey:
+					self = .InvalidSigningPubkey
+
 				case LDKBolt12SemanticError_MissingSignature:
 					self = .MissingSignature
+
+				case LDKBolt12SemanticError_UnexpectedHumanReadableName:
+					self = .UnexpectedHumanReadableName
 
 				default:
 					Bindings.print("Error: Invalid value type for Bolt12SemanticError! Aborting.", severity: .ERROR)
@@ -235,14 +250,11 @@ extension Bindings {
 				case .MissingDescription:
 					return LDKBolt12SemanticError_MissingDescription
 
-				case .MissingSigningPubkey:
-					return LDKBolt12SemanticError_MissingSigningPubkey
+				case .MissingIssuerSigningPubkey:
+					return LDKBolt12SemanticError_MissingIssuerSigningPubkey
 
-				case .InvalidSigningPubkey:
-					return LDKBolt12SemanticError_InvalidSigningPubkey
-
-				case .UnexpectedSigningPubkey:
-					return LDKBolt12SemanticError_UnexpectedSigningPubkey
+				case .UnexpectedIssuerSigningPubkey:
+					return LDKBolt12SemanticError_UnexpectedIssuerSigningPubkey
 
 				case .MissingQuantity:
 					return LDKBolt12SemanticError_MissingQuantity
@@ -262,8 +274,8 @@ extension Bindings {
 				case .MissingPayerMetadata:
 					return LDKBolt12SemanticError_MissingPayerMetadata
 
-				case .MissingPayerId:
-					return LDKBolt12SemanticError_MissingPayerId
+				case .MissingPayerSigningPubkey:
+					return LDKBolt12SemanticError_MissingPayerSigningPubkey
 
 				case .DuplicatePaymentId:
 					return LDKBolt12SemanticError_DuplicatePaymentId
@@ -286,8 +298,17 @@ extension Bindings {
 				case .UnexpectedPaymentHash:
 					return LDKBolt12SemanticError_UnexpectedPaymentHash
 
+				case .MissingSigningPubkey:
+					return LDKBolt12SemanticError_MissingSigningPubkey
+
+				case .InvalidSigningPubkey:
+					return LDKBolt12SemanticError_InvalidSigningPubkey
+
 				case .MissingSignature:
 					return LDKBolt12SemanticError_MissingSignature
+
+				case .UnexpectedHumanReadableName:
+					return LDKBolt12SemanticError_UnexpectedHumanReadableName
 
 			}
 		}

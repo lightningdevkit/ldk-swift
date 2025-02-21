@@ -2,14 +2,16 @@
 	import LDKHeaders
 #endif
 
-/// An unknown payment context.
-public typealias UnknownPaymentContext = Bindings.UnknownPaymentContext
+/// Errors that indicate what is wrong with the invoice. They have some granularity for debug
+/// reasons, but should generally result in an \"invalid BOLT11 invoice\" message for the user.
+public typealias Bolt11ParseError = Bindings.Bolt11ParseError
 
 extension Bindings {
 
 
-	/// An unknown payment context.
-	public class UnknownPaymentContext: NativeTypeWrapper {
+	/// Errors that indicate what is wrong with the invoice. They have some granularity for debug
+	/// reasons, but should generally result in an \"invalid BOLT11 invoice\" message for the user.
+	public class Bolt11ParseError: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
 
@@ -26,9 +28,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKUnknownPaymentContext?
+		internal var cType: LDKBolt11ParseError?
 
-		internal init(cType: LDKUnknownPaymentContext, instantiationContext: String) {
+		internal init(cType: LDKBolt11ParseError, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -36,7 +38,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKUnknownPaymentContext, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKBolt11ParseError, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -47,8 +49,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKUnknownPaymentContext, instantiationContext: String, anchor: NativeTypeWrapper,
-			dangle: Bool = false
+			cType: LDKBolt11ParseError, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -60,13 +61,13 @@ extension Bindings {
 		}
 
 
-		/// Frees any resources used by the UnknownPaymentContext, if is_owned is set and inner is non-NULL.
+		/// Frees any resources used by the Bolt11ParseError, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = UnknownPaymentContext_free(self.cType!)
+			let nativeCallResult = Bolt11ParseError_free(self.cType!)
 
 			// cleanup
 
@@ -78,42 +79,19 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a copy of the UnknownPaymentContext
-		internal func clone() -> UnknownPaymentContext {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKUnknownPaymentContext>) in
-					UnknownPaymentContext_clone(origPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = UnknownPaymentContext(
-				cType: nativeCallResult, instantiationContext: "UnknownPaymentContext.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Checks if two UnknownPaymentContexts contain equal inner contents.
+		/// Checks if two Bolt11ParseErrors contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.
-		public class func eq(a: UnknownPaymentContext, b: UnknownPaymentContext) -> Bool {
+		public class func eq(a: Bolt11ParseError, b: Bolt11ParseError) -> Bool {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKUnknownPaymentContext>) in
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKBolt11ParseError>) in
 
-					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKUnknownPaymentContext>) in
-						UnknownPaymentContext_eq(aPointer, bPointer)
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKBolt11ParseError>) in
+						Bolt11ParseError_eq(aPointer, bPointer)
 					}
 
 				}
@@ -129,15 +107,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Serialize the UnknownPaymentContext object into a byte array which can be read by UnknownPaymentContext_read
-		public func write() -> [UInt8] {
+		/// Creates a copy of the Bolt11ParseError
+		internal func clone() -> Bolt11ParseError {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKUnknownPaymentContext>) in
-					UnknownPaymentContext_write(objPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKBolt11ParseError>) in
+					Bolt11ParseError_clone(origPointer)
 				}
 
 
@@ -145,36 +123,34 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "UnknownPaymentContext.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
+			let returnValue = Bolt11ParseError(
+				cType: nativeCallResult, instantiationContext: "Bolt11ParseError.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Read a UnknownPaymentContext from a byte array, created by UnknownPaymentContext_write
-		public class func read(ser: [UInt8]) -> Result_UnknownPaymentContextDecodeErrorZ {
+		/// Get the string representation of a Bolt11ParseError object
+		public func toStr() -> String {
 			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "UnknownPaymentContext.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = UnknownPaymentContext_read(serPrimitiveWrapper.cType!)
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKBolt11ParseError>) in
+					Bolt11ParseError_to_str(oPointer)
+				}
+
 
 			// cleanup
 
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
 
 			// return value (do some wrapping)
-			let returnValue = Result_UnknownPaymentContextDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "UnknownPaymentContext.swift::\(#function):\(#line)")
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "Bolt11ParseError.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue
@@ -192,25 +168,25 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> UnknownPaymentContext {
+		internal func danglingClone() -> Bolt11ParseError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
 		}
 
-		internal func dynamicallyDangledClone() -> UnknownPaymentContext {
+		internal func dynamicallyDangledClone() -> Bolt11ParseError {
 			let dangledClone = self.clone()
 			// if it's owned, i. e. controlled by Rust, it should dangle on our end
 			dangledClone.dangling = dangledClone.cType!.is_owned
 			return dangledClone
 		}
 
-		internal func setCFreeability(freeable: Bool) -> UnknownPaymentContext {
+		internal func setCFreeability(freeable: Bool) -> Bolt11ParseError {
 			self.cType!.is_owned = freeable
 			return self
 		}
 
-		internal func dynamicDangle() -> UnknownPaymentContext {
+		internal func dynamicDangle() -> Bolt11ParseError {
 			self.dangling = self.cType!.is_owned
 			return self
 		}
@@ -223,13 +199,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing UnknownPaymentContext \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+						"Freeing Bolt11ParseError \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing UnknownPaymentContext \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Bolt11ParseError \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

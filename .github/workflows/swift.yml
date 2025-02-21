@@ -35,6 +35,14 @@ jobs:
                     sudo apt-get -y install cargo lld git g++ clang curl
                     rustup install 1.73.0
                     rustup default 1.73.0
+            -   name: Print updated environment details
+                run: |
+                    set -x
+                    rustup --version
+                    clang --version
+                    clang --print-resource-dir
+                    ls -ll "$(clang -print-resource-dir)"
+                    ls -ll "$(clang -print-resource-dir)/lib/linux"
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:

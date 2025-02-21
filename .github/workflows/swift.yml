@@ -97,10 +97,11 @@ jobs:
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift
+                    # should be /usr/lib/llvm-18/lib/clang/18/lib/linux/libclang_rt.asan-x86_64.a
+                    export LLVM_CLANG_ASAN_PATH="$(clang -print-resource-dir)/lib/linux/libclang_rt.asan-x86_64.a"
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift build
                 env:
                     LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package without address sanitizer
                 run: |
@@ -113,8 +114,9 @@ jobs:
                 continue-on-error: true
                 run: |
                     cd ci/LDKSwift
+                    # should be /usr/lib/llvm-18/lib/clang/18/lib/linux/libclang_rt.asan-x86_64.a
+                    export LLVM_CLANG_ASAN_PATH="$(clang -print-resource-dir)/lib/linux/libclang_rt.asan-x86_64.a"
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
                     LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1

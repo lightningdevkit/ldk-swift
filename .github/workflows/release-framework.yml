@@ -16,15 +16,15 @@ on:
 jobs:
     generate-xcframework:
         name: Generate XCFramework
-        runs-on: macos-12
+        runs-on: macos-latest
         env:
-            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+            DEVELOPER_DIR: /Applications/Xcode_15.4.0.app/Contents/Developer
             LDK_C_BINDINGS_BASE: ${{ github.workspace }}/bindings/artifacts/ldk-c-bindings
         steps:
             -   name: Configure Xcode
                 uses: maxim-lobanov/setup-xcode@v1
                 with:
-                    xcode-version: latest
+                    xcode-version: 15.4.0
             -   name: Checkout
                 uses: actions/checkout@v3
             -   name: Update Package.swift tag to ${{ github.event.inputs.tag }}

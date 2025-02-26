@@ -47,7 +47,9 @@ runs:
         -   name: Pin cbindgen v24
             shell: bash
             run: |
-                cargo install --version 0.24.5 cbindgen
+                echo "DEVELOPER_DIR:"
+                echo $DEVELOPER_DIR
+                cargo install --force --version 0.24.5 cbindgen
         -   name: Generate C Bindings
             shell: bash
             run: |

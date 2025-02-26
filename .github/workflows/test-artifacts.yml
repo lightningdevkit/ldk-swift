@@ -11,7 +11,7 @@ on:
 jobs:
     create-artifact:
         name: Add ${{ matrix.configuration['human_readable_platform'] }} to artifact
-        runs-on: macos-12
+        runs-on: macos-latest
         strategy:
             fail-fast: false
             matrix:
@@ -39,7 +39,7 @@ jobs:
 
     download-artifact:
         name: Download artifact
-        runs-on: macos-12
+        runs-on: macos-latest
         needs: [ create-artifact ]
         steps:
             -   name: Checkout

@@ -94,18 +94,12 @@ jobs:
             -   name: Verify generated output recency
                 run: |
                     git diff --exit-code out/ ':(exclude)out/VersionDescriptor.swift'
-            -   name: Build Swift bindings package
+            -   name: Build Swift bindings package with address sanitizer
                 run: |
                     cd ci/LDKSwift
+                    # should be /usr/lib/llvm-18/lib/clang/18/lib/linux/libclang_rt.asan-x86_64.a
+                    export LLVM_CLANG_ASAN_PATH="$(clang -print-resource-dir)/lib/linux/libclang_rt.asan-x86_64.a"
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift build
-                env:
-                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
-                    RUST_BACKTRACE: 1
-            -   name: Test Swift bindings package without address sanitizer
-                run: |
-                    cd ci/LDKSwift
-                    ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
                     LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
                     RUST_BACKTRACE: 1
@@ -113,8 +107,40 @@ jobs:
                 continue-on-error: true
                 run: |
                     cd ci/LDKSwift
+                    # should be /usr/lib/llvm-18/lib/clang/18/lib/linux/libclang_rt.asan-x86_64.a
+                    export LLVM_CLANG_ASAN_PATH="$(clang -print-resource-dir)/lib/linux/libclang_rt.asan-x86_64.a"
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
                     LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
+                    RUST_BACKTRACE: 1
+            -   name: Prepare release-optimized rust binaries
+                run: |
+                    env
+                    pushd ${{ github.workspace }}/ci/ldk-c-bindings/lightning-c-bindings
+                    cargo clean
+                    cargo build --release --features std
+
+                    # debug the target
+                    find ./target
+                env:
+                    RUST_BACKTRACE: 1
+                    RUSTFLAGS: --cfg=c_bindings -C embed-bitcode=yes -C lto
+                    CARGO_PROFILE_RELEASE_LTO: true
+            -   name: Build Swift bindings package without address sanitizer
+                run: |
+                    env
+                    cd ci/LDKSwift
+                    ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift build
+                env:
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BINARY_DIRECTORY: ${{ github.workspace }}/ci/ldk-c-bindings/lightning-c-bindings/target/release
+                    RUST_BACKTRACE: 1
+            -   name: Test Swift bindings package without address sanitizer
+                run: |
+                    env
+                    cd ci/LDKSwift
+                    ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
+                env:
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BINARY_DIRECTORY: ${{ github.workspace }}/ci/ldk-c-bindings/lightning-c-bindings/target/release
                     RUST_BACKTRACE: 1

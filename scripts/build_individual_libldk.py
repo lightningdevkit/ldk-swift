@@ -6,7 +6,11 @@ import sys
 from script_config import ScriptConfig, BuildConfig
 
 RUSTUP_PATH = os.getenv('HOME') + '/.cargo/bin/rustup'
+RUSTC_PATH = os.getenv('HOME') + '/.cargo/bin/rustc'
 CARGO_PATH = os.getenv('HOME') + '/.cargo/bin/cargo'
+
+# 1.62: nightly-2022-05-13
+NIGHTLY_TOOLCHAIN = 'nightly-2022-06-24' # 1.63
 
 
 def run(config: ScriptConfig):
@@ -55,7 +59,10 @@ def run(config: ScriptConfig):
 	child_environment['RUSTFLAGS'] = '--cfg=c_bindings'
 	child_environment['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
-	subprocess.check_call([RUSTUP_PATH, 'override', 'set', 'nightly-2022-05-13'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
+	# stop cargo's obsession with x86_64-apple-ios13.0-macabi when nobody asked for it
+	child_environment['CFLAGS_x86_64_apple_ios_macabi'] = '--target=x86_64-apple-ios-macabi'
+
+	subprocess.check_call([RUSTUP_PATH, 'override', 'set', NIGHTLY_TOOLCHAIN], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 	lipo_executables_input: [str] = []
 
@@ -95,8 +102,16 @@ def run(config: ScriptConfig):
 			shutil.rmtree(cargo_target_directory, ignore_errors=True)
 		subprocess.check_call([CARGO_PATH, 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
+		rust_target_triplet = f'{rust_architecture}-apple-{rust_target_os}'
+
+		print('Rust architecture:', rust_architecture)
+		print('Rust target OS:', rust_target_os)
+		print('Target:', rust_target_triplet)
+
+		subprocess.check_call([RUSTC_PATH, f'+{NIGHTLY_TOOLCHAIN}', '-Z', 'unstable-options', '--print', 'target-spec-json', '--target', rust_target_triplet])
+
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG
-		build_arguments = [CARGO_PATH, 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target', f'{rust_architecture}-apple-{rust_target_os}']
+		build_arguments = [CARGO_PATH, 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target', rust_target_triplet]
 		if config.RUST_CONFIGURATION_FLAG:
 			build_arguments.append(config.RUST_CONFIGURATION_FLAG)
 		subprocess.check_call(

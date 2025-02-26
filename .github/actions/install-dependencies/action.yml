@@ -17,6 +17,8 @@ runs:
             if: ${{ runner.os == 'macOS' }}
             run: |
                 brew install gnu-sed
+                mkdir -p /tmp/gnu-bin
+                ln -s "$(command -v gsed)" /tmp/gnu-bin/sed
         -   name: Checkout Rust-Lightning and LDK-C-Bindings git
             shell: bash
             run: |
@@ -49,7 +51,9 @@ runs:
         -   name: Generate C Bindings
             shell: bash
             run: |
-                export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+                # Alias sed as gsed, if applicable
+                export PATH="/tmp/gnu-bin:$PATH"
+
                 pushd ${{ inputs.destination }}/ldk-c-bindings
                 if [ "$RUNNER_OS" == "macOS" ]; then
                     ./genbindings.sh ../rust-lightning true skip-tests

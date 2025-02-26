@@ -32,7 +32,7 @@ jobs:
                     mkdir -p ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}
                     touch ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
             -   name: Upload emulated xcarchive
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-artifact@v4
                 with:
                     name: uploaded-artifact-name
                     path: ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive

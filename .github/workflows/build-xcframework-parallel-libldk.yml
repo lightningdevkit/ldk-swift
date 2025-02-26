@@ -65,9 +65,9 @@ jobs:
                     LLVM_TARGET_TRIPLE_SUFFIX: ${{ matrix.configuration['llvm_target_triple_suffix'] }}
                     ARCHS: ${{ matrix.configuration['architectures'] }}
             -   name: Upload binary
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-artifact@v4
                 with:
-                    name: bindings
+                    name: bindings-${{ matrix.configuration['human_readable_platform'] }}
                     path: |
                         ./bindings/**/artifacts/ldk-c-bindings/lightning-c-bindings/include/*.h
                         ./bindings/**/artifacts/ldk-c-bindings/ldk-net/ldk_net.*
@@ -87,7 +87,17 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v3
             -   name: Download libldks
-                uses: actions/download-artifact@v3
+                uses: actions/download-artifact@v4
+                with:
+                    merge-multiple: true
+                    path: ./bindings
+            -   name: Print post-artifact-download directory structure
+                shell: bash
+                run: |
+                    echo "Current path:"
+                    pwd
+                    echo "Recursive enumeration"
+                    find "$PWD"
             -   name: Generate Swift Bindings
                 shell: bash
                 run: |

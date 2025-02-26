@@ -26,13 +26,18 @@ runs:
                 mkdir -p ${{ inputs.destination }}/bin
                 git clone --branch 0.0.125-bindings https://github.com/lightningdevkit/rust-lightning ${{ inputs.destination }}/rust-lightning
                 git clone --branch 0.0.125 https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
+        -   name: Configure default Rust toolchain
+            shell: bash
+            run: |
+                rustup install 1.73.0
+                rustup default 1.73.0
         -   name: Install Rust, required targets
             if: ${{ inputs.configureRustNightly == 'true' }}
             shell: bash
             run: |
-                rustup toolchain install nightly-2022-05-13
+                rustup toolchain install nightly-2022-06-24
                 rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
-                rustup component add rust-src --toolchain nightly-2022-05-13-x86_64-apple-darwin
+                rustup component add rust-src --toolchain nightly-2022-06-24-aarch64-apple-darwin
         -   name: Load Cache
             if: ${{ inputs.configureRustNightly == 'true' }}
             uses: actions/cache@v3
